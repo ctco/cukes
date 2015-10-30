@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>lv.ctco.cukesrest</groupId>
+    <artifactId>cukes-rest-all</artifactId>
+    <version>0.2.0</version>
+    <name>cukes-rest-all</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>cukes-rest</module>
+        <module>cukes-rest-loadrunner</module>
+    </modules>
+</project>

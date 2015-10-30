@@ -1,0 +1,80 @@
+package lv.ctco.cukesrest.internal.json;
+
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import lv.ctco.cukesrest.internal.CukesInternalException;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
+
+public class JsonParser {
+
+    public Map<String, String> convertToPathToValueMap(String json) {
+        try {
+            Map<String, String> result = new HashMap<String, String>();
+            parseJson(json, result);
+            return result;
+        } catch (IOException e) {
+            throw new CukesInternalException(e);
+        }
+    }
+
+    static void parseJson(String json, Map<String, String> result) throws IOException {
+
+        JsonReader reader = new JsonReader(new StringReader(json));
+        reader.setLenient(true);
+        while (true) {
+            JsonToken token = reader.peek();
+            switch (token) {
+                case BEGIN_ARRAY:
+                    reader.beginArray();
+                    break;
+                case END_ARRAY:
+                    reader.endArray();
+                    break;
+                case BEGIN_OBJECT:
+                    reader.beginObject();
+                    break;
+                case END_OBJECT:
+                    reader.endObject();
+                    break;
+                case NAME:
+                    reader.nextName();
+                    break;
+                case STRING:
+                    String s = reader.nextString();
+                    add(reader.getPath(), s, result);
+                    break;
+                case NUMBER:
+                    String n = reader.nextString();
+                    add(reader.getPath(), n, result);
+                    break;
+                case BOOLEAN:
+                    boolean b = reader.nextBoolean();
+                    String str = toString(b);
+                    add(reader.getPath(), str, result);
+                    break;
+                case NULL:
+                    reader.nextNull();
+                    break;
+                case END_DOCUMENT:
+                    return;
+            }
+        }
+    }
+
+    static private void add(String path, String value, Map<String, String> result) {
+        if(path.startsWith("$.")) {
+            path = path.substring(2);
+        } else {
+            path = path.substring(1);
+        }
+        result.put(path, value);
+    }
+
+    private static String toString(boolean b) {
+        return Boolean.toString(b);
+    }
+}

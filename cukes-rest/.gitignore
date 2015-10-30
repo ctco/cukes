@@ -1,0 +1,21 @@
+# Idea
+*.iml
+*.ipr
+*.iws
+.idea
+
+# Maven
+**/target/
+
+# Gradle
+.gradle
+**/build/
+
+# Misc
+.DS_Store
+*.swp
+**/lrout/
+
+# Migration
+.svn
+
