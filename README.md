@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ctco/cukes-rest.png?label=ready&title=Ready)](https://waffle.io/ctco/cukes-rest)
 ## Cucumber REST API Testing Framework
 #### Prerequisites
 
