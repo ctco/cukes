@@ -4,10 +4,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lv.ctco.cukesrest</groupId>
     <artifactId>cukes-rest</artifactId>
-    <version>0.2.0</version>
     <name>cukes-rest</name>
+
+    <parent>
+        <groupId>lv.ctco.cukesrest</groupId>
+        <artifactId>cukes-rest-all</artifactId>
+        <version>0.2.0</version>
+    </parent>
 
     <properties>
         <junit.version>4.12</junit.version>

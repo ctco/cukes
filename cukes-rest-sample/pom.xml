@@ -4,8 +4,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cukes-rest-loadrunner</artifactId>
-    <name>cukes-rest-loadrunner</name>
+    <artifactId>cukes-rest-sample</artifactId>
+    <name>cukes-rest-sample</name>
 
     <parent>
         <groupId>lv.ctco.cukesrest</groupId>
@@ -29,10 +29,24 @@
     </build>
 
     <dependencies>
+        <!-- Cukes Dependencies-->
         <dependency>
             <groupId>lv.ctco.cukesrest</groupId>
             <artifactId>cukes-rest</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lv.ctco.cukesrest</groupId>
+            <artifactId>cukes-rest-loadrunner</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Dropwizard -->
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>0.9.0</version>
         </dependency>
     </dependencies>
 </project>

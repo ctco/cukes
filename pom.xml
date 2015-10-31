@@ -13,5 +13,6 @@
     <modules>
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
+        <module>cukes-rest-sample</module>
     </modules>
 </project>
