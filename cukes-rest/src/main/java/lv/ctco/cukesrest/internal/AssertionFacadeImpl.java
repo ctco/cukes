@@ -1,21 +1,19 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.jayway.restassured.response.ResponseBody;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.context.inflate.InflateContext;
-import lv.ctco.cukesrest.internal.json.JsonParser;
-import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import com.google.inject.*;
+import com.jayway.restassured.response.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.context.inflate.*;
+import lv.ctco.cukesrest.internal.json.*;
 import lv.ctco.cukesrest.internal.matchers.*;
+import lv.ctco.cukesrest.internal.switches.*;
 import org.hamcrest.*;
 
-import java.util.Map;
+import java.util.*;
 
-import static lv.ctco.cukesrest.internal.matchers.ContainsPattern.containsPattern;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -103,7 +101,8 @@ public class AssertionFacadeImpl implements AssertionFacade {
 
     public void bodyContainsPathWithValue(String path, String value) {
         ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value)));
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher
+                .equalToIgnoringType(value)));
     }
 
     public void bodyDoesNotContainPath(String path) {
@@ -123,12 +122,14 @@ public class AssertionFacadeImpl implements AssertionFacade {
 
     public void bodyContainsPathMatchingPattern(String path, String pattern) {
         ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern
+                .containsPattern(pattern))));
     }
 
     public void bodyContainsPathNotMatchingPattern(String path, String pattern) {
         ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not
+                (ContainsPattern.containsPattern(pattern)))));
     }
 
     // TODO: Experimental

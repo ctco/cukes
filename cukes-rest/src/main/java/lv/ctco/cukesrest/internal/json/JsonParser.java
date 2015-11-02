@@ -1,13 +1,10 @@
 package lv.ctco.cukesrest.internal.json;
 
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
-import lv.ctco.cukesrest.internal.CukesInternalException;
+import com.google.gson.stream.*;
+import lv.ctco.cukesrest.internal.*;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class JsonParser {
 
@@ -21,6 +18,7 @@ public class JsonParser {
         }
     }
 
+    // TODO: Refactor
     static void parseJson(String json, Map<String, String> result) throws IOException {
 
         JsonReader reader = new JsonReader(new StringReader(json));

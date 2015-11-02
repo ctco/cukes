@@ -1,10 +1,8 @@
 package lv.ctco.cukesrest.loadrunner.function;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class WebCustomRequest implements LoadRunnerFunction {
     private String name;

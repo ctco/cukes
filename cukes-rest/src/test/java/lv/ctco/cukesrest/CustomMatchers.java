@@ -1,10 +1,8 @@
 package lv.ctco.cukesrest;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.*;
 
-import java.util.Map;
+import java.util.*;
 
 public class CustomMatchers {
     public static <K, V> Matcher<Map<? extends K, ? extends V>> hasSize(final int size) {

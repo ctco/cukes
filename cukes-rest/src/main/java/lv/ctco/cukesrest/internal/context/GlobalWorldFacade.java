@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.internal.context.capture.CaptureContext;
+import com.google.inject.*;
+import lv.ctco.cukesrest.internal.context.capture.*;
 
 public class GlobalWorldFacade {
 

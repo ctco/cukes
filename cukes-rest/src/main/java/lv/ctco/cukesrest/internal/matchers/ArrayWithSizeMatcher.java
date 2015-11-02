@@ -1,18 +1,13 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.path.xml.NodeChildrenImpl;
-import com.jayway.restassured.path.xml.element.Node;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import com.jayway.restassured.internal.path.xml.*;
+import com.jayway.restassured.path.xml.element.*;
+import org.hamcrest.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import static java.lang.Integer.valueOf;
+import static java.lang.Integer.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.core.Is.is;
 
 public class ArrayWithSizeMatcher {
     public static Matcher<List<?>> arrayWithSize(final String size) {
@@ -25,7 +20,7 @@ public class ArrayWithSizeMatcher {
 
                 if (item instanceof List) { // If JSON
                     list = (List<?>) item;
-                } else if(item instanceof NodeChildrenImpl) { // If XML
+                } else if (item instanceof NodeChildrenImpl) { // If XML
                     List<Node> nodes = ((NodeChildrenImpl) item).list();
                     List<String> result = new ArrayList<String>(nodes.size());
                     for (Node node : nodes) {

@@ -1,12 +1,10 @@
 package lv.ctco.cukesrest.internal.context.inflate;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.BaseContextHandler;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import com.google.inject.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ContextInflater extends BaseContextHandler {
 
@@ -26,7 +24,7 @@ public class ContextInflater extends BaseContextHandler {
         for (String key : groups) {
             String value = world.get(key);
             if(value != null) {
-                result = result.replaceAll("\\{\\("+key+"\\)\\}", (String) value);
+                result = result.replaceAll("\\{\\("+key+"\\)\\}", value);
             }
         }
         return result;

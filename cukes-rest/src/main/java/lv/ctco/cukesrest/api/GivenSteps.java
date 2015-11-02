@@ -35,7 +35,7 @@ public class GivenSteps {
     }
 
     @Given("^(.+) environment$")
-    public void ltpa_Autentication(String environment) {
+    public void ltpa_Authentication(String environment) {
         facade.retrieveSingleSignOnCookieFrom(environment);
     }
 

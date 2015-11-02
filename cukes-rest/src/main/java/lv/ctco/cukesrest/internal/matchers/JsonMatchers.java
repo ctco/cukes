@@ -1,10 +1,8 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
-import com.jayway.restassured.response.ResponseBodyExtractionOptions;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import com.jayway.restassured.internal.*;
+import com.jayway.restassured.response.*;
+import org.hamcrest.*;
 
 public class JsonMatchers {
 

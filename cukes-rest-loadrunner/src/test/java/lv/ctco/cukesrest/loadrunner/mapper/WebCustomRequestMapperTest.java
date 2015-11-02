@@ -1,17 +1,16 @@
 package lv.ctco.cukesrest.loadrunner.mapper;
 
-import com.jayway.restassured.filter.FilterContext;
-import com.jayway.restassured.response.Headers;
-import com.jayway.restassured.specification.FilterableRequestSpecification;
-import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import com.jayway.restassured.filter.*;
+import com.jayway.restassured.response.*;
+import com.jayway.restassured.specification.*;
+import lv.ctco.cukesrest.loadrunner.function.*;
+import org.junit.*;
+import org.junit.runner.*;
+import org.mockito.*;
 import org.mockito.runners.*;
 
-import static lv.ctco.cukesrest.loadrunner.CustomMatchers.stringWithLength;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static lv.ctco.cukesrest.loadrunner.CustomMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

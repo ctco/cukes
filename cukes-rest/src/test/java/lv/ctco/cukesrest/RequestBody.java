@@ -1,8 +1,7 @@
 package lv.ctco.cukesrest;
 
-import com.jayway.restassured.config.RestAssuredConfig;
-import com.jayway.restassured.internal.ResponseParserRegistrar;
-import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
+import com.jayway.restassured.config.*;
+import com.jayway.restassured.internal.*;
 
 public class RequestBody extends RestAssuredResponseOptionsImpl {
 

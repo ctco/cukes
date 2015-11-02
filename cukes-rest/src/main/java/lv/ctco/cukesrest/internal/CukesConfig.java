@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal;
 
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.guice.GuiceInjectorSource;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.guice.*;
 
 public class CukesConfig {
 
@@ -20,7 +20,7 @@ public class CukesConfig {
         return setVar(key, String.valueOf(value));
     }
 
-    public <T> T getVar(String key) {
-        return (T) globalWorldFacade.get(key);
+    public String getVar(String key) {
+        return globalWorldFacade.get(key);
     }
 }

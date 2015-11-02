@@ -1,11 +1,11 @@
 package lv.ctco.cukesrest.internal.resources;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import org.apache.commons.io.FilenameUtils;
+import com.google.inject.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
+import org.apache.commons.io.*;
 
-import java.io.File;
+import java.io.*;
 
 public class FilePathService {
 

@@ -1,12 +1,11 @@
 package lv.ctco.cukesrest.internal;
 
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import javax.annotation.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 public enum TimeUnitDictionary {
-    MILLISECONDS (TimeUnit.MILLISECONDS, "ms", "mili", "milisecond", "miliseconds"),
+    MILLISECONDS (TimeUnit.MILLISECONDS, "ms", "milli", "millisecond", "milliseconds"),
     SECONDS (TimeUnit.SECONDS, "s", "sec", "second", "seconds"),
     MINUTES (TimeUnit.MINUTES, "m", "min", "minute", "minutes"),
     HOURS (TimeUnit.HOURS, "h", "hour", "hours");
@@ -15,7 +14,7 @@ public enum TimeUnitDictionary {
     private final List<String> keys;
     private final TimeUnit timeUnit;
 
-    private TimeUnitDictionary(TimeUnit timeUnit, String... keys) {
+    TimeUnitDictionary(TimeUnit timeUnit, String... keys) {
         this.timeUnit = timeUnit;
         this.keys = Arrays.asList(keys);
     }

@@ -1,12 +1,9 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import org.hamcrest.*;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
+import java.math.*;
+import java.util.*;
 
 public class OfTypeMatcher {
 

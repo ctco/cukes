@@ -1,12 +1,12 @@
 package lv.ctco.cukesrest.internal.matchers
 
 import lv.ctco.cukesrest.RequestBody
-import org.junit.Ignore;
+import org.junit.Ignore
 import org.junit.Test
 
 import static JsonMatchers.containsValueByPath
-import static OfTypeMatcher.ofType;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static OfTypeMatcher.ofType
+import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsNot.not
 
 public class OfTypeMatcherTest {
@@ -63,7 +63,7 @@ public class OfTypeMatcherTest {
     }
 
     @Test
-    public void "should work if xml object returned is Sring"() throws Exception {
+    public void "should work if xml object returned is String"() throws Exception {
         def content = '<value>1</value>'
         assertThat(new RequestBody(XML, content), containsValueByPath("value", ofType("string")))
     }

@@ -13,7 +13,7 @@ import java.util.concurrent.*;
 @Singleton
 class GlobalWorld {
 
-    private Map<String, String> context = new ConcurrentHashMap<String, String>();
+    private final Map<String, String> context = new ConcurrentHashMap<String, String>();
 
     public GlobalWorld() {
         /* User Specified Values */

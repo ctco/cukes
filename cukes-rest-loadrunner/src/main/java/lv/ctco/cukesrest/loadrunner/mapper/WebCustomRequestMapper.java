@@ -1,13 +1,12 @@
 package lv.ctco.cukesrest.loadrunner.mapper;
 
-import com.google.inject.Inject;
-import com.jayway.restassured.filter.FilterContext;
-import com.jayway.restassured.response.Header;
-import com.jayway.restassured.specification.FilterableRequestSpecification;
-import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
+import com.google.inject.*;
+import com.jayway.restassured.filter.*;
+import com.jayway.restassured.response.*;
+import com.jayway.restassured.specification.*;
+import lv.ctco.cukesrest.loadrunner.function.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 
 public class WebCustomRequestMapper {
 

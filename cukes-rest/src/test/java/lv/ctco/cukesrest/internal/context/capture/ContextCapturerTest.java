@@ -9,8 +9,6 @@ import org.mockito.runners.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyListOf;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

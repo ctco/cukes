@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal;
 
 public interface AssertionFacade {
-    public static final String ASSERTION_FACADE = "AssertionFacade";
+    String ASSERTION_FACADE = "AssertionFacade";
 
     void bodyEqualTo(String body);
 

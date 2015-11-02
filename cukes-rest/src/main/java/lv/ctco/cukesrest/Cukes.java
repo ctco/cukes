@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest;
 
-import lv.ctco.cukesrest.internal.CukesConfig;
+import lv.ctco.cukesrest.internal.*;
 
 /**
  * Entry point to Cukes Configuration

@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import lv.ctco.cukesrest.internal.AssertionFacade;
-import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
-import cucumber.api.java.en.Then;
+import com.google.inject.*;
+import cucumber.api.java.en.*;
+import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.internal.resources.*;
 
 @Singleton
 public class ThenSteps {

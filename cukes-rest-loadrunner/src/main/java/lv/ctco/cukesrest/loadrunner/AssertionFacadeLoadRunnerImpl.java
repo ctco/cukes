@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.loadrunner;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import lv.ctco.cukesrest.loadrunner.function.LoadRunnerFunction;
-import lv.ctco.cukesrest.internal.AssertionFacade;
-import lv.ctco.cukesrest.internal.context.inflate.InflateContext;
+import com.google.inject.*;
+import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.internal.context.inflate.*;
+import lv.ctco.cukesrest.loadrunner.function.*;
 
 @Singleton
 @InflateContext

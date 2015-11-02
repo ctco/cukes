@@ -55,11 +55,9 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
      * @param classLoader    used to load classes
      * @param runtimeOptions configuration
      * @return a new runtime
-     * @throws InitializationError if a JUnit error occurred
-     * @throws IOException         if a class or resource could not be loaded
      */
     protected Runtime createRuntime(ResourceLoader resourceLoader, ClassLoader classLoader,
-                                    RuntimeOptions runtimeOptions) throws InitializationError, IOException {
+                                    RuntimeOptions runtimeOptions) {
         ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
         return new Runtime(resourceLoader, classFinder, classLoader, runtimeOptions);
     }

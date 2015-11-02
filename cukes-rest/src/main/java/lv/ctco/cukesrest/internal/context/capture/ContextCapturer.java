@@ -1,12 +1,10 @@
 package lv.ctco.cukesrest.internal.context.capture;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.internal.context.BaseContextHandler;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import com.google.inject.*;
+import lv.ctco.cukesrest.internal.context.*;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
+import java.util.regex.*;
 
 public class ContextCapturer extends BaseContextHandler {
 

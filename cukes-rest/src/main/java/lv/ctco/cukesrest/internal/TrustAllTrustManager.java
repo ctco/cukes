@@ -2,8 +2,10 @@ package lv.ctco.cukesrest.internal;
 
 import javax.net.ssl.*;
 import java.security.*;
+import java.security.cert.*;
 
 // TODO: Move to other package
+@SuppressWarnings("SameReturnValue")
 public class TrustAllTrustManager implements TrustManager,
         javax.net.ssl.X509TrustManager {
 
@@ -18,9 +20,9 @@ public class TrustAllTrustManager implements TrustManager,
             trustAllCerts[0] = tm;
             javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext
                     .getInstance("SSL");
-            javax.net.ssl.SSLSessionContext sslsc = sc
+            javax.net.ssl.SSLSessionContext serverSessionContext = sc
                     .getServerSessionContext();
-            sslsc.setSessionTimeout(0);
+            serverSessionContext.setSessionTimeout(0);
             sc.init(null, trustAllCerts, null);
             javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc
                     .getSocketFactory());
@@ -34,28 +36,27 @@ public class TrustAllTrustManager implements TrustManager,
     }
 
     @Override
-    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+    public X509Certificate[] getAcceptedIssuers() {
         return null;
     }
 
-    public boolean isServerTrusted(java.security.cert.X509Certificate[] certs) {
+    public boolean isServerTrusted(X509Certificate[] certs) {
         return true;
     }
 
-    public boolean isClientTrusted(java.security.cert.X509Certificate[] certs) {
+    public boolean isClientTrusted(X509Certificate[] certs) {
         return true;
     }
 
     @Override
-    public void checkServerTrusted(java.security.cert.X509Certificate[] certs,
-                                   String authType) throws java.security.cert.CertificateException {
-
-        return;
+    public void checkServerTrusted(X509Certificate[] certs,
+                                   String authType) throws CertificateException {
+        // Explicitly do nothing
     }
 
     @Override
-    public void checkClientTrusted(java.security.cert.X509Certificate[] certs,
-                                   String authType) throws java.security.cert.CertificateException {
-        return;
+    public void checkClientTrusted(X509Certificate[] certs,
+                                   String authType) throws CertificateException {
+        // Explicitly do nothing
     }
 }

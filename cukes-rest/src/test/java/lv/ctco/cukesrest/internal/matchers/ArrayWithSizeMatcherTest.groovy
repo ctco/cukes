@@ -1,11 +1,11 @@
 package lv.ctco.cukesrest.internal.matchers
 
-import lv.ctco.cukesrest.RequestBody;
-import org.junit.Test;
+import lv.ctco.cukesrest.RequestBody
+import org.junit.Test
 
-import static ArrayWithSizeMatcher.arrayWithSize;
-import static JsonMatchers.containsValueByPath;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static ArrayWithSizeMatcher.arrayWithSize
+import static JsonMatchers.containsValueByPath
+import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsNot.not
 
 public class ArrayWithSizeMatcherTest {

@@ -1,27 +1,24 @@
 package lv.ctco.cukesrest.loadrunner.junit;
 
-import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.*;
 import com.jayway.restassured.filter.Filter;
-import lv.ctco.cukesrest.loadrunner.LoadRunnerFilter;
-import lv.ctco.cukesrest.internal.CukesInternalException;
 import cucumber.runtime.Runtime;
-import cucumber.runtime.junit.FeatureRunner;
-import cucumber.runtime.junit.JUnitReporter;
-import cucumber.runtime.model.CucumberFeature;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.model.InitializationError;
+import cucumber.runtime.junit.*;
+import cucumber.runtime.model.*;
+import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.loadrunner.*;
+import org.junit.runner.notification.*;
+import org.junit.runners.model.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.logging.Logger;
+import java.io.*;
+import java.util.*;
+import java.util.logging.*;
 
 class LoadRunnerFeature extends FeatureRunner {
 
     public static final String LOADRUNNER_OUTPUT_DIR = "target/loadrunner_output";
 
-    private Logger logger = Logger.getLogger(LoadRunnerFeature.class.getName());
+    private final Logger logger = Logger.getLogger(LoadRunnerFeature.class.getName());
 
     private final String featureName;
     private final LoadRunnerFilter filter;

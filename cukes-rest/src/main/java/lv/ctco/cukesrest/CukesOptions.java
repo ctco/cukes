@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest;
 
 /**
- * This annotation provides list of variables and options for Cukes framework.
+ * List of variables and options used in cukes-rest.
  */
 public interface CukesOptions {
     String PROPERTIES_PREFIX_VAR = "cukes.var";
