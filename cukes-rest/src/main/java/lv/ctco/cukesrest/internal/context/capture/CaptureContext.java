@@ -8,11 +8,9 @@ public @interface CaptureContext {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.PARAMETER)
-    @interface Pattern {
-    }
+    @interface Pattern {}
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.PARAMETER)
-    @interface Value {
-    }
+    @interface Value {}
 }

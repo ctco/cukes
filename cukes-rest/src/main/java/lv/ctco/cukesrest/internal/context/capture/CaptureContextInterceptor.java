@@ -21,7 +21,7 @@ public class CaptureContextInterceptor implements MethodInterceptor {
         for (int i = 0; i < annotations.length; i++) {
             Annotation[] parameterAnnotations = annotations[i];
             for (Annotation annotation : parameterAnnotations) {
-                if(annotation.annotationType().equals(CaptureContext.Pattern.class)) {
+                if (annotation.annotationType().equals(CaptureContext.Pattern.class)) {
                     pattern = arguments[i];
                 } else if (annotation.annotationType().equals(CaptureContext.Value.class)) {
                     value = arguments[i];
@@ -30,7 +30,7 @@ public class CaptureContextInterceptor implements MethodInterceptor {
         }
 
         if (pattern != null && value != null) {
-            capturer.capture((String)pattern, (String)value);
+            capturer.capture((String) pattern, (String) value);
         }
         return invocation.proceed();
     }

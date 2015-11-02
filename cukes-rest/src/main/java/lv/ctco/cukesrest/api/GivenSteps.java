@@ -124,6 +124,9 @@ public class GivenSteps {
             (int atMostTime, String atMostUnit,
              int intervalTime, String intervalUnit,
              int statusCode) {
-        facade.shouldWaitWithIntervalUntilStatusCodeReceived(Time.of(atMostTime, atMostUnit), Time.of(intervalTime, intervalUnit), statusCode);
+        facade.shouldWaitWithIntervalUntilStatusCodeReceived(
+            Time.of(atMostTime, atMostUnit),
+            Time.of(intervalTime, intervalUnit),
+            statusCode);
     }
 }

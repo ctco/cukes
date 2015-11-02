@@ -8,37 +8,29 @@ public enum HttpMethod {
     GET {
         @Override
         public Response doRequest(RequestSpecification when, String url) {
-            return when
-                    .log().path()
-                    .get(url);
+            return when.log().path().get(url);
         }
     },
     POST {
         @Override
         public Response doRequest(RequestSpecification when, String url) {
-            return when
-                    .log().path()
-                    .post(url);
+            return when.log().path().post(url);
         }
     }, PUT {
         @Override
         public Response doRequest(RequestSpecification when, String url) {
-            return when
-                    .log().path()
-                    .put(url);
+            return when.log().path().put(url);
         }
     }, DELETE {
         @Override
         public Response doRequest(RequestSpecification when, String url) {
-            return when
-                    .log().path()
-                    .delete(url);
+            return when.log().path().delete(url);
         }
     };
 
     public static HttpMethod parse(String string) {
         for (HttpMethod httpMethod : values()) {
-            if(httpMethod.toString().equalsIgnoreCase(string)) {
+            if (httpMethod.toString().equalsIgnoreCase(string)) {
                 return httpMethod;
             }
         }

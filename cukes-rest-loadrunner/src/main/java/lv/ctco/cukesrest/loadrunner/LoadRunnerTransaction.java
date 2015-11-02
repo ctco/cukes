@@ -53,6 +53,7 @@ public class LoadRunnerTransaction {
         for (LoadRunnerFunction function : functions) {
             result.append(function.format());
         }
-        return result.append("lr_end_transaction(\"").append(escapedTransactionName).append("\", ").append(trxFlag).append(");\n\n").toString();
+        return result.append("lr_end_transaction(\"").append(escapedTransactionName).append("\", ").append(trxFlag)
+        .append(");\n\n").toString();
     }
 }

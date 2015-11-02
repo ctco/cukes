@@ -18,7 +18,7 @@ public class EndsWithRegexp {
             @Override
             public boolean matches(Object item) {
                 String value = (String) item;
-                java.util.regex.Matcher matcher = Pattern.compile(".*"+regexp).matcher(value);
+                java.util.regex.Matcher matcher = Pattern.compile(".*" + regexp).matcher(value);
 
                 return matcher.matches();
             }

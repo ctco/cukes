@@ -19,7 +19,7 @@ public class InflateContextInterceptor implements MethodInterceptor {
             Annotation[] parameterAnnotations = annotations[i];
             boolean ignore = false;
             for (Annotation annotation : parameterAnnotations) {
-                if(!annotation.annotationType().equals(InflateContext.Ignore.class)) {
+                if (!annotation.annotationType().equals(InflateContext.Ignore.class)) {
                     ignore = true;
                 }
             }

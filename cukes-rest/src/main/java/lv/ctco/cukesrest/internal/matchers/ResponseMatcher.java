@@ -26,7 +26,7 @@ public class ResponseMatcher {
 
             @Override
             protected void describeMismatchSafely(ResponseWrapper item, Description mismatchDescription) {
-                mismatchDescription.appendText("statusCode<").appendValue(item.statusCode()+"").appendText(">");
+                mismatchDescription.appendText("statusCode<").appendValue(item.statusCode() + "").appendText(">");
             }
         };
     }

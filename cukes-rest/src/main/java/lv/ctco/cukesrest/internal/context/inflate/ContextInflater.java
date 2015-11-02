@@ -13,7 +13,7 @@ public class ContextInflater extends BaseContextHandler {
 
     public String inflate(String input) {
         Set<String> groups = new HashSet<String>(extractGroups(input));
-        if(world.getBoolean(CukesOptions.CONTEXT_INFLATING_ENABLED)) {
+        if (world.getBoolean(CukesOptions.CONTEXT_INFLATING_ENABLED)) {
             return inflateGroups(input, groups);
         }
         return inflateGroupsWithPlaceholders(input, groups);
@@ -23,8 +23,8 @@ public class ContextInflater extends BaseContextHandler {
         String result = input;
         for (String key : groups) {
             String value = world.get(key);
-            if(value != null) {
-                result = result.replaceAll("\\{\\("+key+"\\)\\}", value);
+            if (value != null) {
+                result = result.replaceAll("\\{\\(" + key + "\\)\\}", value);
             }
         }
         return result;
@@ -33,7 +33,7 @@ public class ContextInflater extends BaseContextHandler {
     String inflateGroupsWithPlaceholders(String input, Set<String> groups) {
         String result = input;
         for (String key : groups) {
-            result = result.replaceAll("\\{\\("+key+"\\)\\}", "("+key+")");
+            result = result.replaceAll("\\{\\(" + key + "\\)\\}", "(" + key + ")");
         }
         return result;
     }

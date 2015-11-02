@@ -102,7 +102,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void bodyContainsPathWithValue(String path, String value) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher
-                .equalToIgnoringType(value)));
+            .equalToIgnoringType(value)));
     }
 
     public void bodyDoesNotContainPath(String path) {
@@ -123,13 +123,13 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void bodyContainsPathMatchingPattern(String path, String pattern) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern
-                .containsPattern(pattern))));
+            .containsPattern(pattern))));
     }
 
     public void bodyContainsPathNotMatchingPattern(String path, String pattern) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not
-                (ContainsPattern.containsPattern(pattern)))));
+            (ContainsPattern.containsPattern(pattern)))));
     }
 
     // TODO: Experimental

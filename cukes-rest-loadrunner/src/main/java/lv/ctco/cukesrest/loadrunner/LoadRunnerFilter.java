@@ -33,7 +33,8 @@ public class LoadRunnerFilter implements Filter {
     }
 
     @Override
-    public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec, FilterContext ctx) {
+    public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec,
+                           FilterContext ctx) {
         WebCustomRequest request = mapper.map(requestSpec, ctx);
         trx.addFunction(request);
         if (globalWorldFacade.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS)) {
@@ -54,15 +55,14 @@ public class LoadRunnerFilter implements Filter {
         trx = new LoadRunnerTransaction();
         trx.setName(name);
         trx.setTrxFlag("transactionStatus");
-        if(action != null) {
+        if (action != null) {
             action.addTransaction(trx);
         }
     }
 
     public void dump(OutputStream out) {
         try {
-            if (action != null)
-                out.write(action.format().getBytes());
+            if (action != null) out.write(action.format().getBytes());
         } catch (IOException e) {
             throw new CukesInternalException(e);
         }

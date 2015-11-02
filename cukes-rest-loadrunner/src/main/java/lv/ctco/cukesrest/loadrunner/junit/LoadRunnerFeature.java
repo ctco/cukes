@@ -23,7 +23,8 @@ class LoadRunnerFeature extends FeatureRunner {
     private final String featureName;
     private final LoadRunnerFilter filter;
 
-    public LoadRunnerFeature(CucumberFeature cucumberFeature, Runtime runtime, JUnitReporter jUnitReporter, LoadRunnerFilter filter) throws InitializationError {
+    public LoadRunnerFeature(CucumberFeature cucumberFeature, Runtime runtime, JUnitReporter jUnitReporter,
+                             LoadRunnerFilter filter) throws InitializationError {
         super(cucumberFeature, runtime, jUnitReporter);
         this.filter = filter;
         this.featureName = cucumberFeature.getGherkinFeature().getName();
@@ -38,7 +39,7 @@ class LoadRunnerFeature extends FeatureRunner {
         try {
             new File(LOADRUNNER_OUTPUT_DIR).mkdirs();
             String fileName = featureName + ".vugen";
-            File file = new File(LOADRUNNER_OUTPUT_DIR +File.separator+fileName);
+            File file = new File(LOADRUNNER_OUTPUT_DIR + File.separator + fileName);
             OutputStream out = new FileOutputStream(file);
             filter.dump(out);
             out.close();

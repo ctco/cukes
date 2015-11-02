@@ -69,7 +69,8 @@ public class OfTypeMatcherTest {
     }
 
     @Test
-    @Ignore // How to Handle XML?
+    @Ignore
+    // How to Handle XML?
     public void "should work if xml object returned is Map"() throws Exception {
         def content = '<value><test>1</test><another>2</another></value>'
         assertThat(new RequestBody(XML, content), containsValueByPath("value", ofType("map")))

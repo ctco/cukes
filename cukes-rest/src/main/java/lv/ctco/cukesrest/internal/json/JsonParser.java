@@ -64,7 +64,7 @@ public class JsonParser {
     }
 
     static private void add(String path, String value, Map<String, String> result) {
-        if(path.startsWith("$.")) {
+        if (path.startsWith("$.")) {
             path = path.substring(2);
         } else {
             path = path.substring(1);

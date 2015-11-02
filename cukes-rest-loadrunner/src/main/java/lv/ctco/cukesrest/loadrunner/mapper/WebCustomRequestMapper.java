@@ -23,7 +23,7 @@ public class WebCustomRequestMapper {
             request.setUrl(url.toString());
             request.setMethod(method);
             request.setResource("0");
-            request.setSnapshot(String.format("t%d.inf",  (long)(System.currentTimeMillis()%Math.pow(10, 10))));
+            request.setSnapshot(String.format("t%d.inf", (long) (System.currentTimeMillis() % Math.pow(10, 10))));
             request.setMode(url.getProtocol());
             request.setBody((String) requestSpec.getBody());
 

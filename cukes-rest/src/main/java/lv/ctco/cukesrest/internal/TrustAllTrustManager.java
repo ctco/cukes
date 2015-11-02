@@ -6,8 +6,7 @@ import java.security.cert.*;
 
 // TODO: Move to other package
 @SuppressWarnings("SameReturnValue")
-public class TrustAllTrustManager implements TrustManager,
-        javax.net.ssl.X509TrustManager {
+public class TrustAllTrustManager implements TrustManager, javax.net.ssl.X509TrustManager {
 
     /**
      * Method to trust all the HTTPS certificates. To be used only in the
@@ -18,14 +17,11 @@ public class TrustAllTrustManager implements TrustManager,
             javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];
             javax.net.ssl.TrustManager tm = new TrustAllTrustManager();
             trustAllCerts[0] = tm;
-            javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext
-                    .getInstance("SSL");
-            javax.net.ssl.SSLSessionContext serverSessionContext = sc
-                    .getServerSessionContext();
+            javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext.getInstance("SSL");
+            javax.net.ssl.SSLSessionContext serverSessionContext = sc.getServerSessionContext();
             serverSessionContext.setSessionTimeout(0);
             sc.init(null, trustAllCerts, null);
-            javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc
-                    .getSocketFactory());
+            javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -49,14 +45,12 @@ public class TrustAllTrustManager implements TrustManager,
     }
 
     @Override
-    public void checkServerTrusted(X509Certificate[] certs,
-                                   String authType) throws CertificateException {
+    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
         // Explicitly do nothing
     }
 
     @Override
-    public void checkClientTrusted(X509Certificate[] certs,
-                                   String authType) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
         // Explicitly do nothing
     }
 }

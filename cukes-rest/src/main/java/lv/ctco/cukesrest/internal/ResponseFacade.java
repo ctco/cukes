@@ -25,7 +25,7 @@ public class ResponseFacade {
 
     private Response response;
 
-  public void doRequest(String httpMethod, final String url) throws Exception {
+    public void doRequest(String httpMethod, final String url) throws Exception {
         final HttpMethod method = HttpMethod.parse(httpMethod);
 
         AwaitCondition awaitCondition = specification.awaitCondition();
@@ -38,8 +38,7 @@ public class ResponseFacade {
 
             // TODO Fix
             with().pollInterval(intervalTime, intervalUnit).
-                await().atMost(waitTime, unit)
-                       .until(doRequest(url, method), awaitCondition.getStatusCode());
+                await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getStatusCode());
         } else {
             doRequest(url, method).call();
         }
@@ -64,7 +63,7 @@ public class ResponseFacade {
                     cukesRestPlugin.beforeRequest();
                 }
                 response = method.doRequest(specification.value(), url);
-              return new ResponseWrapper(response);
+                return new ResponseWrapper(response);
             }
         };
     }

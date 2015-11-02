@@ -48,10 +48,8 @@ public class GuiceModule extends AbstractModule {
 
     private void bindInterceptor(MethodInterceptor interceptor, Class<? extends Annotation> annotationType) {
         requestInjection(interceptor);
-        bindInterceptor(Matchers.annotatedWith(annotationType), Matchers.any(),
-                interceptor);
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(annotationType),
-                interceptor);
+        bindInterceptor(Matchers.annotatedWith(annotationType), Matchers.any(), interceptor);
+        bindInterceptor(Matchers.any(), Matchers.annotatedWith(annotationType), interceptor);
     }
 
     private void bindPlugins() {
