@@ -11,6 +11,6 @@ public class RunCukesTest {
 
     @Before
     public void setUp() throws Exception {
-        new SampleApplication().run("server", "server.yml");
+        new SampleApplication().run(new String[]{"server", "server.yml"});
     }
 }

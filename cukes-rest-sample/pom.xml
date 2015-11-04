@@ -42,11 +42,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Dropwizard -->
+        <!-- Dropwizard 0.6.2 (JDK 1.6 support) -->
         <dependency>
-            <groupId>io.dropwizard</groupId>
+            <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
-            <version>0.9.0</version>
+            <version>0.6.2</version>
         </dependency>
     </dependencies>
 </project>

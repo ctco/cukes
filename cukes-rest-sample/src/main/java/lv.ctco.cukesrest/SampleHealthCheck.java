@@ -1,8 +1,12 @@
 package lv.ctco.cukesrest;
 
-import com.codahale.metrics.health.HealthCheck;
+import com.yammer.metrics.core.*;
 
 public class SampleHealthCheck extends HealthCheck {
+
+    protected SampleHealthCheck() {
+        super("sample");
+    }
 
     @Override
     protected Result check() throws Exception {
