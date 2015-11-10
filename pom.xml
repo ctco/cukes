@@ -7,7 +7,6 @@
     <groupId>lv.ctco.cukesrest</groupId>
     <artifactId>cukes-rest-all</artifactId>
     <version>0.2.0-SNAPSHOT</version>
-    <name>cukes-rest-all</name>
     <packaging>pom</packaging>
 
     <modules>
@@ -16,9 +15,35 @@
         <module>cukes-rest-sample</module>
     </modules>
 
+    <name>cukes-rest-all</name>
+    <description>
+      cukes-rest takes simplicity of Cucumber and provides bindings for HTTP specification.
+      As a sugar on top, cukes-rest adds steps for storing and using request/response content from
+      a file system, variable support in .features, context inflation in all steps and resources
+      and a custom plug-in system to allow users to add additional project specific content.
+    </description>
+    <url>https://github.com/ctco/cukes-rest</url>
+
+    <licenses>
+      <license>
+        <name>The Apache License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      </license>
+    </licenses>
+
+    <developers>
+      <developer>
+        <name>Alexey Buzdin</name>
+        <email>alex.buzdin@gmail.com</email>
+        <organization>C.T.Co</organization>
+        <organizationUrl>http://ctco.github.io/</organizationUrl>
+      </developer>
+    </developers>
+
     <scm>
-        <connection>scm:git:https://github.com/ctco/cukes-rest.git</connection>
+        <connection>scm:git:git@github.com:ctco/cukes-rest.git</connection>
         <developerConnection>scm:git:git@github.com:ctco/cukes-rest.git</developerConnection>
+        <url>git@github.com:ctco/cukes-rest.git</url>
     </scm>
 
     <profiles>
