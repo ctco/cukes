@@ -28,7 +28,6 @@ public class GuiceModule extends AbstractModule {
         bindPlugins();
     }
 
-    @SuppressWarnings("unchecked")
     private void bindAssertionFacade() {
         String facadeImplType = System.getProperty(ASSERTION_FACADE);
         Class<? extends AssertionFacade> assertionFacadeClass;
@@ -36,7 +35,7 @@ public class GuiceModule extends AbstractModule {
             assertionFacadeClass = AssertionFacadeImpl.class;
         } else {
             try {
-                assertionFacadeClass = (Class<AssertionFacade>) Class.<AssertionFacade>forName(facadeImplType);
+                assertionFacadeClass = (Class<AssertionFacade>) Class.forName(facadeImplType);
             } catch (ClassNotFoundException e) {
                 throw new CukesInternalException("Invalid " + ASSERTION_FACADE + " value", e);
             } catch (ClassCastException e) {

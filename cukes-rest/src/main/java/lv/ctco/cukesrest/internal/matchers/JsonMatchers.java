@@ -8,8 +8,7 @@ public class JsonMatchers {
 
     // TODO: Collect and show all mismatch
     public static Matcher<ResponseBodyExtractionOptions> containsValueByPath(final String path,
-                                                                             final Matcher<?>
-    matcher) {
+                                                                             final Matcher<?> matcher) {
         return new BaseMatcher<ResponseBodyExtractionOptions>() {
             @Override
             public boolean matches(Object o) {
