@@ -1,14 +1,17 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.capture.*;
+import com.google.inject.Singleton;
+import lv.ctco.cukesrest.internal.CukesInternalException;
+import lv.ctco.cukesrest.internal.context.capture.CaptureContext;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static lv.ctco.cukesrest.CukesOptions.*;
 
 @Singleton
 class GlobalWorld {
@@ -22,33 +25,27 @@ class GlobalWorld {
         if (url != null) {
             try {
                 prop.load(url.openStream());
-                loadContextFromProperties(System.getProperties());
                 loadContextFromProperties(prop);
+                loadContextFromProperties(System.getProperties());
             } catch (IOException e) {
                 throw new CukesInternalException(e);
             }
         }
 
         /* World Default Values */
-        defaultProperty(prop, CukesOptions.RESOURCES_ROOT, "src/test/resources/");
-        defaultProperty(prop, CukesOptions.BASE_URI, "http://localhost:80");
-        defaultProperty(prop, CukesOptions.ENVIRONMENT, null);
-        defaultProperty(prop, CukesOptions.AUTH_TYPE, null);
-        defaultProperty(prop, CukesOptions.PASSWORD, null);
-        defaultProperty(prop, CukesOptions.USERNAME, null);
-        defaultProperty(prop, CukesOptions.PROXY, null);
-        defaultProperty(prop, CukesOptions.RELAXED_HTTPS, null);
+        defaultProperty(RESOURCES_ROOT, "src/test/resources/");
+        defaultProperty(BASE_URI, "http://localhost:80");
 
-        defaultProperty(prop, CukesOptions.ASSERTIONS_DISABLED, false);
-        defaultProperty(prop, CukesOptions.URL_ENCODING_ENABLED, false);
-        defaultProperty(prop, CukesOptions.CONTEXT_INFLATING_ENABLED, true);
+        defaultProperty(ASSERTIONS_DISABLED, false);
+        defaultProperty(URL_ENCODING_ENABLED, false);
+        defaultProperty(CONTEXT_INFLATING_ENABLED, true);
 
-        defaultProperty(prop, CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS, false);
+        defaultProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS, false);
 
     }
 
     public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
-        if (value != null) context.put(key, value);
+        context.put(key, value);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,8 +57,8 @@ class GlobalWorld {
         Set<Map.Entry<Object, Object>> properties = prop.entrySet();
         for (Map.Entry<Object, Object> property : properties) {
             String key = property.getKey().toString();
-            if (key.startsWith(CukesOptions.PROPERTIES_PREFIX_VAR)) {
-                String value = key.split(CukesOptions.PROPERTIES_PREFIX_VAR + ".")[1];
+            if (key.startsWith(PROPERTIES_PREFIX)) {
+                String value = key.split(PROPERTIES_PREFIX + ".")[1];
                 if (property.getValue() instanceof String) {
                     put(value, property.getValue().toString());
                 }
@@ -69,16 +66,10 @@ class GlobalWorld {
         }
     }
 
-    private void defaultProperty(Properties prop, String key, String defaultValue) {
-        String value = prop.getProperty(CukesOptions.PROPERTIES_PREFIX + key);
-        if (value != null) {
-            put(key, value);
-        } else {
-            put(key, defaultValue);
+    private void defaultProperty(String key, Object defaultValue) {
+        String value = context.get(key);
+        if (value == null) {
+            put(key, String.valueOf(defaultValue));
         }
-    }
-
-    private void defaultProperty(Properties prop, String key, Object defaultValue) {
-        defaultProperty(prop, key, String.valueOf(defaultValue));
     }
 }

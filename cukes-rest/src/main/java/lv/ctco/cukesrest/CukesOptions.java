@@ -4,7 +4,6 @@ package lv.ctco.cukesrest;
  * List of variables and options used in cukes-rest.
  */
 public interface CukesOptions {
-    String PROPERTIES_PREFIX_VAR = "cukes.var";
     String PROPERTIES_PREFIX = "cukes.";
 
     String RESOURCES_ROOT = "resources_root";

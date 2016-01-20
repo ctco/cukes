@@ -27,7 +27,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     private JsonParser jsonParser;
 
     @Inject
-    private ResponseFacade facade;
+    ResponseFacade facade;
 
     public void bodyEqualTo(String body) {
         facade.response().then().body(equalTo(body));
@@ -69,7 +69,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
         facade.response().then().header(headerName, EndsWithRegexp.endsWithRegexp(suffix));
     }
 
-    public void varAssignedFromHeader(String varName, String headerName) {
+    public void varAssignedFromHeader(@InflateContext.Ignore String varName, String headerName) {
         String value = facade.response().getHeader(headerName);
         world.put(varName, value);
     }
@@ -133,7 +133,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     }
 
     // TODO: Experimental
-    public void varAssignedFromProperty(String varName, String property) {
+    public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
         String value = String.valueOf(facade.response().body().path(property));
         world.put(varName, value);
     }

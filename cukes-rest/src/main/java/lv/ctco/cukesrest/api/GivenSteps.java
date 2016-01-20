@@ -19,6 +19,11 @@ public class GivenSteps {
     @Inject
     ResourceFileReader reader;
 
+    @Given("^let variable \"([^\"]+)\" equal to \"([^\"]+)\"$")
+    public void var_assigned(String varName, String value) {
+        world.put(varName, value);
+    }
+
     @Given("^baseUri is (.+)$")
     public void base_Uri_Is(String url) {
         facade.baseUri(url);
@@ -27,11 +32,6 @@ public class GivenSteps {
     @Given("^resources root is (.+)$")
     public void resources_Root_Is(String url) {
         var_assigned(CukesOptions.RESOURCES_ROOT, url);
-    }
-
-    @Given("^variable (.+) is (\\w+)$")
-    public void var_assigned(String varName, String value) {
-        world.put(varName, value);
     }
 
     @Given("^(.+) environment$")

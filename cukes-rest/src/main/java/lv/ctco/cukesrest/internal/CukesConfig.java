@@ -3,6 +3,7 @@ package lv.ctco.cukesrest.internal;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.guice.*;
 
+@Deprecated
 public class CukesConfig {
 
     private final GlobalWorldFacade globalWorldFacade;
@@ -12,7 +13,7 @@ public class CukesConfig {
     }
 
     public CukesConfig setVar(String key, String value) {
-        globalWorldFacade.put(key, value);
+        System.setProperty(key, value);
         return this;
     }
 
