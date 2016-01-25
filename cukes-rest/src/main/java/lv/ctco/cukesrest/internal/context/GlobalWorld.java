@@ -58,7 +58,7 @@ class GlobalWorld {
         for (Map.Entry<Object, Object> property : properties) {
             String key = property.getKey().toString();
             if (key.startsWith(PROPERTIES_PREFIX)) {
-                String value = key.split(PROPERTIES_PREFIX + ".")[1];
+                String value = key.split(PROPERTIES_PREFIX)[1];
                 if (property.getValue() instanceof String) {
                     put(value, property.getValue().toString());
                 }
