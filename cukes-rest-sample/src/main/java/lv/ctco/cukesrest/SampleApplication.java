@@ -1,8 +1,10 @@
 package lv.ctco.cukesrest;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.yammer.dropwizard.*;
 import com.yammer.dropwizard.config.*;
-import lv.ctco.cukesrest.resources.*;
+import lv.ctco.cukesrest.gadgets.GadgetResource;
 
 public class SampleApplication extends Service<SampleConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -16,8 +18,8 @@ public class SampleApplication extends Service<SampleConfiguration> {
 
     @Override
     public void run(SampleConfiguration configuration, Environment environment) {
-        environment.addResource(new PingResource());
-        environment.addHealthCheck(new SampleHealthCheck());
+        Injector injector = Guice.createInjector();
+        environment.addResource(injector.getInstance(GadgetResource.class));
+        environment.addHealthCheck(injector.getInstance(SampleHealthCheck.class));
     }
-
 }
