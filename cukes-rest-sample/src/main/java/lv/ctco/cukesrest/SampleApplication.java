@@ -2,8 +2,9 @@ package lv.ctco.cukesrest;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.yammer.dropwizard.*;
-import com.yammer.dropwizard.config.*;
+import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.config.Bootstrap;
+import com.yammer.dropwizard.config.Environment;
 import lv.ctco.cukesrest.gadgets.GadgetResource;
 
 public class SampleApplication extends Service<SampleConfiguration> {

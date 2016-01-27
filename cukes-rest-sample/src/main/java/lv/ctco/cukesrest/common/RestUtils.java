@@ -12,7 +12,7 @@ public class RestUtils {
         return buildResponse(200, data);
     }
 
-    public static Response created(Long id) {
+    public static Response created(Integer id) {
         return Response
             .status(201)
             .header("Location", "server-path-to-retrieve" + id)
