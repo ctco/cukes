@@ -26,6 +26,36 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>localhost</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.3.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>lv.ctco.cukesrest.SampleApplication</mainClass>
+                                    <arguments>
+                                        <argument>server</argument>
+                                        <argument>cukes-rest-sample\server.yml</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <!-- Cukes Dependencies-->
         <dependency>

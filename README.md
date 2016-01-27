@@ -14,12 +14,12 @@ Feature: Server is healthy
     And response equals to "pong"
 ```
           
-### Prerequisites
+## Prerequisites
 - JDK 1.6+
 
-### Dependency
+## Dependency
 
-#### cukes-rest: core dependency with all you need to get started with the framework
+### cukes-rest: core dependency with all you need to get started with the framework
 
 ```xml
 <dependency>
@@ -29,7 +29,7 @@ Feature: Server is healthy
 </dependency>
 ```
 
-#### cukes-rest-loadrunner: experimental plugin for LoadRunner code generation out of cukes-rest test case
+### cukes-rest-loadrunner: experimental plugin for HP LoadRunner script generation out of cukes-rest test case
 
 ```xml
 <dependency>
@@ -39,9 +39,12 @@ Feature: Server is healthy
 </dependency>
 ```
 
-### Getting Started
+## Getting Started
 
-- To start **cukes-rest-sample** server run **SampleApplicaiton.java** with following params `server server.yml` from **$MODULE_DIR$**
-- To start a specific Feature/Scenario, either change **CucumberOption** in **RunCukesTest.java** or run directly from you IDE
-- To start all **cukes-rest** run **RunCukesTest.java**
+There are two options to start local server with Sample Application:
 
+1. Run **SampleApplicaiton.java** with following params `server server.yml` from **$MODULE_DIR$**
+2. Execute Package/Install Maven phase of the parent project **cukes-rest-all**
+
+- To start a specific Feature/Scenario, either change **CucumberOption** in **RunCukesTest.java** or run Feature file directly from you IDE
+- To start all tests **cukes-rest** run **RunCukesTest.java**

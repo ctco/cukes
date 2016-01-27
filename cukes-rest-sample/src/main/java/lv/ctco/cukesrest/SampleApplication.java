@@ -15,8 +15,7 @@ public class SampleApplication extends Service<SampleConfiguration> {
     }
 
     @Override
-    public void run(SampleConfiguration configuration,
-                    Environment environment) {
+    public void run(SampleConfiguration configuration, Environment environment) {
         environment.addResource(new PingResource());
         environment.addHealthCheck(new SampleHealthCheck());
     }
