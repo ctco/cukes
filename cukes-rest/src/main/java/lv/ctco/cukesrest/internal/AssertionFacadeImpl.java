@@ -4,7 +4,6 @@ import com.google.inject.*;
 import com.jayway.restassured.response.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.context.inflate.*;
 import lv.ctco.cukesrest.internal.json.*;
 import lv.ctco.cukesrest.internal.matchers.*;
 import lv.ctco.cukesrest.internal.switches.*;

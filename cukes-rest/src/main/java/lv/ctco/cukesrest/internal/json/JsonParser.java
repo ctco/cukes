@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal.json;
 
 import com.google.gson.stream.*;
-import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.*;
 
 import java.io.*;
 import java.util.*;
@@ -14,7 +14,7 @@ public class JsonParser {
             parseJson(json, result);
             return result;
         } catch (IOException e) {
-            throw new CukesInternalException(e);
+            throw new CukesRuntimeException(e);
         }
     }
 

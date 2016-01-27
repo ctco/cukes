@@ -1,4 +1,4 @@
-package lv.ctco.cukesrest.internal.context.inflate;
+package lv.ctco.cukesrest.internal.context;
 
 import java.lang.annotation.*;
 

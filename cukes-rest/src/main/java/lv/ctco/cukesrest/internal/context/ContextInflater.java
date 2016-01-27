@@ -1,8 +1,7 @@
-package lv.ctco.cukesrest.internal.context.inflate;
+package lv.ctco.cukesrest.internal.context;
 
 import com.google.inject.*;
 import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
 
 import java.util.*;
 

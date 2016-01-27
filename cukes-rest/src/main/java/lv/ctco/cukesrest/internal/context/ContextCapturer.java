@@ -1,7 +1,6 @@
-package lv.ctco.cukesrest.internal.context.capture;
+package lv.ctco.cukesrest.internal.context;
 
 import com.google.inject.*;
-import lv.ctco.cukesrest.internal.context.*;
 
 import java.util.*;
 import java.util.regex.*;

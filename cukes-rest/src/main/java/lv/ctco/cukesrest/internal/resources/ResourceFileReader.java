@@ -2,7 +2,7 @@ package lv.ctco.cukesrest.internal.resources;
 
 import com.google.common.base.*;
 import com.google.inject.*;
-import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.*;
 import org.apache.commons.io.*;
 
 import java.io.*;
@@ -23,7 +23,7 @@ public class ResourceFileReader {
             File file = new File(normalizedPath);
             return FileUtils.readLines(file);
         } catch (IOException e) {
-            throw new CukesInternalException(e);
+            throw new CukesRuntimeException(e);
         }
     }
 }

@@ -1,36 +1,31 @@
-package lv.ctco.cukesrest.internal.context.capture;
+package lv.ctco.cukesrest.internal.context;
 
 import com.google.inject.*;
 import org.aopalliance.intercept.*;
 
 import java.lang.annotation.*;
 
-public class CaptureContextInterceptor implements MethodInterceptor {
+public class InflateContextInterceptor implements MethodInterceptor {
 
     @Inject
-    ContextCapturer capturer;
+    ContextInflater inflater;
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Object[] arguments = invocation.getArguments();
-
-        Object pattern = null;
-        Object value = null;
-
         Annotation[][] annotations = invocation.getMethod().getParameterAnnotations();
+
         for (int i = 0; i < annotations.length; i++) {
             Annotation[] parameterAnnotations = annotations[i];
+            boolean ignore = false;
             for (Annotation annotation : parameterAnnotations) {
-                if (annotation.annotationType().equals(CaptureContext.Pattern.class)) {
-                    pattern = arguments[i];
-                } else if (annotation.annotationType().equals(CaptureContext.Value.class)) {
-                    value = arguments[i];
+                if (annotation.annotationType().equals(InflateContext.Ignore.class)) {
+                    ignore = true;
                 }
             }
-        }
-
-        if (pattern != null && value != null) {
-            capturer.capture((String) pattern, (String) value);
+            if (!ignore && arguments[i] instanceof String) {
+                arguments[i] = inflater.inflate((String) arguments[i]);
+            }
         }
         return invocation.proceed();
     }

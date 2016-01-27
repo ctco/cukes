@@ -5,7 +5,7 @@ import com.jayway.restassured.filter.Filter;
 import cucumber.runtime.Runtime;
 import cucumber.runtime.junit.*;
 import cucumber.runtime.model.*;
-import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.loadrunner.*;
 import org.junit.runner.notification.*;
 import org.junit.runners.model.*;
@@ -50,7 +50,7 @@ class LoadRunnerFeature extends FeatureRunner {
             filtersCopy.remove(filter);
             RestAssured.replaceFiltersWith(filtersCopy);
         } catch (Exception e) {
-            throw new CukesInternalException(e);
+            throw new CukesRuntimeException(e);
         }
     }
 

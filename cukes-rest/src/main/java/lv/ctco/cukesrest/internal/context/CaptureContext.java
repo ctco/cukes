@@ -1,4 +1,4 @@
-package lv.ctco.cukesrest.internal.context.capture;
+package lv.ctco.cukesrest.internal.context;
 
 import java.lang.annotation.*;
 

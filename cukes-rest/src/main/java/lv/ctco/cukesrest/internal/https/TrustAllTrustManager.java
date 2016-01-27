@@ -1,10 +1,9 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.internal.https;
 
 import javax.net.ssl.*;
 import java.security.*;
 import java.security.cert.*;
 
-// TODO: Move to other package
 @SuppressWarnings("SameReturnValue")
 public class TrustAllTrustManager implements TrustManager, javax.net.ssl.X509TrustManager {
 

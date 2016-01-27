@@ -6,7 +6,6 @@ import cucumber.runtime.io.*;
 import cucumber.runtime.junit.*;
 import cucumber.runtime.model.*;
 import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.guice.*;
 import lv.ctco.cukesrest.loadrunner.*;
 import org.junit.runner.*;
 import org.junit.runner.notification.*;

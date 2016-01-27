@@ -1,7 +1,6 @@
-package lv.ctco.cukesrest;
+package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Injector;
-import lv.ctco.cukesrest.internal.guice.GuiceInjectorSource;
+import com.google.inject.*;
 
 public class IntegrationTestBase {
 

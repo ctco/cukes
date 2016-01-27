@@ -2,7 +2,7 @@ package lv.ctco.cukesrest.loadrunner;
 
 import com.google.inject.*;
 import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.inflate.*;
+import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.loadrunner.function.*;
 
 @Singleton

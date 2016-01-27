@@ -5,7 +5,8 @@ import com.jayway.restassured.*;
 import com.jayway.restassured.specification.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.context.inflate.*;
+import lv.ctco.cukesrest.internal.helpers.time.*;
+import lv.ctco.cukesrest.internal.https.*;
 
 import java.io.*;
 import java.net.*;
@@ -158,7 +159,7 @@ public class RequestSpecificationFacade {
             awaitCondition = null;
             onCreate();
         } catch (Exception e) {
-            throw new CukesInternalException(e);
+            throw new CukesRuntimeException(e);
         }
     }
 

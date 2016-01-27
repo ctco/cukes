@@ -1,6 +1,5 @@
 package lv.ctco.cukesrest.internal.context;
 
-import lv.ctco.cukesrest.internal.context.capture.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;

@@ -1,7 +1,6 @@
 package lv.ctco.cukesrest.internal;
 
 import com.jayway.restassured.response.Response;
-import lv.ctco.cukesrest.IntegrationTestBase;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import org.junit.Test;
 

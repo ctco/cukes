@@ -7,7 +7,6 @@ import com.jayway.restassured.specification.*;
 import cucumber.api.*;
 import cucumber.api.java.*;
 import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.*;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.loadrunner.function.*;
 import lv.ctco.cukesrest.loadrunner.mapper.*;
@@ -64,7 +63,7 @@ public class LoadRunnerFilter implements Filter {
         try {
             if (action != null) out.write(action.format().getBytes());
         } catch (IOException e) {
-            throw new CukesInternalException(e);
+            throw new CukesRuntimeException(e);
         }
     }
 }

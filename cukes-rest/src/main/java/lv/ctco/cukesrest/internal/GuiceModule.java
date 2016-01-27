@@ -1,12 +1,10 @@
-package lv.ctco.cukesrest.internal.guice;
+package lv.ctco.cukesrest.internal;
 
 import com.google.inject.*;
 import com.google.inject.matcher.*;
 import com.google.inject.multibindings.*;
 import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.capture.*;
-import lv.ctco.cukesrest.internal.context.inflate.*;
+import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.aopalliance.intercept.*;
 import org.reflections.*;
@@ -37,9 +35,9 @@ public class GuiceModule extends AbstractModule {
             try {
                 assertionFacadeClass = (Class<AssertionFacade>) Class.forName(facadeImplType);
             } catch (ClassNotFoundException e) {
-                throw new CukesInternalException("Invalid " + ASSERTION_FACADE + " value", e);
+                throw new CukesRuntimeException("Invalid " + ASSERTION_FACADE + " value", e);
             } catch (ClassCastException e) {
-                throw new CukesInternalException("Invalid " + ASSERTION_FACADE + " value", e);
+                throw new CukesRuntimeException("Invalid " + ASSERTION_FACADE + " value", e);
             }
         }
         bind(AssertionFacade.class).to(assertionFacadeClass);
@@ -60,7 +58,7 @@ public class GuiceModule extends AbstractModule {
                 multibinder.addBinding().to(subType);
             }
         } catch (Exception e) {
-            throw new CukesInternalException("Binding of CukesRest plugins failed");
+            throw new CukesRuntimeException("Binding of CukesRest plugins failed");
         }
     }
 }

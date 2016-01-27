@@ -1,7 +1,6 @@
-package lv.ctco.cukesrest.internal.context.inflate;
+package lv.ctco.cukesrest.internal.context;
 
 import com.google.common.collect.*;
-import lv.ctco.cukesrest.internal.context.*;
 import org.junit.*;
 import org.junit.runner.*;
 import org.mockito.*;

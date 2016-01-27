@@ -1,15 +1,12 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.Singleton;
-import lv.ctco.cukesrest.internal.CukesInternalException;
-import lv.ctco.cukesrest.internal.context.capture.CaptureContext;
+import com.google.inject.*;
+import lv.ctco.cukesrest.*;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 import static lv.ctco.cukesrest.CukesOptions.*;
 
@@ -28,7 +25,7 @@ class GlobalWorld {
                 loadContextFromProperties(prop);
                 loadContextFromProperties(System.getProperties());
             } catch (IOException e) {
-                throw new CukesInternalException(e);
+                throw new CukesRuntimeException(e);
             }
         }
 

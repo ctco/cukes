@@ -1,4 +1,4 @@
-package lv.ctco.cukesrest.internal.guice;
+package lv.ctco.cukesrest.internal;
 
 import com.google.inject.*;
 import cucumber.api.guice.*;
