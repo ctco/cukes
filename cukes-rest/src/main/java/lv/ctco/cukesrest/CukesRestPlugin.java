@@ -2,14 +2,15 @@ package lv.ctco.cukesrest;
 
 public interface CukesRestPlugin {
 
-    // TODO
-    void beforeFeature();
+    void beforeAllTests();
 
-    // TODO
+    void afterAllTests();
+
     void beforeScenario();
 
-    // TODO
-    void beforeStep();
+    void afterScenario();
 
     void beforeRequest();
+
+    void afterRequest();
 }

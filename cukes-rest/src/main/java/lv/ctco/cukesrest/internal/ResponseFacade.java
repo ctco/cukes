@@ -62,6 +62,9 @@ public class ResponseFacade {
                     cukesRestPlugin.beforeRequest();
                 }
                 response = method.doRequest(specification.value(), url);
+                for (CukesRestPlugin cukesRestPlugin : pluginSet) {
+                    cukesRestPlugin.afterRequest();
+                }
                 return new ResponseWrapper(response);
             }
         };
