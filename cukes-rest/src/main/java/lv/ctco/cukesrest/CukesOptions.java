@@ -9,8 +9,6 @@ public interface CukesOptions {
     String RESOURCES_ROOT = "resources_root";
     String BASE_URI = "base_uri";
     String PROXY = "proxy";
-    String LTPA_TOKEN_URL = "ltpa_token_url";
-    String ENVIRONMENT = "environment";
     String AUTH_TYPE = "auth_type";
     String USERNAME = "username";
     String PASSWORD = "password";

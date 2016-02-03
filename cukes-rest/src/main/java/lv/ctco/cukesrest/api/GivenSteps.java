@@ -35,16 +35,6 @@ public class GivenSteps {
         var_assigned(CukesOptions.RESOURCES_ROOT, url);
     }
 
-    @Given("^(.+) environment$")
-    public void ltpa_Authentication(String environment) {
-        facade.retrieveSingleSignOnCookieFrom(environment);
-    }
-
-    @Given("^retrieve single-sign-on cookie from (.+) on environment (.+)")
-    public void retrieveSingleSignOnCookieFrom(String url, String environment) {
-        facade.retrieveSingleSignOnCookieFrom(url, environment);
-    }
-
     @Given("^proxy settings are (http|https)://([^:]+)(?::(\\d+))?$")
     public void proxy(String scheme, String host, Integer port) {
         facade.proxy(scheme, host, port);

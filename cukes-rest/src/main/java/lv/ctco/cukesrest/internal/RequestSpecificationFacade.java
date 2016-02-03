@@ -163,15 +163,6 @@ public class RequestSpecificationFacade {
         }
     }
 
-    public void retrieveSingleSignOnCookieFrom(String url, String environment) {
-        world.put(CukesOptions.LTPA_TOKEN_URL, url);
-        world.put(CukesOptions.ENVIRONMENT, environment);
-    }
-
-    public void retrieveSingleSignOnCookieFrom(String environment) {
-        retrieveSingleSignOnCookieFrom(world.get(CukesOptions.BASE_URI), environment);
-    }
-
     public void shouldWaitWithIntervalUntilStatusCodeReceived(Time waitTime, Time interval, int sCode) {
         this.awaitCondition = new AwaitCondition(waitTime, interval, statusCode(equalTo(sCode)));
     }
