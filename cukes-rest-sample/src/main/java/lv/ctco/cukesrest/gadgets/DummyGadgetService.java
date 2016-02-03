@@ -5,10 +5,7 @@ import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
 import lv.ctco.cukesrest.gadgets.dto.GadgetType;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 public class DummyGadgetService {
 
@@ -51,6 +48,13 @@ public class DummyGadgetService {
     }
 
     public boolean removeGadget(Integer id) {
-        return storage.getGadgets().remove(id) == null; //TODO check
+        Map<Integer, GadgetDto> gadgets = storage.getGadgets();
+        GadgetDto gadget = gadgets.get(id);
+        if (gadget != null) {
+            gadgets.remove(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
