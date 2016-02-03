@@ -5,7 +5,6 @@ import com.google.inject.Injector;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
-import lv.ctco.cukesrest.common.InMemoryStorage;
 import lv.ctco.cukesrest.gadgets.GadgetResource;
 
 public class SampleApplication extends Service<SampleConfiguration> {
@@ -23,7 +22,5 @@ public class SampleApplication extends Service<SampleConfiguration> {
         Injector injector = Guice.createInjector();
         environment.addResource(injector.getInstance(GadgetResource.class));
         environment.addHealthCheck(injector.getInstance(SampleHealthCheck.class));
-
-        environment.manage(new InMemoryStorage());
     }
 }
