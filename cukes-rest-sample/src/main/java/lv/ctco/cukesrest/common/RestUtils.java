@@ -1,37 +1,45 @@
 package lv.ctco.cukesrest.common;
 
+import com.google.inject.Inject;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+
 import javax.ws.rs.core.Response;
+
+import static lv.ctco.cukesrest.CukesOptions.BASE_URI;
 
 public class RestUtils {
 
-    public static Response ok() {
+    @Inject
+    GlobalWorldFacade globals;
+
+    public Response ok() {
         return buildResponse(200);
     }
 
-    public static Response ok(Object data) {
+    public Response ok(Object data) {
         return buildResponse(200, data);
     }
 
-    public static Response created(Integer id) {
+    public Response created(Integer id, String resource) {
         return Response
             .status(201)
-            .header("Location", "server-path-to-retrieve" + id)
+            .header("Location", String.format("%s%s/%s", globals.get(BASE_URI), resource, id))
             .build();
     }
 
-    public static Response notFound() {
+    public Response notFound() {
         return buildResponse(404, "Object not found in the database");
     }
 
-    public static Response badRequest(String message) {
+    public Response badRequest(String message) {
         return buildResponse(400, message);
     }
 
-    public static Response buildResponse(int statusCode) {
+    public Response buildResponse(int statusCode) {
         return buildResponse(statusCode, null);
     }
 
-    public static Response buildResponse(int statusCode, Object data) {
+    public Response buildResponse(int statusCode, Object data) {
         return Response
             .status(statusCode)
             .entity(data)

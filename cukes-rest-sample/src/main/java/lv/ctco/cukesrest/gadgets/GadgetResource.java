@@ -1,6 +1,8 @@
 package lv.ctco.cukesrest.gadgets;
 
 import com.google.inject.Inject;
+import lv.ctco.cukesrest.common.RestUtils;
+import lv.ctco.cukesrest.gadgets.dto.GadgetData;
 import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
 
 import javax.ws.rs.Consumes;
@@ -15,24 +17,23 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-import static lv.ctco.cukesrest.common.RestUtils.badRequest;
-import static lv.ctco.cukesrest.common.RestUtils.created;
-import static lv.ctco.cukesrest.common.RestUtils.notFound;
-import static lv.ctco.cukesrest.common.RestUtils.ok;
-
 @SuppressWarnings("SameReturnValue")
-@Path("/gadgets")
+@Path(GadgetResource.API)
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class GadgetResource {
 
+    protected static final String API = "/gadgets";
+
     @Inject
     DummyGadgetService service;
+    @Inject
+    RestUtils rest;
 
     @GET
     public Response searchGadgets() {
         Collection<GadgetDto> gadgets = service.searchGadgets();
-        return ok(gadgets);
+        return rest.ok(new GadgetData(gadgets));
     }
 
     @GET
@@ -40,18 +41,18 @@ public class GadgetResource {
     public Response getGadget(@PathParam("id") Integer id) {
         GadgetDto gadget = service.getGadget(id);
         if (gadget == null) {
-            return notFound();
+            return rest.notFound();
         }
-        return ok(gadget);
+        return rest.ok(gadget);
     }
 
     @POST
     public Response addGadget(GadgetDto gadget) {
         Integer id = service.addGadget(gadget);
         if (id == null) {
-            return badRequest("Could not add new Gadget");
+            return rest.badRequest("Could not add new Gadget");
         }
-        return created(id);
+        return rest.created(id, API);
     }
 
     @PUT
@@ -59,9 +60,9 @@ public class GadgetResource {
     public Response updateGadget(@PathParam("id") Integer id, GadgetDto gadget) {
         boolean result = service.updateGadget(id, gadget);
         if (!result) {
-            return badRequest("Could add update Gadget with ID: " + id);
+            return rest.badRequest("Could add update Gadget with ID: " + id);
         }
-        return ok();
+        return rest.ok();
     }
 
     @DELETE
@@ -69,8 +70,8 @@ public class GadgetResource {
     public Response removeGadget(@PathParam("id") Integer id) {
         boolean result = service.removeGadget(id);
         if (!result) {
-            return notFound();
+            return rest.notFound();
         }
-        return ok();
+        return rest.ok();
     }
 }
