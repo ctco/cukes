@@ -37,7 +37,9 @@ class LoadRunnerFeature extends FeatureRunner {
         super.run(notifier);
 
         try {
-            new File(LOADRUNNER_OUTPUT_DIR).mkdirs();
+            boolean mkdirsFailed = new File(LOADRUNNER_OUTPUT_DIR).mkdirs();
+            if (mkdirsFailed) throw new CukesRuntimeException("Failed to create Folder: " + LOADRUNNER_OUTPUT_DIR);
+
             String fileName = featureName + ".vugen";
             File file = new File(LOADRUNNER_OUTPUT_DIR + File.separator + fileName);
             OutputStream out = new FileOutputStream(file);

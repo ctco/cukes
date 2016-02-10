@@ -9,7 +9,7 @@ import java.util.*;
 public class CucumberFacade {
 
     /* Ugly Hack proposed by Cucumber developers: https://github.com/cucumber/cucumber-jvm/pull/295 */
-    public static boolean firstRun = true;
+    private static boolean firstRun = true;
 
     @Inject
     Set<CukesRestPlugin> pluginSet;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cukes-rest</artifactId>
@@ -14,7 +15,6 @@
     <properties>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.8</mockito.version>
-        <powermock.version>1.6.1</powermock.version>
 
         <gson.version>2.3.1</gson.version>
         <guice.version>4.0</guice.version>
@@ -22,7 +22,7 @@
         <cucumber.version>1.2.4</cucumber.version>
         <commons-io.version>2.4</commons-io.version>
         <awaitility.version>1.6.4</awaitility.version>
-        <rest-assured.version>2.4.0</rest-assured.version>
+        <rest-assured.version>2.8.0</rest-assured.version>
         <reflections.version>0.9.10</reflections.version>
         <jsr305.version>3.0.0</jsr305.version>
     </properties>
