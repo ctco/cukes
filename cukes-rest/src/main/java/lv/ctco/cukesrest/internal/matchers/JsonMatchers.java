@@ -1,8 +1,11 @@
 package lv.ctco.cukesrest.internal.matchers;
 
 import com.jayway.restassured.internal.*;
+import com.jayway.restassured.path.xml.*;
 import com.jayway.restassured.response.*;
 import org.hamcrest.*;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class JsonMatchers {
 
@@ -14,7 +17,12 @@ public class JsonMatchers {
             public boolean matches(Object o) {
                 try {
                     RestAssuredResponseOptionsImpl responseBody = (RestAssuredResponseOptionsImpl) o;
-                    return matcher.matches(responseBody.path(path));
+                    Object value = responseBody.path(path);
+                    /* Due to REST assured Compatibility Mode HTML */
+                    if (containsIgnoreCase(responseBody.getContentType(), "html")) {
+                        value = ((XmlPath) value).getString(path);
+                    }
+                    return matcher.matches(value);
                 } catch (Exception e) {
                     return false;
                 }
