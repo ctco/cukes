@@ -21,9 +21,10 @@ public class DummyGadgetService {
     }
 
     public Integer addGadget(GadgetDto gadget) {
-        if (gadget == null || gadget.getType() == GadgetType.BOOK_READER) {
-            return null;
-        }
+        if (gadget == null) return null;
+
+        GadgetType type = gadget.getType();
+        if (type == null || type == GadgetType.BOOK_READER) return null;
 
         Set<Integer> gadgetIds = storage.getGadgets().keySet();
         Integer newId = Collections.max(gadgetIds) + 1;
