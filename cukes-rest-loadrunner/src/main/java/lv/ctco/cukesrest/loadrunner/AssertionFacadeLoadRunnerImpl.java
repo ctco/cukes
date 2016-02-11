@@ -109,6 +109,11 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
     }
 
     @Override
+    public void bodyContainsPathWithOtherValue(String path, String value) {
+
+    }
+
+    @Override
     public void bodyDoesNotContainPath(String path) {
 
     }

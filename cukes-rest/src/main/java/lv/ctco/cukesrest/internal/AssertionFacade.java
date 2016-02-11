@@ -37,6 +37,8 @@ public interface AssertionFacade {
 
     void bodyContainsPathWithValue(String path, String value);
 
+    void bodyContainsPathWithOtherValue(String path, String value);
+
     void bodyDoesNotContainPath(String path);
 
     void bodyContainsArrayWithSize(String path, String size);

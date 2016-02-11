@@ -104,6 +104,12 @@ public class AssertionFacadeImpl implements AssertionFacade {
             .equalToIgnoringType(value)));
     }
 
+    public void bodyContainsPathWithOtherValue(String path, String value) {
+        ResponseBody responseBody = facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher
+            .notEqualToIgnoringType(value)));
+    }
+
     public void bodyDoesNotContainPath(String path) {
         String value = facade.response().body().path(path);
         assertThat(value, nullValue());
