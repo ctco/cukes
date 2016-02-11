@@ -1,0 +1,12 @@
+{
+  "id": 3000,
+  "type": "LAPTOP",
+  "name": "Acer Aspire R1",
+  "owner": {
+    "name": "Mr.",
+    "surname": "Burns",
+    "age": 65
+  },
+  "createdDate": 1455114963103,
+  "updatedDate": 1456326973103
+}

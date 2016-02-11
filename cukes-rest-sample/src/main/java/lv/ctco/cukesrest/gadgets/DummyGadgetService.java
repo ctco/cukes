@@ -21,10 +21,7 @@ public class DummyGadgetService {
     }
 
     public Integer addGadget(GadgetDto gadget) {
-        if (gadget == null) return null;
-
-        GadgetType type = gadget.getType();
-        if (type == null || type == GadgetType.BOOK_READER) return null;
+        if (gadget == null || !isValidType(gadget)) return null;
 
         Set<Integer> gadgetIds = storage.getGadgets().keySet();
         Integer newId = Collections.max(gadgetIds) + 1;
@@ -38,9 +35,8 @@ public class DummyGadgetService {
 
     public boolean updateGadget(Integer id, GadgetDto updated) {
         GadgetDto gadget = storage.getGadgets().get(id);
-        if (gadget == null) {
-            return false;
-        }
+        if (gadget == null || updated == null || !isValidType(gadget)) return false;
+
         gadget.setName(updated.getName());
         gadget.setType(updated.getType());
         gadget.setOwner(updated.getOwner());
@@ -57,5 +53,10 @@ public class DummyGadgetService {
         } else {
             return false;
         }
+    }
+
+    private boolean isValidType(GadgetDto gadget) {
+        GadgetType type = gadget.getType();
+        return type != null && type != GadgetType.BOOK_READER;
     }
 }

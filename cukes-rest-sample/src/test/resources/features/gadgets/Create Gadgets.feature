@@ -14,13 +14,14 @@ Feature: It is able to create Gadget records and add to the the database
 
     When the client performs GET request on {(gadgetURL)}
     Then status code is 200
-    And response contains property "id" with value "1862"
+    And response contains property "id" with value other than "2000"
     And response contains property "type" with value "TABLET"
     And response contains property "name" with value "Nexus 9"
     And response contains property "owner.name" with value "Ned"
     And response contains property "owner.surname" with value "Flanders"
     And response contains property "owner.age" with value "43"
     And response contains property "createdDate" of type "long"
+    And response contains property "createdDate" with value other than "1455114963103"
     And response does not contain property "updatedDate"
 
   Scenario: Server doesn't accept content-types other than JSON
