@@ -3,7 +3,7 @@ Feature: It is able to create Gadget records and add to the the database
   Scenario: Should create another Gadget object
 #   Please note that in json request body attribute
 #   id, createdDate, updatedDate values should be ignored and overwritten by the backend.
-    Given request body from file gadgets/payloads/newGadget.json
+    Given request body from file gadgets/requests/newGadget.json
     And content type is "application/json"
 
     When the client performs POST request on /gadgets
@@ -24,7 +24,7 @@ Feature: It is able to create Gadget records and add to the the database
     And response does not contain property "updatedDate"
 
   Scenario: Server doesn't accept content-types other than JSON
-    Given request body from file gadgets/payloads/newGadget.json
+    Given request body from file gadgets/requests/newGadget.json
     When the client performs POST request on /gadgets
     Then status code is 415
 
