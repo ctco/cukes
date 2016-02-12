@@ -35,7 +35,7 @@ public class DummyGadgetService {
 
     public boolean updateGadget(Integer id, GadgetDto updated) {
         GadgetDto gadget = storage.getGadgets().get(id);
-        if (gadget == null || updated == null || !isValidType(gadget)) return false;
+        if (gadget == null || updated == null || !isValidType(updated)) return false;
 
         gadget.setName(updated.getName());
         gadget.setType(updated.getType());

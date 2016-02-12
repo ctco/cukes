@@ -1,16 +1,16 @@
 package lv.ctco.cukesrest.common;
 
 import com.google.inject.Inject;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import com.yammer.dropwizard.config.Configuration;
 
 import javax.ws.rs.core.Response;
-
-import static lv.ctco.cukesrest.CukesOptions.BASE_URI;
 
 public class RestUtils {
 
     @Inject
-    GlobalWorldFacade globals;
+    Configuration config;
+
+    private static final String BASE_URI = "http://localhost:8080";
 
     public Response ok() {
         return buildResponse(200);
@@ -21,9 +21,10 @@ public class RestUtils {
     }
 
     public Response created(Integer id, String resource) {
+        int port = config.getHttpConfiguration().getPort();
         return Response
             .status(201)
-            .header("Location", String.format("%s%s/%s", globals.get(BASE_URI), resource, id))
+            .header("Location", String.format("http://localhost:%s%s/%s", port, resource, id))
             .build();
     }
 

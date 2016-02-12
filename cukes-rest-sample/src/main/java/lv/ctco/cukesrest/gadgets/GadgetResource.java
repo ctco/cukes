@@ -60,7 +60,7 @@ public class GadgetResource {
     public Response updateGadget(@PathParam("id") Integer id, GadgetDto gadget) {
         boolean result = service.updateGadget(id, gadget);
         if (!result) {
-            return rest.badRequest("Could add update Gadget with ID: " + id);
+            return rest.badRequest("Could not update Gadget with ID: " + id);
         }
         return rest.ok();
     }
