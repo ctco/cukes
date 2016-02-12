@@ -9,7 +9,6 @@ Feature: It is able to create Gadget records and add to the the database
     When the client performs POST request on /gadgets
     Then status code is 201
     And header Location contains "http://localhost:8080/gadgets/"
-    And header Location ends with pattern "%d"
     And let variable "gadgetURL" equal to header "Location" value
 
     When the client performs GET request on {(gadgetURL)}

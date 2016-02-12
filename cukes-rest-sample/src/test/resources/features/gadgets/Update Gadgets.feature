@@ -18,6 +18,7 @@ Feature: It is able to update newly Created Gadget
 #   Please note that in json request body attribute
 #   id, createdDate, updatedDate values should be ignored and overwritten by the backend.
     Given request body from file gadgets/requests/updatedGadget.json
+    And content type is "application/json"
     When the client performs PUT request on {(gadgetURL)}
     Then status code is 200
 
@@ -36,9 +37,10 @@ Feature: It is able to update newly Created Gadget
 
   Scenario: Server cannot update non-existing Gadget ID
     Given request body from file gadgets/requests/updatedGadget.json
+    And content type is "application/json"
     When the client performs PUT request on /gadgets/123456
-    Then status code is 404
-    And response equals to "Could not update Gadget with ID: {(id)}"
+    Then status code is 400
+    And response equals to "Could not update Gadget with ID: 123456"
 
   Scenario: Server doesn't accept for update content-types other than JSON
     Given request body from file gadgets/requests/updatedGadget.json

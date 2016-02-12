@@ -3,7 +3,7 @@ Feature: It is able to retrieve Gadget records stored in the database
   Scenario: Should retrieve all available Gadgets in an Array
     When the client performs GET request on /gadgets
     Then status code is 200
-    And response contains an array "gadgets" of size "5"
+    And response contains an array "gadgets" of size ">=5"
 
   Scenario: Check attributes of a single Gadget record (search)
     When the client performs GET request on /gadgets
