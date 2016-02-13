@@ -1,11 +1,15 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.*;
-import com.jayway.restassured.path.xml.*;
-import com.jayway.restassured.response.*;
-import org.hamcrest.*;
+import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
+import com.jayway.restassured.path.xml.XmlPath;
+import com.jayway.restassured.response.ResponseBodyExtractionOptions;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 public class JsonMatchers {
 
@@ -20,7 +24,8 @@ public class JsonMatchers {
                     Object value = responseBody.path(path);
                     /* Due to REST assured Compatibility Mode HTML */
                     if (containsIgnoreCase(responseBody.getContentType(), "html")) {
-                        value = ((XmlPath) value).getString(path);
+                        List<Object> list = ((XmlPath) value).getList(path);
+                        value = list.size() > 1 ? list : ((XmlPath) value).getString(path);
                     }
                     return matcher.matches(value);
                 } catch (Exception e) {
