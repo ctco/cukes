@@ -17,11 +17,14 @@ public class JsonMatchers {
     public static Matcher<ResponseBodyExtractionOptions> containsValueByPath(final String path,
                                                                              final Matcher<?> matcher) {
         return new BaseMatcher<ResponseBodyExtractionOptions>() {
+
+            private Object value;
+
             @Override
             public boolean matches(Object o) {
                 try {
                     RestAssuredResponseOptionsImpl responseBody = (RestAssuredResponseOptionsImpl) o;
-                    Object value = responseBody.path(path);
+                    value = responseBody.path(path);
                     /* Due to REST assured Compatibility Mode HTML */
                     if (containsIgnoreCase(responseBody.getContentType(), "html")) {
                         List<Object> list = ((XmlPath) value).getList(path);
@@ -41,9 +44,7 @@ public class JsonMatchers {
 
             @Override
             public void describeMismatch(Object item, Description description) {
-                RestAssuredResponseOptionsImpl responseBody = (RestAssuredResponseOptionsImpl) item;
-                Object value = responseBody.path(path);
-                matcher.describeMismatch(value, description);
+                matcher.describeMismatch(this.value, description);
             }
         };
     }

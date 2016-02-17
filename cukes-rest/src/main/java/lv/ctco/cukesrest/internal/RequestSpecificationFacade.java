@@ -2,6 +2,7 @@ package lv.ctco.cukesrest.internal;
 
 import com.google.inject.*;
 import com.jayway.restassured.*;
+import com.jayway.restassured.path.json.config.JsonPathConfig;
 import com.jayway.restassured.specification.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
@@ -11,6 +12,8 @@ import lv.ctco.cukesrest.internal.https.*;
 import java.io.*;
 import java.net.*;
 
+import static com.jayway.restassured.config.JsonConfig.jsonConfig;
+import static com.jayway.restassured.config.RestAssuredConfig.newConfig;
 import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.*;
 import static org.hamcrest.Matchers.*;
 
@@ -155,7 +158,9 @@ public class RequestSpecificationFacade {
 
     public void initNewSpecification() {
         try {
-            specification = RestAssured.given();
+            // TODO: Somehow this should be configurable
+            specification = RestAssured.given()
+                .config(newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL)));
             awaitCondition = null;
             onCreate();
         } catch (Exception e) {

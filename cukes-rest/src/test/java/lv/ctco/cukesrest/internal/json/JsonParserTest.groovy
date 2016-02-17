@@ -50,4 +50,28 @@ class JsonParserTest {
                 hasEntry("arr[0]", "1")
         ));
     }
+
+    @Test
+    public void floatNumberShouldBeCorrectlyParsed() throws Exception {
+        String json = '{"float": 26.505515}';
+        def map = service.convertToPathToValueMap(json);
+
+        assertThat(map, hasEntry("float", "26.505515"));
+    }
+
+    @Test
+    public void intNumberShouldBeCorrectlyParsed() throws Exception {
+        String json = '{"int":1}';
+        def map = service.convertToPathToValueMap(json);
+
+        assertThat(map, hasEntry("int", "1"));
+    }
+
+    @Test
+    public void bigDecimalNumberShouldBeCorrectlyParsed() throws Exception {
+        String json = '{"big":11111111111111111111111111}';
+        def map = service.convertToPathToValueMap(json);
+
+        assertThat(map, hasEntry("big", "11111111111111111111111111"));
+    }
 }
