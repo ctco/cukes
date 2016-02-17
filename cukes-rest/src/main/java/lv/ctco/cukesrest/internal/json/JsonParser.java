@@ -25,6 +25,7 @@ public class JsonParser {
         reader.setLenient(true);
         while (true) {
             JsonToken token = reader.peek();
+            String path = reader.getPath();
             switch (token) {
                 case BEGIN_ARRAY:
                     reader.beginArray();
@@ -43,16 +44,16 @@ public class JsonParser {
                     break;
                 case STRING:
                     String s = reader.nextString();
-                    add(reader.getPath(), s, result);
+                    add(path, s, result);
                     break;
                 case NUMBER:
                     String n = reader.nextString();
-                    add(reader.getPath(), n, result);
+                    add(path, n, result);
                     break;
                 case BOOLEAN:
                     boolean b = reader.nextBoolean();
                     String str = toString(b);
-                    add(reader.getPath(), str, result);
+                    add(path, str, result);
                     break;
                 case NULL:
                     reader.nextNull();

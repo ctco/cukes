@@ -39,4 +39,15 @@ class JsonParserTest {
             )
         );
     }
+
+    @Test
+    public void jsonStartingWithAnArrayShouldBeConvertedToMap_withMultipleItems() throws Exception {
+        String json = '{"arr": ["1", "2"]}';
+        def map = service.convertToPathToValueMap(json);
+
+        assertThat(map, allOf(
+                hasSize(2),
+                hasEntry("arr[0]", "1")
+        ));
+    }
 }
