@@ -111,7 +111,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     }
 
     public void bodyDoesNotContainPath(String path) {
-        String value = facade.response().body().path(path);
+        Object value = facade.response().body().path(path);
         assertThat(value, nullValue());
     }
 
