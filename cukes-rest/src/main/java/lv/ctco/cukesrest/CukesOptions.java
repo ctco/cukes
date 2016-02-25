@@ -5,9 +5,11 @@ package lv.ctco.cukesrest;
  */
 public interface CukesOptions {
     String PROPERTIES_PREFIX = "cukes.";
+    String DELIMITER = ",";
 
     String RESOURCES_ROOT = "resources_root";
     String BASE_URI = "base_uri";
+    String PLUGINS = "plugins";
     String PROXY = "proxy";
     String AUTH_TYPE = "auth_type";
     String USERNAME = "username";

@@ -1,18 +1,24 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.google.inject.matcher.*;
-import com.google.inject.multibindings.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.switches.*;
-import org.aopalliance.intercept.*;
-import org.reflections.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.matcher.Matchers;
+import com.google.inject.multibindings.Multibinder;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRestPlugin;
+import lv.ctco.cukesrest.CukesRuntimeException;
+import lv.ctco.cukesrest.internal.context.CaptureContext;
+import lv.ctco.cukesrest.internal.context.CaptureContextInterceptor;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.context.InflateContextInterceptor;
+import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import lv.ctco.cukesrest.internal.switches.SwitchedByInterceptor;
+import org.aopalliance.intercept.MethodInterceptor;
 
-import java.lang.annotation.*;
-import java.util.*;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.util.Properties;
 
-import static lv.ctco.cukesrest.internal.AssertionFacade.*;
+import static lv.ctco.cukesrest.internal.AssertionFacade.ASSERTION_FACADE;
 
 public class GuiceModule extends AbstractModule {
 
@@ -26,6 +32,7 @@ public class GuiceModule extends AbstractModule {
         bindPlugins();
     }
 
+    @SuppressWarnings("unchecked")
     private void bindAssertionFacade() {
         String facadeImplType = System.getProperty(ASSERTION_FACADE);
         Class<? extends AssertionFacade> assertionFacadeClass;
@@ -49,13 +56,21 @@ public class GuiceModule extends AbstractModule {
         bindInterceptor(Matchers.any(), Matchers.annotatedWith(annotationType), interceptor);
     }
 
+    @SuppressWarnings("unchecked")
     private void bindPlugins() {
         try {
-            Reflections reflections = new Reflections("");
-            Set<Class<? extends CukesRestPlugin>> subTypes = reflections.getSubTypesOf(CukesRestPlugin.class);
             Multibinder<CukesRestPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesRestPlugin.class);
-            for (Class<? extends CukesRestPlugin> subType : subTypes) {
-                multibinder.addBinding().to(subType);
+            ClassLoader classLoader = GuiceModule.class.getClassLoader();
+            Properties prop = new Properties();
+            URL url = classLoader.getResource("cukes.properties");
+            if (url == null) return;
+            prop.load(url.openStream());
+            String pluginsArr = prop.getProperty(CukesOptions.PROPERTIES_PREFIX + CukesOptions.PLUGINS);
+            if (pluginsArr == null) return;
+            String[] pluginClasses = pluginsArr.split(CukesOptions.DELIMITER);
+            for (String pluginClass : pluginClasses) {
+                Class<? extends CukesRestPlugin> aClass = (Class<? extends CukesRestPlugin>) classLoader.loadClass(pluginClass);
+                multibinder.addBinding().to(aClass);
             }
         } catch (Exception e) {
             throw new CukesRuntimeException("Binding of CukesRest plugins failed");
