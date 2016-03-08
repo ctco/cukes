@@ -172,6 +172,10 @@ public class RequestSpecificationFacade {
         this.awaitCondition = new AwaitCondition(waitTime, interval, statusCode(equalTo(sCode)));
     }
 
+    public void shouldWaitWithIntervalUntilPropertyEqualToValue(Time waitTime, Time interval, String property, String value) {
+        this.awaitCondition = new AwaitCondition(waitTime, interval, property(property, equalTo(value)));
+    }
+
     public AwaitCondition awaitCondition() {
         return awaitCondition;
     }

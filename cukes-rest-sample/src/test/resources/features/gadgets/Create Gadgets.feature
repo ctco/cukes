@@ -11,6 +11,7 @@ Feature: It is able to create Gadget records and add to the the database
     And header Location contains "http://localhost:8080/gadgets/"
     And let variable "gadgetURL" equal to header "Location" value
 
+    And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "TABLET"
     When the client performs GET request on {(gadgetURL)}
     Then status code is 200
     And response contains property "id" with value other than "2000"

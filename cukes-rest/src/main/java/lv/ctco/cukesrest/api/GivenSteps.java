@@ -120,4 +120,15 @@ public class GivenSteps {
             Time.of(intervalTime, intervalUnit),
             statusCode);
     }
+
+    @Given("^should wait at most (\\d+) ([^ ]+) with interval (\\d+) ([^ ]+) until property \"([^\"]+)\" equal to \"([^\"]+)\"$")
+    public void should_wait_at_most_until_property_equals_with_interval
+            (int atMostTime, String atMostUnit,
+             int intervalTime, String intervalUnit,
+             String property, String value) {
+        facade.shouldWaitWithIntervalUntilPropertyEqualToValue(
+            Time.of(atMostTime, atMostUnit),
+            Time.of(intervalTime, intervalUnit),
+            property, value);
+    }
 }

@@ -19,4 +19,8 @@ public class ResponseWrapper {
     public String toString() {
         return "statusCode<" + response.statusCode() + ">";
     }
+
+    public Response getResponse() {
+        return response;
+    }
 }
