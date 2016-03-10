@@ -53,5 +53,3 @@ There are two options to start local server with Sample Application:
 - To start a specific Feature/Scenario, either change **CucumberOption** in **RunCukesTest.java** or run Feature file directly from you IDE
 - To start all tests run **RunCukesTest.java** from sub-project **cukes-rest-sample**
 - To start all tests right from Maven, execute _test_ phase in project **cukes-rest-sample**
-
-Hint: Please use the Jayway JSONPath viewer to construct needed JSONPath queries: http://jsonpath.herokuapp.com/
