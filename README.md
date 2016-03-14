@@ -13,6 +13,8 @@ Feature: Server is healthy
     Then status code is 200
     And response equals to "pong"
 ```
+         
+[Some pretty slides can be found here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest])
           
 ## Prerequisites
 - JDK 1.6+
