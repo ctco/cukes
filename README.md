@@ -14,7 +14,7 @@ Feature: Server is healthy
     And response equals to "pong"
 ```
          
-[Some pretty slides can be found here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest])
+[Some pretty slides can be found here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest)
           
 ## Prerequisites
 - JDK 1.6+
