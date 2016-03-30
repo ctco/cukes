@@ -179,4 +179,8 @@ public class RequestSpecificationFacade {
     public AwaitCondition awaitCondition() {
         return awaitCondition;
     }
+
+    public void setAwaitCondition(AwaitCondition awaitCondition) {
+        this.awaitCondition = awaitCondition;
+    }
 }

@@ -15,6 +15,10 @@ import org.junit.runners.model.*;
 import java.io.*;
 import java.util.*;
 
+import static lv.ctco.cukesrest.CukesOptions.ASSERTIONS_DISABLED;
+import static lv.ctco.cukesrest.CukesOptions.CONTEXT_INFLATING_ENABLED;
+import static lv.ctco.cukesrest.CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS;
+
 public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
     private final JUnitReporter jUnitReporter;
     private final List<FeatureRunner> children = new ArrayList<FeatureRunner>();
@@ -30,7 +34,12 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
      */
     public CucumberLoadRunner(Class clazz) throws InitializationError, IOException {
         super(clazz);
+
+        System.setProperty(cukesProperty(CONTEXT_INFLATING_ENABLED), "false");
+        System.setProperty(cukesProperty(ASSERTIONS_DISABLED), "true");
+        System.setProperty(cukesProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS), "true");
         System.setProperty(AssertionFacade.ASSERTION_FACADE, AssertionFacadeLoadRunnerImpl.class.getCanonicalName());
+
         filter = new GuiceInjectorSource().getInjector().getInstance(LoadRunnerFilter.class);
 
         ClassLoader classLoader = clazz.getClassLoader();
@@ -89,5 +98,9 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
         for (CucumberFeature cucumberFeature : cucumberFeatures) {
             children.add(new LoadRunnerFeature(cucumberFeature, runtime, jUnitReporter, filter));
         }
+    }
+
+    private static String cukesProperty(String propertyName) {
+        return "cukes." + propertyName;
     }
 }

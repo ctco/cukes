@@ -7,12 +7,12 @@ import org.hamcrest.*;
 public class AwaitCondition {
     private final Time waitTime;
     private final Time interval;
-    private final Matcher<ResponseWrapper> statusCode;
+    private final Matcher<ResponseWrapper> responseMatcher;
 
-    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> statusCode) {
+    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> responseMatcher) {
         this.waitTime = waitTime;
         this.interval = interval;
-        this.statusCode = statusCode;
+        this.responseMatcher = responseMatcher;
     }
 
     public Time getWaitTime() {
@@ -23,7 +23,7 @@ public class AwaitCondition {
         return interval;
     }
 
-    public Matcher<ResponseWrapper> getStatusCode() {
-        return statusCode;
+    public Matcher<ResponseWrapper> getResponseMatcher() {
+        return responseMatcher;
     }
 }

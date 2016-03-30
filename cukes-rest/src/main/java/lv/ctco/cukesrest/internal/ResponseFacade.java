@@ -27,8 +27,10 @@ public class ResponseFacade {
     public void doRequest(String httpMethod, final String url) throws Exception {
         final HttpMethod method = HttpMethod.parse(httpMethod);
 
+        // TODO: Should be refactored into CukesRestPlugin
+        Boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         AwaitCondition awaitCondition = specification.awaitCondition();
-        if (awaitCondition != null) {
+        if (awaitCondition != null && !filterEnabled) {
             int intervalTime = awaitCondition.getInterval().getValue();
             TimeUnit intervalUnit = awaitCondition.getInterval().getUnitDict().getTimeUnit();
 
@@ -37,7 +39,7 @@ public class ResponseFacade {
 
             // TODO Fix
             with().pollInterval(intervalTime, intervalUnit).
-                await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getStatusCode());
+                await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getResponseMatcher());
         } else {
             doRequest(url, method).call();
         }
