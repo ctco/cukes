@@ -94,12 +94,12 @@ public class WebCustomRequest implements LoadRunnerFunction {
         appendOptionalParameter("Body", body, result);
         appendOptionalParameter("Snapshot", snapshot, result);
 
-        return result.append("LAST);\n\n").toString();
+        return result.append(" LAST);\n\n").toString();
     }
 
     private void appendOptionalParameter(String title, String value, StringBuilder stringBuilder) {
         if (!StringUtils.isEmpty(value))
-            stringBuilder.append("\"")
+            stringBuilder.append(" \"")
                 .append(title)
                 .append("=")
                 .append(StringEscapeUtils.escapeJava(value))

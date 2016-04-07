@@ -52,7 +52,7 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
         loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
             @Override
             public String format() {
-                return " HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" +
+                return "HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" +
                     "if (HttpRetCode == " + statusCode + "){\n" +
                     "lr_log_message(\"Request response code is as expected\");\n" +
                     "} else { \n" +

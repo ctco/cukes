@@ -43,11 +43,6 @@ public class LoadRunnerTransaction {
         String escapedTransactionName = StringUtils.replace(name, " ", "_");
         StringBuilder result = new StringBuilder()
                 .append("lr_think_time(1);\n\n")
-                .append("web_reg_save_param(\"httpcode\",\n" +
-                        "\"LB=HTTP/1.1 \",\n" +
-                        "\"RB= \",\n" +
-                        "\"Ord=1\",\n" +
-                        "LAST);\n")
                 .append("transactionStatus = LR_PASS;\n")
                 .append("lr_start_transaction(\"").append(escapedTransactionName).append("\");\n\n");
         for (LoadRunnerFunction function : functions) {

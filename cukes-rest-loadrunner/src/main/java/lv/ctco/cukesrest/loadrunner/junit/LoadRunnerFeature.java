@@ -39,7 +39,7 @@ class LoadRunnerFeature extends FeatureRunner {
         try {
             File dir = new File(LOADRUNNER_OUTPUT_DIR);
             if (!dir.exists()) {
-                boolean mkdirsFailed = dir.mkdirs();
+                boolean mkdirsFailed = !dir.mkdirs();
                 if (mkdirsFailed) throw new CukesRuntimeException("Failed to create Folder: " + LOADRUNNER_OUTPUT_DIR);
             }
 

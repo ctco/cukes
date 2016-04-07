@@ -27,6 +27,8 @@ public class WebCustomRequestMapper {
             request.setMode(url.getProtocol());
             request.setBody((String) requestSpec.getBody());
 
+            request.getBeforeFunctions().add(new WebRequestSaveParam());
+
             for (Header header : requestSpec.getHeaders()) {
                 request.getBeforeFunctions().add(headerMapper.map(header));
             }

@@ -23,11 +23,6 @@ public class LoadRunnerAction {
             "int HttpRetCode;\n" +
             "int transactionStatus;\n" +
             "int actionStatus = LR_PASS;" +
-            " web_reg_save_param(\"httpcode\",\n" +
-            " \"LB=HTTP/1.1 \",\n" +
-            " \"RB= \",\n" +
-            " \"Ord=1\",\n" +
-            " LAST);\n" +
             "lr_continue_on_error(1);\n");
         for (LoadRunnerTransaction transaction : transactions) {
             result.append(transaction.format());
