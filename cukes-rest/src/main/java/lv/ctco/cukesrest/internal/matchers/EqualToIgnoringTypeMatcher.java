@@ -16,6 +16,10 @@ public class EqualToIgnoringTypeMatcher {
 
             @Override
             public boolean matches(Object item) {
+                if (item == null) {
+                    return value.equalsIgnoreCase("null");
+                }
+
                 String toString = item.toString();
                 if (toString.equals(value)) return true;
 
