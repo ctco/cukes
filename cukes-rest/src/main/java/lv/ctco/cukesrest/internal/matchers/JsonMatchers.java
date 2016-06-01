@@ -1,15 +1,14 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
-import com.jayway.restassured.path.xml.XmlPath;
-import com.jayway.restassured.response.ResponseBodyExtractionOptions;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import com.jayway.restassured.internal.*;
+import com.jayway.restassured.path.xml.*;
+import com.jayway.restassured.path.xml.config.*;
+import com.jayway.restassured.response.*;
+import org.hamcrest.*;
 
-import java.util.List;
+import java.util.*;
 
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class JsonMatchers {
 
@@ -24,7 +23,13 @@ public class JsonMatchers {
             public boolean matches(Object o) {
                 try {
                     RestAssuredResponseOptionsImpl responseBody = (RestAssuredResponseOptionsImpl) o;
-                    value = responseBody.path(path);
+                    /* Fix for Unexisting .dtd https://github.com/rest-assured/rest-assured/issues/391 */
+                    if (containsIgnoreCase(responseBody.getContentType(), "xml")) {
+                        XmlPathConfig config = new XmlPathConfig().disableLoadingOfExternalDtd();
+                        value = responseBody.xmlPath(config).get(path);
+                    } else {
+                        value = responseBody.path(path);
+                    }
                     /* Due to REST assured Compatibility Mode HTML */
                     if (containsIgnoreCase(responseBody.getContentType(), "html")) {
                         List<Object> list = ((XmlPath) value).getList(path);
