@@ -1,15 +1,22 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.switches.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.response.Response;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRestPlugin;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.switches.ResponseWrapper;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.*;
+import static com.jayway.awaitility.Awaitility.with;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.contains;
 
 @Singleton
 @InflateContext
@@ -38,8 +45,15 @@ public class ResponseFacade {
             TimeUnit unit = awaitCondition.getWaitTime().getUnitDict().getTimeUnit();
 
             // TODO Fix
-            with().pollInterval(intervalTime, intervalUnit).
-                await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getResponseMatcher());
+
+            if (awaitCondition.getFailureMatcher() != null) {
+                with().pollInterval(intervalTime, intervalUnit).
+                    await().atMost(waitTime, unit).until(doRequest(url, method), anyOf(awaitCondition.getResponseMatcher(), awaitCondition.getFailureMatcher()));
+            } else {
+                with().pollInterval(intervalTime, intervalUnit).
+                    await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getResponseMatcher());
+            }
+
         } else {
             doRequest(url, method).call();
         }

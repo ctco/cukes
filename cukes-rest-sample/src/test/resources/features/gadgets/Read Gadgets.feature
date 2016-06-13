@@ -33,3 +33,9 @@ Feature: It is able to retrieve Gadget records stored in the database
     When the client performs GET request on /gadgets/123456
     Then status code is 404
     And response equals to "Object not found in the database"
+
+  Scenario: Should get wrong expectation
+    And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "SMART_WATCH"
+    When the client performs GET request on /gadgets/1860
+    And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "NO_SUCH_TYPE" or fail with "SMART_WATCH"
+    When the client performs GET request on /gadgets/1860
