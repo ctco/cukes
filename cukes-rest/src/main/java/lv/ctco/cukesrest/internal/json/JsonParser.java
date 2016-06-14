@@ -1,10 +1,13 @@
 package lv.ctco.cukesrest.internal.json;
 
-import com.google.gson.stream.*;
-import lv.ctco.cukesrest.*;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import lv.ctco.cukesrest.CukesRuntimeException;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonParser {
 

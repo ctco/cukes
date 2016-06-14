@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest.internal.switches;
 
-import com.jayway.restassured.response.*;
+import com.jayway.restassured.response.Response;
 
 @Deprecated // TODO: Need to be refactored
 public class ResponseWrapper {

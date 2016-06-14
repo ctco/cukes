@@ -1,6 +1,5 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.jayway.restassured.response.Response;
@@ -10,17 +9,12 @@ import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.context.InflateContext;
 import lv.ctco.cukesrest.internal.matchers.AwaitConditionMatcher;
 import lv.ctco.cukesrest.internal.switches.ResponseWrapper;
-import org.hamcrest.Matcher;
-import org.hamcrest.core.AnyOf;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import static com.jayway.awaitility.Awaitility.with;
-import static org.hamcrest.Matchers.*;
 
 @Singleton
 @InflateContext

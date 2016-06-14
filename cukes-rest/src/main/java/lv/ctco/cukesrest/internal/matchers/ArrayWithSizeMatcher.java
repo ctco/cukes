@@ -1,12 +1,15 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.path.xml.*;
-import com.jayway.restassured.path.xml.element.*;
-import org.hamcrest.*;
+import com.jayway.restassured.internal.path.xml.NodeChildrenImpl;
+import com.jayway.restassured.path.xml.element.Node;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.valueOf;
 import static org.hamcrest.Matchers.*;
 
 public class ArrayWithSizeMatcher {

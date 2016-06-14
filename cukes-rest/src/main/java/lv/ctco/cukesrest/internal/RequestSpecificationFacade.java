@@ -1,21 +1,28 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.path.json.config.JsonPathConfig;
-import com.jayway.restassured.specification.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.helpers.time.*;
-import lv.ctco.cukesrest.internal.https.*;
+import com.jayway.restassured.specification.RequestSpecification;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRuntimeException;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.helpers.time.Time;
+import lv.ctco.cukesrest.internal.https.TrustAllTrustManager;
 
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import static com.jayway.restassured.config.JsonConfig.jsonConfig;
 import static com.jayway.restassured.config.RestAssuredConfig.newConfig;
-import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.*;
-import static org.hamcrest.Matchers.*;
+import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.property;
+import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.statusCode;
+import static org.hamcrest.Matchers.equalTo;
 
 @Singleton
 @InflateContext
