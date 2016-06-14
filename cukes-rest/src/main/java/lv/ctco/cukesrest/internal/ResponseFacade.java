@@ -1,15 +1,20 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.switches.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.response.Response;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRestPlugin;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.matchers.AwaitConditionMatcher;
+import lv.ctco.cukesrest.internal.switches.ResponseWrapper;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.*;
+import static com.jayway.awaitility.Awaitility.with;
 
 @Singleton
 @InflateContext
@@ -23,6 +28,8 @@ public class ResponseFacade {
     Set<CukesRestPlugin> pluginSet;
 
     private Response response;
+    private boolean expectException;
+    private RuntimeException exception;
 
     public void doRequest(String httpMethod, final String url) throws Exception {
         final HttpMethod method = HttpMethod.parse(httpMethod);
@@ -30,19 +37,27 @@ public class ResponseFacade {
         // TODO: Should be refactored into CukesRestPlugin
         Boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         AwaitCondition awaitCondition = specification.awaitCondition();
-        if (awaitCondition != null && !filterEnabled) {
-            int intervalTime = awaitCondition.getInterval().getValue();
-            TimeUnit intervalUnit = awaitCondition.getInterval().getUnitDict().getTimeUnit();
+        try {
+            if (awaitCondition != null && !filterEnabled) {
+                int intervalTime = awaitCondition.getInterval().getValue();
+                TimeUnit intervalUnit = awaitCondition.getInterval().getUnitDict().getTimeUnit();
 
-            int waitTime = awaitCondition.getWaitTime().getValue();
-            TimeUnit unit = awaitCondition.getWaitTime().getUnitDict().getTimeUnit();
+                int waitTime = awaitCondition.getWaitTime().getValue();
+                TimeUnit unit = awaitCondition.getWaitTime().getUnitDict().getTimeUnit();
 
-            // TODO Fix
-            with().pollInterval(intervalTime, intervalUnit).
-                await().atMost(waitTime, unit).until(doRequest(url, method), awaitCondition.getResponseMatcher());
-        } else {
-            doRequest(url, method).call();
+                // TODO Fix
+                with().pollInterval(intervalTime, intervalUnit).await().atMost(waitTime, unit).until(doRequest(url, method),
+                    new AwaitConditionMatcher(awaitCondition));
+            } else {
+                doRequest(url, method).call();
+            }
+        } catch (RuntimeException e) {
+            if (!expectException) {
+                throw e;
+            }
+            exception = e;
         }
+
         specification.initNewSpecification();
     }
 
@@ -80,5 +95,17 @@ public class ResponseFacade {
         String username = world.get(CukesOptions.USERNAME);
         String password = world.get(CukesOptions.PASSWORD);
         specification.basicAuthentication(username, password);
+    }
+
+    public void setExpectException(boolean expectException) {
+        this.expectException = expectException;
+    }
+
+    public RuntimeException getException() {
+        return exception;
+    }
+
+    public void setException(RuntimeException exception) {
+        this.exception = exception;
     }
 }

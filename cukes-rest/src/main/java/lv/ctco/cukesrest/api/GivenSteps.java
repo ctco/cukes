@@ -1,12 +1,13 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.*;
-import cucumber.api.java.en.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.helpers.time.*;
-import lv.ctco.cukesrest.internal.resources.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import cucumber.api.java.en.Given;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.helpers.time.Time;
+import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
 
 @Singleton
 public class GivenSteps {
@@ -131,4 +132,16 @@ public class GivenSteps {
             Time.of(intervalTime, intervalUnit),
             property, value);
     }
+
+    @Given("^should wait at most (\\d+) ([^ ]+) with interval (\\d+) ([^ ]+) until property \"([^\"]+)\" equal to \"([^\"]+)\" or fail with \"([^\"]+)\"$")
+    public void should_wait_at_most_until_property_equals_or_fail_with_interval
+        (int atMostTime, String atMostUnit,
+         int intervalTime, String intervalUnit,
+         String property, String value, String failValue) {
+        facade.shouldWaitWithIntervalUntilPropertyEqualToValue(
+            Time.of(atMostTime, atMostUnit),
+            Time.of(intervalTime, intervalUnit),
+            property, value, failValue);
+    }
+
 }

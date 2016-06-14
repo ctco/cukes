@@ -1,8 +1,9 @@
 package lv.ctco.cukesrest.internal.helpers.time;
 
-import javax.annotation.*;
-import java.util.*;
-import java.util.concurrent.*;
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public enum TimeUnitDictionary {
     MILLISECONDS(TimeUnit.MILLISECONDS, "ms", "milli", "millisecond", "milliseconds"),

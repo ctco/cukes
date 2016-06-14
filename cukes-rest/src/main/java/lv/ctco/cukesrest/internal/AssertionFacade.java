@@ -52,4 +52,8 @@ public interface AssertionFacade {
     void varAssignedFromProperty(String varName, String property);
 
     void bodyContainsJsonPathValueContainingPhrase(String jsonPath, String phrase);
+
+    void failureOccurs(String exceptionClass);
+
+    void failureIsExpected();
 }

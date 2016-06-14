@@ -1,18 +1,20 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.json.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.response.ResponseBody;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.json.JsonParser;
 import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.*;
-import org.hamcrest.*;
+import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import org.hamcrest.Matchers;
 
-import java.util.*;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -146,5 +148,15 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, containsString(phrase)));
+    }
+
+    @Override
+    public void failureOccurs(String exceptionClass) {
+        assertThat(facade.getException().getClass().getSimpleName(), is(exceptionClass));
+    }
+
+    @Override
+    public void failureIsExpected() {
+        facade.setExpectException(true);
     }
 }

@@ -143,6 +143,15 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
 
     }
 
+    @Override
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
+    }
+
+    @Override
+    public void failureOccurs(String exceptionClass) {
+    }
+
+    @Override
+    public void failureIsExpected() {
     }
 }
