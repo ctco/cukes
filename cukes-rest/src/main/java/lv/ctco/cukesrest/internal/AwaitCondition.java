@@ -4,27 +4,23 @@ import lv.ctco.cukesrest.internal.helpers.time.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.hamcrest.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class AwaitCondition {
     private final Time waitTime;
     private final Time interval;
-    private final Matcher<ResponseWrapper> responseMatcher;
+    private final Matcher<ResponseWrapper> successMatcher;
     private final Matcher<ResponseWrapper> failureMatcher;
 
-    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> responseMatcher) {
+    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> successMatcher) {
         this.waitTime = waitTime;
         this.interval = interval;
-        this.responseMatcher = responseMatcher;
+        this.successMatcher = successMatcher;
         failureMatcher = null;
     }
 
-    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> responseMatcher, Matcher<ResponseWrapper> failureMatcher) {
+    public AwaitCondition(Time waitTime, Time interval, Matcher<ResponseWrapper> successMatcher, Matcher<ResponseWrapper> failureMatcher) {
         this.waitTime = waitTime;
         this.interval = interval;
-        this.responseMatcher = responseMatcher;
+        this.successMatcher = successMatcher;
         this.failureMatcher = failureMatcher;
     }
 
@@ -36,8 +32,8 @@ public class AwaitCondition {
         return interval;
     }
 
-    public Matcher<ResponseWrapper> getResponseMatcher() {
-        return responseMatcher;
+    public Matcher<ResponseWrapper> getSuccessMatcher() {
+        return successMatcher;
     }
 
     public Matcher<ResponseWrapper> getFailureMatcher() {

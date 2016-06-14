@@ -16,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("SameReturnValue")
 @Path(GadgetResource.API)
@@ -73,5 +75,16 @@ public class GadgetResource {
             return rest.notFound();
         }
         return rest.ok();
+    }
+
+    @GET
+    @Path("{first}/{second}")
+    public Response getGadgetsDelayed(@PathParam("first") Integer first, @PathParam("second") Integer second) {
+
+        GadgetDto gadget = service.getGadget(first);
+        if (gadget == null) {
+            return rest.notFound();
+        }
+        return rest.ok(gadget);
     }
 }

@@ -8,6 +8,7 @@ import lv.ctco.cukesrest.internal.json.*;
 import lv.ctco.cukesrest.internal.matchers.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.hamcrest.*;
+import org.junit.rules.ExpectedException;
 
 import java.util.*;
 
@@ -146,5 +147,15 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, containsString(phrase)));
+    }
+
+    @Override
+    public void failureOccurs(String exceptionClass) {
+        assertThat(facade.getException().getClass().getSimpleName(), is(exceptionClass));
+    }
+
+    @Override
+    public void failureIsExpected() {
+        facade.setExpectException(true);
     }
 }

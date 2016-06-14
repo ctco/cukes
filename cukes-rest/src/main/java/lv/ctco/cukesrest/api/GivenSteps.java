@@ -129,7 +129,7 @@ public class GivenSteps {
         facade.shouldWaitWithIntervalUntilPropertyEqualToValue(
             Time.of(atMostTime, atMostUnit),
             Time.of(intervalTime, intervalUnit),
-            property, value, null);
+            property, value);
     }
 
     @Given("^should wait at most (\\d+) ([^ ]+) with interval (\\d+) ([^ ]+) until property \"([^\"]+)\" equal to \"([^\"]+)\" or fail with \"([^\"]+)\"$")

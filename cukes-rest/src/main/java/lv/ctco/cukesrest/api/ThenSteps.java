@@ -148,4 +148,9 @@ public class ThenSteps {
     public void header_Ends_With(String headerName, String suffix) {
         assertionFacade.headerEndsWith(headerName, suffix);
     }
+
+    @Then("a failure is expected")
+    public void a_failure_is_expected() {
+        assertionFacade.failureIsExpected();
+    }
 }

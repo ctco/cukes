@@ -37,5 +37,7 @@ Feature: It is able to retrieve Gadget records stored in the database
   Scenario: Should get wrong expectation
     And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "SMART_WATCH"
     When the client performs GET request on /gadgets/1860
+    Then a failure is expected
     And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "NO_SUCH_TYPE" or fail with "SMART_WATCH"
     When the client performs GET request on /gadgets/1860
+    And it fails with CucumberException
