@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import lv.ctco.cukesrest.CukesRestPlugin;
+import com.google.inject.*;
+import lv.ctco.cukesrest.*;
 
-import java.util.Set;
+import java.util.*;
 
 @Singleton
 public class CucumberFacade {

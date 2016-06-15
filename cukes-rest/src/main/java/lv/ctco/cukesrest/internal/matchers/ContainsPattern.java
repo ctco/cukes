@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
+import org.hamcrest.*;
 import org.hamcrest.Matcher;
 
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 public class ContainsPattern extends BaseMatcher<CharSequence> {
 

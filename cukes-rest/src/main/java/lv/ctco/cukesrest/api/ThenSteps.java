@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import cucumber.api.java.en.Then;
-import lv.ctco.cukesrest.internal.AssertionFacade;
-import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+import com.google.inject.*;
+import cucumber.api.java.en.*;
+import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.internal.resources.*;
 
 @Singleton
 public class ThenSteps {
@@ -153,5 +152,10 @@ public class ThenSteps {
     @Then("a failure is expected")
     public void a_failure_is_expected() {
         assertionFacade.failureIsExpected();
+    }
+
+    @Then("^it fails with ([^\"]+)$")
+    public void it_fails(String exceptionClass) {
+        assertionFacade.failureOccurs(exceptionClass);
     }
 }

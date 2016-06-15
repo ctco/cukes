@@ -1,20 +1,16 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.jayway.restassured.response.Response;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.CukesRestPlugin;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
-import lv.ctco.cukesrest.internal.matchers.AwaitConditionMatcher;
-import lv.ctco.cukesrest.internal.switches.ResponseWrapper;
+import com.google.inject.*;
+import com.jayway.restassured.response.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.matchers.*;
+import lv.ctco.cukesrest.internal.switches.*;
 
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
-import static com.jayway.awaitility.Awaitility.with;
+import static com.jayway.awaitility.Awaitility.*;
 
 @Singleton
 @InflateContext

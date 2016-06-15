@@ -1,8 +1,8 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import org.hamcrest.Matcher;
+import org.hamcrest.*;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.Is.*;
 
 public class MiscMatchers {
 

@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal;
 
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSpecification;
+import com.jayway.restassured.response.*;
+import com.jayway.restassured.specification.*;
 
 public enum HttpMethod {
     // TODO: Refactor to normal Enum

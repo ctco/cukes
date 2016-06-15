@@ -1,13 +1,12 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import cucumber.api.java.en.Given;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.helpers.time.Time;
-import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+import com.google.inject.*;
+import cucumber.api.java.en.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.helpers.time.*;
+import lv.ctco.cukesrest.internal.resources.*;
 
 @Singleton
 public class GivenSteps {

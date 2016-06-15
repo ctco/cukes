@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.Inject;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
+import com.google.inject.*;
+import org.aopalliance.intercept.*;
 
-import java.lang.annotation.Annotation;
+import java.lang.annotation.*;
 
 public class CaptureContextInterceptor implements MethodInterceptor {
 

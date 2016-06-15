@@ -1,24 +1,18 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matchers;
-import com.google.inject.multibindings.Multibinder;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.CukesRestPlugin;
-import lv.ctco.cukesrest.CukesRuntimeException;
-import lv.ctco.cukesrest.internal.context.CaptureContext;
-import lv.ctco.cukesrest.internal.context.CaptureContextInterceptor;
-import lv.ctco.cukesrest.internal.context.InflateContext;
-import lv.ctco.cukesrest.internal.context.InflateContextInterceptor;
-import lv.ctco.cukesrest.internal.switches.SwitchedBy;
-import lv.ctco.cukesrest.internal.switches.SwitchedByInterceptor;
-import org.aopalliance.intercept.MethodInterceptor;
+import com.google.inject.*;
+import com.google.inject.matcher.*;
+import com.google.inject.multibindings.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.switches.*;
+import org.aopalliance.intercept.*;
 
-import java.lang.annotation.Annotation;
-import java.net.URL;
-import java.util.Properties;
+import java.lang.annotation.*;
+import java.net.*;
+import java.util.*;
 
-import static lv.ctco.cukesrest.internal.AssertionFacade.ASSERTION_FACADE;
+import static lv.ctco.cukesrest.internal.AssertionFacade.*;
 
 public class GuiceModule extends AbstractModule {
 

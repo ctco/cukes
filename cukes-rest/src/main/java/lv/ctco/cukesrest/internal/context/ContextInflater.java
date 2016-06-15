@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.CukesOptions;
+import com.google.inject.*;
+import lv.ctco.cukesrest.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ContextInflater extends BaseContextHandler {
 

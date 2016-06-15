@@ -1,20 +1,18 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.jayway.restassured.response.ResponseBody;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
-import lv.ctco.cukesrest.internal.json.JsonParser;
+import com.google.inject.*;
+import com.jayway.restassured.response.*;
+import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.json.*;
 import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.SwitchedBy;
-import org.hamcrest.Matchers;
+import lv.ctco.cukesrest.internal.switches.*;
+import org.hamcrest.*;
 
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)

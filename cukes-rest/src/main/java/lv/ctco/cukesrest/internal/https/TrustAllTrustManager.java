@@ -1,10 +1,8 @@
 package lv.ctco.cukesrest.internal.https;
 
-import javax.net.ssl.TrustManager;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
+import javax.net.ssl.*;
+import java.security.*;
+import java.security.cert.*;
 
 @SuppressWarnings("SameReturnValue")
 public class TrustAllTrustManager implements TrustManager, javax.net.ssl.X509TrustManager {

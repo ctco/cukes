@@ -1,10 +1,8 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Stage;
-import cucumber.api.guice.CucumberModules;
-import cucumber.runtime.java.guice.InjectorSource;
+import com.google.inject.*;
+import cucumber.api.guice.*;
+import cucumber.runtime.java.guice.*;
 
 public class GuiceInjectorSource implements InjectorSource {
 
