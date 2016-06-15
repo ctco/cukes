@@ -1,14 +1,9 @@
 package lv.ctco.cukesrest.common;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
-import lv.ctco.cukesrest.gadgets.dto.GadgetType;
-import lv.ctco.cukesrest.gadgets.dto.Owner;
+import com.google.inject.*;
+import lv.ctco.cukesrest.gadgets.dto.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static lv.ctco.cukesrest.gadgets.dto.GadgetType.*;
 

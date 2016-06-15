@@ -1,8 +1,7 @@
 package lv.ctco.cukesrest.healthcheck;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 @SuppressWarnings("SameReturnValue")
 @Path(StaticTypesResource.API)
@@ -14,15 +13,15 @@ public class StaticTypesResource {
 
     @GET
     public Response staticTypes() {
-       return Response.ok("{" +
-           "  \"prop\": [" +
-           "    {" +
-           "      \"int\": 1," +
-           "      \"float\": 26.505515," +
-           "      \"long\": 2000000000000," +
-           "      \"long\": 2000000000000" +
-           "    }" +
-           "]" +
-           "}").build();
+        return Response.ok("{" +
+            "  \"prop\": [" +
+            "    {" +
+            "      \"int\": 1," +
+            "      \"float\": 26.505515," +
+            "      \"long\": 2000000000000," +
+            "      \"long\": 2000000000000" +
+            "    }" +
+            "]" +
+            "}").build();
     }
 }

@@ -1,12 +1,10 @@
 package lv.ctco.cukesrest;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.yammer.dropwizard.Service;
-import com.yammer.dropwizard.config.Bootstrap;
-import com.yammer.dropwizard.config.Environment;
-import lv.ctco.cukesrest.gadgets.GadgetResource;
-import lv.ctco.cukesrest.healthcheck.StaticTypesResource;
+import com.google.inject.*;
+import com.yammer.dropwizard.*;
+import com.yammer.dropwizard.config.*;
+import lv.ctco.cukesrest.gadgets.*;
+import lv.ctco.cukesrest.healthcheck.*;
 
 public class SampleApplication extends Service<SampleConfiguration> {
     public static void main(String[] args) throws Exception {

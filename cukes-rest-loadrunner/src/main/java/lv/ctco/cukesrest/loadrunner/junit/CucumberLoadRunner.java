@@ -15,9 +15,7 @@ import org.junit.runners.model.*;
 import java.io.*;
 import java.util.*;
 
-import static lv.ctco.cukesrest.CukesOptions.ASSERTIONS_DISABLED;
-import static lv.ctco.cukesrest.CukesOptions.CONTEXT_INFLATING_ENABLED;
-import static lv.ctco.cukesrest.CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS;
+import static lv.ctco.cukesrest.CukesOptions.*;
 
 public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
     private final JUnitReporter jUnitReporter;
@@ -53,7 +51,7 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
 
         final List<CucumberFeature> cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader);
         jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader), runtimeOptions.formatter(classLoader)
-        , runtimeOptions.isStrict());
+            , runtimeOptions.isStrict());
         addChildren(cucumberFeatures);
     }
 
@@ -65,8 +63,8 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
      * @param runtimeOptions configuration
      * @return a new runtime
      */
-    protected Runtime createRuntime(ResourceLoader resourceLoader, ClassLoader classLoader,
-                                    RuntimeOptions runtimeOptions) {
+    protected Runtime createRuntime(ResourceLoader resourceLoader, ClassLoader classLoader, RuntimeOptions
+        runtimeOptions) {
         ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
         return new Runtime(resourceLoader, classFinder, classLoader, runtimeOptions);
     }

@@ -1,14 +1,12 @@
 package lv.ctco.cukesrest.gadgets;
 
-import com.google.inject.Inject;
-import lv.ctco.cukesrest.common.RestUtils;
-import lv.ctco.cukesrest.gadgets.dto.GadgetData;
-import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
+import com.google.inject.*;
+import lv.ctco.cukesrest.common.*;
+import lv.ctco.cukesrest.gadgets.dto.*;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.Collection;
+import javax.ws.rs.core.*;
+import java.util.*;
 
 @SuppressWarnings("SameReturnValue")
 @Path(GadgetResource.API)

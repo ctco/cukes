@@ -1,9 +1,9 @@
 package lv.ctco.cukesrest.common;
 
-import com.google.inject.Inject;
-import com.yammer.dropwizard.config.Configuration;
+import com.google.inject.*;
+import com.yammer.dropwizard.config.*;
 
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 public class RestUtils {
 

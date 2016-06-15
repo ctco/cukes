@@ -1,10 +1,9 @@
 package lv.ctco.cukesrest.gadgets;
 
-import lv.ctco.cukesrest.common.InMemoryStorage;
-import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
-import lv.ctco.cukesrest.gadgets.dto.GadgetType;
+import lv.ctco.cukesrest.common.*;
+import lv.ctco.cukesrest.gadgets.dto.*;
 
-import javax.inject.Inject;
+import javax.inject.*;
 import java.util.*;
 
 public class DummyGadgetService {
