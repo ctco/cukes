@@ -1,9 +1,10 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.*;
+import com.google.inject.Inject;
 
-import java.util.*;
-import java.util.regex.*;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ContextCapturer extends BaseContextHandler {
 

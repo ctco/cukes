@@ -1,9 +1,10 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.*;
-import org.aopalliance.intercept.*;
+import com.google.inject.Inject;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Annotation;
 
 public class InflateContextInterceptor implements MethodInterceptor {
 

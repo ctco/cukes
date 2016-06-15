@@ -1,9 +1,10 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.*;
-import cucumber.api.java.en.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.resources.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import cucumber.api.java.en.Then;
+import lv.ctco.cukesrest.internal.AssertionFacade;
+import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
 
 @Singleton
 public class ThenSteps {
@@ -147,5 +148,10 @@ public class ThenSteps {
     @Then("^header (.+) ends with pattern \"(.+)\"$")
     public void header_Ends_With(String headerName, String suffix) {
         assertionFacade.headerEndsWith(headerName, suffix);
+    }
+
+    @Then("a failure is expected")
+    public void a_failure_is_expected() {
+        assertionFacade.failureIsExpected();
     }
 }
