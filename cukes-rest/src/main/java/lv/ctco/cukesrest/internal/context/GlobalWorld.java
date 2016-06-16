@@ -18,7 +18,9 @@ class GlobalWorld {
     public GlobalWorld() {
         /* User Specified Values */
         Properties prop = new Properties();
-        URL url = GlobalWorld.class.getClassLoader().getResource("cukes.properties");
+        String cukesProfile = System.getProperty("cukes.profile");
+        String propertiesFileName = cukesProfile != null ? "cukes-" + cukesProfile + ".properties" : "cukes.properties";
+        URL url = GlobalWorld.class.getClassLoader().getResource(propertiesFileName);
         if (url != null) {
             try {
                 prop.load(url.openStream());
