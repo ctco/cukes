@@ -137,7 +137,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
             (ContainsPattern.containsPattern(pattern)))));
     }
 
-    // TODO: Experimental
+
     public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
         String value = String.valueOf(facade.response().body().path(property));
         world.put(varName, value);
