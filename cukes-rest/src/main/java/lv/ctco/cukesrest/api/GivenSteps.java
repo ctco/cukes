@@ -5,7 +5,7 @@ import cucumber.api.java.en.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.*;
 import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.helpers.time.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 import lv.ctco.cukesrest.internal.resources.*;
 
 @Singleton

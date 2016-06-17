@@ -1,6 +1,5 @@
-package lv.ctco.cukesrest.internal.helpers.time;
+package lv.ctco.cukesrest.internal.helpers;
 
-import javax.annotation.*;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -19,7 +18,7 @@ public enum TimeUnitDictionary {
         this.keys = Arrays.asList(keys);
     }
 
-    public static TimeUnitDictionary of(@Nonnull String key) {
+    public static TimeUnitDictionary of(String key) {
         for (TimeUnitDictionary timeUnit : values()) {
             if (timeUnit.keys.contains(key.toLowerCase())) return timeUnit;
         }

@@ -6,7 +6,7 @@ import com.jayway.restassured.path.json.config.*;
 import com.jayway.restassured.specification.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.helpers.time.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 import lv.ctco.cukesrest.internal.https.*;
 
 import java.io.*;

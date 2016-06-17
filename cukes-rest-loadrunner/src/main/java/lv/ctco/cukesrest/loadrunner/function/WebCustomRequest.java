@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest.loadrunner.function;
 
-import org.apache.commons.lang3.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 
 import java.util.*;
 
@@ -98,11 +98,11 @@ public class WebCustomRequest implements LoadRunnerFunction {
     }
 
     private void appendOptionalParameter(String title, String value, StringBuilder stringBuilder) {
-        if (!StringUtils.isEmpty(value))
+        if (!Strings.isEmpty(value))
             stringBuilder.append(" \"")
                 .append(title)
                 .append("=")
-                .append(StringEscapeUtils.escapeJava(value))
+                .append(value.replace("\"", "\\\""))
                 .append("\",\n");
     }
 }

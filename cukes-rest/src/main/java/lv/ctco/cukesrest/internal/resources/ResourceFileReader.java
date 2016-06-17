@@ -3,7 +3,7 @@ package lv.ctco.cukesrest.internal.resources;
 import com.google.common.base.*;
 import com.google.inject.*;
 import lv.ctco.cukesrest.*;
-import org.apache.commons.io.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 
 import java.io.*;
 import java.util.*;
@@ -21,7 +21,7 @@ public class ResourceFileReader {
         try {
             String normalizedPath = pathService.normalize(path);
             File file = new File(normalizedPath);
-            return FileUtils.readLines(file);
+            return Files.readLines(file);
         } catch (IOException e) {
             throw new CukesRuntimeException(e);
         }

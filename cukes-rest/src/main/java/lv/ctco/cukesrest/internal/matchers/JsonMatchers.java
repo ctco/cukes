@@ -4,6 +4,7 @@ import com.jayway.restassured.internal.*;
 import com.jayway.restassured.path.xml.*;
 import com.jayway.restassured.path.xml.config.*;
 import com.jayway.restassured.response.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 import org.hamcrest.*;
 
 import java.util.*;
@@ -31,7 +32,7 @@ public class JsonMatchers {
                         value = responseBody.path(path);
                     }
                     /* Due to REST assured Compatibility Mode HTML */
-                    if (containsIgnoreCase(responseBody.getContentType(), "html")) {
+                    if (Strings.containsIgnoreCase(responseBody.getContentType(), "html")) {
                         List<Object> list = ((XmlPath) value).getList(path);
                         value = list.size() > 1 ? list : ((XmlPath) value).getString(path);
                     }

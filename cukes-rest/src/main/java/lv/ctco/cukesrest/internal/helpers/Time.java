@@ -1,4 +1,4 @@
-package lv.ctco.cukesrest.internal.helpers.time;
+package lv.ctco.cukesrest.internal.helpers;
 
 public class Time {
 

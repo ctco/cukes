@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest.internal;
 
-import lv.ctco.cukesrest.internal.helpers.time.*;
+import lv.ctco.cukesrest.internal.helpers.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.hamcrest.*;
 
