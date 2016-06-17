@@ -14,10 +14,12 @@ import static lv.ctco.cukesrest.CukesOptions.*;
 @Singleton
 class GlobalWorld {
 
-    private final Map<String, String> context = new ConcurrentHashMap<String, String>();
+    private Map<String, String> context;
 
-    public GlobalWorld() {
+    @Inject
+    public void reconstruct() {
         /* User Specified Values */
+        context = new ConcurrentHashMap<String, String>();
         Properties prop = new Properties();
         String cukesProfile = System.getProperty("cukes.profile");
         String propertiesFileName = cukesProfile != null ? "cukes-" + cukesProfile + ".properties" : "cukes.properties";

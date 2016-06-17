@@ -2,6 +2,7 @@ package lv.ctco.cukesrest.internal;
 
 import com.google.inject.*;
 import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.context.*;
 
 import java.util.*;
 
@@ -10,6 +11,9 @@ public class CucumberFacade {
 
     /* Ugly Hack proposed by Cucumber developers: https://github.com/cucumber/cucumber-jvm/pull/295 */
     private static boolean firstRun = true;
+
+    @Inject
+    GlobalWorldFacade world;
 
     @Inject
     Set<CukesRestPlugin> pluginSet;
@@ -35,6 +39,7 @@ public class CucumberFacade {
     }
 
     public void beforeScenario() {
+        world.reconstruct();
         for (CukesRestPlugin cukesRestPlugin : pluginSet) {
             cukesRestPlugin.beforeScenario();
         }

@@ -19,7 +19,7 @@ public class StaticTypesResource {
            "      \"int\": 1," +
            "      \"float\": 26.505515," +
            "      \"long\": 2000000000000," +
-           "      \"string\": \"null\"" +
+           "      \"string\": \"{(isolated)}\"" +
            "    }" +
            "]" +
            "}").build();

@@ -29,4 +29,8 @@ public class GlobalWorldFacade {
     public boolean getBoolean(String key, boolean defaultValue) {
         return Boolean.valueOf(get(key, Boolean.toString(defaultValue)));
     }
+
+    public void reconstruct() {
+        world.reconstruct();
+    }
 }
