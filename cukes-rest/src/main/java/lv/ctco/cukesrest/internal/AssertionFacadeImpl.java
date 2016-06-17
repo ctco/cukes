@@ -92,7 +92,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void bodyContainsPropertiesFromJson(String json) {
         // TODO: make multiple failures visible. Rework to allOf() matcher
         // TODO: Implement XML ?
-        Map<String, String> stringStringMap = jsonParser.convertToPathToValueMap(json);
+        Map<String, String> stringStringMap = jsonParser.parsePathToValueMap(json);
         for (Map.Entry<String, String> entry : stringStringMap.entrySet()) {
             bodyContainsPathWithValue(entry.getKey(), entry.getValue());
         }

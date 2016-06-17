@@ -19,7 +19,7 @@ class JsonParserTest {
     @Test
     public void simpleJsonShouldBeConvertedToMap() throws Exception {
         String json = '{"hello":"world"}';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, allOf(
                 hasSize(1),
@@ -31,7 +31,7 @@ class JsonParserTest {
     @Test
     public void jsonStartingWithAnArrayShouldBeConvertedToMap() throws Exception {
         String json = '[{"hello":"world"}]';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, allOf(
                 hasSize(1),
@@ -43,7 +43,7 @@ class JsonParserTest {
     @Test
     public void jsonStartingWithAnArrayShouldBeConvertedToMap_withMultipleItems() throws Exception {
         String json = '{"arr": ["1", "2"]}';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, allOf(
                 hasSize(2),
@@ -54,7 +54,7 @@ class JsonParserTest {
     @Test
     public void floatNumberShouldBeCorrectlyParsed() throws Exception {
         String json = '{"float": 26.505515}';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, hasEntry("float", "26.505515"));
     }
@@ -62,7 +62,7 @@ class JsonParserTest {
     @Test
     public void intNumberShouldBeCorrectlyParsed() throws Exception {
         String json = '{"int":1}';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, hasEntry("int", "1"));
     }
@@ -70,7 +70,7 @@ class JsonParserTest {
     @Test
     public void bigDecimalNumberShouldBeCorrectlyParsed() throws Exception {
         String json = '{"big":11111111111111111111111111}';
-        def map = service.convertToPathToValueMap(json);
+        def map = service.parsePathToValueMap(json);
 
         assertThat(map, hasEntry("big", "11111111111111111111111111"));
     }

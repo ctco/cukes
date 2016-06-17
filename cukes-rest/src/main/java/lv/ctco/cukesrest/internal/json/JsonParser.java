@@ -1,67 +1,29 @@
 package lv.ctco.cukesrest.internal.json;
 
 import com.google.gson.stream.*;
-import lv.ctco.cukesrest.*;
 
-import java.io.*;
 import java.util.*;
+
+import static com.google.gson.stream.JsonToken.*;
 
 public class JsonParser {
 
-    public Map<String, String> convertToPathToValueMap(String json) {
-        try {
-            Map<String, String> result = new HashMap<String, String>();
-            parseJson(json, result);
-            return result;
-        } catch (IOException e) {
-            throw new CukesRuntimeException(e);
+    public Map<String, String> parsePathToValueMap(String json) {
+        Map<String, String> result = new HashMap<String, String>();
+        SafeJsonReader reader = new SafeJsonReader(json);
+        for (JsonToken token : reader) {
+                 if (BEGIN_ARRAY == token)  reader.beginArray();
+            else if (END_ARRAY == token)    reader.endArray();
+            else if (BEGIN_OBJECT == token) reader.beginObject();
+            else if (END_OBJECT == token)   reader.endObject();
+            else if (NAME == token)         reader.nextName();
+            else if (STRING == token)       add(reader.getCurrentPath(), reader.nextString(), result);
+            else if (NUMBER == token)       add(reader.getCurrentPath(), reader.nextString(), result);
+            else if (BOOLEAN == token)      add(reader.getCurrentPath(), Boolean.toString(reader.nextBoolean()), result);
+            else if (NULL == token)         reader.nextNull();
         }
-    }
-
-    // TODO: Refactor
-    static void parseJson(String json, Map<String, String> result) throws IOException {
-
-        JsonReader reader = new JsonReader(new StringReader(json));
-        reader.setLenient(true);
-        while (true) {
-            JsonToken token = reader.peek();
-            String path = reader.getPath();
-            switch (token) {
-                case BEGIN_ARRAY:
-                    reader.beginArray();
-                    break;
-                case END_ARRAY:
-                    reader.endArray();
-                    break;
-                case BEGIN_OBJECT:
-                    reader.beginObject();
-                    break;
-                case END_OBJECT:
-                    reader.endObject();
-                    break;
-                case NAME:
-                    reader.nextName();
-                    break;
-                case STRING:
-                    String s = reader.nextString();
-                    add(path, s, result);
-                    break;
-                case NUMBER:
-                    String n = reader.nextString();
-                    add(path, n, result);
-                    break;
-                case BOOLEAN:
-                    boolean b = reader.nextBoolean();
-                    String str = toString(b);
-                    add(path, str, result);
-                    break;
-                case NULL:
-                    reader.nextNull();
-                    break;
-                case END_DOCUMENT:
-                    return;
-            }
-        }
+        reader.close();
+        return result;
     }
 
     static private void add(String path, String value, Map<String, String> result) {
@@ -71,9 +33,5 @@ public class JsonParser {
             path = path.substring(1);
         }
         result.put(path, value);
-    }
-
-    private static String toString(boolean b) {
-        return Boolean.toString(b);
     }
 }
