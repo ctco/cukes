@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.loadrunner;
 
+import com.google.common.base.*;
 import com.google.inject.*;
 import com.jayway.restassured.filter.*;
 import com.jayway.restassured.response.*;
@@ -36,7 +37,8 @@ public class LoadRunnerFilter implements Filter {
                            FilterContext ctx) {
         WebCustomRequest request = mapper.map(requestSpec, ctx);
         trx.addFunction(request);
-        if (globalWorldFacade.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS)) {
+        boolean blockRequests = globalWorldFacade.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
+        if (blockRequests) {
             return Mockito.mock(Response.class);
         }
         return ctx.next(requestSpec, responseSpec);

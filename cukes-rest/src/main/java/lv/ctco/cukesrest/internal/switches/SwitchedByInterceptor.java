@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal.switches;
 
+import com.google.common.base.Optional;
 import com.google.inject.*;
 import lv.ctco.cukesrest.internal.context.*;
 import org.aopalliance.intercept.*;
@@ -10,7 +11,7 @@ import java.util.*;
 public class SwitchedByInterceptor implements MethodInterceptor {
 
     @Inject
-    GlobalWorldFacade facade;
+    GlobalWorldFacade world;
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -23,8 +24,9 @@ public class SwitchedByInterceptor implements MethodInterceptor {
         }
 
         if (annotation != null) {
-            String switchedBy = annotation.value();
-            if (facade.getBoolean(switchedBy)) {
+            String switchedByKey = annotation.value();
+            boolean switchedBy = world.getBoolean(switchedByKey);
+            if (switchedBy) {
                 return null;
             }
         }

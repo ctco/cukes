@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal.context;
 
+import com.google.common.base.Optional;
 import com.google.inject.*;
 import lv.ctco.cukesrest.*;
 
@@ -12,7 +13,8 @@ public class ContextInflater extends BaseContextHandler {
 
     public String inflate(String input) {
         Set<String> groups = new HashSet<String>(extractGroups(input));
-        if (world.getBoolean(CukesOptions.CONTEXT_INFLATING_ENABLED)) {
+        boolean inflatingEnabled = world.getBoolean(CukesOptions.CONTEXT_INFLATING_ENABLED, true);
+        if (inflatingEnabled) {
             return inflateGroups(input, groups);
         }
         return inflateGroupsWithPlaceholders(input, groups);
@@ -21,9 +23,9 @@ public class ContextInflater extends BaseContextHandler {
     String inflateGroups(String input, Set<String> groups) {
         String result = input;
         for (String key : groups) {
-            String value = world.get(key);
-            if (value != null) {
-                result = result.replaceAll("\\{\\(" + key + "\\)\\}", value);
+            Optional<String> $value = world.get(key);
+            if ($value.isPresent()) {
+                result = result.replaceAll("\\{\\(" + key + "\\)\\}", $value.get());
             }
         }
         return result;

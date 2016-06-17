@@ -1,6 +1,8 @@
 package lv.ctco.cukesrest;
 
+import com.google.common.base.Optional;
 import org.hamcrest.*;
+import org.hamcrest.core.*;
 
 import java.util.*;
 
@@ -29,6 +31,27 @@ public class CustomMatchers {
             @Override
             public void describeTo(Description description) {
                 description.appendText(" has length ").appendValue(size);
+            }
+        };
+    }
+
+    public static <T> Matcher<Optional<T>> equalToOptional(final T operand) {
+        return new TypeSafeMatcher<Optional<T>>() {
+
+            private Matcher<T> equalTo;
+
+            @Override
+            protected boolean matchesSafely(Optional<T> t) {
+                if(t.isPresent()) {
+                    equalTo = IsEqual.equalTo(t.get());
+                    return equalTo.matches(operand);
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                IsEqual.equalTo(equalTo).describeTo(description);
             }
         };
     }

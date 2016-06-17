@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal.context;
 
+import com.google.common.base.*;
 import com.google.inject.*;
 
 public class GlobalWorldFacade {
@@ -12,16 +13,20 @@ public class GlobalWorldFacade {
         world.put(key, value);
     }
 
-    public String get(String key) {
+    public Optional<String> get(String key) {
         return world.get(key);
     }
 
     public String get(String key, String defaultValue) {
-        String value = world.get(key);
-        return value == null ? defaultValue : value;
+        Optional<String> value = world.get(key);
+        return value.isPresent() ? value.get() : defaultValue;
     }
 
-    public Boolean getBoolean(String key) {
-        return Boolean.valueOf(world.get(key));
+    public boolean getBoolean(String key) {
+        return getBoolean(key, false);
+    }
+
+    public boolean getBoolean(String key, boolean defaultValue) {
+        return Boolean.valueOf(get(key, Boolean.toString(defaultValue)));
     }
 }

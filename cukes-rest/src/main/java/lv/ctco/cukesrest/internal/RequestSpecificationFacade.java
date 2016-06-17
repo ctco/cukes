@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal;
 
+import com.google.common.base.*;
 import com.google.inject.*;
 import com.jayway.restassured.*;
 import com.jayway.restassured.path.json.config.*;
@@ -38,35 +39,31 @@ public class RequestSpecificationFacade {
 
     private void onCreate() {
         // TODO: Refactor
-        String baseUri = world.get(CukesOptions.BASE_URI);
-        if (baseUri != null) {
-            baseUri(baseUri);
+        Optional<String> $baseUri = world.get(CukesOptions.BASE_URI);
+        if ($baseUri.isPresent()) {
+            baseUri($baseUri.get());
         }
 
-        String proxy = world.get(CukesOptions.PROXY);
-        if (proxy != null) {
+        Optional<String> $proxy = world.get(CukesOptions.PROXY);
+        if ($proxy.isPresent()) {
             URI uri;
             try {
-                uri = new URI(proxy);
+                uri = new URI($proxy.get());
                 specification.proxy(uri);
             } catch (URISyntaxException ignore) {}
         }
 
-        String urlEncodingEnabled = world.get(CukesOptions.URL_ENCODING_ENABLED);
-        if (urlEncodingEnabled != null) {
+        boolean urlEncodingEnabled = world.getBoolean(CukesOptions.URL_ENCODING_ENABLED);
+        if (urlEncodingEnabled) {
             // TODO
-            Boolean urlEncodingEnabledBool = Boolean.valueOf(urlEncodingEnabled);
-            specification.urlEncodingEnabled(urlEncodingEnabledBool);
+            specification.urlEncodingEnabled(true);
         }
 
-        String relaxedHttps = world.get(CukesOptions.RELAXED_HTTPS);
-        if (relaxedHttps != null) {
+        boolean relaxedHttps = world.getBoolean(CukesOptions.RELAXED_HTTPS);
+        if (relaxedHttps) {
             // TODO
-            Boolean relaxedHttpsEnabledBool = Boolean.valueOf(relaxedHttps);
-            if (relaxedHttpsEnabledBool) {
-                specification.relaxedHTTPSValidation();
-                TrustAllTrustManager.trustAllHttpsCertificates();
-            }
+            specification.relaxedHTTPSValidation();
+            TrustAllTrustManager.trustAllHttpsCertificates();
         }
     }
 
@@ -74,7 +71,6 @@ public class RequestSpecificationFacade {
         specification.param(key, value);
     }
 
-    // TODO: rework into array param
     public void queryParam(String parameterName, String parameterValue) {
         try {
             parameterValue = URLEncoder.encode(parameterValue, "UTF-8");
@@ -97,17 +93,14 @@ public class RequestSpecificationFacade {
         specification.contentType(contentType);
     }
 
-    // TODO: rework into array param
     public void formParam(String parameterName, String parameterValue) {
         specification.formParam(parameterName, parameterValue);
     }
 
-    // TODO: rework into array param
     public void cookie(String cookieName, String cookieValue) {
         specification.cookie(cookieName, cookieValue);
     }
 
-    // TODO: rework into array param
     public void header(String headerName, String headerValue) {
         specification.header(headerName, headerValue);
     }

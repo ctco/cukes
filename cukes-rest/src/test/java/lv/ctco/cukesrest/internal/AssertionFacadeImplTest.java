@@ -1,14 +1,14 @@
 package lv.ctco.cukesrest.internal;
 
+import com.google.common.base.*;
 import com.jayway.restassured.response.Response;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import static lv.ctco.cukesrest.CustomMatchers.*;
 
 public class AssertionFacadeImplTest extends IntegrationTestBase {
 
@@ -27,7 +27,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         world.put("id", "1");
         facade.varAssignedFromHeader("{(id)}", headerName);
-        String value = world.get("id");
-        assertThat(value, equalTo(headerName));
+        Optional<String> value = world.get("id");
+        assertThat(value, equalToOptional(headerName));
     }
 }

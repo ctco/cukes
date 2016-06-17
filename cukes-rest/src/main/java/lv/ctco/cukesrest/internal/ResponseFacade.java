@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal;
 
+import com.google.common.base.Optional;
 import com.google.inject.*;
 import com.jayway.restassured.response.*;
 import lv.ctco.cukesrest.*;
@@ -31,7 +32,7 @@ public class ResponseFacade {
         final HttpMethod method = HttpMethod.parse(httpMethod);
 
         // TODO: Should be refactored into CukesRestPlugin
-        Boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
+        boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         AwaitCondition awaitCondition = specification.awaitCondition();
         try {
             if (awaitCondition != null && !filterEnabled) {
@@ -58,10 +59,10 @@ public class ResponseFacade {
     }
 
     private void authenticate() {
-        String type = world.get(CukesOptions.AUTH_TYPE);
-        if (type == null) return;
+        Optional<String> $type = world.get(CukesOptions.AUTH_TYPE);
+        if (!$type.isPresent()) return;
 
-        if (type.equalsIgnoreCase("BASIC")) {
+        if ($type.get().equalsIgnoreCase("BASIC")) {
             authBasic();
         }
     }
@@ -88,9 +89,11 @@ public class ResponseFacade {
     }
 
     private void authBasic() {
-        String username = world.get(CukesOptions.USERNAME);
-        String password = world.get(CukesOptions.PASSWORD);
-        specification.basicAuthentication(username, password);
+        Optional<String> $username = world.get(CukesOptions.USERNAME);
+        Optional<String> $password = world.get(CukesOptions.PASSWORD);
+        if ($username.isPresent() && $password.isPresent()) {
+            specification.basicAuthentication($username.get(), $password.get());
+        }
     }
 
     public void setExpectException(boolean expectException) {

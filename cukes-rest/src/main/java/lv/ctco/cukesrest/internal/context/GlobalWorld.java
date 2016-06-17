@@ -1,6 +1,7 @@
 package lv.ctco.cukesrest.internal.context;
 
 import com.google.inject.*;
+import com.google.common.base.Optional;
 import lv.ctco.cukesrest.*;
 
 import java.io.*;
@@ -34,22 +35,14 @@ class GlobalWorld {
         /* World Default Values */
         defaultProperty(RESOURCES_ROOT, "src/test/resources/");
         defaultProperty(BASE_URI, "http://localhost:80");
-
-        defaultProperty(ASSERTIONS_DISABLED, false);
-        defaultProperty(URL_ENCODING_ENABLED, false);
-        defaultProperty(CONTEXT_INFLATING_ENABLED, true);
-
-        defaultProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS, false);
-
     }
 
     public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
         context.put(key, value);
     }
 
-    @SuppressWarnings("unchecked")
-    public String get(String key) {
-        return context.get(key);
+    public Optional<String> get(String key) {
+        return Optional.fromNullable(context.get(key));
     }
 
     private void loadContextFromProperties(Properties prop) {
