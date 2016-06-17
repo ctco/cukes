@@ -7,6 +7,7 @@ import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.aopalliance.intercept.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.*;
 import java.net.*;
@@ -56,7 +57,7 @@ public class GuiceModule extends AbstractModule {
             Multibinder<CukesRestPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesRestPlugin.class);
             ClassLoader classLoader = GuiceModule.class.getClassLoader();
             Properties prop = new Properties();
-            URL url = classLoader.getResource("cukes.properties");
+            URL url = createCukesPropertyFileUrl(classLoader);
             if (url == null) return;
             prop.load(url.openStream());
             String pluginsArr = prop.getProperty(CukesOptions.PROPERTIES_PREFIX + CukesOptions.PLUGINS);
@@ -69,5 +70,16 @@ public class GuiceModule extends AbstractModule {
         } catch (Exception e) {
             throw new CukesRuntimeException("Binding of CukesRest plugins failed");
         }
+    }
+
+    /**
+     * @see GlobalWorld#createCukesPropertyFileUrl(ClassLoader)
+     */
+    private URL createCukesPropertyFileUrl(final ClassLoader classLoader) {
+        String cukesProfile = System.getProperty("cukes.profile");
+        String propertiesFileName = StringUtils.isEmpty(cukesProfile)
+            ? "cukes.properties"
+            : "cukes-" + cukesProfile + ".properties";
+        return classLoader.getResource(propertiesFileName);
     }
 }
