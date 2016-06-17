@@ -1,7 +1,8 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.inject.*;
-import lv.ctco.cukesrest.*;
+import com.google.inject.Singleton;
+import lv.ctco.cukesrest.CukesRuntimeException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.net.*;
@@ -18,9 +19,7 @@ class GlobalWorld {
     public GlobalWorld() {
         /* User Specified Values */
         Properties prop = new Properties();
-        String cukesProfile = System.getProperty("cukes.profile");
-        String propertiesFileName = cukesProfile != null ? "cukes-" + cukesProfile + ".properties" : "cukes.properties";
-        URL url = GlobalWorld.class.getClassLoader().getResource(propertiesFileName);
+        URL url = createCukesPropertyFileUrl(GlobalWorld.class.getClassLoader());
         if (url != null) {
             try {
                 prop.load(url.openStream());
@@ -70,5 +69,16 @@ class GlobalWorld {
         if (value == null) {
             put(key, String.valueOf(defaultValue));
         }
+    }
+
+    /**
+     * @see lv.ctco.cukesrest.internal.GuiceModule#createCukesPropertyFileUrl(ClassLoader)
+     */
+    private URL createCukesPropertyFileUrl(final ClassLoader classLoader) {
+        String cukesProfile = System.getProperty("cukes.profile");
+        String propertiesFileName = StringUtils.isEmpty(cukesProfile)
+            ? "cukes.properties"
+            : "cukes-" + cukesProfile + ".properties";
+        return classLoader.getResource(propertiesFileName);
     }
 }
