@@ -5,7 +5,7 @@ import java.util.regex.*;
 
 public abstract class BaseContextHandler {
 
-    public static final String GROUP_PATTERN = "\\{\\((\\w+)\\)\\}";
+    public static final String GROUP_PATTERN = "\\{\\(([\\w\\.-]+)\\)\\}";
 
     protected List<String> extractGroups(String pattern) {
         List<String> allMatches = new ArrayList<String>();

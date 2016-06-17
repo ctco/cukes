@@ -45,4 +45,10 @@ public class BaseContextHandlerTest {
         List<String> groups = capturer.extractGroups("{(hello_world)}");
         assertThat(groups, contains("hello_world"));
     }
+
+    @Test
+    public void shouldExtractDotSeparatedName() throws Exception {
+        List<String> groups = capturer.extractGroups("{(hello.world)}");
+        assertThat(groups, contains("hello.world"));
+    }
 }

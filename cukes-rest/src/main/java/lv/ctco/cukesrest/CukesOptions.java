@@ -5,6 +5,7 @@ package lv.ctco.cukesrest;
  */
 public interface CukesOptions {
     String PROPERTIES_PREFIX = "cukes.";
+    String HEADER_PREFIX = "header.";
     String DELIMITER = ",";
 
     String RESOURCES_ROOT = "resources_root";

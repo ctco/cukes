@@ -79,6 +79,7 @@ public class ResponseFacade {
                 for (CukesRestPlugin cukesRestPlugin : pluginSet) {
                     cukesRestPlugin.afterRequest();
                 }
+                cacheHeaders(response);
                 return new ResponseWrapper(response);
             }
         };
@@ -106,5 +107,13 @@ public class ResponseFacade {
 
     public void setException(RuntimeException exception) {
         this.exception = exception;
+    }
+
+    private void cacheHeaders(Response response) {
+        Headers headers = response.getHeaders();
+        for (Header header : headers) {
+            String headerName = CukesOptions.HEADER_PREFIX + header.getName();
+            world.put(headerName, header.getValue());
+        }
     }
 }
