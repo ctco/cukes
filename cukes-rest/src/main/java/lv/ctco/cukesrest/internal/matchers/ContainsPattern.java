@@ -1,5 +1,6 @@
 package lv.ctco.cukesrest.internal.matchers;
 
+import lv.ctco.cukesrest.internal.helpers.*;
 import org.hamcrest.*;
 import org.hamcrest.Matcher;
 
@@ -20,7 +21,7 @@ public class ContainsPattern extends BaseMatcher<CharSequence> {
     }
 
     public ContainsPattern(String regex, boolean match) {
-        this(Pattern.compile(regex), match);
+        this(Pattern.compile(Strings.escapeRegex(regex)), match);
     }
 
     public ContainsPattern(String regex) {

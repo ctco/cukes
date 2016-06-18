@@ -66,4 +66,12 @@ class GlobalWorld {
             put(key, String.valueOf(defaultValue));
         }
     }
+
+    public Set<String> keys() {
+        return context.keySet();
+    }
+
+    public void remove(String key) {
+        context.remove(key);
+    }
 }

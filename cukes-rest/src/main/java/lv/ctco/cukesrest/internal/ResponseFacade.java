@@ -110,10 +110,18 @@ public class ResponseFacade {
     }
 
     private void cacheHeaders(Response response) {
+        clearOldHeaders();
         Headers headers = response.getHeaders();
         for (Header header : headers) {
             String headerName = CukesOptions.HEADER_PREFIX + header.getName();
             world.put(headerName, header.getValue());
+        }
+    }
+
+    private void clearOldHeaders() {
+        Set<String> keys = world.getKeysStartingWith(CukesOptions.HEADER_PREFIX);
+        for (String key : keys) {
+            world.remove(key);
         }
     }
 }

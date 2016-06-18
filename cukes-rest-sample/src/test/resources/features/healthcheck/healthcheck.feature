@@ -25,3 +25,13 @@ Feature: Server is healthy
     Then status code is 200
     Then response contains property "prop[0].float" with value "26.505515"
     Then response contains property "prop[0].string" with value "{(isolated)}"
+
+  Scenario: Auto-cached variables are cleaned after each request
+    Given baseUri is http://localhost:8080/
+    When the client performs GET request on /customHeaders
+    Then status code is 200
+
+    When the client performs GET request on /staticTypes
+    Then status code is 200
+    Then response contains property "prop[0].long" not matching pattern "{(header.Custom-Header)}"
+

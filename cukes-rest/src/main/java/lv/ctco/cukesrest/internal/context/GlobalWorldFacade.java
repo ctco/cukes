@@ -1,7 +1,11 @@
 package lv.ctco.cukesrest.internal.context;
 
 import com.google.common.base.*;
+import com.google.common.base.Optional;
+import com.google.common.collect.*;
 import com.google.inject.*;
+
+import java.util.*;
 
 public class GlobalWorldFacade {
 
@@ -32,5 +36,19 @@ public class GlobalWorldFacade {
 
     public void reconstruct() {
         world.reconstruct();
+    }
+
+    public Set<String> getKeysStartingWith(final String headerPrefix) {
+        Set<String> keys = world.keys();
+        return Sets.filter(keys, new Predicate<String>() {
+            @Override
+            public boolean apply(String s) {
+                return s.startsWith(headerPrefix);
+            }
+        });
+    }
+
+    public void remove(String key) {
+        world.remove(key);
     }
 }
