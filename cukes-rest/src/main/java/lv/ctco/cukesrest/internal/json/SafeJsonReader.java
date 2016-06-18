@@ -123,6 +123,11 @@ public class SafeJsonReader implements Iterable<JsonToken> {
                 getPath();
                 return peek();
             }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
         };
     }
 }
