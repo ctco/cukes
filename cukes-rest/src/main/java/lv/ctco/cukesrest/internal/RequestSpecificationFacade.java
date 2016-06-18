@@ -162,15 +162,27 @@ public class RequestSpecificationFacade {
     }
 
     public void shouldWaitWithIntervalUntilStatusCodeReceived(Time waitTime, Time interval, int sCode) {
-        this.awaitCondition = new AwaitCondition(waitTime, interval, statusCode(equalTo(sCode)));
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aStatusCode(equalTo(sCode)));
+    }
+
+    public void shouldWaitWithIntervalUntilStatusCodeReceived(Time waitTime, Time interval, int sCode, int failCode) {
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aStatusCode(equalTo(sCode)), aStatusCode(equalTo(failCode)));
     }
 
     public void shouldWaitWithIntervalUntilPropertyEqualToValue(Time waitTime, Time interval, String property, String value) {
-        this.awaitCondition = new AwaitCondition(waitTime, interval, property(property, equalTo(value)));
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aProperty(property, equalTo(value)));
     }
 
     public void shouldWaitWithIntervalUntilPropertyEqualToValue(Time waitTime, Time interval, String property, String value, String failValue) {
-        this.awaitCondition = new AwaitCondition(waitTime, interval, property(property, equalTo(value)), property(property, equalTo(failValue)));
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aProperty(property, equalTo(value)), aProperty(property, equalTo(failValue)));
+    }
+
+    public void shouldWaitWithIntervalUntilHeaderEqualToValue(Time waitTime, Time interval, String header, String value) {
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aHeader(header, equalTo(value)));
+    }
+
+    public void shouldWaitWithIntervalUntilHeaderEqualToValue(Time waitTime, Time interval, String header, String value, String failValue) {
+        this.awaitCondition = new AwaitCondition(waitTime, interval, aHeader(header, equalTo(value)), aHeader(header, equalTo(failValue)));
     }
 
     public AwaitCondition awaitCondition() {

@@ -4,11 +4,11 @@ import lv.ctco.cukesrest.internal.switches.*;
 import org.hamcrest.*;
 
 import static lv.ctco.cukesrest.internal.matchers.JsonMatchers.*;
-import static org.hamcrest.Matchers.*;
 
 public class ResponseMatcher {
 
-    public static Matcher<ResponseWrapper> property(final String path, final Matcher<?> matcher) {
+    // TODO
+    public static Matcher<ResponseWrapper> aProperty(final String path, final Matcher<?> matcher) {
         return new TypeSafeMatcher<ResponseWrapper>() {
 
             @Override
@@ -29,11 +29,28 @@ public class ResponseMatcher {
         };
     }
 
-    public static Matcher<ResponseWrapper> statusCode(final int statusCode) {
-        return statusCode(equalTo(statusCode));
+    public static Matcher<ResponseWrapper> aHeader(final String header, final Matcher<?> matcher) {
+        return new TypeSafeMatcher<ResponseWrapper>() {
+
+            @Override
+            protected boolean matchesSafely(ResponseWrapper response) {
+                String actualHeaderValue = response.getResponse().header(header);
+                return matcher.matches(actualHeaderValue);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+//                description.appendText("has statusCode").appendDescriptionOf(statusCodeMatches);
+            }
+
+            @Override
+            protected void describeMismatchSafely(ResponseWrapper item, Description mismatchDescription) {
+//                mismatchDescription.appendText("statusCode<").appendValue(item.statusCode()+"").appendText(">");
+            }
+        };
     }
 
-    public static Matcher<ResponseWrapper> statusCode(final Matcher<Integer> statusCodeMatches) {
+    public static Matcher<ResponseWrapper> aStatusCode(final Matcher<Integer> statusCodeMatches) {
         return new TypeSafeMatcher<ResponseWrapper>() {
 
             @Override

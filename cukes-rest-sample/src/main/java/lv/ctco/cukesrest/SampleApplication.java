@@ -21,6 +21,7 @@ public class SampleApplication extends Service<SampleConfiguration> {
         Injector injector = Guice.createInjector();
         environment.addResource(injector.getInstance(GadgetResource.class));
         environment.addResource(injector.getInstance(StaticTypesResource.class));
+        environment.addResource(injector.getInstance(CustomHeadersResource.class));
         environment.addHealthCheck(injector.getInstance(SampleHealthCheck.class));
     }
 }
