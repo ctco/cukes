@@ -13,7 +13,6 @@ import static lv.ctco.cukesrest.CukesOptions.*;
 
 @Singleton
 class GlobalWorld {
-
     private Map<String, String> context;
 
     @Inject
@@ -21,9 +20,7 @@ class GlobalWorld {
         /* User Specified Values */
         context = new ConcurrentHashMap<String, String>();
         Properties prop = new Properties();
-        String cukesProfile = System.getProperty("cukes.profile");
-        String propertiesFileName = cukesProfile != null ? "cukes-" + cukesProfile + ".properties" : "cukes.properties";
-        URL url = GlobalWorld.class.getClassLoader().getResource(propertiesFileName);
+        URL url = createCukesPropertyFileUrl(GlobalWorld.class.getClassLoader());
         if (url != null) {
             try {
                 prop.load(url.openStream());
@@ -73,5 +70,16 @@ class GlobalWorld {
 
     public void remove(String key) {
         context.remove(key);
+    }
+
+    /**
+     * @see lv.ctco.cukesrest.internal.GuiceModule#createCukesPropertyFileUrl(ClassLoader)
+     */
+    private URL createCukesPropertyFileUrl(final ClassLoader classLoader) {
+        String cukesProfile = System.getProperty("cukes.profile");
+        String propertiesFileName = cukesProfile == null || cukesProfile.isEmpty()
+            ? "cukes.properties"
+            : "cukes-" + cukesProfile + ".properties";
+        return classLoader.getResource(propertiesFileName);
     }
 }
