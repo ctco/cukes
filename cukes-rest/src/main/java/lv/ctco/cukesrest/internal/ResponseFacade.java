@@ -68,6 +68,7 @@ public class ResponseFacade {
     }
 
     private Callable<ResponseWrapper> doRequest(final String url, final HttpMethod method) {
+        final boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         return new Callable<ResponseWrapper>() {
             @Override
             public ResponseWrapper call() throws Exception {
@@ -79,7 +80,9 @@ public class ResponseFacade {
                 for (CukesRestPlugin cukesRestPlugin : pluginSet) {
                     cukesRestPlugin.afterRequest();
                 }
-                cacheHeaders(response);
+                if (!filterEnabled) {
+                    cacheHeaders(response);
+                }
                 return new ResponseWrapper(response);
             }
         };
