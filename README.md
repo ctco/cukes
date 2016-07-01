@@ -6,12 +6,21 @@ inflation in all steps and a custom plug-in system to allow users to add additio
 content. 
 
 ```gherkin
-Feature: Server is healthy
+Feature: Gadgets are great!
 
-  Scenario: Should return pong response on /ping
-    When the client performs GET request on /ping
+  Scenario: Should create another Gadget object
+    Given request body from file gadgets/requests/newGadget.json
+    And content type is "application/json"
+
+    When the client performs POST request on /gadgets
+    Then status code is 201
+    And header Location contains "http://localhost:8080/gadgets/"
+
+    When the client performs GET request on {(header.Location)}
     Then status code is 200
-    And response equals to "pong"
+    And response contains property "id" with value other than "2000"
+    And response contains property "name" with value "Nexus 9"
+    And response does not contain property "updatedDate"
 ```
          
 [Some pretty slides can be found here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest)
