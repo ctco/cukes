@@ -22,7 +22,7 @@ public class LoadRunnerAction {
         StringBuilder result = new StringBuilder().append("Action() {\n" +
             "int HttpRetCode;\n" +
             "int transactionStatus;\n" +
-            "int actionStatus = LR_PASS;" +
+            "int actionStatus = LR_PASS;\n" +
             "lr_continue_on_error(1);\n");
         for (LoadRunnerTransaction transaction : transactions) {
             result.append(transaction.format());
