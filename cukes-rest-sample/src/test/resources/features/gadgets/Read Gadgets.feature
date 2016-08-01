@@ -29,10 +29,14 @@ Feature: It is able to retrieve Gadget records stored in the database
     And response contains property "createdDate" of type "long"
     And response does not contain property "updatedDate"
 
-  Scenario: Checks the validation message if requesting invalid Gadget ID
-    When the client performs GET request on /gadgets/123456
+  Scenario Outline: Checks the validation message if requesting invalid Gadget ID
+    When the client performs GET request on /gadgets/<ID>
     Then status code is 404
     And response equals to "Object not found in the database"
+    Examples:
+      | ID     |
+      | 123456 |
+      | 654321 |
 
   Scenario: Should get wrong expectation
     And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "SMART_WATCH"
