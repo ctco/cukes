@@ -5,14 +5,22 @@ import lv.ctco.cukesrest.gadgets.dto.*;
 
 import javax.inject.*;
 import java.util.*;
+import java.util.stream.*;
 
 public class DummyGadgetService {
 
     @Inject
     InMemoryStorage storage;
 
-    public Collection<GadgetDto> searchGadgets() {
-        return storage.getGadgets().values();
+    public Collection<GadgetDto> searchGadgets(Integer top, Integer skip) {
+        Stream<GadgetDto> stream = storage.getGadgets().values().stream();
+        if (skip != null) {
+            stream = stream.skip(skip);
+        }
+        if (top != null) {
+            stream = stream.limit(top);
+        }
+        return stream.collect(Collectors.<GadgetDto>toList());
     }
 
     public GadgetDto getGadget(Integer id) {

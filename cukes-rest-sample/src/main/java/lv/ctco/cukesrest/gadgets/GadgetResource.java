@@ -22,8 +22,8 @@ public class GadgetResource {
     RestUtils rest;
 
     @GET
-    public Response searchGadgets() {
-        Collection<GadgetDto> gadgets = service.searchGadgets();
+    public Response searchGadgets(@QueryParam("$top") Integer top, @QueryParam("$skip") Integer skip) {
+        Collection<GadgetDto> gadgets = service.searchGadgets(top, skip);
         return rest.ok(new GadgetData(gadgets));
     }
 

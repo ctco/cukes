@@ -54,14 +54,11 @@ public class RequestSpecificationFacade {
         }
 
         boolean urlEncodingEnabled = world.getBoolean(CukesOptions.URL_ENCODING_ENABLED);
-        if (urlEncodingEnabled) {
-            // TODO
-            specification.urlEncodingEnabled(true);
-        }
+        specification.urlEncodingEnabled(urlEncodingEnabled);
 
         boolean relaxedHttps = world.getBoolean(CukesOptions.RELAXED_HTTPS);
         if (relaxedHttps) {
-            // TODO
+            // TODO: Leak is present. Should have an ability to disable functionality
             specification.relaxedHTTPSValidation();
             TrustAllTrustManager.trustAllHttpsCertificates();
         }

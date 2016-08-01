@@ -41,3 +41,18 @@ Feature: It is able to retrieve Gadget records stored in the database
     And should wait at most 30 seconds with interval 1 seconds until property "type" equal to "NO_SUCH_TYPE" or fail with "SMART_WATCH"
     When the client performs GET request on /gadgets/1860
     And it fails with CucumberException
+
+  Scenario: Should fetch only one gadget with top param
+    Given queryParam "$top" is "1"
+    When the client performs GET request on /gadgets
+    Then status code is 200
+    And response contains an array "gadgets" of size "1"
+
+#  TODO: Remove first HTTP call once issue with scopes is fixed
+  Scenario: Should fetch only one gadget with top param url encoded
+    Given let variable "url_encoding_enabled" equal to "false"
+    When the client performs GET request on /gadgets
+    Then status code is 200
+    When the client performs GET request on /gadgets?%24top=1
+    Then status code is 200
+    And response contains an array "gadgets" of size "1"
