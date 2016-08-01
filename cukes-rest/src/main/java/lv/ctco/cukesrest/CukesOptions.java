@@ -4,6 +4,7 @@ package lv.ctco.cukesrest;
  * List of variables and options used in cukes-rest.
  */
 public interface CukesOptions {
+    int CUKES_BEFORE_HOOK_STARTUP_ORDER = 500;
     String PROPERTIES_PREFIX = "cukes.";
     String HEADER_PREFIX = "header.";
     String DELIMITER = ",";
