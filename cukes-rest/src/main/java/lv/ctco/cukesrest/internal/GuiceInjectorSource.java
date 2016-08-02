@@ -9,7 +9,7 @@ public class GuiceInjectorSource implements InjectorSource {
     private static Injector injector;
 
     @Override
-    public Injector getInjector() {
+    public synchronized Injector getInjector() {
         if (injector == null) {
             injector = Guice.createInjector(Stage.PRODUCTION, CucumberModules.SCENARIO, new GuiceModule());
         }

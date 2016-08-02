@@ -33,5 +33,6 @@ Feature: Server is healthy
 
     When the client performs GET request on /staticTypes
     Then status code is 200
+    # {(header.Custom-Header)} should be empty
     Then response contains property "prop[0].long" not matching pattern "{(header.Custom-Header)}"
 

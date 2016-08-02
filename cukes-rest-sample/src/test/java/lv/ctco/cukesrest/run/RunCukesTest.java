@@ -8,7 +8,7 @@ import org.junit.runner.*;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty", "json:target/cucumber.json"},
+    format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukesrest.formatter.CukesRestJsonFormatter:target/cucumber2.json"},
     features = "classpath:features",
     glue = "lv.ctco.cukesrest.api",
     strict = true
