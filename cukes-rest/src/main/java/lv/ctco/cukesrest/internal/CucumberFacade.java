@@ -39,7 +39,7 @@ public class CucumberFacade {
     }
 
     public void beforeScenario() {
-        world.reconstruct();
+        world.clearScenarioScope();
         for (CukesRestPlugin cukesRestPlugin : pluginSet) {
             cukesRestPlugin.beforeScenario();
         }

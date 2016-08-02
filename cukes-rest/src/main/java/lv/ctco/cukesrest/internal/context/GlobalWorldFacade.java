@@ -1,12 +1,9 @@
 package lv.ctco.cukesrest.internal.context;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 import java.beans.PropertyChangeListener;
-import java.util.Set;
 
 public class GlobalWorldFacade {
 
@@ -14,8 +11,8 @@ public class GlobalWorldFacade {
     GlobalWorld world;
 
     @CaptureContext
-    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
-        world.put(key, value);
+    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value, ContextScope scope) {
+        world.put(key, value, scope);
     }
 
     public Optional<String> get(String key) {
@@ -43,17 +40,12 @@ public class GlobalWorldFacade {
         world.reconstruct();
     }
 
-    public Set<String> getKeysStartingWith(final String headerPrefix) {
-        Set<String> keys = world.keys();
-        return Sets.filter(keys, new Predicate<String>() {
-            @Override
-            public boolean apply(String s) {
-                return s.startsWith(headerPrefix);
-            }
-        });
+    public void clearScenarioScope() {
+        world.clear(ContextScope.REQUEST);
+        world.clear(ContextScope.SCENARIO);
     }
 
-    public void remove(String key) {
-        world.remove(key);
+    public void clearRequestScope() {
+        world.clear(ContextScope.REQUEST);
     }
 }

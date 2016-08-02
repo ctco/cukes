@@ -30,7 +30,7 @@ public class ContextCapturer extends BaseContextHandler {
             if (matcher.group().isEmpty()) return;
             String groupValue = matcher.group(i);
             String key = groups.get(i - 1);
-            world.put(key, groupValue);
+            world.put(key, groupValue, ContextScope.SCENARIO);
         }
     }
 
