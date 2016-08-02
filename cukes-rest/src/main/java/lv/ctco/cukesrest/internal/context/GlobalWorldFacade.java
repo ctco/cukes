@@ -1,11 +1,12 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.common.base.*;
 import com.google.common.base.Optional;
-import com.google.common.collect.*;
-import com.google.inject.*;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
+import com.google.inject.Inject;
 
-import java.util.*;
+import java.beans.PropertyChangeListener;
+import java.util.Set;
 
 public class GlobalWorldFacade {
 
@@ -24,6 +25,10 @@ public class GlobalWorldFacade {
     public String get(String key, String defaultValue) {
         Optional<String> value = world.get(key);
         return value.isPresent() ? value.get() : defaultValue;
+    }
+
+    public void addPropertyChangeListener(String propertyKey, PropertyChangeListener listener) {
+        world.addPropertyChangeListener(propertyKey, listener);
     }
 
     public boolean getBoolean(String key) {

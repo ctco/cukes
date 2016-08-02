@@ -10,6 +10,8 @@ import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.helpers.*;
 import lv.ctco.cukesrest.internal.https.*;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.*;
 
@@ -20,7 +22,7 @@ import static org.hamcrest.Matchers.*;
 
 @Singleton
 @InflateContext
-public class RequestSpecificationFacade {
+public class RequestSpecificationFacade implements PropertyChangeListener {
 
     @Inject
     GlobalWorldFacade world;
@@ -34,10 +36,20 @@ public class RequestSpecificationFacade {
     @Inject
     public RequestSpecificationFacade(GlobalWorldFacade world) {
         this.world = world;
+        world.addPropertyChangeListener(CukesOptions.URL_ENCODING_ENABLED, this);
+        world.addPropertyChangeListener(CukesOptions.PROXY, this);
+        world.addPropertyChangeListener(CukesOptions.RELAXED_HTTPS, this);
+        world.addPropertyChangeListener(CukesOptions.USERNAME, this);
+        world.addPropertyChangeListener(CukesOptions.PASSWORD, this);
         initNewSpecification();
     }
 
-    private void onCreate() {
+    @Override
+    public void propertyChange(final PropertyChangeEvent evt) {
+        onPropertyChange();
+    }
+
+    private void onPropertyChange() {
         // TODO: Refactor
         Optional<String> $baseUri = world.get(CukesOptions.BASE_URI);
         if ($baseUri.isPresent()) {
@@ -50,7 +62,8 @@ public class RequestSpecificationFacade {
             try {
                 uri = new URI($proxy.get());
                 specification.proxy(uri);
-            } catch (URISyntaxException ignore) {}
+            } catch (URISyntaxException ignore) {
+            }
         }
 
         boolean urlEncodingEnabled = world.getBoolean(CukesOptions.URL_ENCODING_ENABLED);
@@ -152,7 +165,7 @@ public class RequestSpecificationFacade {
             specification = RestAssured.given()
                 .config(newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL)));
             awaitCondition = null;
-            onCreate();
+            onPropertyChange();
         } catch (Exception e) {
             throw new CukesRuntimeException(e);
         }

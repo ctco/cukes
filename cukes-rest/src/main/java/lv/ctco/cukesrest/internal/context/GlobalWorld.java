@@ -2,12 +2,13 @@ package lv.ctco.cukesrest.internal.context;
 
 import com.google.inject.*;
 import com.google.common.base.Optional;
+import groovy.util.ObservableMap;
 import lv.ctco.cukesrest.*;
 
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.util.concurrent.*;
 
 import static lv.ctco.cukesrest.CukesOptions.*;
 
@@ -17,8 +18,16 @@ class GlobalWorld {
 
     @Inject
     public void reconstruct() {
+        final Map<String, String> oldContext = context;
         /* User Specified Values */
-        context = new ConcurrentHashMap<String, String>();
+        context = new ObservableMap();
+        if (oldContext != null) {
+            PropertyChangeListener[] propertyChangeListeners = ((ObservableMap) oldContext).getPropertyChangeListeners();
+            for (PropertyChangeListener propertyChangeListener : propertyChangeListeners) {
+                ((ObservableMap) context).addPropertyChangeListener(propertyChangeListener);
+            }
+        }
+
         Properties prop = new Properties();
         URL url = createCukesPropertyFileUrl(GlobalWorld.class.getClassLoader());
         if (url != null) {
@@ -34,6 +43,11 @@ class GlobalWorld {
         /* World Default Values */
         defaultProperty(RESOURCES_ROOT, "src/test/resources/");
         defaultProperty(BASE_URI, "http://localhost:80");
+    }
+
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        ((ObservableMap) context).addPropertyChangeListener(propertyName, listener);
     }
 
     public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
@@ -65,7 +79,7 @@ class GlobalWorld {
     }
 
     public Set<String> keys() {
-        return context.keySet();
+        return new HashSet<String>(context.keySet());
     }
 
     public void remove(String key) {
