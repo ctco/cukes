@@ -1,11 +1,9 @@
 package lv.ctco.cukesrest.internal.context;
 
-import com.google.common.base.*;
 import com.google.common.base.Optional;
-import com.google.common.collect.*;
-import com.google.inject.*;
+import com.google.inject.Inject;
 
-import java.util.*;
+import java.beans.PropertyChangeListener;
 
 public class GlobalWorldFacade {
 
@@ -13,8 +11,8 @@ public class GlobalWorldFacade {
     GlobalWorld world;
 
     @CaptureContext
-    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
-        world.put(key, value);
+    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value, ContextScope scope) {
+        world.put(key, value, scope);
     }
 
     public Optional<String> get(String key) {
@@ -24,6 +22,10 @@ public class GlobalWorldFacade {
     public String get(String key, String defaultValue) {
         Optional<String> value = world.get(key);
         return value.isPresent() ? value.get() : defaultValue;
+    }
+
+    public void addPropertyChangeListener(String propertyKey, PropertyChangeListener listener) {
+        world.addPropertyChangeListener(propertyKey, listener);
     }
 
     public boolean getBoolean(String key) {
@@ -38,17 +40,12 @@ public class GlobalWorldFacade {
         world.reconstruct();
     }
 
-    public Set<String> getKeysStartingWith(final String headerPrefix) {
-        Set<String> keys = world.keys();
-        return Sets.filter(keys, new Predicate<String>() {
-            @Override
-            public boolean apply(String s) {
-                return s.startsWith(headerPrefix);
-            }
-        });
+    public void clearScenarioScope() {
+        world.clear(ContextScope.REQUEST);
+        world.clear(ContextScope.SCENARIO);
     }
 
-    public void remove(String key) {
-        world.remove(key);
+    public void clearRequestScope() {
+        world.clear(ContextScope.REQUEST);
     }
 }
