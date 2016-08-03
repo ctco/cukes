@@ -5,7 +5,6 @@ import lv.ctco.cukesrest.gadgets.dto.*;
 
 import javax.inject.*;
 import java.util.*;
-import java.util.stream.*;
 
 public class DummyGadgetService {
 
@@ -13,14 +12,15 @@ public class DummyGadgetService {
     InMemoryStorage storage;
 
     public Collection<GadgetDto> searchGadgets(Integer top, Integer skip) {
-        Stream<GadgetDto> stream = storage.getGadgets().values().stream();
+        Iterator<GadgetDto> iterator = storage.getGadgets().values().iterator();
         if (skip != null) {
-            stream = stream.skip(skip);
+            for (int i = 0; i < skip; i++) iterator.next();
         }
-        if (top != null) {
-            stream = stream.limit(top);
+        List<GadgetDto> result = new ArrayList<GadgetDto>();
+        for (int i = 0; (top == null || i < top) && iterator.hasNext(); i++) {
+            result.add(iterator.next());
         }
-        return stream.collect(Collectors.<GadgetDto>toList());
+        return result;
     }
 
     public GadgetDto getGadget(Integer id) {
