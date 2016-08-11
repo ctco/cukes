@@ -21,6 +21,8 @@ public class EqualToIgnoringTypeMatcher {
                 }
 
                 String toString = item.toString();
+                toString = toString.replaceAll("\n", System.getProperty("line.separator"));
+
                 if (toString.equals(value)) return true;
 
                 if (item instanceof Number) {
