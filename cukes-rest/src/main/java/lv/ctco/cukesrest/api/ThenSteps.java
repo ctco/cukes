@@ -64,6 +64,11 @@ public class ThenSteps {
         assertionFacade.bodyContainsPathWithValue(path, value);
     }
 
+    @Then("^response contains property \"(.+)\" with value$")
+    public void response_Body_Contains_Property_Multiline(String path, String value) {
+        assertionFacade.bodyContainsPathWithValue(path, value);
+    }
+
     @Then("^response contains property \"(.+)\" with value other than \"(.*)\"$")
     public void response_Body_Contains_Property_Other_Value(String path, String value) {
         assertionFacade.bodyContainsPathWithOtherValue(path, value);
