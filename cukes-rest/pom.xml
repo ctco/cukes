@@ -13,7 +13,7 @@
 
     <properties>
         <junit.version>4.12</junit.version>
-        <mockito.version>1.10.8</mockito.version>
+        <mockito.version>1.10.19</mockito.version>
 
         <gson.version>2.3.1</gson.version>
         <guice.version>4.0</guice.version>
@@ -71,7 +71,7 @@
         <!-- Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
         </dependency>
 
