@@ -118,6 +118,10 @@ public class RequestSpecificationFacade {
         specification.header(headerName, headerValue);
     }
 
+    public void multiPart(File file) {
+        specification.multiPart(file);
+    }
+
     // TODO
     public void multiPart(String controlName, File file, String mimeType) {
         specification.multiPart(controlName, file, mimeType);

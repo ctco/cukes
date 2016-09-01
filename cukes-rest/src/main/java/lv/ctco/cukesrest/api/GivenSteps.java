@@ -1,11 +1,15 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.*;
-import cucumber.api.java.en.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.resources.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import cucumber.api.java.en.Given;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
+import lv.ctco.cukesrest.internal.context.ContextScope;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+
+import java.io.File;
 
 @Singleton
 public class GivenSteps {
@@ -78,6 +82,9 @@ public class GivenSteps {
     public void request_Body_From_File(String path) {
         facade.body(reader.read(path));
     }
+
+    @Given("^request body is a multipart file (.+)$")
+    public void request_Body_Is_A_Multipart_File(String path) { facade.multiPart(new File(path)); }
 
     @Given("^session ID \"([^\"]+)\"$")
     public void session_ID(String sessionId) {
