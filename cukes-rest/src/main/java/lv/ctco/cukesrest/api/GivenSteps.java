@@ -2,6 +2,7 @@ package lv.ctco.cukesrest.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.jayway.restassured.http.ContentType;
 import cucumber.api.java.en.Given;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
@@ -53,6 +54,16 @@ public class GivenSteps {
         facade.accept(mediaTypes);
     }
 
+    @Given("^accept mediaType is JSON$")
+    public void acceptJson() {
+        facade.accept(ContentType.JSON.toString());
+    }
+
+    @Given("^content type is JSON$")
+    public void content_Type_Json() {
+        facade.contentType(ContentType.JSON.toString());
+    }
+
     @Given("^content type is \"(.+)\"$")
     public void content_Type(String contentType) {
         facade.contentType(contentType);
@@ -84,7 +95,9 @@ public class GivenSteps {
     }
 
     @Given("^request body is a multipart file (.+)$")
-    public void request_Body_Is_A_Multipart_File(String path) { facade.multiPart(new File(path)); }
+    public void request_Body_Is_A_Multipart_File(String path) {
+        facade.multiPart(new File(path));
+    }
 
     @Given("^session ID \"([^\"]+)\"$")
     public void session_ID(String sessionId) {
