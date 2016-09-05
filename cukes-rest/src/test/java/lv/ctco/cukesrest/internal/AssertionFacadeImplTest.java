@@ -2,6 +2,7 @@ package lv.ctco.cukesrest.internal;
 
 import com.google.common.base.*;
 import com.jayway.restassured.response.Response;
+import lv.ctco.cukesrest.internal.context.ContextScope;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
         when(mock.response()).thenReturn(response);
         ((AssertionFacadeImpl) facade).facade = mock;
 
-        world.put("id", "1");
+        world.put("id", "1", ContextScope.SCENARIO);
         facade.varAssignedFromHeader("{(id)}", headerName);
         Optional<String> value = world.get("id");
         assertThat(value, equalToOptional(headerName));

@@ -4,21 +4,22 @@ import com.google.inject.*;
 import com.google.common.base.Optional;
 import lv.ctco.cukesrest.*;
 
+import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import java.util.concurrent.*;
 
 import static lv.ctco.cukesrest.CukesOptions.*;
 
 @Singleton
 class GlobalWorld {
-    private Map<String, String> context;
+    private WorldContext context;
 
     @Inject
     public void reconstruct() {
         /* User Specified Values */
-        context = new ConcurrentHashMap<String, String>();
+        context = new WorldContext();
+
         Properties prop = new Properties();
         URL url = createCukesPropertyFileUrl(GlobalWorld.class.getClassLoader());
         if (url != null) {
@@ -36,8 +37,17 @@ class GlobalWorld {
         defaultProperty(BASE_URI, "http://localhost:80");
     }
 
-    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
-        context.put(key, value);
+
+    public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+        context.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value, ContextScope scope) {
+        context.put(key, value, scope);
+    }
+
+    public void clear(ContextScope scope) {
+        context.clear(scope);
     }
 
     public Optional<String> get(String key) {
@@ -51,7 +61,7 @@ class GlobalWorld {
             if (key.startsWith(PROPERTIES_PREFIX)) {
                 String value = key.split(PROPERTIES_PREFIX)[1];
                 if (property.getValue() instanceof String) {
-                    put(value, property.getValue().toString());
+                    put(value, property.getValue().toString(), ContextScope.GLOBAL);
                 }
             }
         }
@@ -60,16 +70,16 @@ class GlobalWorld {
     private void defaultProperty(String key, Object defaultValue) {
         String value = context.get(key);
         if (value == null) {
-            put(key, String.valueOf(defaultValue));
+            put(key, String.valueOf(defaultValue), ContextScope.GLOBAL);
         }
     }
 
     public Set<String> keys() {
-        return context.keySet();
+        return new HashSet<String>(context.keySet());
     }
 
     public void remove(String key) {
-        context.remove(key);
+        /*context.remove(key);*/
     }
 
     /**
