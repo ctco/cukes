@@ -26,7 +26,7 @@ public class GivenSteps {
 
     @Given("^let variable \"([^\"]+)\" equal to \"([^\"]+)\"$")
     public void var_assigned(String varName, String value) {
-        world.put(varName, value, ContextScope.SCENARIO);
+        world.put(varName, value);
     }
 
     @Given("^baseUri is (.+)$")

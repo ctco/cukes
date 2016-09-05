@@ -70,7 +70,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
 
     public void varAssignedFromHeader(@InflateContext.Ignore String varName, String headerName) {
         String value = facade.response().getHeader(headerName);
-        world.put(varName, value, ContextScope.SCENARIO);
+        world.put(varName, value);
     }
 
     public void headerEqualTo(String headerName, String value) {
@@ -140,7 +140,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
 
     public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
         String value = String.valueOf(facade.response().body().path(property));
-        world.put(varName, value, ContextScope.SCENARIO);
+        world.put(varName, value);
     }
 
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {

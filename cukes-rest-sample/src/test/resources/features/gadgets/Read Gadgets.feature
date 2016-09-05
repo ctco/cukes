@@ -52,8 +52,11 @@ Feature: It is able to retrieve Gadget records stored in the database
     Then status code is 200
     And response contains an array "gadgets" of size "1"
 
+#  TODO: Remove first HTTP call once issue with scopes is fixed
   Scenario: Should fetch only one gadget with top param url encoded
     Given let variable "url_encoding_enabled" equal to "false"
+    When the client performs GET request on /gadgets
+    Then status code is 200
     When the client performs GET request on /gadgets?%24top=1
     Then status code is 200
     And response contains an array "gadgets" of size "1"
