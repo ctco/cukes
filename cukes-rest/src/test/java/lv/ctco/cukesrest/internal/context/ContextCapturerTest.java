@@ -35,13 +35,13 @@ public class ContextCapturerTest {
     @Test
     public void shouldCaptureValuesFromSimplePattern() throws Exception {
         capturer.captureValuesFromPattern("(.*) world", Lists.newArrayList("hello"), "Hi world");
-        verify(world).put("hello", "Hi", ContextScope.SCENARIO);
+        verify(world).put("hello", "Hi");
     }
 
     @Test
     public void shouldCaptureValuesFromMinimalPattern() throws Exception {
         capturer.captureValuesFromPattern("(.*)", Lists.newArrayList("hello"), "world");
-        verify(world).put("hello", "world", ContextScope.SCENARIO);
+        verify(world).put("hello", "world");
     }
 
     @Test
