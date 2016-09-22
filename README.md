@@ -5,6 +5,14 @@ adds steps for storing and using request/response content from a file system, va
 inflation in all steps and a custom plug-in system to allow users to add additional project specific
 content. 
 
+## Resources
+- [Wiki](https://github.com/ctco/cukes-rest/wiki)
+- [Samples](https://github.com/ctco/cukes-rest/wiki/Test-Samples)
+- [Open Issues](https://github.com/ctco/cukes-rest/issues)
+- [Waffle](https://waffle.io/ctco/cukes-rest)
+
+##Sample Test
+
 ```gherkin
 Feature: Gadgets are great!
 
@@ -29,7 +37,7 @@ Feature: Gadgets are great!
 - JDK 1.6+
 
 ## Dependency
-The dependencies is stored in [Maven Central](http://search.maven.org/#search|ga|1|lv.ctco.cukesrest)
+The dependencies are stored in [Maven Central](http://search.maven.org/#search|ga|1|lv.ctco.cukesrest)
 
 ### cukes-rest: core dependency with all you need to get started with the framework (Maven)
 
