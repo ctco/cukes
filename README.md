@@ -16,6 +16,9 @@ content.
 ```gherkin
 Feature: Gadgets are great!
 
+  Background:
+    Given baseUri is http://my-server.com/rest/
+
   Scenario: Should create another Gadget object
     Given request body from file gadgets/requests/newGadget.json
     And content type is "application/json"
@@ -30,8 +33,18 @@ Feature: Gadgets are great!
     And response contains property "name" with value "Nexus 9"
     And response does not contain property "updatedDate"
 ```
+
+There are three sections available to be used in a Feature files:
+- Feature - a description of a feature under test
+- Background - set of steps to be executed before every scenario (usually these are preconditions)
+- Scenario - a single automated test case
+
+As well as three groups of steps available
+- Given - building up a HTTP request to be performed
+- When - executing the request
+- Then - assertions based on a response received
          
-[Some pretty slides can be found here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest)
+[More information can be found in the presentation right here!](https://speakerdeck.com/larchaon/getting-started-with-cukes-rest)
           
 ## Prerequisites
 - JDK 1.6+
