@@ -14,12 +14,12 @@ public class ThenSteps {
     @Inject
     private ResourceFileReader fileReader;
 
-    @Then("^let variable \"([^\"]+)\" equal to header \"([^\"]+)\" value$")
+    @Then("^let variable \"(.+)\" equal to header \"(.+)\" value$")
     public void var_assigned_from_header(String varName, String headerName) {
         assertionFacade.varAssignedFromHeader(varName, headerName);
     }
 
-    @Then("^let variable \"([^\"]+)\" equal to property \"([^\"]+)\" value$")
+    @Then("^let variable \"(.+)\" equal to property \"(.+)\" value$")
     public void var_assigned_fromProperty(String varName, String property) {
         assertionFacade.varAssignedFromProperty(varName, property);
     }
@@ -64,7 +64,7 @@ public class ThenSteps {
         assertionFacade.bodyContainsPathWithValue(path, value);
     }
 
-    @Then("^response contains property \"(.+)\" with value$")
+    @Then("^response contains property \"(.+)\" with value:$")
     public void response_Body_Contains_Property_Multiline(String path, String value) {
         assertionFacade.bodyContainsPathWithValue(path, value);
     }
@@ -79,9 +79,14 @@ public class ThenSteps {
         assertionFacade.bodyContainsPathOfType(path, type);
     }
 
-    @Then("^response contains an array \"(.+)\" of size \"(.+)\"$")
-    public void response_Body_Contains_Array_With_Size(String path, String size) {
-        assertionFacade.bodyContainsArrayWithSize(path, size);
+    @Then("^response contains an array \"(.+)\" of size (>=|>|<=|<) (\\d+)$")
+    public void response_Body_Contains_Array_With_Operator_Size(String path, String operator, Integer size) {
+        assertionFacade.bodyContainsArrayWithSize(path, operator + size);
+    }
+
+    @Then("^response contains an array \"(.+)\" of size (\\d+)$")
+    public void response_Body_Contains_Array_With_Size(String path, Integer size) {
+        assertionFacade.bodyContainsArrayWithSize(path, size.toString());
     }
 
     @Then("^response does not contain property \"(.+)\"")
@@ -99,12 +104,12 @@ public class ThenSteps {
         assertionFacade.bodyContainsPathNotMatchingPattern(path, pattern);
     }
 
-    @Then("^response contains properties from file (.+)$")
+    @Then("^response contains properties from file \"(.+)\"$")
     public void response_Body_Contains_Properties_From_File(String path) {
         assertionFacade.bodyContainsPropertiesFromJson(fileReader.read(path));
     }
 
-    @Then("^response contains properties from json")
+    @Then("^response contains properties from json:$")
     public void response_Body_Contains_Properties_From(String str) {
         assertionFacade.bodyContainsPropertiesFromJson(str);
     }
@@ -119,37 +124,37 @@ public class ThenSteps {
         assertionFacade.statusCodeIsNot(statusCode);
     }
 
-    @Then("^header (.+) is empty$")
+    @Then("^header \"(.+)\" is empty$")
     public void header_Is_Empty(String headerName) {
         assertionFacade.headerIsEmpty(headerName);
     }
 
-    @Then("^header (.+) is not empty$")
+    @Then("^header \"(.+)\" is not empty$")
     public void header_Is_Not_Empty(String headerName) {
         assertionFacade.headerIsNotEmpty(headerName);
     }
 
-    @Then("^header (.+) equal to \"(.+)\"$")
+    @Then("^header \"(.+)\" equal to \"(.+)\"$")
     public void header_Equal_To(String headerName, String value) {
         assertionFacade.headerEqualTo(headerName, value);
     }
 
-    @Then("^header (.+) not equal to \"(.+)\"$")
+    @Then("^header \"(.+)\" not equal to \"(.+)\"$")
     public void header_Not_Equal_To(String headerName, String value) {
         assertionFacade.headerNotEqualTo(headerName, value);
     }
 
-    @Then("^header (.+) contains \"(.+)\"$")
+    @Then("^header \"(.+)\" contains \"(.+)\"$")
     public void header_Contains(String headerName, String text) {
         assertionFacade.headerContains(headerName, text);
     }
 
-    @Then("^header (.+) does not contain \"(.+)\"$")
+    @Then("^header \"(.+)\" does not contain \"(.+)\"$")
     public void header_Does_Not_Contain(String headerName, String text) {
         assertionFacade.headerDoesNotContain(headerName, text);
     }
 
-    @Then("^header (.+) ends with pattern \"(.+)\"$")
+    @Then("^header \"(.+)\" ends with pattern \"(.+)\"$")
     public void header_Ends_With(String headerName, String suffix) {
         assertionFacade.headerEndsWith(headerName, suffix);
     }
@@ -159,7 +164,7 @@ public class ThenSteps {
         assertionFacade.failureIsExpected();
     }
 
-    @Then("^it fails with ([^\"]+)$")
+    @Then("^it fails with \"(.+)\"$")
     public void it_fails(String exceptionClass) {
         assertionFacade.failureOccurs(exceptionClass);
     }

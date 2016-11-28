@@ -10,7 +10,7 @@ public class WhenSteps {
     @Inject
     ResponseFacade facade;
 
-    @When("^the client performs (.+) request on (.+)$")
+    @When("^the client performs (.+) request on \"(.+)\"$")
     public void perform_Http_Request(String httpMethod, String url) throws Throwable {
         facade.doRequest(httpMethod, url);
     }
