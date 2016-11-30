@@ -23,22 +23,22 @@ public class GivenSteps {
     @Inject
     ResourceFileReader reader;
 
-    @Given("^let variable \"([^\"]+)\" equal to \"([^\"]+)\"$")
+    @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
     public void var_assigned(String varName, String value) {
         world.put(varName, value);
     }
 
-    @Given("^baseUri is (.+)$")
+    @Given("^baseUri is \"(.+)\"$")
     public void base_Uri_Is(String url) {
         facade.baseUri(url);
     }
 
-    @Given("^resources root is (.+)$")
+    @Given("^resources root is \"(.+)\"$")
     public void resources_Root_Is(String url) {
         var_assigned(CukesOptions.RESOURCES_ROOT, url);
     }
 
-    @Given("^proxy settings are (http|https)://([^:]+)(?::(\\d+))?$")
+    @Given("^proxy settings are \"(http|https)://([^:]+)(?::(\\d+))?\"$")
     public void proxy(String scheme, String host, Integer port) {
         facade.proxy(scheme, host, port);
     }
@@ -88,42 +88,42 @@ public class GivenSteps {
         facade.body(body);
     }
 
-    @Given("^request body from file (.+)$")
+    @Given("^request body from file \"(.+)\"$")
     public void request_Body_From_File(String path) {
         facade.body(reader.read(path));
     }
 
-    @Given("^request body is a multipart file (.+)$")
+    @Given("^request body is a multipart file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File(String path) {
         facade.multiPart(new File(path));
     }
 
-    @Given("^session ID \"([^\"]+)\"$")
+    @Given("^session ID \"(.+)\"$")
     public void session_ID(String sessionId) {
         facade.sessionId(sessionId);
     }
 
-    @Given("^session ID \"([^\"]+)\" with value \"([^\"]+)\"$")
+    @Given("^session ID \"(.+)\" with value \"(.+)\"$")
     public void session_ID_With_Value(String sessionId, String value) {
         facade.sessionId(sessionId, value);
     }
 
-    @Given("^cookie \"([^\"]+)\" with value \"([^\"]+)\"$")
+    @Given("^cookie \"(.+)\" with value \"(.+)\"$")
     public void cookie_With_Value(String cookie, String value) {
         facade.cookie(cookie, value);
     }
 
-    @Given("^header ([^\"]+) with value \"([^\"]+)\"$")
+    @Given("^header ([^\"]+) with value \"(.+)\"$")
     public void header_With_Value(String name, String value) {
         facade.header(name, value);
     }
 
-    @Given("^username \"([^\"]+)\" and password \"([^\"]+)\"$")
+    @Given("^username \"(.+)\" and password \"(.+)\"$")
     public void authentication(String username, String password) {
         facade.authentication(username, password);
     }
 
-    @Given("^authentication type is \"([^\"]+)\"$")
+    @Given("^authentication type is \"(.+)\"$")
     public void authentication(String authenticationType) {
         facade.authenticationType(authenticationType);
     }
