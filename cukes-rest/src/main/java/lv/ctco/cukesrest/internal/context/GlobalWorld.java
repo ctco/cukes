@@ -3,6 +3,7 @@ package lv.ctco.cukesrest.internal.context;
 import com.google.inject.*;
 import com.google.common.base.Optional;
 import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.di.CukesGuiceModule;
 
 import java.io.*;
 import java.net.*;
@@ -73,7 +74,7 @@ class GlobalWorld {
     }
 
     /**
-     * @see lv.ctco.cukesrest.internal.GuiceModule#createCukesPropertyFileUrl(ClassLoader)
+     * @see CukesGuiceModule#createCukesPropertyFileUrl(ClassLoader)
      */
     private URL createCukesPropertyFileUrl(final ClassLoader classLoader) {
         String cukesProfile = System.getProperty("cukes.profile");

@@ -1,9 +1,11 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.internal.di;
 
 import com.google.inject.*;
 import com.google.inject.matcher.*;
 import com.google.inject.multibindings.*;
 import lv.ctco.cukesrest.*;
+import lv.ctco.cukesrest.internal.AssertionFacade;
+import lv.ctco.cukesrest.internal.AssertionFacadeImpl;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.aopalliance.intercept.*;
@@ -14,7 +16,7 @@ import java.util.*;
 
 import static lv.ctco.cukesrest.internal.AssertionFacade.*;
 
-public class GuiceModule extends AbstractModule {
+public class CukesGuiceModule extends AbstractModule {
     @Override
     protected void configure() {
         bindInterceptor(new InflateContextInterceptor(), InflateContext.class);
@@ -53,7 +55,7 @@ public class GuiceModule extends AbstractModule {
     private void bindPlugins() {
         try {
             Multibinder<CukesRestPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesRestPlugin.class);
-            ClassLoader classLoader = GuiceModule.class.getClassLoader();
+            ClassLoader classLoader = CukesGuiceModule.class.getClassLoader();
             Properties prop = new Properties();
             URL url = createCukesPropertyFileUrl(classLoader);
             if (url == null) return;

@@ -1,10 +1,10 @@
 package lv.ctco.cukesrest.run;
 
-import cucumber.api.*;
-import cucumber.api.junit.*;
-import lv.ctco.cukesrest.*;
-import org.junit.*;
-import org.junit.runner.*;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import lv.ctco.cukesrest.SampleApplication;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(

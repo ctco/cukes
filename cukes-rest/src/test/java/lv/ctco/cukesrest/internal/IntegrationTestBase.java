@@ -1,12 +1,13 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
+import cucumber.api.java.ObjectFactory;
+import lv.ctco.cukesrest.di.SingletonObjectFactory;
 
 public class IntegrationTestBase {
 
-    private Injector injector = new GuiceInjectorSource().getInjector();
+    private ObjectFactory objectFactory = SingletonObjectFactory.instance();
 
-    public Injector getInjector() {
-        return injector;
+    public ObjectFactory getObjectFactory() {
+        return objectFactory;
     }
 }
