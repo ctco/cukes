@@ -29,6 +29,8 @@ public class SingletonObjectFactory implements ObjectFactory {
      * Internal use only.
      * <br><br>
      * Use {@link SingletonObjectFactory#instance()} instead.
+     *
+     * @deprecated
      */
     public SingletonObjectFactory() { // required
     }
