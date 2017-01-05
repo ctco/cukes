@@ -5,6 +5,7 @@ import cucumber.runtime.Runtime;
 import cucumber.runtime.io.*;
 import cucumber.runtime.junit.*;
 import cucumber.runtime.model.*;
+import lv.ctco.cukesrest.di.SingletonObjectFactory;
 import lv.ctco.cukesrest.internal.*;
 import lv.ctco.cukesrest.loadrunner.*;
 import org.junit.runner.*;
@@ -38,7 +39,7 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
         System.setProperty(cukesProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS), "true");
         System.setProperty(AssertionFacade.ASSERTION_FACADE, AssertionFacadeLoadRunnerImpl.class.getCanonicalName());
 
-        filter = new GuiceInjectorSource().getInjector().getInstance(LoadRunnerFilter.class);
+        filter = SingletonObjectFactory.instance().getInstance(LoadRunnerFilter.class);
 
         ClassLoader classLoader = clazz.getClassLoader();
         Assertions.assertNoCucumberAnnotatedMethods(clazz);

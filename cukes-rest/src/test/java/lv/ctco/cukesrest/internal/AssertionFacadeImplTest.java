@@ -12,9 +12,9 @@ import static lv.ctco.cukesrest.CustomMatchers.*;
 
 public class AssertionFacadeImplTest extends IntegrationTestBase {
 
-    AssertionFacade facade = getInjector().getInstance(AssertionFacadeImpl.class);
+    AssertionFacade facade = getObjectFactory().getInstance(AssertionFacadeImpl.class);
 
-    GlobalWorldFacade world = getInjector().getInstance(GlobalWorldFacade.class);
+    GlobalWorldFacade world = getObjectFactory().getInstance(GlobalWorldFacade.class);
 
     @Test
     public void shouldNotInflateVarName() throws Exception {

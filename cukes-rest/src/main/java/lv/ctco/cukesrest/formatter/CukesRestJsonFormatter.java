@@ -3,7 +3,7 @@ package lv.ctco.cukesrest.formatter;
 import cucumber.runtime.formatter.*;
 import gherkin.formatter.*;
 import gherkin.formatter.model.*;
-import lv.ctco.cukesrest.internal.*;
+import lv.ctco.cukesrest.di.SingletonObjectFactory;
 import lv.ctco.cukesrest.internal.context.*;
 
 import java.lang.reflect.*;
@@ -16,7 +16,7 @@ public class CukesRestJsonFormatter extends CucumberJSONFormatter {
 
     public CukesRestJsonFormatter(Appendable out) throws Exception {
         super(out);
-        contextInflater = new GuiceInjectorSource().getInjector().getInstance(ContextInflater.class);
+        contextInflater = SingletonObjectFactory.instance().getInstance(ContextInflater.class);
         getSteps = JSONFormatter.class.getDeclaredMethod("getSteps");
         getSteps.setAccessible(true);
     }

@@ -1,15 +1,15 @@
 package lv.ctco.cukesrest.run;
 
-import cucumber.api.*;
-import cucumber.api.junit.*;
-import lv.ctco.cukesrest.*;
-import org.junit.*;
-import org.junit.runner.*;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import lv.ctco.cukesrest.SampleApplication;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
     format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukesrest.formatter.CukesRestJsonFormatter:target/cucumber2.json"},
-    features = "classpath:features",
+    features = {"classpath:features/gadgets/", "classpath:features/healthcheck/"},
     glue = "lv.ctco.cukesrest.api",
     strict = true
 )
