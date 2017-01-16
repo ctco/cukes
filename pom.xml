@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukesrest</groupId>
     <artifactId>cukes-rest-all</artifactId>
-    <version>0.2.18-SNAPSHOT</version>
+    <version>0.2.18</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -43,7 +42,7 @@
         <connection>scm:git:git@github.com:ctco/cukes-rest.git</connection>
         <developerConnection>scm:git:git@github.com:ctco/cukes-rest.git</developerConnection>
         <url>git@github.com:ctco/cukes-rest.git</url>
-        <tag>HEAD</tag>
+        <tag>cukes-rest-all-0.2.18</tag>
     </scm>
 
     <profiles>
