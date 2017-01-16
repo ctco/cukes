@@ -143,6 +143,11 @@ public class AssertionFacadeImpl implements AssertionFacade {
         world.put(varName, value);
     }
 
+    public void varAssignedFromBody(@InflateContext.Ignore String varName) {
+        String value = facade.response().body().asString();
+        world.put(varName, value);
+    }
+
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
         ResponseBody responseBody = facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, containsString(phrase)));

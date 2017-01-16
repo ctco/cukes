@@ -144,6 +144,11 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
     }
 
     @Override
+    public void varAssignedFromBody(String varName) {
+
+    }
+
+    @Override
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
     }
 

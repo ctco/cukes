@@ -24,6 +24,11 @@ public class ThenSteps {
         assertionFacade.varAssignedFromProperty(varName, property);
     }
 
+    @Then("^let variable \"(.+)\" equal to response body")
+    public void var_assigned_fromBody(String varName) {
+        assertionFacade.varAssignedFromBody(varName);
+    }
+
     @Then("^response is empty$")
     public void response_Body_Is_Empty() {
         assertionFacade.bodyEqualTo("");
