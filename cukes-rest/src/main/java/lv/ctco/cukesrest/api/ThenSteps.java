@@ -84,7 +84,7 @@ public class ThenSteps {
         assertionFacade.bodyContainsPathOfType(path, type);
     }
 
-    @Then("^response contains an array \"(.+)\" of size (>=|>|<=|<) (\\d+)$")
+    @Then("^response contains an array \"(.+)\" of size (>=|>|<=|<|<>) (\\d+)$")
     public void response_Body_Contains_Array_With_Operator_Size(String path, String operator, Integer size) {
         assertionFacade.bodyContainsArrayWithSize(path, operator + size);
     }

@@ -38,6 +38,8 @@ public class ArrayWithSizeMatcher {
                     matcher = lessThanOrEqualTo(valueOf(size.substring(2)));
                 } else if (size.startsWith("<")) {
                     matcher = lessThan(valueOf(size.substring(1)));
+                } else if (size.startsWith("<>")) {
+                    matcher = not(valueOf(size));
                 } else {
                     matcher = is(valueOf(size));
                 }
