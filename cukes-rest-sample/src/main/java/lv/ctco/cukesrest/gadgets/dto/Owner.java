@@ -1,21 +1,25 @@
 package lv.ctco.cukesrest.gadgets.dto;
 
+import java.util.List;
+
 public class Owner {
     private String name;
     private String surname;
     private Integer age;
+    private List<String> roles;
 
     public Owner() {
     }
 
-    public Owner(String name, String surname, Integer age) {
+    public Owner(String name, String surname, Integer age, List<String> roles) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.roles = roles;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -23,7 +27,7 @@ public class Owner {
     }
 
     public String getSurname() {
-        return surname;
+        return this.surname;
     }
 
     public void setSurname(String surname) {
@@ -31,10 +35,18 @@ public class Owner {
     }
 
     public Integer getAge() {
-        return age;
+        return this.age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public List<String> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

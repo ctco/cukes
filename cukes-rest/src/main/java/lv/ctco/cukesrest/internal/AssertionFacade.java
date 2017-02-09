@@ -43,6 +43,8 @@ public interface AssertionFacade {
 
     void bodyContainsArrayWithSize(String path, String size);
 
+    void bodyContainsArrayWithValue(String path, String value);
+
     void bodyContainsPathOfType(String path, String type);
 
     void bodyContainsPathMatchingPattern(String path, String pattern);

@@ -1,18 +1,34 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.json.*;
-import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.*;
-import org.hamcrest.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
-import java.util.*;
+import java.util.Map;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import org.hamcrest.Matchers;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.response.ResponseBody;
+
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.json.JsonParser;
+import lv.ctco.cukesrest.internal.matchers.ArrayWithSizeMatcher;
+import lv.ctco.cukesrest.internal.matchers.ContainsPattern;
+import lv.ctco.cukesrest.internal.matchers.EndsWithRegexp;
+import lv.ctco.cukesrest.internal.matchers.EqualToIgnoringTypeMatcher;
+import lv.ctco.cukesrest.internal.matchers.JsonMatchers;
+import lv.ctco.cukesrest.internal.matchers.MiscMatchers;
+import lv.ctco.cukesrest.internal.matchers.OfTypeMatcher;
+import lv.ctco.cukesrest.internal.switches.SwitchedBy;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -28,138 +44,166 @@ public class AssertionFacadeImpl implements AssertionFacade {
     @Inject
     ResponseFacade facade;
 
+    @Override
     public void bodyEqualTo(String body) {
-        facade.response().then().body(equalTo(body));
+        this.facade.response().then().body(equalTo(body));
     }
 
+    @Override
     public void bodyNotEqualTo(String body) {
-        facade.response().then().body(not(equalTo(body)));
+        this.facade.response().then().body(not(equalTo(body)));
     }
 
+    @Override
     public void bodyNotEmpty() {
-        facade.response().then().body(not(isEmptyOrNullString()));
+        this.facade.response().then().body(not(isEmptyOrNullString()));
     }
 
+    @Override
     public void bodyContains(String body) {
-        facade.response().then().body(containsString(body));
+        this.facade.response().then().body(containsString(body));
     }
 
+    @Override
     public void bodyDoesNotContain(String body) {
-        facade.response().then().body(not(containsString(body)));
+        this.facade.response().then().body(not(containsString(body)));
     }
 
+    @Override
     public void headerIsEmpty(String headerName) {
-        facade.response().then().header(headerName, isEmptyString());
+        this.facade.response().then().header(headerName, isEmptyString());
     }
 
+    @Override
     public void headerIsNotEmpty(String headerName) {
-        facade.response().then().header(headerName, not(isEmptyString()));
+        this.facade.response().then().header(headerName, not(isEmptyString()));
     }
 
+    @Override
     public void statusCodeIs(int statusCode) {
-        facade.response().then().statusCode(statusCode);
+        this.facade.response().then().statusCode(statusCode);
     }
 
+    @Override
     public void statusCodeIsNot(int statusCode) {
-        facade.response().then().statusCode(not(statusCode));
+        this.facade.response().then().statusCode(not(statusCode));
     }
 
+    @Override
     public void headerEndsWith(String headerName, String suffix) {
-        facade.response().then().header(headerName, EndsWithRegexp.endsWithRegexp(suffix));
+        this.facade.response().then().header(headerName, EndsWithRegexp.endsWithRegexp(suffix));
     }
 
+    @Override
     public void varAssignedFromHeader(@InflateContext.Ignore String varName, String headerName) {
-        String value = facade.response().getHeader(headerName);
-        world.put(varName, value);
+        String value = this.facade.response().getHeader(headerName);
+        this.world.put(varName, value);
     }
 
+    @Override
     public void headerEqualTo(String headerName, String value) {
-        facade.response().then().header(headerName, equalTo(value));
+        this.facade.response().then().header(headerName, equalTo(value));
     }
 
+    @Override
     public void headerNotEqualTo(String headerName, String value) {
-        facade.response().then().header(headerName, not(equalTo(value)));
+        this.facade.response().then().header(headerName, not(equalTo(value)));
     }
 
+    @Override
     public void headerContains(String headerName, String text) {
-        facade.response().then().header(headerName, containsString(text));
+        this.facade.response().then().header(headerName, containsString(text));
     }
 
+    @Override
     public void headerDoesNotContain(String headerName, String text) {
-        facade.response().then().header(headerName, not(containsString(text)));
+        this.facade.response().then().header(headerName, not(containsString(text)));
     }
 
+    @Override
     public void bodyContainsPropertiesFromJson(String json) {
         // TODO: make multiple failures visible. Rework to allOf() matcher
         // TODO: Implement XML ?
-        Map<String, String> stringStringMap = jsonParser.parsePathToValueMap(json);
+        Map<String, String> stringStringMap = this.jsonParser.parsePathToValueMap(json);
         for (Map.Entry<String, String> entry : stringStringMap.entrySet()) {
             bodyContainsPathWithValue(entry.getKey(), entry.getValue());
         }
     }
 
+    @Override
     public void bodyContainsPathWithValue(String path, String value) {
-        ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher
-            .equalToIgnoringType(value)));
+        ResponseBody responseBody = this.facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value)));
     }
 
+    @Override
     public void bodyContainsPathWithOtherValue(String path, String value) {
-        ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher
-            .notEqualToIgnoringType(value)));
+        ResponseBody responseBody = this.facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.notEqualToIgnoringType(value)));
     }
 
+    @Override
     public void bodyDoesNotContainPath(String path) {
-        Object value = facade.response().body().path(path);
+        Object value = this.facade.response().body().path(path);
         assertThat(value, nullValue());
     }
 
+    @Override
     public void bodyContainsArrayWithSize(String path, String size) {
-        ResponseBody responseBody = facade.response().body();
+        ResponseBody responseBody = this.facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, ArrayWithSizeMatcher.arrayWithSize(size)));
     }
 
+    @Override
     public void bodyContainsPathOfType(String path, String type) {
-        ResponseBody responseBody = facade.response().body();
+        ResponseBody responseBody = this.facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, OfTypeMatcher.ofType(type)));
     }
 
+    @Override
     public void bodyContainsPathMatchingPattern(String path, String pattern) {
-        ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern
-            .containsPattern(pattern))));
+        ResponseBody responseBody = this.facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
     }
 
+    @Override
     public void bodyContainsPathNotMatchingPattern(String path, String pattern) {
-        ResponseBody responseBody = facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not
-            (ContainsPattern.containsPattern(pattern)))));
+        ResponseBody responseBody = this.facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
     }
 
-
+    @Override
     public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
-        String value = String.valueOf(facade.response().body().path(property));
-        world.put(varName, value);
+        String value = String.valueOf(this.facade.response().body().path(property));
+        this.world.put(varName, value);
     }
 
+    @Override
     public void varAssignedFromBody(@InflateContext.Ignore String varName) {
-        String value = facade.response().body().asString();
-        world.put(varName, value);
+        String value = this.facade.response().body().asString();
+        this.world.put(varName, value);
     }
 
+    @Override
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
-        ResponseBody responseBody = facade.response().body();
+        ResponseBody responseBody = this.facade.response().body();
         assertThat(responseBody, JsonMatchers.containsValueByPath(path, containsString(phrase)));
     }
 
     @Override
     public void failureOccurs(String exceptionClass) {
-        assertThat(facade.getException().getClass().getSimpleName(), is(exceptionClass));
+        assertThat(this.facade.getException().getClass().getSimpleName(), is(exceptionClass));
     }
 
     @Override
     public void failureIsExpected() {
-        facade.setExpectException(true);
+        this.facade.setExpectException(true);
+    }
+
+    @Override
+    public void bodyContainsArrayWithValue(String path, String value) {
+        ResponseBody responseBody = this.facade.response().body();
+        assertThat(responseBody, JsonMatchers.containsValueByPathInArray(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value)));
+
     }
 }
