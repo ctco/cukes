@@ -4,6 +4,7 @@ Feature: It is able to create Gadget records and add to the the database
 #   Please note that in json request body attribute
 #   id, createdDate, updatedDate values should be ignored and overwritten by the backend.
     Given request body from file "gadgets/requests/newGadget.json"
+    Given value assertions are case-insensitive
     And content type is "application/json"
 
     When the client performs POST request on "/gadgets"

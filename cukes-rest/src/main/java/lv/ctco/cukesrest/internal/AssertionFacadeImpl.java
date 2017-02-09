@@ -133,7 +133,8 @@ public class AssertionFacadeImpl implements AssertionFacade {
     @Override
     public void bodyContainsPathWithValue(String path, String value) {
         ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value)));
+        assertThat(responseBody,
+                JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
@@ -203,7 +204,8 @@ public class AssertionFacadeImpl implements AssertionFacade {
     @Override
     public void bodyContainsArrayWithValue(String path, String value) {
         ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPathInArray(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value)));
+        assertThat(responseBody, JsonMatchers.containsValueByPathInArray(path,
+                EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
 
     }
 }
