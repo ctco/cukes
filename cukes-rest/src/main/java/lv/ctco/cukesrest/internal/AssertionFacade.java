@@ -43,7 +43,7 @@ public interface AssertionFacade {
 
     void bodyContainsArrayWithSize(String path, String size);
 
-    void bodyContainsArrayWithValue(String path, String value);
+    void bodyContainsArrayWithEntryHavingValue(String path, String value);
 
     void bodyContainsPathOfType(String path, String type);
 

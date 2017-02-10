@@ -98,7 +98,7 @@ public class ThenSteps {
 
     @Then("^response contains an array \"(.+)\" with value \"(.*)\"$")
     public void response_Body_Contains_Array_With_Property(String path, String value) {
-        this.assertionFacade.bodyContainsArrayWithValue(path, value);
+        this.assertionFacade.bodyContainsArrayWithEntryHavingValue(path, value);
     }
 
     @Then("^response does not contain property \"(.+)\"")

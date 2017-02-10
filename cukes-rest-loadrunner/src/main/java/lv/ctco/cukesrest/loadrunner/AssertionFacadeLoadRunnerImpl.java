@@ -159,6 +159,6 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
     }
 
     @Override
-    public void bodyContainsArrayWithValue(String path, String value) {
+    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
     }
 }
