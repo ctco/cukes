@@ -1,9 +1,11 @@
 package lv.ctco.cukesrest.loadrunner;
 
-import com.google.inject.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.loadrunner.function.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import lv.ctco.cukesrest.internal.AssertionFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.loadrunner.function.LoadRunnerFunction;
 
 @Singleton
 @InflateContext
@@ -49,16 +51,12 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
 
     @Override
     public void statusCodeIs(final int statusCode) {
-        loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
+        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
             @Override
             public String format() {
-                return "HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" +
-                    "if (HttpRetCode == " + statusCode + "){\n" +
-                    "lr_log_message(\"Request response code is as expected\");\n" +
-                    "} else { \n" +
-                    " transactionStatus = LR_FAIL;\n" +
-                    " actionStatus = LR_FAIL;\n" +
-                    "}\n\n";
+                return "HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" + "if (HttpRetCode == " + statusCode + "){\n"
+                        + "lr_log_message(\"Request response code is as expected\");\n" + "} else { \n" + " transactionStatus = LR_FAIL;\n"
+                        + " actionStatus = LR_FAIL;\n" + "}\n\n";
             }
         });
     }
@@ -158,5 +156,9 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
 
     @Override
     public void failureIsExpected() {
+    }
+
+    @Override
+    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
     }
 }

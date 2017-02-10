@@ -5,6 +5,7 @@
   "owner": {
     "name": "Ned",
     "surname": "Flanders",
+    "roles":["maLL-owner","EvanGEliST"],
     "age": 43
   },
   "createdDate": 1455114963103,

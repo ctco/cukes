@@ -4,6 +4,7 @@ Feature: It is able to create Gadget records and add to the the database
 #   Please note that in json request body attribute
 #   id, createdDate, updatedDate values should be ignored and overwritten by the backend.
     Given request body from file "gadgets/requests/newGadget.json"
+    Given value assertions are case-insensitive
     And content type is "application/json"
 
     When the client performs POST request on "/gadgets"
@@ -22,6 +23,9 @@ Feature: It is able to create Gadget records and add to the the database
     And response contains property "owner.age" with value "43"
     And response contains property "createdDate" of type "long"
     And response contains property "createdDate" with value other than "1455114963103"
+    And response contains an array "owner.roles" with value "evangelist"
+    And response contains an array "owner.roles" with value "mall-owner"
+    And response contains an array "owner.roles" of size > 1
     And response does not contain property "updatedDate"
 
   Scenario: Server doesn't accept content-types other than JSON

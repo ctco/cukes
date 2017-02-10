@@ -1,11 +1,21 @@
 package lv.ctco.cukesrest.common;
 
-import com.google.inject.*;
-import lv.ctco.cukesrest.gadgets.dto.*;
+import static lv.ctco.cukesrest.gadgets.dto.GadgetType.LAPTOP;
+import static lv.ctco.cukesrest.gadgets.dto.GadgetType.SMARTPHONE;
+import static lv.ctco.cukesrest.gadgets.dto.GadgetType.SMART_WATCH;
+import static lv.ctco.cukesrest.gadgets.dto.GadgetType.TABLET;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import static lv.ctco.cukesrest.gadgets.dto.GadgetType.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import lv.ctco.cukesrest.gadgets.dto.GadgetDto;
+import lv.ctco.cukesrest.gadgets.dto.GadgetType;
+import lv.ctco.cukesrest.gadgets.dto.Owner;
 
 @Singleton
 public class InMemoryStorage {
@@ -22,7 +32,7 @@ public class InMemoryStorage {
     }
 
     public Map<Integer, GadgetDto> getGadgets() {
-        return gadgets;
+        return this.gadgets;
     }
 
     private void initGadget(Integer id, GadgetType type, String gadgetName, String name, Integer age) {
@@ -31,9 +41,9 @@ public class InMemoryStorage {
         gadget.setId(id);
         gadget.setType(type);
         gadget.setName(gadgetName);
-        gadget.setOwner(new Owner(name, "Simpson", age));
+        gadget.setOwner(new Owner(name, "Simpson", age, Arrays.asList("Mr.Burns' slave")));
         gadget.setCreatedDate(new Date());
 
-        gadgets.put(id, gadget);
+        this.gadgets.put(id, gadget);
     }
 }

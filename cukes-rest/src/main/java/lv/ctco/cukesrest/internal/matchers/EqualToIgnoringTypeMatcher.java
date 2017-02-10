@@ -1,12 +1,18 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import org.hamcrest.*;
+import java.math.BigDecimal;
 
-import java.math.*;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
 public class EqualToIgnoringTypeMatcher {
 
     public static Matcher<String> equalToIgnoringType(final String value) {
+        return equalToIgnoringType(value, false);
+    }
+
+    public static Matcher<String> equalToIgnoringType(final String value, final boolean caseInsensitive) {
         return new BaseMatcher<String>() {
 
             @Override
@@ -23,11 +29,12 @@ public class EqualToIgnoringTypeMatcher {
                 String toString = item.toString();
                 toString = toString.replaceAll("\n", System.getProperty("line.separator"));
 
-                if (toString.equals(value)) return true;
+                if (toString.equals(value) || caseInsensitive && toString.equalsIgnoreCase(value)) {
+                    return true;
+                }
 
                 if (item instanceof Number) {
-                    BigDecimal observedValue = item instanceof BigDecimal ?
-                            (BigDecimal) item : new BigDecimal(toString);
+                    BigDecimal observedValue = item instanceof BigDecimal ? (BigDecimal) item : new BigDecimal(toString);
                     return new BigDecimal(value).compareTo(observedValue) == 0;
                 }
 
@@ -47,7 +54,9 @@ public class EqualToIgnoringTypeMatcher {
             @Override
             public boolean matches(Object item) {
                 String toString = item.toString();
-                if (!toString.equals(value)) return true;
+                if (!toString.equals(value)) {
+                    return true;
+                }
 
                 if (item instanceof Number) {
                     BigDecimal observedValue = item instanceof BigDecimal ? (BigDecimal) item : new BigDecimal(toString);
