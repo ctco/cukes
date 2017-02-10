@@ -13,8 +13,10 @@ import java.util.Map;
 
 import org.hamcrest.Matchers;
 
+import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ResponseBody;
 
 import lv.ctco.cukesrest.CukesOptions;
@@ -80,8 +82,38 @@ public class AssertionFacadeImpl implements AssertionFacade {
     }
 
     @Override
-    public void statusCodeIs(int statusCode) {
-        this.facade.response().then().statusCode(statusCode);
+    public void statusCodeIs(final int statusCode) {
+
+        final Response response = this.facade.response();
+        final String body = response.getBody().print();
+
+        /*
+         * This is a temporary hack due to:
+         * https://github.com/rest-assured/rest-assured/issues/781
+         */
+        try {
+            response.then().statusCode(statusCode);
+        } catch (AssertionError error) {
+            if (this.world.getBoolean(CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY, false)) {
+                final Optional<String> maxSizeOptional = this.world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE);
+                final int size = body.length();
+
+                String message = error.getMessage();
+                message = message.replaceAll("\n$", "");
+
+                if (response.getContentType().equals("application/octet-stream")) {
+                    message += "\n\nBody:\n<binary>";
+                } else if (maxSizeOptional.isPresent() && size > Integer.parseInt(maxSizeOptional.get())) {
+                    message += "\n\nBody:\n<exceeds max size>";
+                } else {
+                    message += "\n\nBody:\n" + body;
+                }
+
+                throw new AssertionError(message);
+            }
+
+            throw error;
+        }
     }
 
     @Override
