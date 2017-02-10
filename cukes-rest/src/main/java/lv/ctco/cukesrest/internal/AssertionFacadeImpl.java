@@ -1,18 +1,22 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.inject.*;
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.json.*;
+import com.google.common.base.Optional;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.response.Response;
+import com.jayway.restassured.response.ResponseBody;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.json.JsonParser;
 import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.*;
-import org.hamcrest.*;
+import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import org.hamcrest.Matchers;
 
-import java.util.*;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -56,8 +60,38 @@ public class AssertionFacadeImpl implements AssertionFacade {
         facade.response().then().header(headerName, not(isEmptyString()));
     }
 
-    public void statusCodeIs(int statusCode) {
-        facade.response().then().statusCode(statusCode);
+    public void statusCodeIs(final int statusCode) {
+
+        final Response response = facade.response();
+        final String body = response.getBody().print();
+
+        /*
+         * This is a temporary hack due to:
+         * https://github.com/rest-assured/rest-assured/issues/781
+         */
+        try {
+            response.then().statusCode(statusCode);
+        } catch (AssertionError error) {
+            if (world.getBoolean(CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY, false)) {
+                final Optional<String> maxSizeOptional = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE);
+                final int size = body.length();
+
+                String message = error.getMessage();
+                message = message.replaceAll("\n$", "");
+
+                if (response.getContentType().equals("application/octet-stream")) {
+                    message += "\n\nBody:\n<binary>";
+                } else if (maxSizeOptional.isPresent() && size > Integer.parseInt(maxSizeOptional.get())) {
+                    message += "\n\nBody:\n<exceeds max size>";
+                } else {
+                    message += "\n\nBody:\n" + body;
+                }
+
+                throw new AssertionError(message);
+            }
+
+            throw error;
+        }
     }
 
     public void statusCodeIsNot(int statusCode) {
