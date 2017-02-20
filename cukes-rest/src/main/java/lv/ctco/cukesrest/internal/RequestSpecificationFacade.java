@@ -13,6 +13,8 @@ import lv.ctco.cukesrest.internal.https.*;
 import java.io.*;
 import java.net.*;
 
+import static com.jayway.restassured.config.DecoderConfig.ContentDecoder.DEFLATE;
+import static com.jayway.restassured.config.DecoderConfig.decoderConfig;
 import static com.jayway.restassured.config.JsonConfig.*;
 import static com.jayway.restassured.config.RestAssuredConfig.*;
 import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.*;
@@ -23,10 +25,10 @@ import static org.hamcrest.Matchers.*;
 public class RequestSpecificationFacade {
 
     @Inject
-    GlobalWorldFacade world;
+    private GlobalWorldFacade world;
 
     /* Mutable Builder */
-    RequestSpecification specification;
+    private RequestSpecification specification;
 
     // TODO: Refactor
     private AwaitCondition awaitCondition;
@@ -61,6 +63,10 @@ public class RequestSpecificationFacade {
             // TODO: Leak is present. Should have an ability to disable functionality
             specification.relaxedHTTPSValidation();
             TrustAllTrustManager.trustAllHttpsCertificates();
+        }
+
+        if (!this.world.getBoolean(CukesOptions.GZIP_SUPPORT, true)) {
+            specification.config(newConfig().decoderConfig(decoderConfig().contentDecoders(DEFLATE)));
         }
     }
 
