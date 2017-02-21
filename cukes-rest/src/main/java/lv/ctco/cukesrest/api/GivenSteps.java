@@ -1,16 +1,15 @@
 package lv.ctco.cukesrest.api;
 
-import java.io.File;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.jayway.restassured.http.ContentType;
-
 import cucumber.api.java.en.Given;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+
+import java.io.File;
 
 @Singleton
 public class GivenSteps {
@@ -104,7 +103,7 @@ public class GivenSteps {
         this.facade.multiPart(new File(path));
     }
 
-    @Given("^session ID \"(.+)\"$")
+    @Given("^session ID is \"(.+)\"$")
     public void session_ID(String sessionId) {
         this.facade.sessionId(sessionId);
     }
