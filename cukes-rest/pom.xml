@@ -12,6 +12,7 @@
     </parent>
 
     <properties>
+        <sl4j.version>1.7.22</sl4j.version>
         <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
 
@@ -39,6 +40,13 @@
     </build>
 
     <dependencies>
+        <!-- SL4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${sl4j.version}</version>
+        </dependency>
+
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>

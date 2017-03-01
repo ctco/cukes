@@ -1,3 +1,19 @@
 http:
   port: 8080
   adminPort: 8888
+  requestLog:
+    console:
+      enabled: false
+    file:
+      enabled: false
+    syslog:
+      enabled: false
+
+logging:
+  level: INFO
+  console:
+    enabled: false
+  file:
+    enabled: false
+  syslog:
+    enabled: false

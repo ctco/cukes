@@ -17,7 +17,6 @@ public enum HttpMethod {
     }
 
     public Response doRequest(RequestSpecification when, String url) {
-        when = when.log().path();
         switch (this) {
             case GET: return when.get(url);
             case POST: return when.post(url);

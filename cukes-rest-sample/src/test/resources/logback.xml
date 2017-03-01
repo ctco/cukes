@@ -1,0 +1,24 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log request/response from rest assured through cukes-rest -->
+    <logger name="lv.ctco.cukesrest.http" level="INFO" />
+
+    <!-- Log request method and path, response status code -->
+    <!--<logger name="org.apache.http.impl.conn" level="DEBUG" />-->
+
+    <!-- Log request/response method and headers -->
+    <!--<logger name="org.apache.http.headers" level="DEBUG" />-->
+
+    <!-- Log request/response method, headers and raw body -->
+    <!--<logger name="org.apache.http.wire" level="DEBUG" />-->
+
+    <root level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
