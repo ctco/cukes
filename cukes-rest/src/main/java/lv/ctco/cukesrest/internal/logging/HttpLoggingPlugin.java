@@ -30,13 +30,17 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class HttpLoggingPlugin implements CukesRestPlugin {
 
+    private static final String DEFAULT_LOGGER_NAME = "lv.ctco.cukesrest.http";
+    private static final String DEFAULT_REQUEST_INCLUDES = "";
+    private static final String DEFAULT_RESPONSE_INCLUDES = "";
+
     private final PrintStream logStream;
     private final GlobalWorldFacade world;
 
     @Inject
     public HttpLoggingPlugin(GlobalWorldFacade world) {
         this.world = world;
-        logStream = new LoggerPrintStream(getLogger(world.get(OPTION_LOGGER_NAME, DEFAULT_LOGGER_NAME)), Level.INFO);
+        logStream = new LoggerPrintStream(getLogger(world.get(LOGGING_LOGGER_NAME, DEFAULT_LOGGER_NAME)), Level.INFO);
     }
 
     @Override
@@ -75,13 +79,13 @@ public class HttpLoggingPlugin implements CukesRestPlugin {
             .config(config.logConfig(logConfig().defaultStream(logStream)))
             .log();
 
-        final List<LogDetail> logDetails = parseLogDetails(world.get(OPTION_REQUEST_INCLUDES, DEFAULT_REQUEST_INCLUDES));
+        final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_REQUEST_INCLUDES, DEFAULT_REQUEST_INCLUDES));
         applyRequestLogDetails(logDetails, logSpec);
     }
 
     @Override
     public void afterRequest(Response response) {
-        final List<LogDetail> logDetails = parseLogDetails(world.get(OPTION_RESPONSE_INCLUDES, DEFAULT_RESPONSE_INCLUDES));
+        final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_RESPONSE_INCLUDES, DEFAULT_RESPONSE_INCLUDES));
         applyResponseLogDetails(logDetails, response.then().log());
     }
 
