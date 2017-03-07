@@ -1,5 +1,8 @@
 package lv.ctco.cukesrest;
 
+import com.jayway.restassured.response.Response;
+import com.jayway.restassured.specification.RequestSpecification;
+
 public interface CukesRestPlugin {
 
     void beforeAllTests();
@@ -10,7 +13,7 @@ public interface CukesRestPlugin {
 
     void afterScenario();
 
-    void beforeRequest();
+    void beforeRequest(RequestSpecification requestSpecification);
 
-    void afterRequest();
+    void afterRequest(Response response);
 }

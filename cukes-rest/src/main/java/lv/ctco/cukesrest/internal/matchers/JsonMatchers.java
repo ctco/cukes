@@ -1,21 +1,24 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
-
-import java.util.List;
-
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-
 import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
 import com.jayway.restassured.path.xml.XmlPath;
 import com.jayway.restassured.path.xml.config.XmlPathConfig;
 import com.jayway.restassured.response.ResponseBodyExtractionOptions;
-
 import lv.ctco.cukesrest.internal.helpers.Strings;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 public class JsonMatchers {
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonMatchers.class);
 
     // TODO: Collect and show all mismatch
     public static Matcher<ResponseBodyExtractionOptions> containsValueByPath(final String path, final Matcher<?> matcher) {
@@ -44,6 +47,7 @@ public class JsonMatchers {
                     }
                     return matcher.matches(this.value);
                 } catch (Exception e) {
+                    LOGGER.info(e.getMessage(), e);
                     return false;
                 }
             }

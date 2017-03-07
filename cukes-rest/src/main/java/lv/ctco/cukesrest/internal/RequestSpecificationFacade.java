@@ -1,24 +1,35 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.common.base.*;
-import com.google.inject.*;
-import com.jayway.restassured.*;
-import com.jayway.restassured.path.json.config.*;
-import com.jayway.restassured.specification.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.helpers.*;
-import lv.ctco.cukesrest.internal.https.*;
+import com.google.common.base.Optional;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.path.json.config.JsonPathConfig;
+import com.jayway.restassured.specification.RequestSpecification;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRuntimeException;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukesrest.internal.helpers.Time;
+import lv.ctco.cukesrest.internal.https.TrustAllTrustManager;
+import lv.ctco.cukesrest.internal.logging.LoggerPrintStream;
+import org.slf4j.event.Level;
 
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import static com.jayway.restassured.config.DecoderConfig.ContentDecoder.DEFLATE;
 import static com.jayway.restassured.config.DecoderConfig.decoderConfig;
-import static com.jayway.restassured.config.JsonConfig.*;
-import static com.jayway.restassured.config.RestAssuredConfig.*;
+import static com.jayway.restassured.config.JsonConfig.jsonConfig;
+import static com.jayway.restassured.config.LogConfig.logConfig;
+import static com.jayway.restassured.config.RestAssuredConfig.newConfig;
 import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.slf4j.LoggerFactory.getLogger;
 
 @Singleton
 @InflateContext
@@ -52,7 +63,8 @@ public class RequestSpecificationFacade {
             try {
                 uri = new URI($proxy.get());
                 specification.proxy(uri);
-            } catch (URISyntaxException ignore) {}
+            } catch (URISyntaxException ignore) {
+            }
         }
 
         boolean urlEncodingEnabled = world.getBoolean(CukesOptions.URL_ENCODING_ENABLED);
@@ -160,7 +172,9 @@ public class RequestSpecificationFacade {
         try {
             // TODO: Somehow this should be configurable
             specification = RestAssured.given()
-                .config(newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL)));
+                .config(newConfig()
+                    .jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL)));
+
             awaitCondition = null;
             onCreate();
         } catch (Exception e) {

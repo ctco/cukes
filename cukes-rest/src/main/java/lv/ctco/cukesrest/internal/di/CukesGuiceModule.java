@@ -7,6 +7,7 @@ import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.AssertionFacade;
 import lv.ctco.cukesrest.internal.AssertionFacadeImpl;
 import lv.ctco.cukesrest.internal.context.*;
+import lv.ctco.cukesrest.internal.logging.HttpLoggingPlugin;
 import lv.ctco.cukesrest.internal.switches.*;
 import org.aopalliance.intercept.*;
 
@@ -55,6 +56,11 @@ public class CukesGuiceModule extends AbstractModule {
     private void bindPlugins() {
         try {
             Multibinder<CukesRestPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesRestPlugin.class);
+
+            // add our own plugins
+            multibinder.addBinding().to(HttpLoggingPlugin.class);
+
+            // add user configured plugins
             ClassLoader classLoader = CukesGuiceModule.class.getClassLoader();
             Properties prop = new Properties();
             URL url = createCukesPropertyFileUrl(classLoader);

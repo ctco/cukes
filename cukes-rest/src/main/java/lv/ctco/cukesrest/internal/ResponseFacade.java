@@ -3,6 +3,7 @@ package lv.ctco.cukesrest.internal;
 import com.google.common.base.Optional;
 import com.google.inject.*;
 import com.jayway.restassured.response.*;
+import com.jayway.restassured.specification.RequestSpecification;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.matchers.*;
@@ -73,12 +74,16 @@ public class ResponseFacade {
             @Override
             public ResponseWrapper call() throws Exception {
                 authenticate();
+
+                final RequestSpecification requestSpec = specification.value();
+
                 for (CukesRestPlugin cukesRestPlugin : pluginSet) {
-                    cukesRestPlugin.beforeRequest();
+                    cukesRestPlugin.beforeRequest(requestSpec);
                 }
-                response = method.doRequest(specification.value(), url);
+
+                response = method.doRequest(requestSpec, url);
                 for (CukesRestPlugin cukesRestPlugin : pluginSet) {
-                    cukesRestPlugin.afterRequest();
+                    cukesRestPlugin.afterRequest(response);
                 }
                 if (!filterEnabled) {
                     cacheHeaders(response);
