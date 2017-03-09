@@ -1,24 +1,10 @@
 package lv.ctco.cukesrest.internal;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
-import java.util.Map;
-
-import org.hamcrest.Matchers;
-
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ResponseBody;
-
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.context.InflateContext;
@@ -31,6 +17,18 @@ import lv.ctco.cukesrest.internal.matchers.JsonMatchers;
 import lv.ctco.cukesrest.internal.matchers.MiscMatchers;
 import lv.ctco.cukesrest.internal.matchers.OfTypeMatcher;
 import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import org.hamcrest.Matchers;
+
+import java.util.Map;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -85,7 +83,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     public void statusCodeIs(final int statusCode) {
 
         final Response response = this.facade.response();
-        final String body = response.getBody().print();
+        final String body = response.getBody().asString();
 
         /*
          * This is a temporary hack due to:
