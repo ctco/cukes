@@ -1,18 +1,19 @@
 package lv.ctco.cukesrest.loadrunner.mapper;
 
-import com.jayway.restassured.filter.*;
-import com.jayway.restassured.response.*;
-import com.jayway.restassured.specification.*;
-import lv.ctco.cukesrest.loadrunner.function.*;
-import org.junit.*;
-import org.junit.runner.*;
-import org.mockito.*;
-import org.mockito.runners.*;
+import io.restassured.http.Headers;
+import io.restassured.specification.FilterableRequestSpecification;
+import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static lv.ctco.cukesrest.loadrunner.CustomMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static lv.ctco.cukesrest.loadrunner.CustomMatchers.stringWithLength;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebCustomRequestMapperTest {
@@ -22,13 +23,11 @@ public class WebCustomRequestMapperTest {
 
     @Test
     public void snapshotNumberShouldBeLessThan10Digits() {
-        FilterContext ctx = mock(FilterContext.class);
-        when(ctx.getCompleteRequestPath()).thenReturn("http://www.google.com");
-
         FilterableRequestSpecification requestSpec = mock(FilterableRequestSpecification.class);
+        when(requestSpec.getURI()).thenReturn("http://www.google.com");
         when(requestSpec.getHeaders()).thenReturn(new Headers());
 
-        WebCustomRequest request = mapper.map(requestSpec, ctx);
+        WebCustomRequest request = mapper.map(requestSpec);
         assertThat(request, hasProperty("snapshot", stringWithLength(lessThanOrEqualTo(15)))); //10 digits + t + .inf
     }
 }

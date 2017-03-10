@@ -1,9 +1,9 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.RestAssuredResponseOptionsImpl;
-import com.jayway.restassured.path.xml.XmlPath;
-import com.jayway.restassured.path.xml.config.XmlPathConfig;
-import com.jayway.restassured.response.ResponseBodyExtractionOptions;
+import io.restassured.internal.RestAssuredResponseOptionsImpl;
+import io.restassured.path.xml.XmlPath;
+import io.restassured.path.xml.config.XmlPathConfig;
+import io.restassured.response.ResponseBodyExtractionOptions;
 import lv.ctco.cukesrest.internal.helpers.Strings;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

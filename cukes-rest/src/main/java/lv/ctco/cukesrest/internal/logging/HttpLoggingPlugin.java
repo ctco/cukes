@@ -3,13 +3,14 @@ package lv.ctco.cukesrest.internal.logging;
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.inject.Inject;
-import com.jayway.restassured.config.RestAssuredConfig;
-import com.jayway.restassured.filter.log.LogDetail;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.response.ValidatableResponseLogSpec;
-import com.jayway.restassured.specification.FilterableRequestSpecification;
-import com.jayway.restassured.specification.RequestLogSpecification;
-import com.jayway.restassured.specification.RequestSpecification;
+import io.restassured.config.RestAssuredConfig;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.response.ValidatableResponseLogSpec;
+import io.restassured.specification.FilterableRequestSpecification;
+import io.restassured.specification.RequestLogSpecification;
+import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukesrest.CukesRestPlugin;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,6 @@ import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.intersection;
 import static com.google.common.collect.Sets.newHashSet;
-import static com.jayway.restassured.config.LogConfig.logConfig;
 import static lv.ctco.cukesrest.CukesOptions.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -65,28 +65,69 @@ public class HttpLoggingPlugin implements CukesRestPlugin {
 
     @Override
     public void beforeRequest(RequestSpecification requestSpecification) {
-        RestAssuredConfig config;
-
-        // need to do this until https://github.com/rest-assured/rest-assured/issues/824 is available
-        if (requestSpecification instanceof FilterableRequestSpecification) {
-            config = ((FilterableRequestSpecification) requestSpecification).getConfig();
-        } else {
-            throw new IllegalArgumentException(
-                "Don't know how to retrieve current configuration from " + requestSpecification);
+        if (!(requestSpecification instanceof FilterableRequestSpecification)) {
+            throw new IllegalArgumentException("Cannot retrieve configuration from: " + requestSpecification);
         }
 
-        final RequestLogSpecification logSpec = requestSpecification
-            .config(config.logConfig(logConfig().defaultStream(logStream)))
-            .log();
+        final FilterableRequestSpecification filterableRequestSpecification = (FilterableRequestSpecification) requestSpecification;
 
+        final RestAssuredConfig config = (filterableRequestSpecification).getConfig();
+        config.logConfig(config.getLogConfig().defaultStream(logStream));
+
+        final RequestLogSpecification logSpec = filterableRequestSpecification.log();
         final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_REQUEST_INCLUDES, DEFAULT_REQUEST_INCLUDES));
-        applyRequestLogDetails(logDetails, logSpec);
+
+        details:
+        for (LogDetail detail : logDetails) {
+            switch (detail) {
+                case ALL:
+                    logSpec.all();
+                    break details;
+                case BODY:
+                    logSpec.body();
+                    break;
+                case COOKIES:
+                    logSpec.cookies();
+                    break;
+                case HEADERS:
+                    logSpec.headers();
+                    break;
+                case METHOD:
+                    logSpec.method();
+                    break;
+                case PARAMS:
+                    logSpec.parameters();
+                    break;
+                case URI:
+                    logSpec.uri();
+                    break;
+            }
+        }
     }
 
     @Override
     public void afterRequest(Response response) {
+        final ValidatableResponseLogSpec<ValidatableResponse, Response> logSpec = response.then().log();
         final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_RESPONSE_INCLUDES, DEFAULT_RESPONSE_INCLUDES));
-        applyResponseLogDetails(logDetails, response.then().log());
+        for (LogDetail detail : logDetails) {
+            switch (detail) {
+                case ALL:
+                    logSpec.all();
+                    return;
+                case BODY:
+                    logSpec.body();
+                    break;
+                case COOKIES:
+                    logSpec.cookies();
+                    break;
+                case HEADERS:
+                    logSpec.headers();
+                    break;
+                case STATUS:
+                    logSpec.status();
+                    break;
+            }
+        }
     }
 
     private List<LogDetail> parseLogDetails(final String logDetailsString) {
@@ -108,59 +149,5 @@ public class HttpLoggingPlugin implements CukesRestPlugin {
         });
 
         return newArrayList(logDetails.iterator());
-    }
-
-    private void applyRequestLogDetails(List<LogDetail> details, RequestLogSpecification logSpec) {
-        if (details.isEmpty()) return;
-
-        for (LogDetail detail : details) {
-            switch (detail) {
-                case ALL:
-                    logSpec.all();
-                    return;
-                case BODY:
-                    logSpec.body();
-                    break;
-                case COOKIES:
-                    logSpec.cookies();
-                    break;
-                case HEADERS:
-                    logSpec.headers();
-                    break;
-                case METHOD:
-                    logSpec.method();
-                    break;
-                case PARAMS:
-                    logSpec.parameters();
-                    break;
-                case PATH:
-                    logSpec.path();
-                    break;
-            }
-        }
-    }
-
-    private void applyResponseLogDetails(List<LogDetail> details, ValidatableResponseLogSpec logSpec) {
-        if (details.isEmpty()) return;
-
-        for (LogDetail detail : details) {
-            switch (detail) {
-                case ALL:
-                    logSpec.all();
-                    return;
-                case BODY:
-                    logSpec.body();
-                    break;
-                case COOKIES:
-                    logSpec.cookies();
-                    break;
-                case HEADERS:
-                    logSpec.headers();
-                    break;
-                case STATUS:
-                    logSpec.status();
-                    break;
-            }
-        }
     }
 }

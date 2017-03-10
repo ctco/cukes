@@ -1,17 +1,27 @@
 package lv.ctco.cukesrest.internal;
 
-import com.google.common.base.*;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.response.ValidatableResponse;
+import com.google.common.base.Optional;
+import io.restassured.internal.ResponseParserRegistrar;
+import io.restassured.internal.RestAssuredResponseImpl;
+import io.restassured.internal.http.HttpResponseDecorator;
+import io.restassured.response.Response;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.impl.EnglishReasonPhraseCatalog;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.message.BasicStatusLine;
 import org.junit.Test;
+
+import java.util.Locale;
 
 import static lv.ctco.cukesrest.CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY;
 import static lv.ctco.cukesrest.CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE;
+import static lv.ctco.cukesrest.CustomMatchers.equalToOptional;
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
-import static lv.ctco.cukesrest.CustomMatchers.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AssertionFacadeImplTest extends IntegrationTestBase {
 
@@ -36,111 +46,146 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
     @Test
     public void shouldReturnBodyWhenEnabledWithMax() {
-        final ValidatableResponse validatableResponse = mock(ValidatableResponse.class);
-        when(validatableResponse.statusCode(anyInt())).thenThrow(new AssertionError("404 did not match 200."));
-
-        Response response = mock(Response.class);
-        when(response.getContentType()).thenReturn("application/json");
-        when(response.asString()).thenReturn("An error occurred.");
-        when(response.getBody()).thenReturn(response);
-        when(response.then()).thenReturn(validatableResponse);
+        String body = "{\n" +
+            "  \"error\": \"not found\"\n" +
+            "}";
 
         ResponseFacade mock = mock(ResponseFacade.class);
-        when(mock.response()).thenReturn(response);
+        when(mock.response()).thenReturn(generateResponse(
+            "application/json",
+            404,
+            body.getBytes()));
 
         ((AssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "100");
 
-        validateException("404 did not match 200.\n\nBody:\nAn error occurred.");
+        validateException(
+            200,
+            "1 expectation failed.\n" +
+                "Expected status code \"200\" but was \"404\" with body:\n" +
+                "\"\"\"\n" +
+                body +
+                "\n\"\"\".\n");
     }
 
     @Test
     public void shouldReturnBodyWhenEnabledAndNoMax() {
-        final ValidatableResponse validatableResponse = mock(ValidatableResponse.class);
-        when(validatableResponse.statusCode(anyInt())).thenThrow(new AssertionError("404 did not match 200."));
-
-        Response response = mock(Response.class);
-        when(response.getContentType()).thenReturn("application/json");
-        when(response.asString()).thenReturn("An error occurred.");
-        when(response.getBody()).thenReturn(response);
-        when(response.then()).thenReturn(validatableResponse);
+        String body = "{\n" +
+            "  \"error\": \"not found\"\n" +
+            "}";
 
         ResponseFacade mock = mock(ResponseFacade.class);
-        when(mock.response()).thenReturn(response);
+        when(mock.response()).thenReturn(generateResponse(
+            "application/json",
+            404,
+            body.getBytes()));
 
         ((AssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
 
-        validateException("404 did not match 200.\n\nBody:\nAn error occurred.");
+        validateException(
+            200,
+            "1 expectation failed.\n" +
+                "Expected status code \"200\" but was \"404\" with body:\n" +
+                "\"\"\"\n" +
+                body +
+                "\n\"\"\".\n");
     }
 
     @Test
     public void shouldNotReturnBodyWhenDisabled() {
-        final ValidatableResponse validatableResponse = mock(ValidatableResponse.class);
-        when(validatableResponse.statusCode(anyInt())).thenThrow(new AssertionError("404 did not match 200."));
-
-        Response response = mock(Response.class);
-        when(response.getContentType()).thenReturn("application/json");
-        when(response.asString()).thenReturn("An error occurred.");
-        when(response.getBody()).thenReturn(response);
-        when(response.then()).thenReturn(validatableResponse);
+        String body = "{\n" +
+            "  \"error\": \"not found\"\n" +
+            "}";
 
         ResponseFacade mock = mock(ResponseFacade.class);
-        when(mock.response()).thenReturn(response);
+        when(mock.response()).thenReturn(generateResponse(
+            "application/json",
+            404,
+            body.getBytes()));
 
         ((AssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "false");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "100");
 
-        validateException("404 did not match 200.");
+        validateException(
+            200,
+            "1 expectation failed.\n" +
+                "Expected status code \"200\" but was \"404\".\n");
     }
 
     @Test
     public void shouldNotReturnBodyWhenEnabledButLongerThanMaxSize() {
-        final ValidatableResponse validatableResponse = mock(ValidatableResponse.class);
-        when(validatableResponse.statusCode(anyInt())).thenThrow(new AssertionError("404 did not match 200."));
-
-        Response response = mock(Response.class);
-        when(response.getContentType()).thenReturn("application/json");
-        when(response.asString()).thenReturn("An error occurred.");
-        when(response.getBody()).thenReturn(response);
-        when(response.then()).thenReturn(validatableResponse);
+        String body = "{\n" +
+            "  \"error\": \"not found\"\n" +
+            "}";
 
         ResponseFacade mock = mock(ResponseFacade.class);
-        when(mock.response()).thenReturn(response);
+        when(mock.response()).thenReturn(generateResponse(
+            "application/json",
+            404,
+            body.getBytes()));
 
         ((AssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "5");
 
-        validateException("404 did not match 200.\n\nBody:\n<exceeds max size>");
+
+        validateException(
+            200,
+            "1 expectation failed.\n" +
+                "Expected status code \"200\" but was \"404\" with body <exceeding max size to show>.\n");
     }
 
     @Test
     public void shouldNotReturnBodyWhenEnabledButContentTypeOctet() {
-        final ValidatableResponse validatableResponse = mock(ValidatableResponse.class);
-        when(validatableResponse.statusCode(anyInt())).thenThrow(new AssertionError("404 did not match 200."));
-
-        Response response = mock(Response.class);
-        when(response.getContentType()).thenReturn("application/octet-stream");
-        when(response.asString()).thenReturn("An error occurred.");
-        when(response.getBody()).thenReturn(response);
-        when(response.then()).thenReturn(validatableResponse);
+        byte[] body = RandomUtils.nextBytes(20);
 
         ResponseFacade mock = mock(ResponseFacade.class);
-        when(mock.response()).thenReturn(response);
+        when(mock.response()).thenReturn(generateResponse(
+            "application/octet-stream",
+            404,
+            body));
 
         ((AssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "5000");
 
-        validateException("404 did not match 200.\n\nBody:\n<binary>");
+        validateException(
+            200,
+            "1 expectation failed.\n" +
+                "Expected status code \"200\" but was \"404\" with body <binary>.\n");
     }
 
-    private void validateException(String expectedMessage) {
+    private Response generateResponse(String contentType, int status, byte[] content) {
+        final BasicStatusLine statusLine = new BasicStatusLine(
+            new ProtocolVersion("HTTP", 1, 1),
+            status,
+            EnglishReasonPhraseCatalog.INSTANCE.getReason(status, Locale.ENGLISH));
+
+        final BasicHttpResponse httpResponse = new BasicHttpResponse(statusLine);
+        httpResponse.addHeader("Content-Type", contentType);
+
+        final HttpResponseDecorator httpResponseDecorator = new HttpResponseDecorator(httpResponse, content);
+        final RestAssuredResponseImpl restResponse = new RestAssuredResponseImpl();
+        restResponse.setStatusCode(status);
+        restResponse.parseResponse(
+            httpResponseDecorator,
+            content,
+            false,
+            new ResponseParserRegistrar()
+        );
+
+        return restResponse;
+    }
+
+    /**
+     * @param failureStatusCode - status code that should generate a failure
+     */
+    private void validateException(int failureStatusCode, String expectedMessage) {
         try {
-            facade.statusCodeIs(200);
+            facade.statusCodeIs(failureStatusCode);
             fail("Exception expected!");
         } catch (AssertionError error) {
             assertEquals(expectedMessage, error.getMessage());

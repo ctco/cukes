@@ -2,7 +2,7 @@ package lv.ctco.cukesrest.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.jayway.restassured.http.ContentType;
+import io.restassured.http.ContentType;
 import cucumber.api.java.en.Given;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.RequestSpecificationFacade;

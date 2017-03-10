@@ -1,19 +1,23 @@
 package lv.ctco.cukesrest.loadrunner;
 
-import com.google.common.base.*;
-import com.google.inject.*;
-import com.jayway.restassured.filter.*;
-import com.jayway.restassured.response.*;
-import com.jayway.restassured.specification.*;
-import cucumber.api.*;
-import cucumber.api.java.*;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.loadrunner.function.*;
-import lv.ctco.cukesrest.loadrunner.mapper.*;
-import org.mockito.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import cucumber.api.Scenario;
+import cucumber.api.java.Before;
+import io.restassured.filter.Filter;
+import io.restassured.filter.FilterContext;
+import io.restassured.response.Response;
+import io.restassured.specification.FilterableRequestSpecification;
+import io.restassured.specification.FilterableResponseSpecification;
+import lv.ctco.cukesrest.CukesOptions;
+import lv.ctco.cukesrest.CukesRuntimeException;
+import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
+import lv.ctco.cukesrest.loadrunner.mapper.WebCustomRequestMapper;
+import org.mockito.Mockito;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
 @Singleton
 public class LoadRunnerFilter implements Filter {
@@ -35,7 +39,7 @@ public class LoadRunnerFilter implements Filter {
     @Override
     public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec,
                            FilterContext ctx) {
-        WebCustomRequest request = mapper.map(requestSpec, ctx);
+        WebCustomRequest request = mapper.map(requestSpec);
         trx.addFunction(request);
         boolean blockRequests = globalWorldFacade.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         if (blockRequests) {
