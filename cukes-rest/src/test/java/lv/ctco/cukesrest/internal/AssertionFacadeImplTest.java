@@ -41,7 +41,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         Response response = mock(Response.class);
         when(response.getContentType()).thenReturn("application/json");
-        when(response.print()).thenReturn("An error occurred.");
+        when(response.asString()).thenReturn("An error occurred.");
         when(response.getBody()).thenReturn(response);
         when(response.then()).thenReturn(validatableResponse);
 
@@ -62,7 +62,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         Response response = mock(Response.class);
         when(response.getContentType()).thenReturn("application/json");
-        when(response.print()).thenReturn("An error occurred.");
+        when(response.asString()).thenReturn("An error occurred.");
         when(response.getBody()).thenReturn(response);
         when(response.then()).thenReturn(validatableResponse);
 
@@ -82,7 +82,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         Response response = mock(Response.class);
         when(response.getContentType()).thenReturn("application/json");
-        when(response.print()).thenReturn("An error occurred.");
+        when(response.asString()).thenReturn("An error occurred.");
         when(response.getBody()).thenReturn(response);
         when(response.then()).thenReturn(validatableResponse);
 
@@ -103,7 +103,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         Response response = mock(Response.class);
         when(response.getContentType()).thenReturn("application/json");
-        when(response.print()).thenReturn("An error occurred.");
+        when(response.asString()).thenReturn("An error occurred.");
         when(response.getBody()).thenReturn(response);
         when(response.then()).thenReturn(validatableResponse);
 
@@ -124,7 +124,7 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
 
         Response response = mock(Response.class);
         when(response.getContentType()).thenReturn("application/octet-stream");
-        when(response.print()).thenReturn("An error occurred.");
+        when(response.asString()).thenReturn("An error occurred.");
         when(response.getBody()).thenReturn(response);
         when(response.then()).thenReturn(validatableResponse);
 
