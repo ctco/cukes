@@ -1,22 +1,23 @@
 package lv.ctco.cukesrest.loadrunner.mapper;
 
-import com.google.inject.*;
-import com.jayway.restassured.filter.*;
-import com.jayway.restassured.response.*;
-import com.jayway.restassured.specification.*;
-import lv.ctco.cukesrest.loadrunner.function.*;
+import com.google.inject.Inject;
+import io.restassured.http.Header;
+import io.restassured.specification.FilterableRequestSpecification;
+import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
+import lv.ctco.cukesrest.loadrunner.function.WebRequestSaveParam;
 
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class WebCustomRequestMapper {
 
     @Inject
     WebAddHeaderMapper headerMapper;
 
-    public WebCustomRequest map(FilterableRequestSpecification requestSpec, FilterContext ctx) {
+    public WebCustomRequest map(FilterableRequestSpecification requestSpec) {
         try {
-            URL url = new URL(ctx.getCompleteRequestPath());
-            String method = String.valueOf(ctx.getRequestMethod());
+            URL url = new URL(requestSpec.getURI());
+            String method = String.valueOf(requestSpec.getMethod());
 
             WebCustomRequest request = new WebCustomRequest();
             request.setName(method + " to " + url.toString());

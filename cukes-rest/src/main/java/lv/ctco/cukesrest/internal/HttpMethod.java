@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal;
 
-import com.jayway.restassured.response.*;
-import com.jayway.restassured.specification.*;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukesrest.*;
 
 public enum HttpMethod {

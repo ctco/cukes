@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.loadrunner.mapper;
 
-import com.jayway.restassured.response.*;
-import lv.ctco.cukesrest.loadrunner.function.*;
+import io.restassured.http.Header;
+import lv.ctco.cukesrest.loadrunner.function.WebAddHeader;
 
 public class WebAddHeaderMapper {
 

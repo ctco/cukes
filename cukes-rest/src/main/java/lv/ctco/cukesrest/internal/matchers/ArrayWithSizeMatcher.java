@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.internal.matchers;
 
-import com.jayway.restassured.internal.path.xml.*;
-import com.jayway.restassured.path.xml.element.*;
+import io.restassured.internal.path.xml.*;
+import io.restassured.path.xml.element.*;
 import org.hamcrest.*;
 
 import java.util.*;

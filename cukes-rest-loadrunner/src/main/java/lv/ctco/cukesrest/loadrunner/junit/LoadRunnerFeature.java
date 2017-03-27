@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.loadrunner.junit;
 
-import com.jayway.restassured.*;
-import com.jayway.restassured.filter.Filter;
+import io.restassured.*;
+import io.restassured.filter.Filter;
 import cucumber.runtime.Runtime;
 import cucumber.runtime.junit.*;
 import cucumber.runtime.model.*;
