@@ -19,11 +19,15 @@ public class ResourceFileReader {
 
     public List<String> readLines(String path) {
         try {
-            String normalizedPath = pathService.normalize(path);
-            File file = new File(normalizedPath);
+            File file = getResourceFile(path);
             return Files.readLines(file);
         } catch (IOException e) {
             throw new CukesRuntimeException(e);
         }
+    }
+
+    public File getResourceFile(String relativePath) {
+        String normalizedPath = pathService.normalize(relativePath);
+        return new File(normalizedPath);
     }
 }
