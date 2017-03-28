@@ -4,7 +4,7 @@
 
     <groupId>lv.ctco.cukesrest</groupId>
     <artifactId>cukes-rest-all</artifactId>
-    <version>0.2.22-SNAPSHOT</version>
+    <version>0.2.22</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -42,7 +42,7 @@
         <connection>scm:git:git@github.com:ctco/cukes-rest.git</connection>
         <developerConnection>scm:git:git@github.com:ctco/cukes-rest.git</developerConnection>
         <url>git@github.com:ctco/cukes-rest.git</url>
-        <tag>HEAD</tag>
+        <tag>cukes-rest-all-0.2.22</tag>
     </scm>
 
     <profiles>
