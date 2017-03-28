@@ -123,14 +123,20 @@ public class RequestSpecificationFacade {
         specification.multiPart(file);
     }
 
-    // TODO
-    public void multiPart(String controlName, File file, String mimeType) {
+    public void multiPart(File file, String controlName) {
+        specification.multiPart(controlName, file);
+    }
+
+    public void multiPart(File file, String controlName, String mimeType) {
         specification.multiPart(controlName, file, mimeType);
     }
 
-    // TODO
-    public void multiPart(String controlName, File file) {
-        specification.multiPart(controlName, file);
+    public void multiPart(String contentBody, String controlName) {
+        specification.multiPart(controlName, contentBody);
+    }
+
+    public void multiPart(String contentBody, String controlName, String mimeType) {
+        specification.multiPart(controlName, contentBody, mimeType);
     }
 
     public void proxy(String scheme, String host, Integer port) {

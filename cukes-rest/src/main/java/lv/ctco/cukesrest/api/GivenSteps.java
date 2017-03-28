@@ -100,7 +100,27 @@ public class GivenSteps {
 
     @Given("^request body is a multipart file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File(String path) {
-        this.facade.multiPart(new File(path));
+        this.facade.multiPart(this.reader.getResourceFile(path));
+    }
+
+    @Given("^request body is a multipart with control \"(.+)\" from file \"(.+)\"$")
+    public void request_Body_Is_A_Multipart_File_With_Control(String control, String path) {
+        this.facade.multiPart(this.reader.getResourceFile(path), control);
+    }
+
+    @Given("^request body is a multipart with mime-type \"(.+)\" and control \"(.+)\" from file \"(.+)\"$")
+    public void request_Body_Is_A_Multipart_File_With_Control_Of_Type(String mimeType, String control, String path) {
+        this.facade.multiPart(this.reader.getResourceFile(path), control, mimeType);
+    }
+
+    @Given("^request body is a multipart string \"(.+)\" with control \"(.+)\"$")
+    public void request_Body_Is_A_Multipart_String_With_Control(String contentBody, String control) {
+        this.facade.multiPart(contentBody, control);
+    }
+
+    @Given("^request body is a multipart string \"(.+)\" with mime-type \"(.+)\" and control \"(.+)\"$")
+    public void request_Body_Is_A_Multipart_String_With_Control_Of_Type(String contentBody, String mimeType, String control) {
+        this.facade.multiPart(contentBody, control, mimeType);
     }
 
     @Given("^session ID is \"(.+)\"$")
