@@ -1,6 +1,7 @@
 package lv.ctco.cukesrest.internal.matchers;
 
 import io.restassured.internal.RestAssuredResponseOptionsImpl;
+import io.restassured.path.json.config.JsonPathConfig;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.path.xml.config.XmlPathConfig;
 import io.restassured.response.ResponseBodyExtractionOptions;
@@ -38,7 +39,8 @@ public class JsonMatchers {
                         XmlPathConfig config = new XmlPathConfig().disableLoadingOfExternalDtd();
                         this.value = responseBody.xmlPath(config).get(path);
                     } else {
-                        this.value = responseBody.path(path);
+                        JsonPathConfig config = new JsonPathConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL);
+                        this.value = responseBody.jsonPath(config).get(path);
                     }
                     /* Due to REST assured Compatibility Mode HTML */
                     if (Strings.containsIgnoreCase(responseBody.getContentType(), "html")) {
