@@ -7,17 +7,20 @@ import cucumber.api.java.Before;
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.CukesRuntimeException;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
+import lv.ctco.cukesrest.loadrunner.function.*;
 import lv.ctco.cukesrest.loadrunner.mapper.WebCustomRequestMapper;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 @Singleton
 public class LoadRunnerFilter implements Filter {
@@ -28,6 +31,12 @@ public class LoadRunnerFilter implements Filter {
     @Inject
     GlobalWorldFacade globalWorldFacade;
 
+    private List<LoadRunnerFunction> initializationFunctions = Arrays.asList(
+        new InitializeSaveBoundedValueFunction(),
+        new InitializeGenerateRandomStringFunction(),
+        new InitializeGetUrlFunction(),
+        new InitializeConcatFunction()
+    );
     private LoadRunnerAction action;
     private LoadRunnerTransaction trx;
 
@@ -43,7 +52,9 @@ public class LoadRunnerFilter implements Filter {
         trx.addFunction(request);
         boolean blockRequests = globalWorldFacade.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         if (blockRequests) {
-            return Mockito.mock(Response.class);
+            Response response = Mockito.mock(Response.class);
+            Mockito.when(response.then()).thenReturn(Mockito.mock(ValidatableResponse.class));
+            return response;
         }
         return ctx.next(requestSpec, responseSpec);
     }
@@ -67,6 +78,9 @@ public class LoadRunnerFilter implements Filter {
 
     public void dump(OutputStream out) {
         try {
+            for (LoadRunnerFunction function : initializationFunctions) {
+                out.write(function.format().getBytes());
+            }
             if (action != null) out.write(action.format().getBytes());
         } catch (IOException e) {
             throw new CukesRuntimeException(e);

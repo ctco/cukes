@@ -87,7 +87,7 @@ public class WebCustomRequest implements LoadRunnerFunction {
 
         result.append("web_custom_request(\"").append(name).append("\",\n");
 
-        appendOptionalParameter("URL", url, result);
+        appendUrl(url, result);
         appendOptionalParameter("Method", method, result);
         appendOptionalParameter("Resource", resource, result);
         appendOptionalParameter("Mode", mode, result);
@@ -97,12 +97,20 @@ public class WebCustomRequest implements LoadRunnerFunction {
         return result.append(" LAST);\n\n").toString();
     }
 
+    private void appendUrl(String url, StringBuilder stringBuilder) {
+        if (!Strings.isEmpty(url))
+            stringBuilder.append(" concat(\"URL=\",getUrl(\"")
+                .append(url.replace("\"", "\\\""))
+                .append("\")),\n");
+
+    }
+
     private void appendOptionalParameter(String title, String value, StringBuilder stringBuilder) {
         if (!Strings.isEmpty(value))
             stringBuilder.append(" \"")
                 .append(title)
                 .append("=")
-                .append(value.replace("\"", "\\\""))
+                .append(value.replace("\"", "\\\"").replace("\r\n", "").replace("\n", ""))
                 .append("\",\n");
     }
 }
