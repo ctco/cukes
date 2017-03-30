@@ -8,4 +8,6 @@ public interface VariableFacade {
 
     void setUUIDToVariable(String name);
 
+    void setCurrentTimestampToVariable(String name);
+
 }

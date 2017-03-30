@@ -27,12 +27,17 @@ public class GivenSteps {
 
     @Given("^let variable \"(.+)\" to be random UUID$")
     public void var_random_UUID(String varName) {
-        variableFacade.setUUIDToVariable(varName);
+        this.variableFacade.setUUIDToVariable(varName);
     }
 
     @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
     public void var_assigned(String varName, String value) {
-        variableFacade.setVariable(varName, value);
+        this.variableFacade.setVariable(varName, value);
+    }
+
+    @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
+    public void letVariableBeEqualToCurrentTimestamp(String varName) {
+        this.variableFacade.setCurrentTimestampToVariable(varName);
     }
 
     @Given("^value assertions are case-insensitive$")
@@ -158,10 +163,5 @@ public class GivenSteps {
     @Given("^authentication type is \"(.+)\"$")
     public void authentication(String authenticationType) {
         this.facade.authenticationType(authenticationType);
-    }
-
-    @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
-    public void letVariableBeEqualToCurrentTimestamp(String varName) {
-        world.put(varName, String.valueOf(System.currentTimeMillis()));
     }
 }

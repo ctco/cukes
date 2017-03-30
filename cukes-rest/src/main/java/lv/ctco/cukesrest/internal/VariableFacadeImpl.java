@@ -23,4 +23,9 @@ public class VariableFacadeImpl implements VariableFacade {
     public void setUUIDToVariable(String name) {
         world.put(name, UUID.randomUUID().toString());
     }
+
+    @Override
+    public void setCurrentTimestampToVariable(String name) {
+        world.put(name, String.valueOf(System.currentTimeMillis()));
+    }
 }

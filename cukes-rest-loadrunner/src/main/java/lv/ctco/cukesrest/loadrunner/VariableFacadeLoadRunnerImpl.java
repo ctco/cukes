@@ -32,4 +32,14 @@ public class VariableFacadeLoadRunnerImpl implements VariableFacade {
             }
         });
     }
+
+    @Override
+    public void setCurrentTimestampToVariable(final String name) {
+        loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
+            @Override
+            public String format() {
+                return "lr_save_timestamp(\"" + name + "\", \"DIGITS=10\", LAST);";
+            }
+        });
+    }
 }
