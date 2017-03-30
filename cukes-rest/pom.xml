@@ -8,7 +8,7 @@
     <parent>
         <groupId>lv.ctco.cukesrest</groupId>
         <artifactId>cukes-rest-all</artifactId>
-        <version>0.2.23-SNAPSHOT</version>
+        <version>0.2.23</version>
     </parent>
 
     <properties>
