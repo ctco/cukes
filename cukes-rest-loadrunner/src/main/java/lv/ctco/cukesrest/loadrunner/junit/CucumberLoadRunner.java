@@ -38,6 +38,7 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
         System.setProperty(cukesProperty(ASSERTIONS_DISABLED), "true");
         System.setProperty(cukesProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS), "true");
         System.setProperty(AssertionFacade.ASSERTION_FACADE, AssertionFacadeLoadRunnerImpl.class.getCanonicalName());
+        System.setProperty(VariableFacade.VARIABLE_FACADE, VariableFacadeLoadRunnerImpl.class.getCanonicalName());
 
         filter = SingletonObjectFactory.instance().getInstance(LoadRunnerFilter.class);
 

@@ -6,6 +6,8 @@ import com.google.inject.multibindings.*;
 import lv.ctco.cukesrest.*;
 import lv.ctco.cukesrest.internal.AssertionFacade;
 import lv.ctco.cukesrest.internal.AssertionFacadeImpl;
+import lv.ctco.cukesrest.internal.VariableFacade;
+import lv.ctco.cukesrest.internal.VariableFacadeImpl;
 import lv.ctco.cukesrest.internal.context.*;
 import lv.ctco.cukesrest.internal.logging.HttpLoggingPlugin;
 import lv.ctco.cukesrest.internal.switches.*;
@@ -16,6 +18,7 @@ import java.net.*;
 import java.util.*;
 
 import static lv.ctco.cukesrest.internal.AssertionFacade.*;
+import static lv.ctco.cukesrest.internal.VariableFacade.*;
 
 public class CukesGuiceModule extends AbstractModule {
     @Override
@@ -25,25 +28,35 @@ public class CukesGuiceModule extends AbstractModule {
         bindInterceptor(new SwitchedByInterceptor(), SwitchedBy.class);
 
         bindAssertionFacade();
+        bindVariableFacade();
         bindPlugins();
     }
 
     @SuppressWarnings("unchecked")
     private void bindAssertionFacade() {
-        String facadeImplType = System.getProperty(ASSERTION_FACADE);
-        Class<? extends AssertionFacade> assertionFacadeClass;
-        if (facadeImplType == null || facadeImplType.isEmpty()) {
-            assertionFacadeClass = AssertionFacadeImpl.class;
+        bindAlternative(ASSERTION_FACADE, AssertionFacade.class, AssertionFacadeImpl.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void bindVariableFacade() {
+        bindAlternative(VARIABLE_FACADE, VariableFacade.class, VariableFacadeImpl.class);
+    }
+
+    private <T, E extends T> void bindAlternative(String type, Class<T> clazz, Class<E> defaultClass) {
+        String alternativeType = System.getProperty(type);
+        Class<? extends T> targetClass;
+        if (alternativeType == null || alternativeType.isEmpty()) {
+            targetClass = defaultClass;
         } else {
             try {
-                assertionFacadeClass = (Class<AssertionFacade>) Class.forName(facadeImplType);
+                targetClass = (Class<T>) Class.forName(alternativeType);
             } catch (ClassNotFoundException e) {
-                throw new CukesRuntimeException("Invalid " + ASSERTION_FACADE + " value", e);
+                throw new CukesRuntimeException("Invalid " + type + " value", e);
             } catch (ClassCastException e) {
-                throw new CukesRuntimeException("Invalid " + ASSERTION_FACADE + " value", e);
+                throw new CukesRuntimeException("Invalid " + type + " value", e);
             }
         }
-        bind(AssertionFacade.class).to(assertionFacadeClass);
+        bind(clazz).to(targetClass);
     }
 
     private void bindInterceptor(MethodInterceptor interceptor, Class<? extends Annotation> annotationType) {

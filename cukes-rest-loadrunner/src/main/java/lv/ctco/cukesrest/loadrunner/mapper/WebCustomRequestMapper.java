@@ -5,6 +5,8 @@ import io.restassured.http.Header;
 import io.restassured.specification.FilterableRequestSpecification;
 import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
 import lv.ctco.cukesrest.loadrunner.function.WebRequestSaveParam;
+import lv.ctco.cukesrest.loadrunner.function.WebRequestSaveResponseBody;
+import lv.ctco.cukesrest.loadrunner.function.WebRequestSaveResponseHeaders;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,7 +23,8 @@ public class WebCustomRequestMapper {
 
             WebCustomRequest request = new WebCustomRequest();
             request.setName(method + " to " + url.toString());
-            request.setUrl(url.toString());
+            //Don't URL encode LR parameter boundaries (curly braces)
+            request.setUrl(url.toString().replace("%7B", "{").replace("%7D", "}"));
             request.setMethod(method);
             request.setResource("0");
             request.setSnapshot(String.format("t%d.inf", (long) (System.currentTimeMillis() % Math.pow(10, 10))));
@@ -29,6 +32,8 @@ public class WebCustomRequestMapper {
             request.setBody((String) requestSpec.getBody());
 
             request.getBeforeFunctions().add(new WebRequestSaveParam());
+            request.getBeforeFunctions().add(new WebRequestSaveResponseBody());
+            request.getBeforeFunctions().add(new WebRequestSaveResponseHeaders());
 
             for (Header header : requestSpec.getHeaders()) {
                 request.getBeforeFunctions().add(headerMapper.map(header));

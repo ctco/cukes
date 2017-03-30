@@ -34,7 +34,7 @@ public class ContextInflater extends BaseContextHandler {
     String inflateGroupsWithPlaceholders(String input, Set<String> groups) {
         String result = input;
         for (String key : groups) {
-            result = result.replaceAll("\\{\\(" + key + "\\)\\}", "(" + key + ")");
+            result = result.replaceAll("\\{\\(" + key + "\\)\\}", "{" + key + "}");
         }
         return result;
     }

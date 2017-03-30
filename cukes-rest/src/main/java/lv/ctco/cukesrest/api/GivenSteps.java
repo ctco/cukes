@@ -6,6 +6,7 @@ import cucumber.api.java.en.Given;
 import io.restassured.http.ContentType;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
+import lv.ctco.cukesrest.internal.VariableFacade;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
 
@@ -16,14 +17,22 @@ public class GivenSteps {
     RequestSpecificationFacade facade;
 
     @Inject
+    VariableFacade variableFacade;
+
+    @Inject
     GlobalWorldFacade world;
 
     @Inject
     ResourceFileReader reader;
 
+    @Given("^let variable \"(.+)\" to be random UUID$")
+    public void var_random_UUID(String varName) {
+        variableFacade.setUUIDToVariable(varName);
+    }
+
     @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
     public void var_assigned(String varName, String value) {
-        this.world.put(varName, value);
+        variableFacade.setVariable(varName, value);
     }
 
     @Given("^value assertions are case-insensitive$")

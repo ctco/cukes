@@ -72,8 +72,13 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
     }
 
     @Override
-    public void varAssignedFromHeader(String varName, String headerName) {
-
+    public void varAssignedFromHeader(final String varName, final String headerName) {
+        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
+            @Override
+            public String format() {
+                return "SaveBoundedValue(\"" + varName + "\", lr_eval_string(\"{ResponseHeaders}\"), \"" + headerName + ": \", \"\\r\\n\");\n";
+            }
+        });
     }
 
     @Override
@@ -137,13 +142,30 @@ public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
     }
 
     @Override
-    public void varAssignedFromProperty(String varName, String property) {
-
+    public void varAssignedFromProperty(final String varName, final String property) {
+        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
+            @Override
+            public String format() {
+                return "web_js_run(\n" +
+                    "\t\"Code=jsonBody()." + property + ";\", \n" +
+                    "\t\"ResultParam=" + varName + "\",\n" +
+                    "\tSOURCES,\n" +
+                    "\t\"Code=var jsonBody = function() {return JSON.parse(LR.getParam('ResponseBody'))}\",\n" +
+                    "\tENDITEM,\n" +
+                    "\tLAST\n" +
+                    ");\n";
+            }
+        });
     }
 
     @Override
-    public void varAssignedFromBody(String varName) {
-
+    public void varAssignedFromBody(final String varName) {
+        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
+            @Override
+            public String format() {
+                return "lr_set_string(\"" + varName + "\", lr_eval_string(\"{ResponseBody}\"));\n";
+            }
+        });
     }
 
     @Override
