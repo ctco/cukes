@@ -2,14 +2,12 @@ package lv.ctco.cukesrest.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.restassured.http.ContentType;
 import cucumber.api.java.en.Given;
+import io.restassured.http.ContentType;
 import lv.ctco.cukesrest.CukesOptions;
 import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
-
-import java.io.File;
 
 @Singleton
 public class GivenSteps {
@@ -151,5 +149,10 @@ public class GivenSteps {
     @Given("^authentication type is \"(.+)\"$")
     public void authentication(String authenticationType) {
         this.facade.authenticationType(authenticationType);
+    }
+
+    @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
+    public void letVariableBeEqualToCurrentTimestamp(String varName) {
+        world.put(varName, String.valueOf(System.currentTimeMillis()));
     }
 }
