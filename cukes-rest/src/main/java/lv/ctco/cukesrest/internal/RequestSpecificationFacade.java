@@ -12,11 +12,7 @@ import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 import lv.ctco.cukesrest.internal.context.InflateContext;
 import lv.ctco.cukesrest.internal.helpers.Time;
 import lv.ctco.cukesrest.internal.https.TrustAllTrustManager;
-import lv.ctco.cukesrest.internal.logging.LoggerPrintStream;
-import org.slf4j.event.Level;
 
-import java.io.File;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,9 +22,10 @@ import static io.restassured.config.DecoderConfig.ContentDecoder.DEFLATE;
 import static io.restassured.config.DecoderConfig.decoderConfig;
 import static io.restassured.config.JsonConfig.jsonConfig;
 import static io.restassured.config.RestAssuredConfig.newConfig;
-import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.*;
+import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.aHeader;
+import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.aProperty;
+import static lv.ctco.cukesrest.internal.matchers.ResponseMatcher.aStatusCode;
 import static org.hamcrest.Matchers.equalTo;
-import static org.slf4j.LoggerFactory.getLogger;
 
 @Singleton
 @InflateContext
@@ -117,18 +114,6 @@ public class RequestSpecificationFacade {
 
     public void header(String headerName, String headerValue) {
         specification.header(headerName, headerValue);
-    }
-
-    public void multiPart(File file) {
-        specification.multiPart(file);
-    }
-
-    public void multiPart(File file, String controlName) {
-        specification.multiPart(controlName, file);
-    }
-
-    public void multiPart(File file, String controlName, String mimeType) {
-        specification.multiPart(controlName, file, mimeType);
     }
 
     public void multiPart(String contentBody, String controlName) {

@@ -112,17 +112,17 @@ public class GivenSteps {
 
     @Given("^request body is a multipart file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File(String path) {
-        this.facade.multiPart(this.reader.getResourceFile(path));
+        this.facade.multiPart(this.reader.read(path), "file", "application/octet-stream");
     }
 
     @Given("^request body is a multipart with control \"(.+)\" from file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File_With_Control(String control, String path) {
-        this.facade.multiPart(this.reader.getResourceFile(path), control);
+        this.facade.multiPart(this.reader.read(path), control);
     }
 
     @Given("^request body is a multipart with mime-type \"(.+)\" and control \"(.+)\" from file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File_With_Control_Of_Type(String mimeType, String control, String path) {
-        this.facade.multiPart(this.reader.getResourceFile(path), control, mimeType);
+        this.facade.multiPart(this.reader.read(path), control, mimeType);
     }
 
     @Given("^request body is a multipart string \"(.+)\" with control \"(.+)\"$")
