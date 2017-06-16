@@ -1,0 +1,16 @@
+# http://editorconfig.org
+root = true
+
+[*.java]
+indent_style = space
+indent_size = 4
+continuation_indent_size = 4
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
