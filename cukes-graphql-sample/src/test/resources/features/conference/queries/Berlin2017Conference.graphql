@@ -1,0 +1,48 @@
+query ConferenceDetails {
+    conference(edition: Berlin2017) {
+        name
+        dateStart
+
+        tickets {
+            name
+            price
+        }
+
+        schedule {
+            startTime
+            duration
+            entryType
+
+            ... on Talk {
+                title
+                description
+
+                speakers {
+                    name
+                    company
+                    twitter
+                    github
+                }
+            }
+        }
+
+        speakers {
+            name
+            company
+            twitter
+            github
+        }
+
+        sponsors {
+            name
+            url
+            description
+        }
+
+        team {
+            name
+            description
+            twitter
+        }
+    }
+}
