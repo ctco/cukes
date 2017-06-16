@@ -10,7 +10,7 @@
     </properties>
     <packaging>pom</packaging>
 
-    <name>Cukes</name>
+    <name>Cukes REST parent</name>
 
     <modules>
         <module>cukes-rest</module>
