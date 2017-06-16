@@ -15,7 +15,7 @@ content.
 - [Open Issues](https://github.com/ctco/cukes-rest/issues)
 - [Waffle](https://waffle.io/ctco/cukes-rest)
 
-##Sample Test
+## Sample Test
 
 ```gherkin
 Feature: Gadgets are great!
