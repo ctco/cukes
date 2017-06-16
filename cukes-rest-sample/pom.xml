@@ -51,7 +51,7 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
-                                    <mainClass>lv.ctco.cukesrest.SampleApplication</mainClass>
+                                    <mainClass>lv.ctco.cukes.rest.SampleApplication</mainClass>
                                     <arguments>
                                         <argument>server</argument>
                                         <argument>cukes-rest-sample\server.yml</argument>
