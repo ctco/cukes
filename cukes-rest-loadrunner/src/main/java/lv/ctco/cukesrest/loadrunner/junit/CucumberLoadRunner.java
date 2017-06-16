@@ -1,22 +1,31 @@
 package lv.ctco.cukesrest.loadrunner.junit;
 
-import cucumber.runtime.*;
+import cucumber.runtime.ClassFinder;
 import cucumber.runtime.Runtime;
-import cucumber.runtime.io.*;
-import cucumber.runtime.junit.*;
-import cucumber.runtime.model.*;
-import lv.ctco.cukesrest.di.SingletonObjectFactory;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.loadrunner.*;
-import org.junit.runner.*;
-import org.junit.runner.notification.*;
-import org.junit.runners.*;
-import org.junit.runners.model.*;
+import cucumber.runtime.RuntimeOptions;
+import cucumber.runtime.RuntimeOptionsFactory;
+import cucumber.runtime.io.MultiLoader;
+import cucumber.runtime.io.ResourceLoader;
+import cucumber.runtime.io.ResourceLoaderClassFinder;
+import cucumber.runtime.junit.Assertions;
+import cucumber.runtime.junit.FeatureRunner;
+import cucumber.runtime.junit.JUnitOptions;
+import cucumber.runtime.junit.JUnitReporter;
+import cucumber.runtime.model.CucumberFeature;
+import lv.ctco.cukescore.internal.di.SingletonObjectFactory;
+import lv.ctco.cukesrest.loadrunner.LoadRunnerFilter;
+import org.junit.runner.Description;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.ParentRunner;
+import org.junit.runners.model.InitializationError;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import static lv.ctco.cukesrest.CukesOptions.*;
+import static lv.ctco.cukescore.CukesOptions.ASSERTIONS_DISABLED;
+import static lv.ctco.cukescore.CukesOptions.CONTEXT_INFLATING_ENABLED;
+import static lv.ctco.cukescore.CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS;
 
 public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
     private final JUnitReporter jUnitReporter;
@@ -37,8 +46,6 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
         System.setProperty(cukesProperty(CONTEXT_INFLATING_ENABLED), "false");
         System.setProperty(cukesProperty(ASSERTIONS_DISABLED), "true");
         System.setProperty(cukesProperty(LOADRUNNER_FILTER_BLOCKS_REQUESTS), "true");
-        System.setProperty(AssertionFacade.ASSERTION_FACADE, AssertionFacadeLoadRunnerImpl.class.getCanonicalName());
-        System.setProperty(VariableFacade.VARIABLE_FACADE, VariableFacadeLoadRunnerImpl.class.getCanonicalName());
 
         filter = SingletonObjectFactory.instance().getInstance(LoadRunnerFilter.class);
 

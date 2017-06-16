@@ -2,13 +2,13 @@ package lv.ctco.cukesrest.loadrunner.mapper;
 
 import io.restassured.http.Headers;
 import io.restassured.specification.FilterableRequestSpecification;
+import lv.ctco.cukesrest.loadrunner.CustomMatchers;
 import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static lv.ctco.cukesrest.loadrunner.CustomMatchers.stringWithLength;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
@@ -28,6 +28,6 @@ public class WebCustomRequestMapperTest {
         when(requestSpec.getHeaders()).thenReturn(new Headers());
 
         WebCustomRequest request = mapper.map(requestSpec);
-        assertThat(request, hasProperty("snapshot", stringWithLength(lessThanOrEqualTo(15)))); //10 digits + t + .inf
+        assertThat(request, hasProperty("snapshot", CustomMatchers.stringWithLength(lessThanOrEqualTo(15)))); //10 digits + t + .inf
     }
 }

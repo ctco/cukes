@@ -4,55 +4,21 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
 import io.restassured.http.ContentType;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.RequestSpecificationFacade;
-import lv.ctco.cukesrest.internal.VariableFacade;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+import lv.ctco.cukescore.internal.resources.ResourceFileReader;
+import lv.ctco.cukesrest.facade.RestRequestFacade;
 
 @Singleton
 public class GivenSteps {
 
     @Inject
-    RequestSpecificationFacade facade;
-
-    @Inject
-    VariableFacade variableFacade;
-
-    @Inject
-    GlobalWorldFacade world;
+    RestRequestFacade facade;
 
     @Inject
     ResourceFileReader reader;
 
-    @Given("^let variable \"(.+)\" to be random UUID$")
-    public void var_random_UUID(String varName) {
-        this.variableFacade.setUUIDToVariable(varName);
-    }
-
-    @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
-    public void var_assigned(String varName, String value) {
-        this.variableFacade.setVariable(varName, value);
-    }
-
-    @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
-    public void letVariableBeEqualToCurrentTimestamp(String varName) {
-        this.variableFacade.setCurrentTimestampToVariable(varName);
-    }
-
-    @Given("^value assertions are case-insensitive$")
-    public void val_caseInsensitive() {
-        this.world.put("case-insensitive", "true");
-    }
-
     @Given("^baseUri is \"(.+)\"$")
     public void base_Uri_Is(String url) {
         this.facade.baseUri(url);
-    }
-
-    @Given("^resources root is \"(.+)\"$")
-    public void resources_Root_Is(String url) {
-        var_assigned(CukesOptions.RESOURCES_ROOT, url);
     }
 
     @Given("^proxy settings are \"(http|https)://([^:]+)(?::(\\d+))?\"$")

@@ -1,31 +1,37 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.facade;
 
 import com.google.common.base.Optional;
-import com.google.inject.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import lv.ctco.cukesrest.*;
-import lv.ctco.cukesrest.internal.context.*;
-import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.*;
+import lv.ctco.cukescore.CukesOptions;
+import lv.ctco.cukescore.extension.CukesPlugin;
+import lv.ctco.cukescore.internal.AwaitCondition;
+import lv.ctco.cukescore.internal.HttpMethod;
+import lv.ctco.cukescore.internal.context.GlobalWorldFacade;
+import lv.ctco.cukescore.internal.context.InflateContext;
+import lv.ctco.cukescore.internal.matchers.AwaitConditionMatcher;
+import lv.ctco.cukescore.internal.switches.ResponseWrapper;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.*;
+import static com.jayway.awaitility.Awaitility.with;
 
 @Singleton
 @InflateContext
-public class ResponseFacade {
+public class RestResponseFacade {
 
     @Inject
-    RequestSpecificationFacade specification;
+    RestRequestFacade specification;
     @Inject
     GlobalWorldFacade world;
     @Inject
-    Set<CukesRestPlugin> pluginSet;
+    Set<CukesPlugin> pluginSet;
 
     private Response response;
     private boolean expectException;
@@ -79,12 +85,12 @@ public class ResponseFacade {
 
                 final RequestSpecification requestSpec = specification.value();
 
-                for (CukesRestPlugin cukesRestPlugin : pluginSet) {
+                for (CukesPlugin cukesRestPlugin : pluginSet) {
                     cukesRestPlugin.beforeRequest(requestSpec);
                 }
 
                 response = method.doRequest(requestSpec, url);
-                for (CukesRestPlugin cukesRestPlugin : pluginSet) {
+                for (CukesPlugin cukesRestPlugin : pluginSet) {
                     cukesRestPlugin.afterRequest(response);
                 }
                 if (!filterEnabled) {

@@ -1,7 +1,7 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest;
 
 import cucumber.api.java.ObjectFactory;
-import lv.ctco.cukesrest.di.SingletonObjectFactory;
+import lv.ctco.cukescore.internal.di.SingletonObjectFactory;
 
 public class IntegrationTestBase {
 

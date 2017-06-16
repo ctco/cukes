@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest.loadrunner;
 
-import lv.ctco.cukesrest.loadrunner.function.*;
+import lv.ctco.cukesrest.loadrunner.function.LoadRunnerFunction;
 import org.apache.commons.lang3.*;
 
 import java.util.*;

@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cukes-rest-sample</artifactId>
-    <name>cukes-rest-sample</name>
+    <name>Cukes REST Sample Project</name>
 
     <parent>
-        <groupId>lv.ctco.cukesrest</groupId>
-        <artifactId>cukes-rest-all</artifactId>
+        <groupId>lv.ctco.cukes</groupId>
+        <artifactId>cukes-rest-parent</artifactId>
         <version>0.2.25-SNAPSHOT</version>
     </parent>
 
@@ -68,13 +68,7 @@
     <dependencies>
         <!-- Cukes Dependencies-->
         <dependency>
-            <groupId>lv.ctco.cukesrest</groupId>
-            <artifactId>cukes-rest</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>lv.ctco.cukesrest</groupId>
+            <groupId>lv.ctco.cukes</groupId>
             <artifactId>cukes-rest-loadrunner</artifactId>
             <version>${project.version}</version>
         </dependency>

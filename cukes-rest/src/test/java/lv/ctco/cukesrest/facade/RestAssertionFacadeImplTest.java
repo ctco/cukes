@@ -1,11 +1,12 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.facade;
 
 import com.google.common.base.Optional;
 import io.restassured.internal.ResponseParserRegistrar;
 import io.restassured.internal.RestAssuredResponseImpl;
 import io.restassured.internal.http.HttpResponseDecorator;
 import io.restassured.response.Response;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukescore.internal.context.GlobalWorldFacade;
+import lv.ctco.cukesrest.IntegrationTestBase;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
@@ -15,28 +16,31 @@ import org.junit.Test;
 
 import java.util.Locale;
 
-import static lv.ctco.cukesrest.CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY;
-import static lv.ctco.cukesrest.CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE;
+import static lv.ctco.cukescore.CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY;
+import static lv.ctco.cukescore.CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE;
 import static lv.ctco.cukesrest.CustomMatchers.equalToOptional;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AssertionFacadeImplTest extends IntegrationTestBase {
+public class RestAssertionFacadeImplTest extends IntegrationTestBase {
 
-    AssertionFacade facade = getObjectFactory().getInstance(AssertionFacadeImpl.class);
+
+    RestAssertionFacade facade = getObjectFactory().getInstance(RestAssertionFacadeImpl.class);
 
     GlobalWorldFacade world = getObjectFactory().getInstance(GlobalWorldFacade.class);
 
     @Test
     public void shouldNotInflateVarName() throws Exception {
         String headerName = "name";
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         Response response = mock(Response.class);
         when(response.getHeader(anyString())).thenReturn(headerName);
         when(mock.response()).thenReturn(response);
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
 
         world.put("id", "1");
         facade.varAssignedFromHeader("{(id)}", headerName);
@@ -50,13 +54,13 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
             "  \"error\": \"not found\"\n" +
             "}";
 
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         when(mock.response()).thenReturn(generateResponse(
             "application/json",
             404,
             body.getBytes()));
 
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "100");
 
@@ -75,13 +79,13 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
             "  \"error\": \"not found\"\n" +
             "}";
 
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         when(mock.response()).thenReturn(generateResponse(
             "application/json",
             404,
             body.getBytes()));
 
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
 
         validateException(
@@ -99,13 +103,13 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
             "  \"error\": \"not found\"\n" +
             "}";
 
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         when(mock.response()).thenReturn(generateResponse(
             "application/json",
             404,
             body.getBytes()));
 
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "false");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "100");
 
@@ -121,13 +125,13 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
             "  \"error\": \"not found\"\n" +
             "}";
 
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         when(mock.response()).thenReturn(generateResponse(
             "application/json",
             404,
             body.getBytes()));
 
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "5");
 
@@ -142,13 +146,13 @@ public class AssertionFacadeImplTest extends IntegrationTestBase {
     public void shouldNotReturnBodyWhenEnabledButContentTypeOctet() {
         byte[] body = RandomUtils.nextBytes(20);
 
-        ResponseFacade mock = mock(ResponseFacade.class);
+        RestResponseFacade mock = mock(RestResponseFacade.class);
         when(mock.response()).thenReturn(generateResponse(
             "application/octet-stream",
             404,
             body));
 
-        ((AssertionFacadeImpl) facade).facade = mock;
+        ((RestAssertionFacadeImpl) facade).facade = mock;
         world.put(ASSERTS_STATUS_CODE_DISPLAY_BODY, "true");
         world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "5000");
 

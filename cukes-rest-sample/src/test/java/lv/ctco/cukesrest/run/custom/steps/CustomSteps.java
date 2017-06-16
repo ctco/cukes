@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.runtime.java.guice.ScenarioScoped;
 
 import java.util.Map;
 

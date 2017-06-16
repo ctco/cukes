@@ -3,6 +3,7 @@ package lv.ctco.cukesrest.loadrunner.junit;
 
 import cucumber.runtime.junit.JUnitReporter;
 import cucumber.runtime.model.CucumberFeature;
+import lv.ctco.cukesrest.loadrunner.junit.LoadRunnerFeature;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +17,8 @@ import static org.hamcrest.core.Is.is;
 @RunWith(MockitoJUnitRunner.class)
 public class LoadRunnerFeatureTest {
 
-    @InjectMocks LoadRunnerFeature loadRunnerFeature;
+    @InjectMocks
+    LoadRunnerFeature loadRunnerFeature;
 
     @Mock cucumber.runtime.Runtime runtime;
     @Mock CucumberFeature cukesFeature;

@@ -1,15 +1,16 @@
 package lv.ctco.cukesrest.api;
 
-import com.google.inject.*;
-import cucumber.api.java.en.*;
-import lv.ctco.cukesrest.internal.*;
-import lv.ctco.cukesrest.internal.helpers.*;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import cucumber.api.java.en.Given;
+import lv.ctco.cukescore.internal.helpers.Time;
+import lv.ctco.cukesrest.facade.RestRequestFacade;
 
 @Singleton
 public class AwaitSteps {
 
     @Inject
-    RequestSpecificationFacade facade;
+    RestRequestFacade facade;
 
     @Given("^should wait at most (\\d+) ([^ ]+) with interval (\\d+) ([^ ]+) until status code (\\d+)$")
     public void should_wait_at_most_until_status_code_with_interval

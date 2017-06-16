@@ -2,10 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lv.ctco.cukesrest</groupId>
-    <artifactId>cukes-rest-all</artifactId>
+    <groupId>lv.ctco.cukes</groupId>
+    <artifactId>cukes-rest-parent</artifactId>
     <version>0.2.25-SNAPSHOT</version>
+    <properties>
+        <cukes-core.version>0.0.1</cukes-core.version>
+    </properties>
     <packaging>pom</packaging>
+
+    <name>Cukes</name>
 
     <modules>
         <module>cukes-rest</module>
@@ -13,7 +18,6 @@
         <module>cukes-rest-sample</module>
     </modules>
 
-    <name>cukes-rest-all</name>
     <description>
         cukes-rest takes simplicity of Cucumber and provides bindings for HTTP specification.
         As a sugar on top, cukes-rest adds steps for storing and using request/response content from
@@ -33,6 +37,12 @@
         <developer>
             <name>Alexey Buzdin</name>
             <email>alex.buzdin@gmail.com</email>
+            <organization>C.T.Co</organization>
+            <organizationUrl>http://ctco.github.io/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Igor Gursky</name>
+            <email>igors.gurskis@gmail.com</email>
             <organization>C.T.Co</organization>
             <organizationUrl>http://ctco.github.io/</organizationUrl>
         </developer>

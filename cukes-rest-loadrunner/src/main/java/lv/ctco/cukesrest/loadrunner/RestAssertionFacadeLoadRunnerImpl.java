@@ -2,14 +2,13 @@ package lv.ctco.cukesrest.loadrunner;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import lv.ctco.cukesrest.internal.AssertionFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukescore.internal.context.InflateContext;
 import lv.ctco.cukesrest.loadrunner.function.LoadRunnerFunction;
+import lv.ctco.cukesrest.facade.RestAssertionFacade;
 
 @Singleton
 @InflateContext
-public class AssertionFacadeLoadRunnerImpl implements AssertionFacade {
+public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
 
     @Inject
     LoadRunnerFilter loadRunnerFilter;

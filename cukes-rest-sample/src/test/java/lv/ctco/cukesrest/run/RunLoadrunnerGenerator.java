@@ -1,7 +1,7 @@
 package lv.ctco.cukesrest.run;
 
 import cucumber.api.*;
-import lv.ctco.cukesrest.loadrunner.junit.*;
+import lv.ctco.cukesrest.loadrunner.junit.CucumberLoadRunner;
 import org.junit.runner.*;
 
 @RunWith(CucumberLoadRunner.class)

@@ -1,6 +1,6 @@
 package lv.ctco.cukesrest.loadrunner.dto;
 
-import lv.ctco.cukesrest.loadrunner.function.*;
+import lv.ctco.cukesrest.loadrunner.function.WebCustomRequest;
 import org.junit.*;
 
 import static org.hamcrest.CoreMatchers.*;

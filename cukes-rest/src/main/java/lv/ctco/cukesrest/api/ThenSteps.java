@@ -2,16 +2,15 @@ package lv.ctco.cukesrest.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import cucumber.api.java.en.Then;
-import lv.ctco.cukesrest.internal.AssertionFacade;
-import lv.ctco.cukesrest.internal.resources.ResourceFileReader;
+import lv.ctco.cukescore.internal.resources.ResourceFileReader;
+import lv.ctco.cukesrest.facade.RestAssertionFacade;
 
 @Singleton
 public class ThenSteps {
 
     @Inject
-    private AssertionFacade assertionFacade;
+    private RestAssertionFacade assertionFacade;
 
     @Inject
     private ResourceFileReader fileReader;

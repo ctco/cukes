@@ -1,8 +1,9 @@
 package lv.ctco.cukesrest.loadrunner.function;
 
-import lv.ctco.cukesrest.internal.helpers.*;
+import lv.ctco.cukescore.internal.helpers.Strings;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebCustomRequest implements LoadRunnerFunction {
     private String name;

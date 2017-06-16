@@ -1,27 +1,40 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.facade;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
-import lv.ctco.cukesrest.internal.json.JsonParser;
-import lv.ctco.cukesrest.internal.matchers.*;
-import lv.ctco.cukesrest.internal.switches.SwitchedBy;
+import lv.ctco.cukescore.CukesOptions;
+import lv.ctco.cukescore.internal.context.GlobalWorldFacade;
+import lv.ctco.cukescore.internal.context.InflateContext;
+import lv.ctco.cukescore.internal.json.JsonParser;
+import lv.ctco.cukescore.internal.matchers.ArrayWithSizeMatcher;
+import lv.ctco.cukescore.internal.matchers.ContainsPattern;
+import lv.ctco.cukescore.internal.matchers.EndsWithRegexp;
+import lv.ctco.cukescore.internal.matchers.EqualToIgnoringTypeMatcher;
+import lv.ctco.cukescore.internal.matchers.JsonMatchers;
+import lv.ctco.cukescore.internal.matchers.MiscMatchers;
+import lv.ctco.cukescore.internal.matchers.OfTypeMatcher;
+import lv.ctco.cukescore.internal.matchers.StatusCodeMatcher;
+import lv.ctco.cukescore.internal.switches.SwitchedBy;
 import org.hamcrest.Matchers;
 
 import java.util.Map;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
 @InflateContext
-public class AssertionFacadeImpl implements AssertionFacade {
+public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Inject
     private GlobalWorldFacade world;
@@ -30,7 +43,7 @@ public class AssertionFacadeImpl implements AssertionFacade {
     private JsonParser jsonParser;
 
     @Inject
-    ResponseFacade facade;
+    RestResponseFacade facade;
 
     @Override
     public void bodyEqualTo(String body) {

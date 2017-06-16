@@ -2,8 +2,8 @@ package lv.ctco.cukesrest.loadrunner;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import lv.ctco.cukesrest.internal.VariableFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukescore.facade.VariableFacade;
+import lv.ctco.cukescore.internal.context.InflateContext;
 import lv.ctco.cukesrest.loadrunner.function.LoadRunnerFunction;
 
 @Singleton

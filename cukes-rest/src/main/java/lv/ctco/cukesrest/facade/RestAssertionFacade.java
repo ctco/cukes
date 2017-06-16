@@ -1,7 +1,6 @@
-package lv.ctco.cukesrest.internal;
+package lv.ctco.cukesrest.facade;
 
-public interface AssertionFacade {
-    String ASSERTION_FACADE = "AssertionFacade";
+public interface RestAssertionFacade {
 
     void bodyEqualTo(String body);
 
