@@ -28,6 +28,7 @@ public interface CukesOptions {
     String RELAXED_HTTPS = "relaxed_https";
 
     String GZIP_SUPPORT = "gzip_support";
+    String REQUEST_BODY_TEMPLATES_ENABLED = "request_body_templates_enabled";
 
     String CONTEXT_INFLATING_ENABLED = "context_inflating_enabled";
     String ASSERTIONS_DISABLED = "assertions_disabled";

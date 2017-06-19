@@ -64,6 +64,10 @@ public class GlobalWorldFacade {
         world.remove(key);
     }
 
+    public Set<String> keys() {
+        return world.keys();
+    }
+
     private RestAssuredConfig buildRestAssuredConfig() {
         RestAssuredConfig config = newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL));
         if (!getBoolean(CukesOptions.GZIP_SUPPORT, true)) {

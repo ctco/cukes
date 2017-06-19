@@ -187,6 +187,13 @@
             <version>0.9.11</version>
         </dependency>
 
+        <!-- Rythm -->
+        <dependency>
+            <groupId>org.rythmengine</groupId>
+            <artifactId>rythm-engine</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
         <!-- Google Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
