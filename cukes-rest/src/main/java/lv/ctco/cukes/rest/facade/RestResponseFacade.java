@@ -15,6 +15,7 @@ import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.matchers.AwaitConditionMatcher;
 import lv.ctco.cukes.core.internal.switches.ResponseWrapper;
+import lv.ctco.cukes.core.internal.templating.TemplatingEngine;
 
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -32,6 +33,8 @@ public class RestResponseFacade {
     GlobalWorldFacade world;
     @Inject
     Set<CukesPlugin> pluginSet;
+    @Inject
+    TemplatingEngine templatingEngine;
 
     private Response response;
     private boolean expectException;
@@ -88,6 +91,10 @@ public class RestResponseFacade {
                 for (CukesPlugin cukesPlugin : pluginSet) {
                     cukesPlugin.beforeRequest(requestSpec);
                 }
+
+                String requestBody = specification.getRequestBody();
+                String processed = templatingEngine.processBody(requestBody);
+                specification.body(processed);
 
                 response = method.doRequest(requestSpec, url);
                 for (CukesPlugin cukesRestPlugin : pluginSet) {

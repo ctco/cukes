@@ -34,8 +34,8 @@ public class RestRequestFacade {
     private GlobalWorldFacade world;
 
     private RequestSpecification specification;
-
     private AwaitCondition awaitCondition;
+    private String requestBody;
 
     @Inject
     public RestRequestFacade(GlobalWorldFacade world) {
@@ -191,5 +191,13 @@ public class RestRequestFacade {
 
     public AwaitCondition awaitCondition() {
         return awaitCondition;
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
     }
 }
