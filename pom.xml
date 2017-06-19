@@ -14,9 +14,11 @@
         <module>cukes-graphql-sample</module>
     </modules>
 
-    <properties>
-        <cukes-core.version>0.0.1</cukes-core.version>
-    </properties>
+    <description>
+        cukes-graphql takes simplicity of Cucumber and provides bindings for GraphQL specification.
+        It provides a custom steps for end-to-end testing of GraphQL endpoint, allowing to query different
+        type of data, having a result assertions on top.
+    </description>
 
     <url>https://github.com/ctco-dev/cukes-graphql</url>
 
@@ -42,6 +44,10 @@
         <url>git@github.com:ctco-dev/cukes-graphql.git</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <cukes-core.version>0.0.1</cukes-core.version>
+    </properties>
 
     <profiles>
         <profile>
