@@ -7,6 +7,9 @@
     <version>0.0.1</version>
 
     <name>Cukes Common Module</name>
+    <description>
+        cukes-core is a common library for Cukes testing Frameworks
+    </description>
     <url>https://github.com/ctco-dev/cukes-core</url>
 
     <licenses>
@@ -15,6 +18,13 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:ctco-dev/cukes-core.git</connection>
+        <developerConnection>scm:git:git@github.com:ctco-dev/cukes-core.git</developerConnection>
+        <url>git@github.com:ctco-dev/cukes-core.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <developers>
         <developer>
@@ -220,12 +230,5 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
-    <scm>
-        <connection>scm:git:git@github.com:ctco-dev/cukes-core.git</connection>
-        <developerConnection>scm:git:git@github.com:ctco-dev/cukes-core.git</developerConnection>
-        <url>git@github.com:ctco-dev/cukes-core.git</url>
-        <tag>HEAD</tag>
-    </scm>
 
 </project>
