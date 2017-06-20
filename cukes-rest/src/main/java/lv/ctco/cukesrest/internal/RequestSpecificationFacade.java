@@ -213,4 +213,8 @@ public class RequestSpecificationFacade {
     public void setRequestBody(String requestBody) {
         this.requestBody = requestBody;
     }
+
+    public void clearRequestBody() {
+        this.requestBody = null;
+    }
 }

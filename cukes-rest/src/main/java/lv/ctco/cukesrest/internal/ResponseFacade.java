@@ -91,10 +91,14 @@ public class ResponseFacade {
                 }
 
                 String requestBody = specification.getRequestBody();
-                String processed = templatingEngine.processBody(requestBody);
-                specification.body(processed);
+                if (requestBody != null) {
+                    String processed = templatingEngine.processBody(requestBody);
+                    specification.body(processed);
+                }
 
                 response = method.doRequest(requestSpec, url);
+                specification.clearRequestBody();
+
                 for (CukesRestPlugin cukesRestPlugin : pluginSet) {
                     cukesRestPlugin.afterRequest(response);
                 }
