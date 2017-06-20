@@ -35,7 +35,6 @@ public class RestRequestFacade {
 
     private RequestSpecification specification;
     private AwaitCondition awaitCondition;
-    private String requestBody;
 
     private String requestBody;
 
@@ -193,14 +192,6 @@ public class RestRequestFacade {
 
     public AwaitCondition awaitCondition() {
         return awaitCondition;
-    }
-
-    public String getRequestBody() {
-        return requestBody;
-    }
-
-    public void setRequestBody(String requestBody) {
-        this.requestBody = requestBody;
     }
 
     public String getRequestBody() {
