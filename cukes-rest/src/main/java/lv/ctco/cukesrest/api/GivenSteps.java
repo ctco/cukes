@@ -97,17 +97,17 @@ public class GivenSteps {
 
     @Given("^request body \"(.+)\"$")
     public void request_Body(String body) {
-        this.facade.body(body);
+        this.facade.setRequestBody(body);
     }
 
     @Given("^request body:$")
     public void request_Body_From_Object(String body) {
-        this.facade.body(body);
+        this.facade.setRequestBody(body);
     }
 
     @Given("^request body from file \"(.+)\"$")
     public void request_Body_From_File(String path) {
-        this.facade.body(this.reader.read(path));
+        this.facade.setRequestBody(this.reader.read(path));
     }
 
     @Given("^request body is a multipart file \"(.+)\"$")

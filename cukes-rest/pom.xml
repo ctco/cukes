@@ -82,6 +82,13 @@
             <version>${mockito.version}</version>
         </dependency>
 
+        <!-- Rythm -->
+        <dependency>
+            <groupId>org.rythmengine</groupId>
+            <artifactId>rythm-engine</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
         <!-- Awaitility -->
         <dependency>
             <groupId>com.jayway.awaitility</groupId>

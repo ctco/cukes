@@ -5,6 +5,7 @@ package lv.ctco.cukesrest;
  */
 public interface CukesOptions {
     int CUKES_BEFORE_HOOK_STARTUP_ORDER = 500;
+
     String PROPERTIES_PREFIX = "cukes.";
     String HEADER_PREFIX = "header.";
     String DELIMITER = ",";
@@ -26,10 +27,11 @@ public interface CukesOptions {
 
     String URL_ENCODING_ENABLED = "url_encoding_enabled";
     String RELAXED_HTTPS = "relaxed_https";
-    String CONTEXT_INFLATING_ENABLED = "context_inflating_enabled";
-    String ASSERTIONS_DISABLED = "assertions_disabled";
-
-    String LOADRUNNER_FILTER_BLOCKS_REQUESTS = "loadrunner_filter_blocks_requests";
 
     String GZIP_SUPPORT = "gzip_support";
+    String REQUEST_BODY_TEMPLATES_ENABLED = "request_body_templates_enabled";
+
+    String CONTEXT_INFLATING_ENABLED = "context_inflating_enabled";
+    String ASSERTIONS_DISABLED = "assertions_disabled";
+    String LOADRUNNER_FILTER_BLOCKS_REQUESTS = "loadrunner_filter_blocks_requests";
 }

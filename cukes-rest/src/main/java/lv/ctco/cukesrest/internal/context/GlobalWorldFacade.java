@@ -51,4 +51,8 @@ public class GlobalWorldFacade {
     public void remove(String key) {
         world.remove(key);
     }
+
+    public Set<String> keys() {
+        return world.keys();
+    }
 }

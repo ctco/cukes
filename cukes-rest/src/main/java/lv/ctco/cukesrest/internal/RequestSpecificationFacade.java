@@ -40,6 +40,8 @@ public class RequestSpecificationFacade {
     // TODO: Refactor
     private AwaitCondition awaitCondition;
 
+    private String requestBody;
+
     @Inject
     public RequestSpecificationFacade(GlobalWorldFacade world) {
         this.world = world;
@@ -202,5 +204,13 @@ public class RequestSpecificationFacade {
 
     public void setAwaitCondition(AwaitCondition awaitCondition) {
         this.awaitCondition = awaitCondition;
+    }
+
+    public String getRequestBody() {
+        return requestBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        this.requestBody = requestBody;
     }
 }
