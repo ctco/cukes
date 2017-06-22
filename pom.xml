@@ -93,6 +93,7 @@
                                 <configuration>
                                     <keyname>${env.GPG_KEYNAME}</keyname>
                                     <passphraseServerId>${env.GPG_KEYNAME}</passphraseServerId>
+                                    <executable>gpg2</executable>
                                 </configuration>
                             </execution>
                         </executions>
