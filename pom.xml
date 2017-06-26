@@ -4,7 +4,7 @@
 
     <groupId>lv.ctco.cukesrest</groupId>
     <artifactId>cukes-rest-all</artifactId>
-    <version>0.2.26-SNAPSHOT</version>
+    <version>0.2.27-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
