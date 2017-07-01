@@ -1,26 +1,32 @@
-package lv.ctco.cukes.rabbitmq.sample.example;
+package lv.ctco.cukes.rabbitmq.sample.listeners;
 
 import lv.ctco.cukes.rabbitmq.sample.configuration.RabbitMQConfiguration;
 import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleStringReceiver {
+public class PrependHello {
 
-    public static final String ID = "exampleStringReceiver";
+    @Autowired
+    RabbitTemplate template;
 
-    @RabbitListener(id = ID, bindings = {
+    @RabbitListener(bindings = {
             @QueueBinding(
                     value = @Queue,
                     exchange = @Exchange(value = RabbitMQConfiguration.EXCHANGE_NAME, type = ExchangeTypes.TOPIC),
-                    key = ExampleRoutingKeys.AS_STRING
+                    key = "prepend"
             )
     })
-    public void onMessage(String message) {
-        System.out.println("Received message: " + message);
+    public void onMessage(Message message) {
+        String text = new String(message.getBody());
+        String result = "hello, " + text;
+        template.convertAndSend(message.getMessageProperties().getReplyTo(), result);
     }
 }
