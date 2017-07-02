@@ -14,6 +14,10 @@
         <module>cukes-rabbitmq-sample</module>
     </modules>
 
+    <properties>
+        <cukes-core.version>0.0.1</cukes-core.version>
+    </properties>
+
     <build>
         <pluginManagement>
             <plugins>
