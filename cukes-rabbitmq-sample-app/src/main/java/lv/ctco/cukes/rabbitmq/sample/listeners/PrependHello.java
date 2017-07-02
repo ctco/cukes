@@ -26,6 +26,7 @@ public class PrependHello {
     })
     public void onMessage(Message message) {
         String text = new String(message.getBody());
+        System.out.println("PrependHello.onMessage - " + text);
         String result = "hello, " + text;
         template.convertAndSend(message.getMessageProperties().getReplyTo(), result);
     }

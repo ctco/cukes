@@ -26,6 +26,7 @@ public class ToUpperCase {
     })
     public void onMessage(Message message) {
         String text = new String(message.getBody());
+        System.out.println("ToUpperCase.onMessage - " + text);
         String result = text.toUpperCase();
         template.convertAndSend(message.getMessageProperties().getReplyTo(), result);
     }

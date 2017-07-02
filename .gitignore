@@ -4,6 +4,7 @@
 work/
 build/
 target/
+out/
 
 derby.log
 
