@@ -10,5 +10,5 @@ Feature: Minimalistic configuration
     And reply-to is "out"
     And bind queue "out" with routing key "out"
     When the client sends message with routing key "prepend"
-    Then wait for message in queue "out" for not more than 5 seconds
+    Then wait for message in queue "out"
     And message body contains property "body" with value "hello, world"

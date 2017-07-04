@@ -15,14 +15,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.*;
+
 @Singleton
 public class ConnectionService {
 
-    public static final String HOST = "rabbitmq.host";
-    public static final String PORT = "rabbitmq.port";
-    public static final String USER = "rabbitmq.user";
-    public static final String PASSWORD = "rabbitmq.password";
-    public static final String VIRTUAL_HOST = "rabbitmq.vhost";
 
     GlobalWorldFacade globalWorldFacade;
 

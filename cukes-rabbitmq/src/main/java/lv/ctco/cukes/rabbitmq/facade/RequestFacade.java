@@ -9,10 +9,10 @@ import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 
 import java.util.Optional;
 
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.CONTENT_TYPE;
+
 @Singleton
 public class RequestFacade {
-
-    public static final String CONTENT_TYPE = "rabbitmq.content-type";
 
     @Inject
     MessageService messageService;

@@ -13,10 +13,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.DEFAULT_EXCHANGE_NAME_ATTRIBUTE;
+
 @Singleton
 public class ExchangeService {
-
-    private static final String DEFAULT_EXCHANGE_NAME_ATTRIBUTE = "rabbitmq.exchange.default";
 
     @Inject
     ConnectionService connectionService;

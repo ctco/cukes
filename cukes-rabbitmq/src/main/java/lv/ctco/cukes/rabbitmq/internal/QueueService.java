@@ -12,8 +12,6 @@ public class QueueService {
 
     @Inject
     ConnectionService connectionService;
-    @Inject
-    ExchangeService exchangeService;
 
     @SneakyThrows(IOException.class)
     public void declareQueue(String queueName, String exchange, String routingKey) {
