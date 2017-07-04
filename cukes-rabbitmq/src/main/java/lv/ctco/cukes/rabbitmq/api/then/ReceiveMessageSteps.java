@@ -17,22 +17,12 @@ public class ReceiveMessageSteps {
 
     @Then("^wait for message in queue \"" + NamePatterns.QUEUE_NAME + "\"$")
     public void waitForMessageInQueue(String queue) {
-        responseFacade.waitForMessage(queue, Optional.empty(), Optional.empty());
-    }
-
-    @Then("^wait for message in queue \"" + NamePatterns.QUEUE_NAME + "\" bound to exchange \"" + NamePatterns.EXCHANGE_NAME + "\"$")
-    public void waitForMessageInQueue(String queue, String exchange) {
-        responseFacade.waitForMessage(queue, Optional.of(exchange), Optional.empty());
+        responseFacade.waitForMessage(queue, Optional.empty());
     }
 
     @Then("^wait for message in queue \"" + NamePatterns.QUEUE_NAME + "\" for not more than (\\d+) seconds$")
     public void waitForMessageInQueue(String queue, Integer timeout) {
-        responseFacade.waitForMessage(queue, Optional.empty(), Optional.of(timeout));
-    }
-
-    @Then("^wait for message in queue \"" + NamePatterns.QUEUE_NAME + "\" bound to exchange \"" + NamePatterns.EXCHANGE_NAME + "\" for not more than (\\d+) seconds$")
-    public void waitForMessageInQueue(String queue, String exchange, Integer timeout) {
-        responseFacade.waitForMessage(queue, Optional.of(exchange), Optional.of(timeout));
+        responseFacade.waitForMessage(queue, Optional.of(timeout));
     }
 
 }

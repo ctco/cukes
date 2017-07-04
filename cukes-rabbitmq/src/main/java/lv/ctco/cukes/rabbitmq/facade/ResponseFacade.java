@@ -26,9 +26,8 @@ public class ResponseFacade {
 
     private MessageWrapper message;
 
-    //TODO seems that exchange is not needed here
     @SneakyThrows
-    public void waitForMessage(String queue, Optional<String> exchange, Optional<Integer> timeout) {
+    public void waitForMessage(String queue, Optional<Integer> timeout) {
         message = messageService.receiveMessage(queue, timeout.orElse(5));
     }
 

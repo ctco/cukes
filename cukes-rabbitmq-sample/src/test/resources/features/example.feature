@@ -14,7 +14,7 @@ Feature: DSL showcase
     And reply-to is "out"
     And bind queue "out" to exchange "exchange" with routing key "out"
     When the client sends message to exchange "exchange" with routing key "upper"
-    Then wait for message in queue "out" bound to exchange "exchange" for not more than 5 seconds
+    Then wait for message in queue "out" for not more than 5 seconds
     # Double quotes here are just because String to JSON conversion during payload processing
     And message body equals to ""HELLO""
 
