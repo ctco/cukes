@@ -89,7 +89,7 @@ public class RabbitMQConfiguration {
         backOff.setMaxInterval(60000);
         retry.setBackOffPolicy(backOff);
         template.setRetryTemplate(retry);
-//        template.setMessageConverter(new Jackson2JsonMessageConverter(mapper));
+        template.setMessageConverter(new Jackson2JsonMessageConverter(mapper));
         return template;
     }
 
@@ -98,7 +98,7 @@ public class RabbitMQConfiguration {
                                                                         ObjectMapper mapper) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(cf);
-//        factory.setMessageConverter(new Jackson2JsonMessageConverter(mapper));
+        factory.setMessageConverter(new Jackson2JsonMessageConverter(mapper));
         return factory;
     }
 

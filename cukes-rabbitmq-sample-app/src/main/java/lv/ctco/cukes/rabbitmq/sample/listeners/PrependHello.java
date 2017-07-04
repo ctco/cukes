@@ -1,6 +1,7 @@
 package lv.ctco.cukes.rabbitmq.sample.listeners;
 
 import lv.ctco.cukes.rabbitmq.sample.configuration.RabbitMQConfiguration;
+import lv.ctco.cukes.rabbitmq.sample.message.StringMessage;
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.Exchange;
@@ -24,10 +25,10 @@ public class PrependHello {
                     key = "prepend"
             )
     })
-    public void onMessage(Message message) {
-        String text = new String(message.getBody());
+    public void onMessage(StringMessage msg, Message message) {
+        String text = msg.getBody();
         System.out.println("PrependHello.onMessage - " + text);
         String result = "hello, " + text;
-        template.convertAndSend(message.getMessageProperties().getReplyTo(), result);
+        template.convertAndSend(message.getMessageProperties().getReplyTo(), new StringMessage(result));
     }
 }

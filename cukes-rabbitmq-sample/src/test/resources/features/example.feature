@@ -15,14 +15,21 @@ Feature: DSL showcase
     And bind queue "out" to exchange "exchange" with routing key "out"
     When the client sends message to exchange "exchange" with routing key "upper"
     Then wait for message in queue "out" bound to exchange "exchange" for not more than 5 seconds
-    And message body equals to "HELLO"
+    # Double quotes here are just because String to JSON conversion during payload processing
+    And message body equals to ""HELLO""
 
   Scenario: Should prepend 'hello' to message
     Given use exchange "exchange" by default
     And prepare new message
-    And message body is "world"
+    And message body:
+    """
+    {
+      "body": "world"
+    }
+    """
+    And content-type is "application/json"
     And reply-to is "out"
     And bind queue "out" with routing key "out"
     When the client sends message with routing key "prepend"
     Then wait for message in queue "out" for not more than 5 seconds
-    And message body equals to "hello, world"
+    And message body contains property "body" with value "hello, world"

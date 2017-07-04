@@ -42,4 +42,14 @@ public class MessageAssertionSteps {
             throw new NotImplementedException("Not yet implemented");
     }
 
+    @Then("^message body contains property \"(.+)\" containing phrase \"(.*)\"$")
+    public void assertMessageContainsPropertyWithPhrase(String path, String phrase) {
+        responseFacade.assertMessageContainsPropertyWithPhrase(path, phrase);
+    }
+
+    @Then("^message body contains property \"(.+)\" with value \"(.*)\"$")
+    public void assertMessageContainsPropertyWithValue(String path, String value) {
+        responseFacade.assertMessageContainsPropertyWithValue(path, value);
+    }
+
 }

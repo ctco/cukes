@@ -34,6 +34,10 @@ public class RequestFacade {
         message.getProperties().replyTo(replyTo);
     }
 
+    public void setContentType(String contentType) {
+        message.getProperties().contentType(contentType);
+    }
+
     public MessageWrapper getMessage() {
         return message;
     }

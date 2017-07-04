@@ -30,4 +30,9 @@ public class PrepareMessageSteps {
     public void setReplyTo(String replyTo) {
         requestFacade.setReplyTo(replyTo);
     }
+
+    @Given("^content-type is \"(.+)\"$")
+    public void setContentType(String contentType) {
+        requestFacade.setContentType(contentType);
+    }
 }

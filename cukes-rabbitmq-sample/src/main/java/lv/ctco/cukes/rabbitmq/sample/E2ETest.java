@@ -40,8 +40,12 @@ public class E2ETest {
         });
 
         //Prepare and publish message
-        String message = "world";
-        AMQP.BasicProperties props = new AMQP.BasicProperties().builder().replyTo("out").build();
+        String message = "{\"body\": \"world\"}";
+        AMQP.BasicProperties props = new AMQP.BasicProperties()
+                .builder()
+                .replyTo("out")
+                .contentType("application/json")
+                .build();
         channel.basicPublish(EXCHANGE, ROUTING_KEY, props, message.getBytes());
 
         //Get response
