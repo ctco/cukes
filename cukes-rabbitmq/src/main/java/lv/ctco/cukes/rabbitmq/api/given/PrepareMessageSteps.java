@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
 import lv.ctco.cukes.rabbitmq.facade.RequestFacade;
+import lv.ctco.cukesrest.internal.context.InflateContext;
 
 @Singleton
+@InflateContext
 public class PrepareMessageSteps {
 
     @Inject
