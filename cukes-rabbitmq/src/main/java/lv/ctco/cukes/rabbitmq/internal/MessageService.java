@@ -33,10 +33,7 @@ public class MessageService {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
                 String response = new String(body);
-                MessageWrapper messageWrapper = new MessageWrapper();
-                messageWrapper.setBody(response);
-                //TODO handle properties
-//                messageWrapper.
+                MessageWrapper messageWrapper = new MessageWrapper(response, properties);
                 result.add(messageWrapper);
             }
         });

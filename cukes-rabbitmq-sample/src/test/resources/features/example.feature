@@ -10,6 +10,7 @@ Feature: DSL showcase
 
   Scenario: Should convert message to upper case
     Given prepare new message
+    And content-type is "text/plain"
     And message body is "hello"
     And reply-to is "out"
     And bind queue "out" to exchange "exchange" with routing key "out"

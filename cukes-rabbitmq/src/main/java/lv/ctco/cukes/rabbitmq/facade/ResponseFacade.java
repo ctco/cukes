@@ -14,6 +14,7 @@ import org.hamcrest.Matchers;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @Singleton
@@ -29,6 +30,7 @@ public class ResponseFacade {
     @SneakyThrows
     public void waitForMessage(String queue, Optional<Integer> timeout) {
         message = messageService.receiveMessage(queue, timeout.orElse(5));
+        assertThat(message, is(notNullValue()));
     }
 
     public void assertMessageBodyEqualsTo(String body) {
@@ -37,15 +39,17 @@ public class ResponseFacade {
 
     public void assertMessageContainsPropertyWithPhrase(String path, String phrase) {
         String body = message.getBody();
-        CustomJsonMatchers.DefaultContentProvider<String> contentProvider = new CustomJsonMatchers.DefaultContentProvider<>(body, "application/json");
+        String contentType = message.getContentType();
+        CustomJsonMatchers.DefaultContentProvider<String> contentProvider = new CustomJsonMatchers.DefaultContentProvider<>(body, contentType);
         assertThat(body, CustomJsonMatchers.containsValueByPath(contentProvider, path, Matchers.containsString(phrase)));
     }
 
     public void assertMessageContainsPropertyWithValue(String path, String value) {
         String body = message.getBody();
+        String contentType = message.getContentType();
         boolean caseInsensitive = globalWorldFacade.getBoolean("case-insensitive");
         Matcher<String> matcher = EqualToIgnoringTypeMatcher.equalToIgnoringType(value, caseInsensitive);
-        CustomJsonMatchers.DefaultContentProvider<String> contentProvider = new CustomJsonMatchers.DefaultContentProvider<>(body, "application/json");
+        CustomJsonMatchers.DefaultContentProvider<String> contentProvider = new CustomJsonMatchers.DefaultContentProvider<>(body, contentType);
         assertThat(body, CustomJsonMatchers.containsValueByPath(contentProvider, path, matcher));
     }
 }

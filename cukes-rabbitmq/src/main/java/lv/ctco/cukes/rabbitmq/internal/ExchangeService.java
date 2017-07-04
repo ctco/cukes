@@ -7,16 +7,46 @@ import lombok.SneakyThrows;
 import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Singleton
 public class ExchangeService {
 
-    private static final String DEFAULT_EXCHANGE_NAME_ATTRIBUTE = "_defaultExchange";
+    private static final String DEFAULT_EXCHANGE_NAME_ATTRIBUTE = "rabbitmq.exchange.default";
 
     @Inject
     ConnectionService connectionService;
     @Inject
     GlobalWorldFacade globalWorldFacade;
+
+    @Inject
+    public ExchangeService(ConnectionService connectionService, GlobalWorldFacade globalWorldFacade) {
+        this.connectionService = connectionService;
+        this.globalWorldFacade = globalWorldFacade;
+        initDefaultExchanges();
+    }
+
+    private void initDefaultExchanges() {
+        Pattern propertyPattern = Pattern.compile("rabbitmq.exchange\\.(\\d+)\\.(name|type)");
+        Set<String> keys = new TreeSet<>(this.globalWorldFacade.getKeysStartingWith("rabbitmq.exchange"));
+        Set<String> ids = keys.stream().
+                map(propertyPattern::matcher).
+                filter(Matcher::matches).
+                map(matcher -> matcher.group(1)).
+                collect(Collectors.toSet());
+        for (String id : ids) {
+            String name = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".name").or(() -> {
+                throw new IllegalArgumentException("No name specified for predefined exchange: rabbitmq.exchange." + id + ".name");
+            });
+            String type = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".type", "direct");
+            declareExchange(name, type);
+        }
+
+    }
 
     public void setDefaultExchange(String exchange) {
         globalWorldFacade.put(DEFAULT_EXCHANGE_NAME_ATTRIBUTE, exchange);
@@ -38,7 +68,7 @@ public class ExchangeService {
     @SneakyThrows(IOException.class)
     public void declareQueue(String queueName, String exchange, String routingKey) {
         Channel channel = getChannel();
-        channel.queueDeclare(queueName, false, true,true, null);
+        channel.queueDeclare(queueName, false, true, true, null);
         channel.queueBind(queueName, exchange, routingKey);
     }
 
