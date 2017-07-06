@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         format = {"pretty", "json:target/cucumber.json"/*, "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber2.json"*/},
         features = {"classpath:features/"},
-        glue = "lv.ctco.cukes.rabbitmq",
+        glue = {"lv.ctco.cukes.rabbitmq", "lv.ctco.cukesrest.api"},
         strict = true
 )
 public class CukesTests {
