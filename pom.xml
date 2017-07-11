@@ -4,15 +4,13 @@
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rest-parent</artifactId>
-    <version>0.2.25-SNAPSHOT</version>
-    <properties>
-        <cukes-core.version>0.0.1</cukes-core.version>
-    </properties>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
-    <name>Cukes REST parent</name>
+    <name>Cukes parent</name>
 
     <modules>
+        <module>cukes-core</module>
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
         <module>cukes-rest-sample</module>
@@ -24,7 +22,7 @@
         a file system, variable support in .features, context inflation in all steps and resources
         and a custom plug-in system to allow users to add additional project specific content.
     </description>
-    <url>https://github.com/ctco/cukes-rest</url>
+    <url>https://github.com/ctco-dev/cukes</url>
 
     <licenses>
         <license>
@@ -49,9 +47,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:ctco/cukes-rest.git</connection>
-        <developerConnection>scm:git:git@github.com:ctco/cukes-rest.git</developerConnection>
-        <url>git@github.com:ctco/cukes-rest.git</url>
+        <connection>scm:git:git@github.com:ctco-dev/cukes.git</connection>
+        <developerConnection>scm:git:git@github.com:ctco-dev/cukes.git</developerConnection>
+        <url>git@github.com:ctco-dev/cukes.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -92,7 +90,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.8</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

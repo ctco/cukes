@@ -63,7 +63,7 @@ release:
         code: |
           git checkout $WERCKER_GIT_BRANCH
           git reset --hard $WERCKER_GIT_COMMIT
-          git remote set-url origin git@github.com:ctco/cukes-rest.git
+          git remote set-url origin git@github.com:ctco-dev/cukes.git
           git config --global user.name "C.T.Co SCM"
           git config --global user.email "cscm@ctco.lv"
           mvn --batch-mode -Dmaven.test.skip=true -DuseReleaseProfile=false -DscmCommentPrefix="[maven-release-plugin][skip ci]" --batch-mode release:prepare release:perform -P release -s ~/.m2/settings.xml

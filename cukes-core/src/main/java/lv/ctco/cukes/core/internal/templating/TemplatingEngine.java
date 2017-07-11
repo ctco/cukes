@@ -1,11 +1,11 @@
-package lv.ctco.cukesrest.internal.templating;
+package lv.ctco.cukes.core.internal.templating;
 
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import lv.ctco.cukesrest.CukesOptions;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
+import lv.ctco.cukes.core.CukesOptions;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
+import lv.ctco.cukes.core.internal.context.InflateContext;
 import org.rythmengine.Rythm;
 
 import java.util.HashMap;
