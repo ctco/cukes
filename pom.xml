@@ -16,8 +16,8 @@
         <module>cukes-rest-sample</module>
         <module>cukes-graphql</module>
         <module>cukes-graphql-sample</module>
-        <!--<module>cukes-rabbitmq</module>-->
-        <!--<module>cukes-rabbitmq-sample</module>-->
+        <module>cukes-rabbitmq</module>
+        <module>cukes-rabbitmq-sample</module>
     </modules>
 
     <description>

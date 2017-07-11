@@ -1,6 +1,7 @@
-package lv.ctco.cukes.rabbitmq.sample;
+package lv.ctco.cukes.rabbitmq;
 
 import com.rabbitmq.client.*;
+import org.junit.Ignore;
 
 import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -8,6 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+@Ignore
 public class E2ETest {
 
     public static final String EXCHANGE = "exchange";

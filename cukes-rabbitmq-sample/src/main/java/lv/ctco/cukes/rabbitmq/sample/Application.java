@@ -3,16 +3,20 @@ package lv.ctco.cukes.rabbitmq.sample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.IOException;
 
 @SpringBootApplication
 @Slf4j
-public class Application extends SpringBootServletInitializer {
+public class Application {
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(Application.class,
+        run();
+    }
+
+    public static ConfigurableApplicationContext run() {
+        return SpringApplication.run(Application.class,
                 "--rabbitmq.host=localhost",
                 "--rabbitmq.port=5672",
                 "--rabbitmq.username=guest",

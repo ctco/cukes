@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cukes-rabbitmq</artifactId>
+    <name>Cukes RabbitMQ extension</name>
     <parent>
         <groupId>lv.ctco.cukes</groupId>
         <artifactId>cukes-parent</artifactId>
@@ -30,7 +31,7 @@
         <!-- Cukes core -->
         <dependency>
             <groupId>lv.ctco.cukes</groupId>
-            <artifactId>cukes-rest</artifactId>
+            <artifactId>cukes-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
