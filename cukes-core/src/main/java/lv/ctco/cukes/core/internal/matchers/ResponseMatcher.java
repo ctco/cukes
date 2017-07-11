@@ -1,5 +1,6 @@
 package lv.ctco.cukes.core.internal.matchers;
 
+import io.restassured.response.Response;
 import lv.ctco.cukes.core.internal.switches.ResponseWrapper;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -16,7 +17,17 @@ public class ResponseMatcher {
             @Override
             protected boolean matchesSafely(ResponseWrapper response) {
                 //containsValueByPath
-                return containsValueByPath(path, matcher).matches(response.getResponse());
+                return containsValueByPath(new JsonMatchers.ContentProvider<Response>() {
+                    @Override
+                    public String getValue(Object o) {
+                        return ((Response) o).getBody().asString();
+                    }
+
+                    @Override
+                    public String getContentType(Object o) {
+                        return ((Response) o).getContentType();
+                    }
+                }, path, matcher).matches(response.getResponse());
             }
 
             @Override

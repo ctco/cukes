@@ -142,15 +142,15 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Override
     public void bodyContainsPathWithValue(String path, String value) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody,
-                JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
+        Response response = this.facade.response();
+        assertThat(response,
+                JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
     public void bodyContainsPathWithOtherValue(String path, String value) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, EqualToIgnoringTypeMatcher.notEqualToIgnoringType(value)));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.notEqualToIgnoringType(value)));
     }
 
     @Override
@@ -161,26 +161,26 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Override
     public void bodyContainsArrayWithSize(String path, String size) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, ArrayWithSizeMatcher.arrayWithSize(size)));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, ArrayWithSizeMatcher.arrayWithSize(size)));
     }
 
     @Override
     public void bodyContainsPathOfType(String path, String type) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, OfTypeMatcher.ofType(type)));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, OfTypeMatcher.ofType(type)));
     }
 
     @Override
     public void bodyContainsPathMatchingPattern(String path, String pattern) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
     }
 
     @Override
     public void bodyContainsPathNotMatchingPattern(String path, String pattern) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
     }
 
     @Override
@@ -197,8 +197,8 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Override
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPath(path, containsString(phrase)));
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, containsString(phrase)));
     }
 
     @Override
@@ -213,8 +213,8 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Override
     public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
-        ResponseBody responseBody = this.facade.response().body();
-        assertThat(responseBody, JsonMatchers.containsValueByPathInArray(path,
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, path,
                 EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
 
     }

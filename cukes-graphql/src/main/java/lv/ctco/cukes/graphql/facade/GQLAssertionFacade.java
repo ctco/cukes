@@ -2,6 +2,7 @@ package lv.ctco.cukes.graphql.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
@@ -39,13 +40,13 @@ public class GQLAssertionFacade {
     }
 
     public void bodyContainsArrayWithObjectHavingProperty(String path, String property, String value) {
-        ResponseBody responseBody = this.responseFacade.response().body();
-        assertThat(responseBody, containsPropertyValueByPathInArray(getPath(path), property, equalToIgnoringType(value, this.world.getBoolean("case-insensitive")))
+        Response response = this.responseFacade.response();
+        assertThat(response, containsPropertyValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path), property, equalToIgnoringType(value, this.world.getBoolean("case-insensitive")))
         );
     }
 
     private void assertBodyValueByPath(String path, Matcher matcher) {
-        ResponseBody responseBody = this.responseFacade.response().body();
-        assertThat(responseBody, containsValueByPath(getPath(path), matcher));
+        Response response = this.responseFacade.response();
+        assertThat(response, containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), matcher));
     }
 }

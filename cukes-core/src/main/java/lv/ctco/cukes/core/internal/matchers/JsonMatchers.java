@@ -1,10 +1,9 @@
 package lv.ctco.cukes.core.internal.matchers;
 
-import io.restassured.internal.RestAssuredResponseOptionsImpl;
+import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.config.JsonPathConfig;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.path.xml.config.XmlPathConfig;
-import io.restassured.response.ResponseBodyExtractionOptions;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -20,15 +19,15 @@ public class JsonMatchers {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonMatchers.class);
 
-    public static Matcher<ResponseBodyExtractionOptions> containsValueByPath(final String path, final Matcher<?> matcher) {
-        return new BaseMatcher<ResponseBodyExtractionOptions>() {
+    public static <T> Matcher<T> containsValueByPath(ContentProvider<T> contentProvider, final String path, final Matcher<?> matcher) {
+        return new BaseMatcher<T>() {
 
             private Object value;
 
             @Override
             public boolean matches(Object o) {
                 try {
-                    this.value = retrieveValueByPath(o, path);
+                    this.value = retrieveValueByPath(contentProvider, o, path);
                     return matcher.matches(this.value);
                 } catch (Exception e) {
                     LOGGER.info(e.getMessage(), e);
@@ -49,13 +48,13 @@ public class JsonMatchers {
         };
     }
 
-    public static Matcher<ResponseBodyExtractionOptions> containsValueByPathInArray(final String path, final Matcher<?> matcher) {
-        return new BaseMatcher<ResponseBodyExtractionOptions>() {
+    public static <T> Matcher<T> containsValueByPathInArray(ContentProvider<T> contentProvider, final String path, final Matcher<?> matcher) {
+        return new BaseMatcher<T>() {
             private Object value;
 
             @Override
             public boolean matches(Object o) {
-                this.value = retrieveValueByPath(o, path);
+                this.value = retrieveValueByPath(contentProvider, o, path);
 
                 if (this.value instanceof List) {
                     List list = (List) this.value;
@@ -89,13 +88,13 @@ public class JsonMatchers {
         };
     }
 
-    public static Matcher<ResponseBodyExtractionOptions> containsPropertyValueByPathInArray(final String path, final String property, final Matcher<?> matcher) {
-        return new BaseMatcher<ResponseBodyExtractionOptions>() {
+    public static <T> Matcher<T> containsPropertyValueByPathInArray(ContentProvider<T> contentProvider, final String path, final String property, final Matcher<?> matcher) {
+        return new BaseMatcher<T>() {
             private Object value;
 
             @Override
             public boolean matches(Object o) {
-                this.value = retrieveValueByPath(o, path);
+                this.value = retrieveValueByPath(contentProvider, o, path);
 
                 if (this.value instanceof List) {
                     List list = (List) this.value;
@@ -131,16 +130,17 @@ public class JsonMatchers {
         };
     }
 
-    private static Object retrieveValueByPath(Object o, String path) {
-        RestAssuredResponseOptionsImpl responseBody = (RestAssuredResponseOptionsImpl) o;
-        String contentType = responseBody.getContentType();
+    private static <T> Object retrieveValueByPath(ContentProvider<T> contentProvider, Object o, String path) {
+        String contentType = contentProvider.getContentType(o);
+        String body = contentProvider.getValue(o);
         Object value;
         if (containsIgnoreCase(contentType, "xml")) {
             XmlPathConfig config = new XmlPathConfig().disableLoadingOfExternalDtd();
-            value = responseBody.xmlPath(config).get(path);
+            XmlPath xmlPath = new XmlPath(body);
+            value = xmlPath.using(config).get(path);
 
         } else if (containsIgnoreCase(contentType, "html")) {
-            XmlPath htmlPath = responseBody.htmlPath();
+            XmlPath htmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, body);
             List<Object> list = htmlPath.getList(path);
             value =
                 list.size() > 1
@@ -149,8 +149,15 @@ public class JsonMatchers {
 
         } else {
             JsonPathConfig config = new JsonPathConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL);
-            value = responseBody.jsonPath(config).get(path);
+            JsonPath jsonPath = new JsonPath(body);
+            value = jsonPath.using(config).get(path);
         }
         return value;
     }
+
+    public interface ContentProvider<T> {
+        String getValue(Object o);
+        String getContentType(Object o);
+    }
+
 }
