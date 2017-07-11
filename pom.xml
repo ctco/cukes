@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukes</groupId>
-    <artifactId>cukes-rest-parent</artifactId>
+    <artifactId>cukes-parent</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
 
@@ -14,6 +14,8 @@
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
         <module>cukes-rest-sample</module>
+        <module>cukes-graphql</module>
+        <module>cukes-graphql-sample</module>
     </modules>
 
     <description>

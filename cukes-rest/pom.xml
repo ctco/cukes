@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>lv.ctco.cukes</groupId>
-        <artifactId>cukes-rest-parent</artifactId>
+        <artifactId>cukes-parent</artifactId>
         <version>0.0.1</version>
     </parent>
 
