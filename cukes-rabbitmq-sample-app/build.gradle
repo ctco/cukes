@@ -1,0 +1,51 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    ext {
+        lombokVersion = '1.16.16'
+        sleuthVersion = '1.2.1.RELEASE'
+    }
+
+    configurations {
+        compile.exclude module: 'spring-boot-starter-tomcat'
+    }
+
+    // Spring Boot starters
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-undertow'
+
+    // Spring AMQP
+    compile('org.springframework.boot:spring-boot-starter-amqp')
+    compile('org.springframework.retry:spring-retry')
+
+    // Lombok
+    compile "org.projectlombok:lombok:${lombokVersion}"
+
+    // In-memory AMQP broker
+    compile ('org.apache.qpid:qpid-broker:6.1.3') {
+        exclude group: 'ch.qos.logback'
+        exclude module: 'qpid-broker-plugins-management-http'
+    }
+}
