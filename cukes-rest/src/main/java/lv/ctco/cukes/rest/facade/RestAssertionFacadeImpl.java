@@ -185,7 +185,7 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
 
     @Override
     public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
-        String value = String.valueOf(this.facade.response().body().path(property));
+        String value = String.valueOf(this.facade.response().body().<Object>path(property));
         this.world.put(varName, value);
     }
 

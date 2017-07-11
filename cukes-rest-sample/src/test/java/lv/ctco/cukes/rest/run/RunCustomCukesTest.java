@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
     format = {"pretty"},
     features = "classpath:features/custom/",
-    glue = {"lv.ctco.cukes.rest.api", "lv.ctco.cukes.rest.run.custom.steps"},
+    glue = {"lv.ctco.cukes.core.api", "lv.ctco.cukes.rest.api", "lv.ctco.cukes.rest.run.custom.steps"},
     strict = true
 )
 public class RunCustomCukesTest {

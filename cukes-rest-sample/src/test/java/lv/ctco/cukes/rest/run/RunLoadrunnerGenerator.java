@@ -8,7 +8,7 @@ import org.junit.runner.*;
 @CucumberOptions(
     format = {"pretty"},
     features = "classpath:features",
-    glue = {"lv.ctco.cukes.rest.api", "lv.ctco.cukes.rest.loadrunner"},
+    glue = {"lv.ctco.cukes.core.api", "lv.ctco.cukes.rest.loadrunner"},
     strict = true
 )
 public class RunLoadrunnerGenerator {}
