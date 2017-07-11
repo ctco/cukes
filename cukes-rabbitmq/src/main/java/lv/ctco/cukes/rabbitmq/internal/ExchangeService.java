@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.rabbitmq.client.Channel;
 import lombok.SneakyThrows;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 
 import java.io.IOException;
 import java.util.Set;

@@ -4,7 +4,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.config.JsonPathConfig;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.path.xml.config.XmlPathConfig;
-import lv.ctco.cukesrest.internal.helpers.Strings;
+import lv.ctco.cukes.core.internal.helpers.Strings;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

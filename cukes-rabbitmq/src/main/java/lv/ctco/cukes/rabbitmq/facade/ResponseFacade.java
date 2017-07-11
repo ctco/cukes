@@ -3,29 +3,28 @@ package lv.ctco.cukes.rabbitmq.facade;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lombok.SneakyThrows;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.rabbitmq.internal.CustomJsonMatchers;
 import lv.ctco.cukes.rabbitmq.internal.MessageService;
 import lv.ctco.cukes.rabbitmq.internal.MessageWrapper;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
-import lv.ctco.cukesrest.internal.matchers.ArrayWithSizeMatcher;
-import lv.ctco.cukesrest.internal.matchers.ContainsPattern;
-import lv.ctco.cukesrest.internal.matchers.EqualToIgnoringTypeMatcher;
-import lv.ctco.cukesrest.internal.matchers.OfTypeMatcher;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 
 import java.util.Optional;
 
-import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.*;
-import static lv.ctco.cukes.rabbitmq.internal.CustomJsonMatchers.*;
-import static lv.ctco.cukesrest.internal.matchers.ArrayWithSizeMatcher.*;
-import static lv.ctco.cukesrest.internal.matchers.ContainsPattern.*;
-import static lv.ctco.cukesrest.internal.matchers.EqualToIgnoringTypeMatcher.*;
-import static lv.ctco.cukesrest.internal.matchers.OfTypeMatcher.*;
+import static lv.ctco.cukes.core.internal.matchers.ArrayWithSizeMatcher.arrayWithSize;
+import static lv.ctco.cukes.core.internal.matchers.ContainsPattern.containsPattern;
+import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.equalToIgnoringType;
+import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.notEqualToIgnoringType;
+import static lv.ctco.cukes.core.internal.matchers.OfTypeMatcher.ofType;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.DEFAULT_READ_TIMEOUT;
+import static lv.ctco.cukes.rabbitmq.internal.CustomJsonMatchers.containsValueByPath;
+import static lv.ctco.cukes.rabbitmq.internal.CustomJsonMatchers.containsValueByPathInArray;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 
 @Singleton
 public class ResponseFacade {

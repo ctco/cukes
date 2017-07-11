@@ -3,8 +3,8 @@ package lv.ctco.cukes.rabbitmq.api.then;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Then;
+import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.rabbitmq.facade.ResponseFacade;
-import lv.ctco.cukesrest.internal.context.InflateContext;
 import org.apache.commons.lang3.NotImplementedException;
 
 @Singleton

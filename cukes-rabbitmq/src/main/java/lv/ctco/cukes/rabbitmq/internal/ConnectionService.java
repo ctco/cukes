@@ -6,8 +6,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.SneakyThrows;
-import lv.ctco.cukesrest.CukesRuntimeException;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
+import lv.ctco.cukes.core.CukesRuntimeException;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -15,7 +15,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.*;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.HOST;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.PASSWORD;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.PORT;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.USER;
+import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.VIRTUAL_HOST;
 
 @Singleton
 public class ConnectionService {

@@ -2,10 +2,10 @@ package lv.ctco.cukes.rabbitmq.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.rabbitmq.internal.ExchangeService;
 import lv.ctco.cukes.rabbitmq.internal.MessageService;
 import lv.ctco.cukes.rabbitmq.internal.MessageWrapper;
-import lv.ctco.cukesrest.internal.context.GlobalWorldFacade;
 
 import java.util.Optional;
 
