@@ -1,19 +1,20 @@
-# Sample application for cukes-rabbitmq-sample
+# Cukes RabbitMQ Sample
 
-## Running
+This is a sample project showing how to use **[Cukes RabbitMQ extensions](../cukes-rabbitmq)**
 
-It's not possible to find publicly available RabbitMQ instance for testing therefore a sample applicaiton is available.
+## Overall design
 
-Just run it
+To avoid coupling with external providers sample project runs own AMQP broker. 
 
-```
-./gradlew bootRun
-```
+[Apache Qpid](https://qpid.apache.org/) is used as in-memory AMQP broker.
+
+If you would like how it works you can start with [lv.ctco.cukes.rabbitmq.sample.configuration.InMemoryAMQPBroker](src/main/java/lv/ctco/cukes/rabbitmq/sample/configuration/InMemoryAMQPBroker.java).
+
+**[cukes.properties](src/test/resources/cukes.properties)** is configured to use in-memory AMQP broker.
 
 ## System under test
 
-
-This application implements the following set of listeners and consumers:
+System under test can be described with the following diagram:
 
 ```
 
@@ -33,29 +34,20 @@ This application implements the following set of listeners and consumers:
 
 ```
 
-Elements:
+It declares one exchange, two workers (*PrependHello* and *ToUpperCase*) and a couple of queues (*in* and *out*).
 
-- Exchange (type - topic)
-- 2 Listeners, both of them receive string input 
-  - PrependHello - prepends 'hello' to input. E.g. 'world' is converted to 'hello, world'
-  - ToUpperCase - converts input to upper case. E.g. 'world' is converted to 'WORLD'
-- 4 queues
-  - Q1 - for PrependHello
-  - Q2 - for ToUpperCase
-  - In - can be considered as entry point for consumers. They will send their input to this queue
-  - Out - output queue for consumers 
-  
-Routing rules:
+Clients will send in input messages to the exchange and based on routing key they will be consumed by one of the workers.
 
-- PrependHello and ToUpperCase send response back to queue specified by 'Reply-To'
-- Q1 routing key is 'prepend'
-- Q2 routing key is 'upper'
+Response message will be send to *out* queue.
 
-Scenarios:
+## Running tests
 
-* Scenario 1
-  * Consumer sends 'world' message to 'In' queue with routing key 'prepend', reply-to is 'Out'
-  * Message reaches 'PrependHello' listener
-  * After it did it's job a new message is sent to 'reply-to' queue
-  * Listener for 'Out' queue receives a message
-  
+There is a JUnit-based test runner configured - [lv.ctco.cukes.rabbitmq.sample.RunCukesRabbmitMQTest](src/test/java/lv/ctco/cukes/rabbitmq/RunCukesRabbmitMQTest.java).
+
+It starts in-memory AMQP broker first, then runs all tests and in the end shuts down AMQP broker.
+
+There are 2 options to run test suite:
+
+1. Run it as JUnit test - `lv.ctco.cukes.rabbitmq.sample.RunCukesRabbmitMQTest`
+2. Run using Maven - `mvn clean test`
+

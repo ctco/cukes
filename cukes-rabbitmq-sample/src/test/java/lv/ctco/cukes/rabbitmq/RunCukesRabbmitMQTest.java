@@ -17,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
         glue = {"lv.ctco.cukes.rabbitmq", "lv.ctco.cukes.core.api"},
         strict = true
 )
-public class RunRabbmitMQCukesTest {
+public class RunCukesRabbmitMQTest {
 
     private static ConfigurableApplicationContext context;
 

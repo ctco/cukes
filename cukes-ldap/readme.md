@@ -94,4 +94,4 @@ Here is list of configuration properties that are available:
 
 ## More examples
 
-For more examples please refer to **cukes-ldap-sample** module.
+For more examples please refer to **[cukes-ldap-sample](../cukes-ldap-sample)** module.
