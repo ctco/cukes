@@ -10,7 +10,7 @@ test:
 deploy:
   steps:
     - install-packages:
-        packages: secure-delete gnupg2 gnupg-agent
+        packages: secure-delete gnupg2 gnupg-agent pinentry-gtk2
     - script:
         name: import gpg keys
         code: |
