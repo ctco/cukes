@@ -2,6 +2,7 @@ package lv.ctco.cukes.graphql;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
@@ -11,5 +12,6 @@ import org.junit.runner.RunWith;
     glue = "lv.ctco.cukes.graphql.api",
     strict = true
 )
+@Ignore
 public class RunCukesGraphQLTest {
 }
