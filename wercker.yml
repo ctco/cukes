@@ -15,11 +15,9 @@ deploy:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
-          echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import  ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import ~/gpgkey_sec.gpg
-          srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
+          srm -vz ~/gpgkey_sec.gpg
     - script:
         name: saving settings.xml
         code: |
@@ -47,11 +45,9 @@ release:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
-          echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import  ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import ~/gpgkey_sec.gpg
-          srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
+          srm -vz ~/gpgkey_sec.gpg
     - script:
         name: saving settings.xml
         code: |
@@ -63,8 +59,8 @@ release:
         code: |
           git checkout $WERCKER_GIT_BRANCH
           git reset --hard $WERCKER_GIT_COMMIT
-          git remote set-url origin git@github.com:ctco-dev/cukes.git
+          git remote set-url origin git@github.com:ctco/cukes.git
           git config --global user.name "C.T.Co SCM"
           git config --global user.email "cscm@ctco.lv"
-          mvn --batch-mode -Dmaven.test.skip=true -DuseReleaseProfile=false -DscmCommentPrefix="[maven-release-plugin]" --batch-mode release:prepare release:perform -P release -s ~/.m2/settings.xml
+          mvn --batch-mode -Dmaven.test.skip=true -DuseReleaseProfile=false -DscmCommentPrefix="[maven-release-plugin][skip ci]" --batch-mode release:prepare release:perform -P release -s ~/.m2/settings.xml
 
