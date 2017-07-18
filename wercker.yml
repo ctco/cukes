@@ -15,9 +15,11 @@ deploy:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
+          echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
+          gpg2 --import  ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import ~/gpgkey_sec.gpg
-          srm -vz ~/gpgkey_sec.gpg
+          srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
         code: |
@@ -45,9 +47,11 @@ release:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
+          echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
+          gpg2 --import  ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import ~/gpgkey_sec.gpg
-          srm -vz ~/gpgkey_sec.gpg
+          srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
         code: |
