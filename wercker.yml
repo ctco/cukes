@@ -1,4 +1,4 @@
-box: maven:3-jdk-6
+box: maven:3-jdk-8
 
 test:
   steps:
