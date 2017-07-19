@@ -5,14 +5,15 @@ test:
     - script:
         name: maven test
         code: |
-          mvn --batch-mode test
+#          mvn --batch-mode test
 
 deploy:
   steps:
     - install-packages:
         packages: secure-delete gnupg2 gnupg-agent
     - script:
-        code: export GPG_TTY=`tty`
+        code: |
+          tty
     - script:
         name: import gpg keys
         code: |
