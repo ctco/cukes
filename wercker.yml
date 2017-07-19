@@ -10,7 +10,7 @@ test:
 deploy:
   steps:
     - install-packages:
-        packages: secure-delete gnupg2=2.0.26-6+deb8u1 gnupg-agent=2.0.26-6+deb8u1 pinentry-gtk2
+        packages: secure-delete gnupg2 gnupg-agent
     - script:
         name: import gpg keys
         code: |
@@ -18,7 +18,7 @@ deploy:
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
           gpg2 --import ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
-          gpg2 --import ~/gpgkey_sec.gpg
+          gpg2 --import --batch --no-tty ~/gpgkey_sec.gpg
           srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
@@ -50,7 +50,7 @@ release:
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
           gpg2 --import  ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
-          gpg2 --import ~/gpgkey_sec.gpg
+          gpg2 --import --batch --no-tty ~/gpgkey_sec.gpg
           srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
