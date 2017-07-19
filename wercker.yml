@@ -19,7 +19,7 @@ deploy:
           gpg2 --import ~/gpgkey_pub.gpg
           echo $GPG_AGENT_CONFIG > ~/.gnupg/gpg-agent.conf
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
-          gpg2 --import --pinentry-mode loopback ~/gpgkey_sec.gpg
+          gpg2 --import --pinentry-mode loopback --no-tty ~/gpgkey_sec.gpg
           srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
