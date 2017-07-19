@@ -15,6 +15,7 @@ deploy:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
+          mkdir -p ~/.gnupg
           echo $GPG_AGENT_CONFIG > ~/.gnupg/gpg-agent.conf
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
           gpg2 --import --pinentry-mode loopback ~/gpgkey_pub.gpg
