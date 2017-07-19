@@ -10,17 +10,15 @@ test:
 deploy:
   steps:
     - install-packages:
-        packages: secure-delete gnupg2 gnupg-agent pinentry-gtk2
+        packages: secure-delete gnupg2=2.0.26-6 gnupg-agent=2.0.26-6 pinentry-gtk2
     - script:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
-          mkdir -p ~/.gnupg
-          echo $GPG_AGENT_CONFIG > ~/.gnupg/gpg-agent.conf
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import --pinentry-mode loopback ~/gpgkey_pub.gpg
+          gpg2 --import ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
-          gpg2 --import --pinentry-mode loopback ~/gpgkey_sec.gpg
+          gpg2 --import ~/gpgkey_sec.gpg
           srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
     - script:
         name: saving settings.xml
