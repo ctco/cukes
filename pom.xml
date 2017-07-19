@@ -2,25 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lv.ctco.cukesrest</groupId>
-    <artifactId>cukes-rest-all</artifactId>
-    <version>0.2.25-SNAPSHOT</version>
+    <groupId>lv.ctco.cukes</groupId>
+    <artifactId>cukes-parent</artifactId>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
+    <name>Cukes parent</name>
+
     <modules>
+        <module>cukes-core</module>
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
         <module>cukes-rest-sample</module>
+        <module>cukes-graphql</module>
+        <module>cukes-graphql-sample</module>
+        <module>cukes-ldap</module>
+        <module>cukes-ldap-sample</module>
+        <module>cukes-rabbitmq</module>
+        <module>cukes-rabbitmq-sample</module>
     </modules>
 
-    <name>cukes-rest-all</name>
     <description>
         cukes-rest takes simplicity of Cucumber and provides bindings for HTTP specification.
         As a sugar on top, cukes-rest adds steps for storing and using request/response content from
         a file system, variable support in .features, context inflation in all steps and resources
         and a custom plug-in system to allow users to add additional project specific content.
     </description>
-    <url>https://github.com/ctco/cukes-rest</url>
+    <url>https://github.com/ctco-dev/cukes</url>
 
     <licenses>
         <license>
@@ -36,12 +44,18 @@
             <organization>C.T.Co</organization>
             <organizationUrl>http://ctco.github.io/</organizationUrl>
         </developer>
+        <developer>
+            <name>Igor Gursky</name>
+            <email>igors.gurskis@gmail.com</email>
+            <organization>C.T.Co</organization>
+            <organizationUrl>http://ctco.github.io/</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:ctco/cukes-rest.git</connection>
-        <developerConnection>scm:git:git@github.com:ctco/cukes-rest.git</developerConnection>
-        <url>git@github.com:ctco/cukes-rest.git</url>
+        <connection>scm:git:git@github.com:ctco-dev/cukes.git</connection>
+        <developerConnection>scm:git:git@github.com:ctco-dev/cukes.git</developerConnection>
+        <url>git@github.com:ctco-dev/cukes.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -82,7 +96,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.8</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -126,6 +140,129 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <guice.version>4.1.0</guice.version>
+        <cucumber.version>1.2.5</cucumber.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <forkCount>1</forkCount>
+                        <reuseForks>false</reuseForks>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- SL4J -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.22</version>
+            </dependency>
+
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+
+            <!-- Google Guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>20.0</version>
+            </dependency>
+
+            <!-- GSON -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.0</version>
+            </dependency>
+
+            <!-- Mockito -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.10.19</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.11</version>
+            </dependency>
+
+            <!-- Rythm -->
+            <dependency>
+                <groupId>org.rythmengine</groupId>
+                <artifactId>rythm-engine</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
+            <!-- Google Guice -->
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-multibindings</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+
+            <!-- Cucumber -->
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-guice</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.16</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <distributionManagement>
         <snapshotRepository>

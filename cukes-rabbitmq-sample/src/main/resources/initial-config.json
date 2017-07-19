@@ -1,0 +1,36 @@
+{
+  "name": "mock broker",
+  "modelVersion": "2.0",
+  "defaultVirtualHost": "default",
+  "authenticationproviders": [
+    {
+      "name": "password",
+      "type": "Plain",
+      "secureOnlyMechanisms": [],
+      "users": [
+        {
+          "name": "guest",
+          "password": "guest",
+          "type": "managed"
+        }
+      ]
+    }
+  ],
+  "ports": [
+    {
+      "name": "AMQP",
+      "port": "${qpid.amqp_port}",
+      "authenticationProvider": "password",
+      "protocols": [
+        "AMQP_0_9_1"
+      ]
+    }
+  ],
+  "virtualhostnodes": [
+    {
+      "name": "default",
+      "type": "JSON",
+      "virtualHostInitialConfiguration": "{ \"type\" : \"Memory\" }"
+    }
+  ]
+}

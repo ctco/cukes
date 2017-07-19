@@ -3,122 +3,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cukes-rest</artifactId>
-    <name>cukes-rest</name>
+    <name>Cukes RESTful extension</name>
 
     <parent>
-        <groupId>lv.ctco.cukesrest</groupId>
-        <artifactId>cukes-rest-all</artifactId>
-        <version>0.2.25-SNAPSHOT</version>
+        <groupId>lv.ctco.cukes</groupId>
+        <artifactId>cukes-parent</artifactId>
+        <version>0.0.1</version>
     </parent>
 
-    <properties>
-        <sl4j.version>1.7.22</sl4j.version>
-        <junit.version>4.12</junit.version>
-        <mockito.version>1.10.19</mockito.version>
-
-        <gson.version>2.8.0</gson.version>
-        <guice.version>4.1.0</guice.version>
-        <guava.version>20.0</guava.version>
-        <cucumber.version>1.2.5</cucumber.version>
-        <awaitility.version>1.7.0</awaitility.version>
-        <rest-assured.version>3.0.2</rest-assured.version>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
-        <!-- SL4J -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${sl4j.version}</version>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-        </dependency>
-
-        <!-- RestAssured -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
-        </dependency>
-
-        <!-- Google Guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-
-        <!-- GSON -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-        </dependency>
-
-        <!-- Mockito -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
+            <groupId>lv.ctco.cukes</groupId>
+            <artifactId>cukes-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Awaitility -->
         <dependency>
             <groupId>com.jayway.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>${awaitility.version}</version>
-        </dependency>
-
-        <!-- Google Guice -->
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-multibindings</artifactId>
-            <version>${guice.version}</version>
-        </dependency>
-
-        <!-- Cucumber -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-guice</artifactId>
-            <version>${cucumber.version}</version>
+            <version>1.7.0</version>
         </dependency>
     </dependencies>
 

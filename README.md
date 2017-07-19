@@ -1,7 +1,7 @@
-[![Stories in Ready](https://img.shields.io/waffle/label/ctco/cukes-rest/ready.svg?label=Ready&style=flat)](https://waffle.io/ctco/cukes-rest)
-[![Join the chat at https://gitter.im/ctco/cukes-rest](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ctco/cukes-rest?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://snap-ci.com/ctco/cukes-rest/branch/master/build_image)](https://snap-ci.com/ctco/cukes-rest/branch/master)
-[![Maven](https://img.shields.io/maven-central/v/lv.ctco.cukesrest/cukes-rest-all.svg)](http://search.maven.org/#search|ga|1|lv.ctco.cukesrest)
+[![Stories in Ready](https://img.shields.io/waffle/label/ctco-dev/cukes/ready.svg?label=Ready&style=flat)](https://waffle.io/ctco-dev/cukes)
+[![Join the chat at https://gitter.im/ctco-dev/cukes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ctco-dev/cukes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://snap-ci.com/ctco-dev/cukes/branch/master/build_image)](https://com/ctco-dev/cukes/branch/master)
+[![Maven](https://img.shields.io/maven-central/v/lv.ctco.cukes/cukes-rest-all.svg)](http://search.maven.org/#search|ga|1|lv.ctco.cukes)
 
 # ![cukes-rest logo](assets/cukes-rest-logo.png)
 **cukes-rest** takes simplicity of **Cucumber** and provides bindings for HTTP specification. As a sugar on top, **cukes-rest**
@@ -10,10 +10,10 @@ inflation in all steps and a custom plug-in system to allow users to add additio
 content. 
 
 ## Resources
-- [Wiki](https://github.com/ctco/cukes-rest/wiki)
-- [Samples](https://github.com/ctco/cukes-rest/wiki/Test-Samples)
-- [Open Issues](https://github.com/ctco/cukes-rest/issues)
-- [Waffle](https://waffle.io/ctco/cukes-rest)
+- [Wiki](https://github.com/ctco-dev/cukes/wiki)
+- [Samples](https://github.com/ctco-dev/cukes/wiki/Test-Samples)
+- [Open Issues](https://github.com/ctco-dev/cukes/issues)
+- [Waffle](https://waffle.io/ctco-dev/cukes)
 
 ## Sample Test
 
@@ -54,13 +54,13 @@ As well as three groups of steps available
 - JDK 1.6+
 
 ## Dependency
-The dependencies are stored in [Maven Central](http://search.maven.org/#search|ga|1|lv.ctco.cukesrest)
+The dependencies are stored in [Maven Central](http://search.maven.org/#search|ga|1|lv.ctco.cukes)
 
 ### cukes-rest: core dependency with all you need to get started with the framework (Maven)
 
 ```xml
 <dependency>
-    <groupId>lv.ctco.cukesrest</groupId>
+    <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rest</artifactId>
     <version>${cukes-rest.version}</version>
 </dependency>
@@ -70,7 +70,7 @@ The dependencies are stored in [Maven Central](http://search.maven.org/#search|g
 
 ```xml
 <dependency>
-    <groupId>lv.ctco.cukesrest</groupId>
+    <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rest-loadrunner</artifactId>
     <version>${cukes-rest.version}</version>
 </dependency>

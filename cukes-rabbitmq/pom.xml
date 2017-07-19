@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cukes-rabbitmq</artifactId>
+    <name>Cukes RabbitMQ extension</name>
+    <parent>
+        <groupId>lv.ctco.cukes</groupId>
+        <artifactId>cukes-parent</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <dependencies>
+        <!-- Cukes core -->
+        <dependency>
+            <groupId>lv.ctco.cukes</groupId>
+            <artifactId>cukes-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- RabbitMQ client -->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

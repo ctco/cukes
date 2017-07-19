@@ -1,4 +1,4 @@
-box: maven:3-jdk-6
+box: maven:3-jdk-8
 
 test:
   steps:
@@ -10,13 +10,13 @@ test:
 deploy:
   steps:
     - install-packages:
-        packages: secure-delete gnupg2 gnupg-agent
+        packages: secure-delete gnupg2=2.0.26-6 gnupg-agent=2.0.26-6 pinentry-gtk2
     - script:
         name: import gpg keys
         code: |
           shopt -s xpg_echo
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import  ~/gpgkey_pub.gpg
+          gpg2 --import ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import ~/gpgkey_sec.gpg
           srm -vz ~/gpgkey_sec.gpg ~/gpgkey_pub.gpg
@@ -29,7 +29,7 @@ deploy:
     - script:
         name: deploy snapshot
         code: |
-          mvn --batch-mode -Dmaven.test.skip=true deploy -P release -s ~/.m2/settings.xml
+#          mvn --batch-mode -Dmaven.test.skip=true deploy -P release -s ~/.m2/settings.xml
 
 
 release:

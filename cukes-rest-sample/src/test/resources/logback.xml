@@ -7,7 +7,7 @@
     </appender>
 
     <!-- Log request/response from rest assured through cukes-rest -->
-    <logger name="lv.ctco.cukesrest.http" level="INFO" />
+    <logger name="lv.ctco.cukes.http" level="INFO" />
 
     <!-- Log request method and path, response status code -->
     <!--<logger name="org.apache.http.impl.conn" level="DEBUG" />-->
