@@ -6,7 +6,7 @@
     <name>Cukes RabbitMQ extension</name>
     <parent>
         <groupId>lv.ctco.cukes</groupId>
-        <artifactId>cukes-parent</artifactId>
+        <artifactId>cukes</artifactId>
         <version>0.0.3-SNAPSHOT</version>
     </parent>
 
