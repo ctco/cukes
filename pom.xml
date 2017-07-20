@@ -5,7 +5,7 @@
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cukes parent</name>
