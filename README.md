@@ -1,6 +1,6 @@
 [![Stories in Ready](https://img.shields.io/waffle/label/ctco/cukes/ready.svg?label=Ready&style=flat)](https://waffle.io/ctco/cukes)
 [![Join the chat at https://gitter.im/ctco/cukes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ctco/cukes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://snap-ci.com/ctco/cukes/branch/master/build_image)](https://com/ctco/cukes/branch/master)
+[![wercker status](https://app.wercker.com/status/91bd08250ec1cee694c8d0e5c95f85ce/s/master "wercker status")](https://app.wercker.com/project/byKey/91bd08250ec1cee694c8d0e5c95f85ce)
 [![Maven](https://img.shields.io/maven-central/v/lv.ctco.cukes/cukes-rest-all.svg)](http://search.maven.org/#search|ga|1|lv.ctco.cukes)
 
 # ![cukes-rest logo](assets/cukes-rest-logo.png)
