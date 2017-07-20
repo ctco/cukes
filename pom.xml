@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cukes parent</name>
@@ -28,7 +29,7 @@
         a file system, variable support in .features, context inflation in all steps and resources
         and a custom plug-in system to allow users to add additional project specific content.
     </description>
-    <url>https://github.com/ctco-dev/cukes</url>
+    <url>https://github.com/ctco/cukes</url>
 
     <licenses>
         <license>
@@ -53,9 +54,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:ctco-dev/cukes.git</connection>
-        <developerConnection>scm:git:git@github.com:ctco-dev/cukes.git</developerConnection>
-        <url>git@github.com:ctco-dev/cukes.git</url>
+        <connection>scm:git:git@github.com:ctco/cukes.git</connection>
+        <developerConnection>scm:git:git@github.com:ctco/cukes.git</developerConnection>
+        <url>git@github.com:ctco/cukes.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -96,7 +97,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.8</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -108,6 +109,10 @@
                                     <keyname>${env.GPG_KEYNAME}</keyname>
                                     <passphraseServerId>${env.GPG_KEYNAME}</passphraseServerId>
                                     <executable>gpg2</executable>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
                                 </configuration>
                             </execution>
                         </executions>
