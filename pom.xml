@@ -110,7 +110,8 @@
                                     <passphraseServerId>${env.GPG_KEYNAME}</passphraseServerId>
                                     <executable>gpg2</executable>
                                     <gpgArguments>
-                                        <arg>--pinentry-mode loopback</arg>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
                                     </gpgArguments>
                                 </configuration>
                             </execution>
