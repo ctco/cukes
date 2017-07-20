@@ -5,7 +5,7 @@ test:
     - script:
         name: maven test
         code: |
-          mvn clean
+          mvn --batch-mode test
 
 deploy:
   steps:
