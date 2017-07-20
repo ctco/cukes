@@ -1,5 +1,5 @@
-[![Stories in Ready](https://img.shields.io/waffle/label/ctco-dev/cukes/ready.svg?label=Ready&style=flat)](https://waffle.io/ctco-dev/cukes)
-[![Join the chat at https://gitter.im/ctco-dev/cukes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ctco-dev/cukes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Stories in Ready](https://img.shields.io/waffle/label/ctco/cukes/ready.svg?label=Ready&style=flat)](https://waffle.io/ctco/cukes)
+[![Join the chat at https://gitter.im/ctco/cukes](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ctco/cukes?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![wercker status](https://app.wercker.com/status/91bd08250ec1cee694c8d0e5c95f85ce/s/master "wercker status")](https://app.wercker.com/project/byKey/91bd08250ec1cee694c8d0e5c95f85ce)
 [![Maven](https://img.shields.io/maven-central/v/lv.ctco.cukes/cukes-rest-all.svg)](http://search.maven.org/#search|ga|1|lv.ctco.cukes)
 
@@ -10,10 +10,10 @@ inflation in all steps and a custom plug-in system to allow users to add additio
 content. 
 
 ## Resources
-- [Wiki](https://github.com/ctco-dev/cukes/wiki)
-- [Samples](https://github.com/ctco-dev/cukes/wiki/Test-Samples)
-- [Open Issues](https://github.com/ctco-dev/cukes/issues)
-- [Waffle](https://waffle.io/ctco-dev/cukes)
+- [Wiki](https://github.com/ctco/cukes/wiki)
+- [Samples](https://github.com/ctco/cukes/wiki/Test-Samples)
+- [Open Issues](https://github.com/ctco/cukes/issues)
+- [Waffle](https://waffle.io/ctco/cukes)
 
 ## Sample Test
 

@@ -29,7 +29,7 @@
         a file system, variable support in .features, context inflation in all steps and resources
         and a custom plug-in system to allow users to add additional project specific content.
     </description>
-    <url>https://github.com/ctco-dev/cukes</url>
+    <url>https://github.com/ctco/cukes</url>
 
     <licenses>
         <license>
@@ -54,9 +54,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:ctco-dev/cukes.git</connection>
-        <developerConnection>scm:git:git@github.com:ctco-dev/cukes.git</developerConnection>
-        <url>git@github.com:ctco-dev/cukes.git</url>
+        <connection>scm:git:git@github.com:ctco/cukes.git</connection>
+        <developerConnection>scm:git:git@github.com:ctco/cukes.git</developerConnection>
+        <url>git@github.com:ctco/cukes.git</url>
         <tag>HEAD</tag>
     </scm>
 
