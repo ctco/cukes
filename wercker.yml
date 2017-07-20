@@ -41,7 +41,7 @@ release:
         keyname: GITHUB_KEY
     - add-to-known_hosts:
         hostname: github.com
-        fingerprint: 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48
+        fingerprint: SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8
         type: rsa
         local: true
     - script:
