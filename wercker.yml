@@ -16,7 +16,7 @@ deploy:
         code: |
           shopt -s xpg_echo
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import ~/gpgkey_pub.gpg
+          gpg2 --import --no-tty ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import --batch --no-tty ~/gpgkey_sec.gpg
           echo $GPG_AGENT_CONFIG > ~/.gnupg/gpg-agent.conf
@@ -49,7 +49,7 @@ release:
         code: |
           shopt -s xpg_echo
           echo $GPGKEY_PUB > ~/gpgkey_pub.gpg
-          gpg2 --import  ~/gpgkey_pub.gpg
+          gpg2 --import --no-tty ~/gpgkey_pub.gpg
           echo $GPGKEY_SEC > ~/gpgkey_sec.gpg
           gpg2 --import --batch --no-tty ~/gpgkey_sec.gpg
           echo $GPG_AGENT_CONFIG > ~/.gnupg/gpg-agent.conf
