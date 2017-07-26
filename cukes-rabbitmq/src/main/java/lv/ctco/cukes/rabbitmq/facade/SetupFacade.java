@@ -42,8 +42,8 @@ public class SetupFacade {
         connectionService.setSsl(ssl);
     }
 
-    public void declareExchange(String name, String type) {
-        exchangeService.declareExchange(name, type);
+    public void declareExchange(String name, String type, boolean durable) {
+        exchangeService.declareExchange(name, type, durable);
     }
 
     public void setDefaultExchange(String exchange) {

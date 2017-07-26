@@ -11,7 +11,9 @@ public abstract class BaseContextHandler {
 
     protected List<String> extractGroups(String pattern) {
         List<String> allMatches = new ArrayList<String>();
-
+        if (pattern == null) {
+            return allMatches;
+        }
         Matcher m = Pattern.compile(GROUP_PATTERN).matcher(pattern);
         while (m.find()) {
             allMatches.add(m.group(1));

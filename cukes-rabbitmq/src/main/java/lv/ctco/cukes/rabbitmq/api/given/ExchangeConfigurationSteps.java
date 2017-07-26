@@ -12,14 +12,14 @@ public class ExchangeConfigurationSteps {
     @Inject
     SetupFacade setupFacade;
 
-    @Given("^declare exchange \"" + NamePatterns.EXCHANGE_NAME + "\"$")
-    public void declareExchange(String exchange) {
-        this.declareExchangeWithType(exchange, "direct");
+    @Given("^declare( durable)? exchange \"" + NamePatterns.EXCHANGE_NAME + "\"$")
+    public void declareExchange(String durable, String exchange) {
+        this.declareExchangeWithType(durable, exchange, "direct");
     }
 
-    @Given("^declare exchange \"" + NamePatterns.EXCHANGE_NAME + "\" of type \"(topic|direct|fanout)\"$")
-    public void declareExchangeWithType(String exchange, String type) {
-        setupFacade.declareExchange(exchange, type);
+    @Given("^declare( durable)? exchange \"" + NamePatterns.EXCHANGE_NAME + "\" of type \"(topic|direct|fanout)\"$")
+    public void declareExchangeWithType(String durable, String exchange, String type) {
+        setupFacade.declareExchange(exchange, type, durable != null);
     }
 
     @Given("^use exchange \"" + NamePatterns.EXCHANGE_NAME + "\" by default$")
