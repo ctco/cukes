@@ -13,6 +13,16 @@ public class ThenSteps {
     @Inject
     EntityFacade entityFacade;
 
+    @Then("^entity exists$")
+    public void entityExists() {
+        entityFacade.entityExists();
+    }
+
+    @Then("^entity does not exist$")
+    public void entityDoesNotExist() {
+        entityFacade.entityDoesNotExist();
+    }
+
     @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\"$")
     public void entityContainsAttribute(String attribute) {
         entityFacade.entityContainsAttribute(attribute);

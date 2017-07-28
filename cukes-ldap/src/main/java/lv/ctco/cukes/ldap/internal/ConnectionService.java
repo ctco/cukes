@@ -7,8 +7,8 @@ import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.InitialDirContext;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
 import java.util.Hashtable;
 
 @Singleton
@@ -21,9 +21,9 @@ public class ConnectionService {
     @Inject
     GlobalWorldFacade world;
 
-    private DirContext context;
+    private LdapContext context;
 
-    public DirContext getContext() {
+    public LdapContext getContext() {
         if (context == null) {
             Hashtable<String, String> environment = new Hashtable<>();
             environment.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -32,7 +32,7 @@ public class ConnectionService {
             environment.put(Context.SECURITY_PRINCIPAL, world.get(USER, "cn=admin"));
             environment.put(Context.SECURITY_CREDENTIALS, world.get(PASSWORD, "password"));
             try {
-                context = new InitialDirContext(environment);
+                context = new InitialLdapContext(environment, null);
             } catch (NamingException e) {
                 throw new CukesRuntimeException(e);
             }

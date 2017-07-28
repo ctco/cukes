@@ -2,21 +2,6 @@ Feature: LDIF showcase
   Scenario: Import LDIF and verify response against LDIF
     Given the client imports LDIF:
     """
-    dn: dc=example,dc=com
-    objectClass: domain
-    objectClass: top
-    dc: example
-
-    dn: ou=Users,dc=example,dc=com
-    objectClass: organizationalUnit
-    objectClass: top
-    ou: Users
-
-    dn: ou=Groups,dc=example,dc=com
-    objectClass: organizationalUnit
-    objectClass: top
-    ou: Groups
-
     dn: cn=John Smith,ou=Users,dc=example,dc=com
     objectClass: inetOrgPerson
     objectClass: organizationalPerson

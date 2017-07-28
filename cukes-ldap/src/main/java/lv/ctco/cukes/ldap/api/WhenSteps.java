@@ -26,6 +26,6 @@ public class WhenSteps {
 
     @When("^the client deletes entity with DN \"(.+)\"$")
     public void deleteEntityWithDn(String dn) {
-        throw new CukesRuntimeException("Not implemented");
+        entityFacade.deleteEntityByDn(dn);
     }
 }

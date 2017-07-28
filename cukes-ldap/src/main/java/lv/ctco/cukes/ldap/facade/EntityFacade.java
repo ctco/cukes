@@ -49,6 +49,18 @@ public class EntityFacade {
         entity = entityService.getEntityByDn(dn);
     }
 
+    public void entityExists() {
+        assertThat(entity, notNullValue());
+    }
+
+    public void entityDoesNotExist() {
+        assertThat(entity, nullValue());
+    }
+
+    public void deleteEntityByDn(String dn) {
+        entityService.deleteEntityByDn(dn);
+    }
+
     private Attribute getAttribute(String attribute) {
         if (entity == null) {
             throw new CukesRuntimeException("Entity was not loaded");

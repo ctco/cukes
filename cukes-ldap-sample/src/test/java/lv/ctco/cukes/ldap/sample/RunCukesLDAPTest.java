@@ -2,8 +2,6 @@ package lv.ctco.cukes.ldap.sample;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
@@ -15,16 +13,4 @@ import org.junit.runner.RunWith;
 )
 public class RunCukesLDAPTest {
 
-    private static EmbeddedLDAPServer server;
-
-    @BeforeClass
-    public static void setUp() throws Exception {
-        server = new EmbeddedLDAPServer();
-        server.start();
-    }
-
-    @AfterClass
-    public static void tearDown() throws Exception {
-        server.stop();
-    }
 }
