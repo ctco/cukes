@@ -1,0 +1,8 @@
+dn: cn=from-file,ou=Users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+gn: test
+sn: test
+cn: from-file

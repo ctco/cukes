@@ -1,4 +1,4 @@
-Feature: LDIF showcase
+Feature: Delete entity showcase
   Scenario: Should delete entity by DN
     Given let variable "cn" to be random UUID
     And the client imports LDIF:

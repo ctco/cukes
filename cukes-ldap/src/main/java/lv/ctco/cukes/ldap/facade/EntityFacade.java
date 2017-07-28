@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.matchers.ContainsPattern;
+import lv.ctco.cukes.core.internal.resources.FilePathService;
 import lv.ctco.cukes.ldap.internal.EntityService;
 import lv.ctco.cukes.ldap.internal.ldif.LDIFUtils;
 import org.hamcrest.Matcher;
@@ -13,8 +14,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 public class EntityFacade {
 
     private static final Map<String, Function<Integer, Matcher<Integer>>> sizeMatchers = new HashMap<>();
+
     static {
         sizeMatchers.put("=", Matchers::is);
         sizeMatchers.put(">", Matchers::greaterThan);
@@ -40,6 +41,8 @@ public class EntityFacade {
 
     @Inject
     EntityService entityService;
+    @Inject
+    FilePathService filePathService;
 
     public void initConfiguration() {
         entity = null;
@@ -100,7 +103,8 @@ public class EntityFacade {
         Attribute attr = getNotNullAttribute(attribute);
         int count = 0;
         try {
-            for (NamingEnumeration<?> e = attr.getAll(); e.hasMore(); e.next(), count++) {}
+            for (NamingEnumeration<?> e = attr.getAll(); e.hasMore(); e.next(), count++) {
+            }
         } catch (NamingException e) {
             throw new CukesRuntimeException(e);
         }
@@ -145,7 +149,24 @@ public class EntityFacade {
 
     public void importLdif(String ldif) {
         try {
-            Map<String, Attributes> entities = LDIFUtils.read(new ByteArrayInputStream(ldif.getBytes("UTF-8")));
+            importLdif(new ByteArrayInputStream(ldif.getBytes("UTF-8")));
+        } catch (IOException e) {
+            throw new CukesRuntimeException(e);
+        }
+    }
+
+    public void importLdifFromFile(String ldifFile) {
+        try {
+            String path = filePathService.normalize(ldifFile);
+            importLdif(new FileInputStream(path));
+        } catch (FileNotFoundException e) {
+            throw new CukesRuntimeException(e);
+        }
+    }
+
+    private void importLdif(InputStream inputStream) {
+        try {
+            Map<String, Attributes> entities = LDIFUtils.read(inputStream);
             for (Map.Entry<String, Attributes> entry : entities.entrySet()) {
                 entityService.createEntity(entry.getKey(), entry.getValue());
             }
@@ -171,7 +192,5 @@ public class EntityFacade {
         } catch (NamingException | IOException e) {
             throw new CukesRuntimeException(e);
         }
-
-
     }
 }

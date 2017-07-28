@@ -19,9 +19,14 @@ public class WhenSteps {
         entityFacade.readEntityByDn(dn);
     }
 
-    @When("^the client creates entity with DN \"(.+)\"$")
-    public void createEntityWithDn(String dn) {
-        throw new CukesRuntimeException("Not implemented");
+    @When("^the client creates entity using LDIF:$")
+    public void createEntityFromLdif(String ldif) {
+        entityFacade.importLdif(ldif);
+    }
+
+    @When("^the client creates entity using LDIF from file \"(.+)\"$")
+    public void createEntityFromLdifFile(String ldifFile) {
+        entityFacade.importLdifFromFile(ldifFile);
     }
 
     @When("^the client deletes entity with DN \"(.+)\"$")
