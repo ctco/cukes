@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.ldap.facade.EntityFacade;
+import lv.ctco.cukes.ldap.facade.ModificationFacade;
 import lv.ctco.cukes.ldap.facade.SetupFacade;
 
 @Singleton
@@ -15,6 +16,8 @@ public class GivenSteps {
     SetupFacade setupFacade;
     @Inject
     EntityFacade entityFacade;
+    @Inject
+    ModificationFacade modificationFacade;
 
     @Given("^LDAP server URL is \"(.+)\"$")
     public void setUrl(String url) {
@@ -32,5 +35,14 @@ public class GivenSteps {
         entityFacade.importLdif(ldif);
     }
 
+    @Given("^prepare new entity modification$")
+    public void prepareNewModification() {
+        modificationFacade.reset();
+    }
+
+    @Given("^change attribute \"(.+)\" (add|remove|replace) value \"(.+)\"$")
+    public void addModification(String attribute, String operation, String value) {
+        modificationFacade.add(attribute, operation, value);
+    }
 
 }

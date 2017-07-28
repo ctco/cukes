@@ -6,11 +6,9 @@ import lv.ctco.cukes.core.CukesRuntimeException;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.DirContext;
-import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
+import javax.naming.directory.*;
 import javax.naming.ldap.LdapContext;
+import java.util.List;
 import java.util.TreeSet;
 
 @Singleton
@@ -42,8 +40,8 @@ public class EntityService {
     }
 
     public void deleteEntityByDn(String dn) {
-        LdapContext context = connectionService.getContext();
         try {
+            LdapContext context = connectionService.getContext();
             SearchControls searchControls = new SearchControls();
             searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
             NamingEnumeration<SearchResult> children = context.search(dn, "(objectclass=*)", searchControls);
@@ -58,6 +56,17 @@ public class EntityService {
             }
         } catch (NamingException e) {
             throw new CukesRuntimeException("Cannot delete entity by dn " + dn, e);
+        } finally {
+            connectionService.close();
+        }
+    }
+
+    public void modifyByDn(String dn, List<ModificationItem> modificationItems) {
+        try {
+            LdapContext context = connectionService.getContext();
+            context.modifyAttributes(dn, modificationItems.toArray(new ModificationItem[modificationItems.size()]));
+        } catch (NamingException e) {
+            throw new CukesRuntimeException("Cannot modify entity by dn " + dn, e);
         } finally {
             connectionService.close();
         }
