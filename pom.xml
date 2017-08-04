@@ -20,6 +20,7 @@
         <module>cukes-ldap-sample</module>
         <module>cukes-rabbitmq</module>
         <module>cukes-rabbitmq-sample</module>
+        <module>cukes-samples</module>
     </modules>
 
     <description>
