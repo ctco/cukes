@@ -1,6 +1,6 @@
 # Cukes LDAP Sample
 
-This is a sample project showing how to use **[Cukes LDAP extensions](../cukes-ldap)**
+This is a sample project showing how to use **[Cukes LDAP extensions](../../cukes-ldap)**
 
 ## Overall design
 
