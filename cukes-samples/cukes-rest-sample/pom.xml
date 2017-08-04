@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>lv.ctco.cukes</groupId>
-        <artifactId>cukes</artifactId>
+        <artifactId>cukes-samples</artifactId>
         <version>0.0.6-SNAPSHOT</version>
     </parent>
 

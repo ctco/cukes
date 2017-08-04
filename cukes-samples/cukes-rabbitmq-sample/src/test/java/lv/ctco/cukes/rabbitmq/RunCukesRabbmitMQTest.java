@@ -3,7 +3,6 @@ package lv.ctco.cukes.rabbitmq;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import lv.ctco.cukes.rabbitmq.sample.Application;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

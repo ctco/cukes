@@ -5,6 +5,10 @@
     <artifactId>cukes-samples</artifactId>
     <name>Cukes Sample Projects</name>
     <modules>
+        <module>cukes-graphql-sample</module>
+        <module>cukes-ldap-sample</module>
+        <module>cukes-rabbitmq-sample</module>
+        <module>cukes-rest-sample</module>
         <module>cukes-soap-sample</module>
     </modules>
     <packaging>pom</packaging>

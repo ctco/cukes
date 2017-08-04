@@ -13,13 +13,9 @@
         <module>cukes-core</module>
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
-        <module>cukes-rest-sample</module>
         <module>cukes-graphql</module>
-        <module>cukes-graphql-sample</module>
         <module>cukes-ldap</module>
-        <module>cukes-ldap-sample</module>
         <module>cukes-rabbitmq</module>
-        <module>cukes-rabbitmq-sample</module>
         <module>cukes-samples</module>
     </modules>
 

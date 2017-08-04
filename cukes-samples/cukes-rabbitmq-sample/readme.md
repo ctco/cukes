@@ -1,6 +1,6 @@
 # Cukes RabbitMQ Sample
 
-This is a sample project showing how to use **[Cukes RabbitMQ extensions](../cukes-rabbitmq)**
+This is a sample project showing how to use **[Cukes RabbitMQ extensions](../../cukes-rabbitmq)**
 
 ## Overall design
 
