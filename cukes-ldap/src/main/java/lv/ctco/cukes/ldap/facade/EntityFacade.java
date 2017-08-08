@@ -89,7 +89,7 @@ public class EntityFacade {
             try {
                 attributesList.add(actualAttr.get(i).toString());
             } catch (NamingException e) {
-                e.printStackTrace();
+                throw new CukesRuntimeException(e);
             }
         }
         assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
