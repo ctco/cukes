@@ -15,7 +15,9 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -64,14 +66,14 @@ public class EntityFacade {
         entityService.deleteEntityByDn(dn);
     }
 
-    private Attribute getAttribute(String attribute) {
+    public Attribute getAttribute(String attribute) {
         if (entity == null) {
             throw new CukesRuntimeException("Entity was not loaded");
         }
         return entity.get(attribute);
     }
 
-    private Attribute getNotNullAttribute(String attribute) {
+    public Attribute getNotNullAttribute(String attribute) {
         if (entity == null) {
             throw new CukesRuntimeException("Entity was not loaded");
         }
@@ -80,9 +82,17 @@ public class EntityFacade {
         return attr;
     }
 
-    public void entityHasAttributeWithValue(String attribute, String value) {
-        Attribute attr = getNotNullAttribute(attribute);
-        assertThat("Should have attribute '" + attribute + "' with value '" + value + "'", attr.contains(value), is(true));
+    public void entityHasAttributeWithValue(String expectedAttr, String expectedValue) {
+        Attribute actualAttr = getNotNullAttribute(expectedAttr);
+        List<String> attributesList = new ArrayList<>();
+        for(int i = 0; i < actualAttr.size(); i++){
+            try {
+                attributesList.add(actualAttr.get(i).toString());
+            } catch (NamingException e) {
+                e.printStackTrace();
+            }
+        }
+        assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
     }
 
     public void entityHasAttributeWithValueOtherThat(String attribute, String value) {
