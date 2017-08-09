@@ -18,7 +18,7 @@ Feature: Modify entity showcase
     When the client updates entity with DN "cn={(cn)},ou=Users,dc=example,dc=com" using prepared modifications
     And the client retrieves entity by DN "cn={(cn)},ou=Users,dc=example,dc=com"
     Then entity exists
-    And entity contains attribute "telephoneNumber" with "1" values
+    And entity contains attribute "telephoneNumber" with 1 value
     And entity contains attribute "telephoneNumber" with value "67890"
 
   Scenario: Should add attributes
@@ -40,7 +40,7 @@ Feature: Modify entity showcase
     When the client updates entity with DN "cn={(cn)},ou=Users,dc=example,dc=com" using prepared modifications
     And the client retrieves entity by DN "cn={(cn)},ou=Users,dc=example,dc=com"
     Then entity exists
-    And entity contains attribute "telephoneNumber" with "2" values
+    And entity contains attribute "telephoneNumber" with 2 values
     And entity contains attribute "telephoneNumber" with value "12345"
     And entity contains attribute "telephoneNumber" with value "67890"
 
@@ -64,5 +64,5 @@ Feature: Modify entity showcase
     When the client updates entity with DN "cn={(cn)},ou=Users,dc=example,dc=com" using prepared modifications
     And the client retrieves entity by DN "cn={(cn)},ou=Users,dc=example,dc=com"
     Then entity exists
-    And entity contains attribute "telephoneNumber" with "1" values
+    And entity contains attribute "telephoneNumber" with 1 value
     And entity contains attribute "telephoneNumber" with value "67890"

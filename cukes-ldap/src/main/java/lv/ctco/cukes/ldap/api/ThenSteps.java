@@ -33,22 +33,22 @@ public class ThenSteps {
         entityFacade.entityDoesNotContainAttribute(attribute);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with value \"(.+)\"$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with value \"(.*)\"$")
     public void entityHasAttributeWithValue(String attribute, String value) {
         entityFacade.entityHasAttributeWithValue(attribute, value);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with value other than \"(.+)\"$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with value other than \"(.*)\"$")
     public void entityHasAttributeWithValueOtherThat(String attribute, String value) {
         entityFacade.entityHasAttributeWithValueOtherThat(attribute, value);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with \"(.+)\" values$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (\\d+) values?$")
     public void entityHasAttributeAsArrayOfSize(String attribute, int size) {
         entityFacade.entityHasAttributeAsArrayOfSize(attribute, "=", size);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (>=|>|<=|<|<>) \"(.+)\" values$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (>=|>|<=|<|<>) (\\d+) values?$")
     public void entityHasAttributeAsArrayOfSize(String attribute, String operator, int size) {
         entityFacade.entityHasAttributeAsArrayOfSize(attribute, operator, size);
     }

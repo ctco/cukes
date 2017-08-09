@@ -14,7 +14,7 @@ Feature: LDIF showcase
     """
     When the client retrieves entity by DN "cn=John Smith,ou=Users,dc=example,dc=com"
     Then entity contains attribute "sn" with value "Smith"
-    And entity contains attribute "objectclass" with "4" values
+    And entity contains attribute "objectclass" with 4 values
     And entity contains attribute "objectclass" with value "top"
     And entity contains attribute "objectclass" with value "person"
     And entity contains attribute "objectclass" with value "inetOrgPerson"
