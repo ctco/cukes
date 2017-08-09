@@ -43,12 +43,12 @@ public class ThenSteps {
         entityFacade.entityHasAttributeWithValueOtherThat(attribute, value);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (\\d+) values$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (\\d+) values?$")
     public void entityHasAttributeAsArrayOfSize(String attribute, int size) {
         entityFacade.entityHasAttributeAsArrayOfSize(attribute, "=", size);
     }
 
-    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (>=|>|<=|<|<>) (\\d+) values$")
+    @Then("^entity contains attribute \"([a-zA-Z][a-zA-Z0-9\\-]*)\" with (>=|>|<=|<|<>) (\\d+) values?$")
     public void entityHasAttributeAsArrayOfSize(String attribute, String operator, int size) {
         entityFacade.entityHasAttributeAsArrayOfSize(attribute, operator, size);
     }
