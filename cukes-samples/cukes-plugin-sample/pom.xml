@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cukes-samples</artifactId>
+        <groupId>lv.ctco.cukes</groupId>
+        <version>0.0.6-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cukes-plugin-sample</artifactId>
+    <name>Cukes Plugins Sample Project</name>
+
+    <dependencies>
+        <!-- Cukes dependencies -->
+        <dependency>
+            <groupId>lv.ctco.cukes</groupId>
+            <artifactId>cukes-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

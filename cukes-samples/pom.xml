@@ -10,6 +10,7 @@
         <module>cukes-rabbitmq-sample</module>
         <module>cukes-rest-sample</module>
         <module>cukes-soap-sample</module>
+        <module>cukes-plugin-sample</module>
     </modules>
     <packaging>pom</packaging>
 
