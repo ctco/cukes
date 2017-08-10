@@ -4,11 +4,13 @@ import cucumber.runtime.formatter.CucumberJSONFormatter;
 import gherkin.formatter.Argument;
 import gherkin.formatter.JSONFormatter;
 import gherkin.formatter.model.Match;
+import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.di.SingletonObjectFactory;
 import lv.ctco.cukes.core.internal.context.ContextInflater;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,33 +28,34 @@ public class CukesJsonFormatter extends CucumberJSONFormatter {
 
     @Override
     public void match(Match match) {
-        List<Argument> inflatedArguments = new ArrayList<Argument>();
+        List<Argument> inflatedArguments = new ArrayList<>();
         for (Argument argument : match.getArguments()) {
             String inflatedVal = contextInflater.inflate(argument.getVal());
             inflatedArguments.add(new Argument(argument.getOffset(), inflatedVal));
         }
         super.match(new Match(inflatedArguments, match.getLocation()));
         Map<String, Object> currentStep = getCurrentStep();
-        String name = ((String) currentStep.get("name"));
-        String inflatedName = contextInflater.inflate(name);
-        currentStep.put("name", inflatedName);
+        if (currentStep != null) {
+            String name = ((String) currentStep.get("name"));
+            String inflatedName = contextInflater.inflate(name);
+            currentStep.put("name", inflatedName);
+        }
     }
 
     @SuppressWarnings("unchecked")
     private Map<String, Object> getCurrentStep() {
+        List<Map> invoke;
         try {
-            Map lastWithValue = null;
-            List<Map> invoke = ((List<Map>) getSteps.invoke(this));
-            for (Map stepOrHook : invoke) {
-                if (stepOrHook.get("match") == null) {
-                    return stepOrHook;
-                } else {
-                    lastWithValue = stepOrHook;
-                }
-            }
-            return lastWithValue;
+            invoke = new ArrayList<>((List<Map>) getSteps.invoke(this));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new CukesRuntimeException(e);
         }
+        Collections.reverse(invoke);
+        for (Map stepOrHook : invoke) {
+            if (stepOrHook.get("match") != null) {
+                return stepOrHook;
+            }
+        }
+        return null; //should not happen
     }
 }
