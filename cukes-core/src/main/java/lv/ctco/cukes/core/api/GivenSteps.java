@@ -3,6 +3,7 @@ package lv.ctco.cukes.core.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
+import lv.ctco.cukes.core.CukesDocs;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.facade.VariableFacade;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
@@ -17,6 +18,7 @@ public class GivenSteps {
     GlobalWorldFacade world;
 
     @Given("^let variable \"(.+)\" to be random UUID$")
+    @CukesDocs("Generates random UUID and assigns it to a variable")
     public void var_random_UUID(String varName) {
         this.variableFacade.setUUIDToVariable(varName);
     }
