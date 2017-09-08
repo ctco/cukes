@@ -18,10 +18,10 @@ import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsValueByP
 import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsValueByPathInArray;
 import static lv.ctco.cukes.core.internal.matchers.OfTypeMatcher.ofType;
 import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.DEFAULT_READ_TIMEOUT;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.core.IsNot.not;
 
 @Singleton
 public class ResponseFacade {

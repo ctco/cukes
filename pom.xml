@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.0.x</version>
     <packaging>pom</packaging>
 
     <name>Cukes Parent</name>
 
     <modules>
         <module>cukes-core</module>
+        <module>cukes-http</module>
         <module>cukes-rest</module>
         <module>cukes-rest-loadrunner</module>
         <module>cukes-graphql</module>
@@ -21,8 +23,8 @@
     </modules>
 
     <description>
-        cukes-rest takes simplicity of Cucumber and provides bindings for HTTP specification.
-        As a sugar on top, cukes-rest adds steps for storing and using request/response content from
+        Cukes takes simplicity of Cucumber and provides bindings for HTTP specification.
+        As a sugar on top, cukes adds steps for storing and using request/response content from
         a file system, variable support in .features, context inflation in all steps and resources
         and a custom plug-in system to allow users to add additional project specific content.
     </description>
@@ -146,6 +148,7 @@
     <properties>
         <guice.version>4.1.0</guice.version>
         <cucumber.version>1.2.5</cucumber.version>
+        <rest.assured.version>3.0.3</rest.assured.version>
     </properties>
 
     <build>
@@ -261,6 +264,24 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.16</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${rest.assured.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>xml-path</artifactId>
+                <version>${rest.assured.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-library</artifactId>
+                <version>1.3</version>
             </dependency>
 
         </dependencies>

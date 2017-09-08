@@ -1,7 +1,5 @@
 package lv.ctco.cukes.core.di;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
 import cucumber.api.guice.CucumberScopes;
 import lv.ctco.cukes.core.internal.di.SingletonObjectFactory;
 import org.junit.After;
@@ -17,12 +15,7 @@ public class SingletonObjectFactoryTests {
     @BeforeClass
     public static void setup() throws Exception {
         instance = SingletonObjectFactory.instance();
-        instance.addModule(new Module() {
-            @Override
-            public void configure(Binder binder) {
-                binder.bind(ScenarioScopedClass.class).in(CucumberScopes.SCENARIO);
-            }
-        });
+        instance.addModule(binder -> binder.bind(ScenarioScopedClass.class).in(CucumberScopes.SCENARIO));
     }
 
     @After
@@ -38,10 +31,7 @@ public class SingletonObjectFactoryTests {
         // simulate cucumber scenario start
         simulateCucumberScenarioStart();
 
-        instance.addModule(new Module() {
-            @Override
-            public void configure(Binder binder) {
-            }
+        instance.addModule(binder -> {
         });
     }
 

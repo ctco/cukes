@@ -10,7 +10,6 @@ import lv.ctco.cukes.core.internal.context.CaptureContext;
 import lv.ctco.cukes.core.internal.context.CaptureContextInterceptor;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.context.InflateContextInterceptor;
-import lv.ctco.cukes.core.internal.logging.HttpLoggingPlugin;
 import lv.ctco.cukes.core.internal.switches.SwitchedBy;
 import lv.ctco.cukes.core.internal.switches.SwitchedByInterceptor;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -42,9 +41,6 @@ public class CukesGuiceModule extends AbstractModule {
     private void bindPlugins() {
         try {
             Multibinder<CukesPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesPlugin.class);
-
-            // add our own plugins
-            multibinder.addBinding().to(HttpLoggingPlugin.class);
 
             // add user configured plugins
             ClassLoader classLoader = CukesGuiceModule.class.getClassLoader();

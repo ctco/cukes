@@ -8,14 +8,13 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
-import lv.ctco.cukes.core.extension.CukesPlugin;
-import lv.ctco.cukes.core.internal.AwaitCondition;
-import lv.ctco.cukes.core.internal.HttpMethod;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.core.internal.matchers.AwaitConditionMatcher;
-import lv.ctco.cukes.core.internal.switches.ResponseWrapper;
 import lv.ctco.cukes.core.internal.templating.TemplatingEngine;
+import lv.ctco.cukes.http.extension.CukesHttpPlugin;
+import lv.ctco.cukes.http.AwaitCondition;
+import lv.ctco.cukes.http.HttpMethod;
+import lv.ctco.cukes.http.matchers.AwaitConditionMatcher;
 
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -32,7 +31,7 @@ public class RestResponseFacade {
     @Inject
     GlobalWorldFacade world;
     @Inject
-    Set<CukesPlugin> pluginSet;
+    Set<CukesHttpPlugin> pluginSet;
     @Inject
     TemplatingEngine templatingEngine;
 
@@ -43,7 +42,7 @@ public class RestResponseFacade {
     public void doRequest(String httpMethod, final String url) throws Exception {
         final HttpMethod method = HttpMethod.parse(httpMethod);
 
-        // TODO: Should be refactored into CukesRestPlugin
+        // TODO: Should be refactored into CukesHttpPlugin
         boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         AwaitCondition awaitCondition = specification.awaitCondition();
         try {
@@ -55,8 +54,10 @@ public class RestResponseFacade {
                 TimeUnit unit = awaitCondition.getWaitTime().getUnitDict().getTimeUnit();
 
                 // TODO Fix
-                with().pollInterval(intervalTime, intervalUnit).await().atMost(waitTime, unit).until(doRequest(url, method),
-                    new AwaitConditionMatcher(awaitCondition));
+                with().pollInterval(intervalTime, intervalUnit)
+                    .await()
+                    .atMost(waitTime, unit)
+                    .until(doRequest(url, method), new AwaitConditionMatcher(awaitCondition));
             } else {
                 doRequest(url, method).call();
             }
@@ -72,43 +73,42 @@ public class RestResponseFacade {
 
     private void authenticate() {
         Optional<String> $type = world.get(CukesOptions.AUTH_TYPE);
-        if (!$type.isPresent()) return;
+        if (!$type.isPresent()) {
+            return;
+        }
 
         if ($type.get().equalsIgnoreCase("BASIC")) {
             authBasic();
         }
     }
 
-    private Callable<ResponseWrapper> doRequest(final String url, final HttpMethod method) {
+    private Callable<Response> doRequest(final String url, final HttpMethod method) {
         final boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
-        return new Callable<ResponseWrapper>() {
-            @Override
-            public ResponseWrapper call() throws Exception {
-                authenticate();
+        return () -> {
+            authenticate();
 
-                final RequestSpecification requestSpec = specification.value();
+            final RequestSpecification requestSpec = specification.value();
 
-                for (CukesPlugin cukesPlugin : pluginSet) {
-                    cukesPlugin.beforeRequest(requestSpec);
-                }
-
-                String requestBody = specification.getRequestBody();
-                if (requestBody != null) {
-                    String processed = templatingEngine.processBody(requestBody);
-                    specification.body(processed);
-                }
-
-                response = method.doRequest(requestSpec, url);
-                specification.clearRequestBody();
-
-                for (CukesPlugin cukesRestPlugin : pluginSet) {
-                    cukesRestPlugin.afterRequest(response);
-                }
-                if (!filterEnabled) {
-                    cacheHeaders(response);
-                }
-                return new ResponseWrapper(response);
+            for (CukesHttpPlugin plugin : pluginSet) {
+                plugin.beforeRequest(requestSpec);
             }
+
+            String requestBody = specification.getRequestBody();
+            if (requestBody != null) {
+                String processed = templatingEngine.processBody(requestBody);
+                specification.body(processed);
+            }
+
+            response = method.doRequest(requestSpec, url);
+            specification.clearRequestBody();
+
+            for (CukesHttpPlugin plugin : pluginSet) {
+                plugin.afterRequest(response);
+            }
+            if (!filterEnabled) {
+                cacheHeaders(response);
+            }
+            return response;
         };
     }
 

@@ -1,9 +1,12 @@
 package lv.ctco.cukes.rest;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import lv.ctco.cukes.core.extension.CukesInjectableModule;
 import lv.ctco.cukes.core.facade.VariableFacade;
 import lv.ctco.cukes.core.facade.VariableFacadeImpl;
+import lv.ctco.cukes.http.extension.CukesHttpPlugin;
+import lv.ctco.cukes.http.logging.HttpLoggingPlugin;
 import lv.ctco.cukes.rest.facade.RestAssertionFacade;
 import lv.ctco.cukes.rest.facade.RestAssertionFacadeImpl;
 
@@ -21,5 +24,8 @@ public class CukesRestGuiceModule extends AbstractModule {
             bind(RestAssertionFacade.class).to(RestAssertionFacadeImpl.class);
             bind(VariableFacade.class).to(VariableFacadeImpl.class);
         }
+
+        Multibinder<CukesHttpPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesHttpPlugin.class);
+        multibinder.addBinding().to(HttpLoggingPlugin.class);
     }
 }

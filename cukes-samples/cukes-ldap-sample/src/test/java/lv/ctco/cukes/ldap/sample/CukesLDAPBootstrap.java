@@ -1,7 +1,5 @@
 package lv.ctco.cukes.ldap.sample;
 
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.extension.CukesPlugin;
 
@@ -36,16 +34,6 @@ public class CukesLDAPBootstrap implements CukesPlugin {
 
     @Override
     public void afterScenario() {
-
-    }
-
-    @Override
-    public void beforeRequest(RequestSpecification requestSpecification) {
-
-    }
-
-    @Override
-    public void afterRequest(Response response) {
 
     }
 }

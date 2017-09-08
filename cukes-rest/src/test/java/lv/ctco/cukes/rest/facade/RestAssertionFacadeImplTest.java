@@ -28,7 +28,6 @@ import static org.mockito.Mockito.when;
 
 public class RestAssertionFacadeImplTest extends IntegrationTestBase {
 
-
     RestAssertionFacade facade = getObjectFactory().getInstance(RestAssertionFacadeImpl.class);
 
     GlobalWorldFacade world = getObjectFactory().getInstance(GlobalWorldFacade.class);

@@ -99,7 +99,7 @@ To enable running tests with *JUnit* place the following code under *src/test/ja
 ```java
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber2.json"},
+    format = {"pretty", "json:target/cucumber.json", lv.ctco.cukes.core.formatter},
     features = {"classpath:features/"},
     glue = {"lv.ctco.cukes.rabbitmq", "lv.ctco.cukes.core.api"},
     strict = true

@@ -2,11 +2,11 @@ package lv.ctco.cukes.soap.sample;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import lv.ctco.cukes.core.extension.CukesPlugin;
+import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-public class CukesBootstrap implements CukesPlugin {
+public class CukesBootstrap implements CukesHttpPlugin {
 
     private ConfigurableApplicationContext applicationContext;
 

@@ -1,14 +1,15 @@
 package lv.ctco.cukes.core.internal.context;
 
-import org.junit.*;
-import org.junit.runner.*;
-import org.mockito.*;
-import org.mockito.runners.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class BaseContextHandlerTest {
