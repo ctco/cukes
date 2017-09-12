@@ -23,8 +23,10 @@ public class GQLRequestFacade {
     @Inject
     private GlobalWorldFacade world;
 
-    private RequestSpecification specification;
+    @Inject
+    private RestAssuredConfiguration restConfig;
 
+    private RequestSpecification specification;
     private GraphQLRequest graphQLRequest;
 
     @Inject
@@ -36,7 +38,7 @@ public class GQLRequestFacade {
     public void initNewSpecification() {
         specification = RestAssured
             .given()
-            .config(RestAssuredConfiguration.getConfig());
+            .config(restConfig.getConfig());
         onCreate();
         graphQLRequest = new GraphQLRequest();
     }

@@ -31,14 +31,17 @@ public class RestRequestFacade {
     @Inject
     private GlobalWorldFacade world;
 
+    @Inject
+    private RestAssuredConfiguration restConfig;
+
     private RequestSpecification specification;
     private AwaitCondition awaitCondition;
-
     private String requestBody;
 
     @Inject
-    public RestRequestFacade(GlobalWorldFacade world) {
+    public RestRequestFacade(GlobalWorldFacade world, RestAssuredConfiguration restConfig) {
         this.world = world;
+        this.restConfig = restConfig;
         initNewSpecification();
     }
 
@@ -152,7 +155,7 @@ public class RestRequestFacade {
         try {
             specification = RestAssured
                 .given()
-                .config(RestAssuredConfiguration.getConfig());
+                .config(restConfig.getConfig());
             awaitCondition = null;
             onCreate();
         } catch (Exception e) {
