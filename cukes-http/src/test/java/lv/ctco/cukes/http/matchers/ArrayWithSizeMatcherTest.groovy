@@ -1,7 +1,3 @@
-/*
- * Copyright Swiss Reinsurance Company, Mythenquai 50/60, CH 8022 Zurich. All rights reserved.
- */
-
 package lv.ctco.cukes.http.matchers
 
 import lv.ctco.cukes.http.RequestBody
