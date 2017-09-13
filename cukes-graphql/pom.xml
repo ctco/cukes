@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>lv.ctco.cukes</groupId>
-            <artifactId>cukes-core</artifactId>
+            <artifactId>cukes-http</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

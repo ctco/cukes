@@ -10,12 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cukes-documentation-generator</artifactId>
-    <name>Markdown-style documentation generator out of Cukes step definitions</name>
+    <name>Cukes Markdown-style Documentation Generator</name>
 
     <dependencies>
         <dependency>
             <groupId>lv.ctco.cukes</groupId>
             <artifactId>cukes-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>lv.ctco.cukes</groupId>
+            <artifactId>cukes-http</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

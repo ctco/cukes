@@ -3,7 +3,6 @@ package lv.ctco.cukes.rest.loadrunner;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.rest.loadrunner.function.LoadRunnerFunction;
 import lv.ctco.cukes.rest.facade.RestAssertionFacade;
 
 @Singleton
@@ -50,14 +49,9 @@ public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
 
     @Override
     public void statusCodeIs(final int statusCode) {
-        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
-            @Override
-            public String format() {
-                return "HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" + "if (HttpRetCode == " + statusCode + "){\n"
-                        + "lr_log_message(\"Request response code is as expected\");\n" + "} else { \n" + " transactionStatus = LR_FAIL;\n"
-                        + " actionStatus = LR_FAIL;\n" + "}\n\n";
-            }
-        });
+        this.loadRunnerFilter.getTrx().addFunction(() -> "HttpRetCode = atoi(lr_eval_string(\"{httpcode}\"));\n\n" + "if (HttpRetCode == " + statusCode + "){\n"
+                + "lr_log_message(\"Request response code is as expected\");\n" + "} else { \n" + " transactionStatus = LR_FAIL;\n"
+                + " actionStatus = LR_FAIL;\n" + "}\n\n");
     }
 
     @Override
@@ -72,12 +66,7 @@ public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
 
     @Override
     public void varAssignedFromHeader(final String varName, final String headerName) {
-        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
-            @Override
-            public String format() {
-                return "SaveBoundedValue(\"" + varName + "\", lr_eval_string(\"{ResponseHeaders}\"), \"" + headerName + ": \", \"\\r\\n\");\n";
-            }
-        });
+        this.loadRunnerFilter.getTrx().addFunction(() -> "SaveBoundedValue(\"" + varName + "\", lr_eval_string(\"{ResponseHeaders}\"), \"" + headerName + ": \", \"\\r\\n\");\n");
     }
 
     @Override
@@ -142,29 +131,19 @@ public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
 
     @Override
     public void varAssignedFromProperty(final String varName, final String property) {
-        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
-            @Override
-            public String format() {
-                return "web_js_run(\n" +
-                    "\t\"Code=jsonBody()." + property + ";\", \n" +
-                    "\t\"ResultParam=" + varName + "\",\n" +
-                    "\tSOURCES,\n" +
-                    "\t\"Code=var jsonBody = function() {return JSON.parse(LR.getParam('ResponseBody'))}\",\n" +
-                    "\tENDITEM,\n" +
-                    "\tLAST\n" +
-                    ");\n";
-            }
-        });
+        this.loadRunnerFilter.getTrx().addFunction(() -> "web_js_run(\n" +
+            "\t\"Code=jsonBody()." + property + ";\", \n" +
+            "\t\"ResultParam=" + varName + "\",\n" +
+            "\tSOURCES,\n" +
+            "\t\"Code=var jsonBody = function() {return JSON.parse(LR.getParam('ResponseBody'))}\",\n" +
+            "\tENDITEM,\n" +
+            "\tLAST\n" +
+            ");\n");
     }
 
     @Override
     public void varAssignedFromBody(final String varName) {
-        this.loadRunnerFilter.getTrx().addFunction(new LoadRunnerFunction() {
-            @Override
-            public String format() {
-                return "lr_set_string(\"" + varName + "\", lr_eval_string(\"{ResponseBody}\"));\n";
-            }
-        });
+        this.loadRunnerFilter.getTrx().addFunction(() -> "lr_set_string(\"" + varName + "\", lr_eval_string(\"{ResponseBody}\"));\n");
     }
 
     @Override

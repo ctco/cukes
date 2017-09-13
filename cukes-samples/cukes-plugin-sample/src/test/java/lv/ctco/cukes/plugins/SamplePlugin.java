@@ -1,7 +1,5 @@
 package lv.ctco.cukes.plugins;
 
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.extension.CukesPlugin;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
@@ -34,15 +32,5 @@ public class SamplePlugin implements CukesPlugin {
         stopWatch.stop();
         long executionTime = stopWatch.getTime();
         logger.info("Scenario executed in {} ms", executionTime);
-    }
-
-    @Override
-    public void beforeRequest(RequestSpecification requestSpecification) {
-
-    }
-
-    @Override
-    public void afterRequest(Response response) {
-
     }
 }

@@ -1,7 +1,5 @@
 package lv.ctco.cukes.core.extension;
 
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 
 public interface CukesPlugin {
 
@@ -13,7 +11,4 @@ public interface CukesPlugin {
 
     void afterScenario();
 
-    void beforeRequest(RequestSpecification requestSpecification);
-
-    void afterRequest(Response response);
 }

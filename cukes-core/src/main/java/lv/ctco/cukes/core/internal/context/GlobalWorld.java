@@ -24,7 +24,7 @@ public class GlobalWorld {
     @Inject
     public void reconstruct() {
         /* User Specified Values */
-        context = new ConcurrentHashMap<String, String>();
+        context = new ConcurrentHashMap<>();
         Properties prop = new Properties();
         URL url = createCukesPropertyFileUrl(GlobalWorld.class.getClassLoader());
         if (url != null) {

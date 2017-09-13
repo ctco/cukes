@@ -3,7 +3,6 @@ package lv.ctco.cukes.graphql.facade;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;

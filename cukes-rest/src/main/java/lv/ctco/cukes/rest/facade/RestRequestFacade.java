@@ -7,23 +7,21 @@ import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
-import lv.ctco.cukes.core.internal.AwaitCondition;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.helpers.Time;
-import lv.ctco.cukes.core.internal.https.TrustAllTrustManager;
+import lv.ctco.cukes.http.AwaitCondition;
+import lv.ctco.cukes.http.RestAssuredConfiguration;
+import lv.ctco.cukes.http.https.TrustAllTrustManager;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
-import static io.restassured.config.DecoderConfig.ContentDecoder.DEFLATE;
-import static io.restassured.config.DecoderConfig.decoderConfig;
-import static io.restassured.config.RestAssuredConfig.newConfig;
-import static lv.ctco.cukes.core.internal.matchers.ResponseMatcher.aHeader;
-import static lv.ctco.cukes.core.internal.matchers.ResponseMatcher.aProperty;
-import static lv.ctco.cukes.core.internal.matchers.ResponseMatcher.aStatusCode;
+import static lv.ctco.cukes.http.matchers.ResponseMatcher.aHeader;
+import static lv.ctco.cukes.http.matchers.ResponseMatcher.aProperty;
+import static lv.ctco.cukes.http.matchers.ResponseMatcher.aStatusCode;
 import static org.hamcrest.Matchers.equalTo;
 
 @Singleton
@@ -33,14 +31,17 @@ public class RestRequestFacade {
     @Inject
     private GlobalWorldFacade world;
 
+    @Inject
+    private RestAssuredConfiguration restConfig;
+
     private RequestSpecification specification;
     private AwaitCondition awaitCondition;
-
     private String requestBody;
 
     @Inject
-    public RestRequestFacade(GlobalWorldFacade world) {
+    public RestRequestFacade(GlobalWorldFacade world, RestAssuredConfiguration restConfig) {
         this.world = world;
+        this.restConfig = restConfig;
         initNewSpecification();
     }
 
@@ -67,10 +68,6 @@ public class RestRequestFacade {
         if (relaxedHttps) {
             specification.relaxedHTTPSValidation();
             TrustAllTrustManager.trustAllHttpsCertificates();
-        }
-
-        if (!this.world.getBoolean(CukesOptions.GZIP_SUPPORT, true)) {
-            specification.config(newConfig().decoderConfig(decoderConfig().contentDecoders(DEFLATE)));
         }
     }
 
@@ -158,7 +155,7 @@ public class RestRequestFacade {
         try {
             specification = RestAssured
                 .given()
-                .config(world.getRestAssuredConfig());
+                .config(restConfig.getConfig());
             awaitCondition = null;
             onCreate();
         } catch (Exception e) {

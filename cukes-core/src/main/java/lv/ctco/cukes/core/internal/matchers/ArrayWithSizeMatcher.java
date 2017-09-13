@@ -10,15 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.valueOf;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 
 public class ArrayWithSizeMatcher {
+
     public static Matcher<List<?>> arrayWithSize(final String size) {
 
         return new BaseMatcher<List<?>>() {

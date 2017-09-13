@@ -7,11 +7,10 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
-import lv.ctco.cukes.core.extension.CukesPlugin;
-import lv.ctco.cukes.core.internal.HttpMethod;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.core.internal.switches.ResponseWrapper;
+import lv.ctco.cukes.http.HttpMethod;
+import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -27,7 +26,7 @@ public class GQLResponseFacade {
     GlobalWorldFacade world;
 
     @Inject
-    Set<CukesPlugin> pluginSet;
+    Set<CukesHttpPlugin> pluginSet;
 
     private Response response;
 
@@ -38,24 +37,21 @@ public class GQLResponseFacade {
         requestFacade.initNewSpecification();
     }
 
-    private Callable<ResponseWrapper> doRequest(final HttpMethod method) {
-        return new Callable<ResponseWrapper>() {
-            @Override
-            public ResponseWrapper call() throws Exception {
-                final RequestSpecification requestSpec = requestFacade.value();
+    private Callable<Response> doRequest(final HttpMethod method) {
+        return () -> {
+            final RequestSpecification requestSpec = requestFacade.value();
 
-                for (CukesPlugin CukesPlugin : pluginSet) {
-                    CukesPlugin.beforeRequest(requestSpec);
-                }
-
-                response = method.doRequest(requestSpec);
-
-                for (CukesPlugin CukesPlugin : pluginSet) {
-                    CukesPlugin.afterRequest(response);
-                }
-                cacheHeaders(response);
-                return new ResponseWrapper(response);
+            for (CukesHttpPlugin plugin : pluginSet) {
+                plugin.beforeRequest(requestSpec);
             }
+
+            response = method.doRequest(requestSpec);
+
+            for (CukesHttpPlugin CukesPlugin : pluginSet) {
+                CukesPlugin.afterRequest(response);
+            }
+            cacheHeaders(response);
+            return response;
         };
     }
 
