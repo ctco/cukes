@@ -7,24 +7,24 @@ public class InitializeGenerateRandomStringFunction implements LoadRunnerFunctio
 
     @Override
     public String format() {
-        return "random_Generator(char* paramname, int length) {\n" +
-            " char buffer[32] = \"\";\n" +
-            " int r,i;\n" +
-            " char c;\n" +
-            " srand((unsigned int)time(0));\n" +
-            " for (i = 0; i < length; i++) {\n" +
-            " r = rand() % 25 + 65;\n" +
-            " c = (char)r;\n" +
-            " buffer[i] = c;\n" +
-            "  if (buffer[i] == buffer[i-1])\n" +
-            "  {\n" +
-            "  r = rand() % 25 + 65;\n" +
-            "  c = (char)r;\n" +
-            "  buffer[i] = c;\n" +
-            "  }\n" +
-            " }\n" +
-            " lr_save_string(buffer, paramname);\n" +
-            "return 0;\n" +
+        return "char *lr_guid_gen()\n" +
+            "{\n" +
+            "    typedef struct _GUID\n" +
+            "    {\n" +
+            "        unsigned long Data1;\n" +
+            "        unsigned short Data2;\n" +
+            "        unsigned short Data3;\n" +
+            "        unsigned char Data4[4];\n" +
+            "    } GUID;\n" +
+            "    char guid[50];\n" +
+            "    GUID m_guid;\n" +
+            "    lr_load_dll (\"ole32.dll\");\n" +
+            "    CoCreateGuid(&m_guid);\n" +
+            "    sprintf (guid, \"%08lx-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x\",\n" +
+            "    m_guid.Data1, m_guid.Data2, m_guid.Data3,\n" +
+            "    m_guid.Data4[0], m_guid.Data4[1], m_guid.Data4[2], m_guid.Data4[3],\n" +
+            "    m_guid.Data4[4], m_guid.Data4[5], m_guid.Data4[6], m_guid.Data4[7]);\n" +
+            "    return guid;\n" +
             "}\n";
     }
 }

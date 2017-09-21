@@ -19,7 +19,7 @@ public class VariableFacadeLoadRunnerImpl implements VariableFacade {
 
     @Override
     public void setUUIDToVariable(final String name) {
-        loadRunnerFilter.getTrx().addFunction(() -> "random_Generator(\"" + name + "\", 32);\n");
+        loadRunnerFilter.getTrx().addFunction(() -> "lr_save_string(lr_guid_gen(), \"" + name + "\");\n");
     }
 
     @Override
