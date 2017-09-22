@@ -14,7 +14,15 @@ public class VariableFacadeLoadRunnerImpl implements VariableFacade {
 
     @Override
     public void setVariable(final String name, final String value) {
-        loadRunnerFilter.getTrx().addFunction(() -> "lr_set_string(\"" + name + "\", \"" + value + "\");\n");
+        loadRunnerFilter.getTrx().addFunction(() -> "lr_set_string(\"" + name + "\", " + wrapIfNeeded(value) + ");\n");
+    }
+
+    private String wrapIfNeeded(final String value) {
+        return isFunctionCall(value) ? value : "\"" + value + "\"";
+    }
+
+    private boolean isFunctionCall(String value) {
+        return value.matches("\\S+\\([\\W\\S,]*\\)");
     }
 
     @Override
