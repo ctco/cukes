@@ -8,6 +8,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.*;
 import javax.naming.ldap.LdapContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -58,6 +59,21 @@ public class EntityService {
             throw new CukesRuntimeException("Cannot delete entity by dn " + dn, e);
         } finally {
             connectionService.close();
+        }
+    }
+
+    public List<Attributes> searchByFilter(String dn, String filter){
+        try {
+            LdapContext context = connectionService.getContext();
+            NamingEnumeration<SearchResult> searchResults = context.search(dn, filter, new SearchControls());
+            List<Attributes> attributesList = new ArrayList<>();
+            while (searchResults.hasMore()) {
+                SearchResult searchResult = searchResults.next();
+                attributesList.add(searchResult.getAttributes());
+            }
+            return attributesList;
+        } catch (NamingException ex) {
+            throw new CukesRuntimeException(ex);
         }
     }
 
