@@ -4,7 +4,7 @@
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cukes Parent</name>
@@ -55,7 +55,7 @@
         <connection>scm:git:git@github.com:ctco/cukes.git</connection>
         <developerConnection>scm:git:git@github.com:ctco/cukes.git</developerConnection>
         <url>git@github.com:ctco/cukes.git</url>
-        <tag>cukes-0.0.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <profiles>
