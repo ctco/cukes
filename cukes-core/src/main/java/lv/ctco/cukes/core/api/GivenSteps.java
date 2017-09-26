@@ -26,7 +26,7 @@ public class GivenSteps {
         this.variableFacade.setUUIDToVariable(varName);
     }
 
-    @Given("^let variable \"(\\S+)\" to be random password by matching pattern \"(\\S+)\"$")
+    @Given("^let variable \"(\\S+)\" to be random password by matching pattern \"([Aa0]+)\"$")
     @CukesDocs("Generates random password by given pattern. Pattern may contain symbils a,A,0. " +
         "So A is replaced with random capital letter, a - with random letter and 0 - with random number")
     public void var_random_password_by_pattern(String variableName, String pattern) {

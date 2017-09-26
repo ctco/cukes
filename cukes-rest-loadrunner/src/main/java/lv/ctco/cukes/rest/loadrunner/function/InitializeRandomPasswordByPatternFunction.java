@@ -8,12 +8,12 @@ public class InitializeRandomPasswordByPatternFunction implements LoadRunnerFunc
             "char generateRandomChar(char pattern){\n" +
             "    switch(pattern){\n" +
             "        case 'a':\n" +
-            "            return (char)('a' + rand() % 25);\n" +
+            "            return (char)('a' + rand() % 26);\n" +
             "        case 'A':\n" +
-            "            return (char)('A' + rand() % 25);\n" +
+            "            return (char)('A' + rand() % 26);\n" +
             "        case '0':\n" +
             "        default:\n" +
-            "            return (char)('0' + rand() % 9);\n" +
+            "            return (char)('0' + rand() % 10);\n" +
             "        }\n" +
             "\n" +
             "}\n" +
@@ -26,7 +26,7 @@ public class InitializeRandomPasswordByPatternFunction implements LoadRunnerFunc
             "    if(!pattern)\n" +
             "        return NULL;\n" +
             "        \n" +
-            "    result = malloc(strlen(pattern));\n" +
+            "    result = (char*)malloc(strlen(pattern));\n" +
             "    currentResult = result;\n" +
             "    while(*current){\n" +
             "        *currentResult=generateRandomChar(*current);\n" +
@@ -41,7 +41,7 @@ public class InitializeRandomPasswordByPatternFunction implements LoadRunnerFunc
             "    char patterns[3] = {'a', 'A', '0'};\n" +
             "    int i;\n" +
             "    \n" +
-            "    result = malloc(length);\n" +
+            "    result = (char*)malloc(length);\n" +
             "    for(i = 0; i < length; i++)\n" +
             "        result[i] = generateRandomChar(patterns[i % 3]);\n" +
             "    \n" +
