@@ -74,6 +74,8 @@ public class EntityService {
             return attributesList;
         } catch (NamingException ex) {
             throw new CukesRuntimeException(ex);
+        } finally {
+            connectionService.close();
         }
     }
 
