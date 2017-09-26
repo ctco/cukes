@@ -13,12 +13,7 @@ import io.restassured.specification.FilterableResponseSpecification;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
-import lv.ctco.cukes.rest.loadrunner.function.InitializeConcatFunction;
-import lv.ctco.cukes.rest.loadrunner.function.InitializeGenerateRandomStringFunction;
-import lv.ctco.cukes.rest.loadrunner.function.InitializeGetUrlFunction;
-import lv.ctco.cukes.rest.loadrunner.function.InitializeSaveBoundedValueFunction;
-import lv.ctco.cukes.rest.loadrunner.function.LoadRunnerFunction;
-import lv.ctco.cukes.rest.loadrunner.function.WebCustomRequest;
+import lv.ctco.cukes.rest.loadrunner.function.*;
 import lv.ctco.cukes.rest.loadrunner.mapper.WebCustomRequestMapper;
 import org.mockito.Mockito;
 
@@ -40,7 +35,8 @@ public class LoadRunnerFilter implements Filter {
         new InitializeSaveBoundedValueFunction(),
         new InitializeGenerateRandomStringFunction(),
         new InitializeGetUrlFunction(),
-        new InitializeConcatFunction()
+        new InitializeConcatFunction(),
+        new InitializeRandomPasswordByPatternFunction()
     );
     private LoadRunnerAction action;
     private LoadRunnerTransaction trx;

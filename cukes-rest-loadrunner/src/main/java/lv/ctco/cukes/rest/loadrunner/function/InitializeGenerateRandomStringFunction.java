@@ -16,8 +16,10 @@ public class InitializeGenerateRandomStringFunction implements LoadRunnerFunctio
             "        unsigned short Data3;\n" +
             "        unsigned char Data4[4];\n" +
             "    } GUID;\n" +
-            "    char guid[50];\n" +
+            "    char* guid;\n" +
             "    GUID m_guid;\n" +
+            "    guid = (char*)malloc(50);\n" +
+            "    memset(guid, 0, 50);\n" +
             "    lr_load_dll (\"ole32.dll\");\n" +
             "    CoCreateGuid(&m_guid);\n" +
             "    sprintf (guid, \"%08lx-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x\",\n" +

@@ -2,6 +2,7 @@ package lv.ctco.cukes.rest.loadrunner;
 
 import com.google.inject.AbstractModule;
 import lv.ctco.cukes.core.extension.CukesInjectableModule;
+import lv.ctco.cukes.core.facade.RandomGeneratorFacade;
 import lv.ctco.cukes.core.facade.VariableFacade;
 import lv.ctco.cukes.rest.facade.RestAssertionFacade;
 
@@ -13,10 +14,11 @@ public class CukesRestLoadRunnerGuiceModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        boolean isLoadRunnedEnabled = Boolean.valueOf(System.getProperty(PROPERTIES_PREFIX + LOADRUNNER_FILTER_BLOCKS_REQUESTS));
+        boolean isLoadRunnedEnabled = Boolean.parseBoolean(System.getProperty(PROPERTIES_PREFIX + LOADRUNNER_FILTER_BLOCKS_REQUESTS));
         if (isLoadRunnedEnabled) {
             bind(RestAssertionFacade.class).to(RestAssertionFacadeLoadRunnerImpl.class);
             bind(VariableFacade.class).to(VariableFacadeLoadRunnerImpl.class);
+            bind(RandomGeneratorFacade.class).to(RandomGeneratorLoadRunnerImpl.class);
         }
     }
 }
