@@ -95,6 +95,7 @@
                 </executions>
                 <configuration>
                     <basedir>../</basedir>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
         </plugins>

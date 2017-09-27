@@ -59,16 +59,18 @@ public class DocumentationGenerator {
                 writer.println();
                 writer.println("|Pattern|Description|");
                 writer.println("|-------|-----------|");
-                for (StepDefinition stepDefinition : stepDefinitions) {
-                    String patten = stepDefinition.getPatten();
-                    patten = patten.replaceAll("\\|", "\\\\|").
-                        replaceAll("_", "\\_").
-                        replaceAll("\\*", "\\\\*").
-                        replace("^", "").
-                        replace("$", "");
-                    String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
-                    writer.println("|" + patten + "|" + description + "|");
-                }
+                stepDefinitions.stream().
+                        sorted(StepDefinition.comparator).
+                        forEach(stepDefinition -> {
+                            String patten = stepDefinition.getPatten();
+                            patten = patten.replaceAll("\\|", "\\\\|").
+                                    replaceAll("_", "\\_").
+                                    replaceAll("\\*", "\\\\*").
+                                    replace("^", "").
+                                    replace("$", "");
+                            String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
+                            writer.println("|" + patten + "|" + description + "|");
+                        });
                 writer.println();
             }
         }
@@ -109,7 +111,7 @@ public class DocumentationGenerator {
                     CukesComponent component = CukesComponent.findByClassName(className);
                     steps.get(component).put(type, new StepDefinition(type.getPattern(method), type.getDescription(method)));
                 }
-             }
+            }
         }
         return steps;
     }

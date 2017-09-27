@@ -189,10 +189,8 @@
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.9.5</version>
                 <configuration>
-                    <message>none</message>
                     <skip>true</skip>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
