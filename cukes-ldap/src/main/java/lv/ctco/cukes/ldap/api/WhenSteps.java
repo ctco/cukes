@@ -40,4 +40,9 @@ public class WhenSteps {
     public void modifyEntityWithDn(String dn) {
         modificationFacade.execute(dn);
     }
+
+    @When("^the client searches entities within DN \"(.+)\" by filter \"(.+)\"$")
+    public void clientSearchEntitiesByFilter(String dn, String filter) {
+        entityFacade.searchByFilter(dn, filter);
+    }
 }

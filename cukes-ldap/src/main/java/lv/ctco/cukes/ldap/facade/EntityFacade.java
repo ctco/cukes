@@ -40,6 +40,7 @@ public class EntityFacade {
     }
 
     private Attributes entity;
+    private List<Attributes> searchResults = new ArrayList<>();
 
     @Inject
     EntityService entityService;
@@ -202,5 +203,26 @@ public class EntityFacade {
         } catch (NamingException | IOException e) {
             throw new CukesRuntimeException(e);
         }
+    }
+
+    public void searchByFilter(String dn, String filter) {
+        searchResults.clear();
+        searchResults.addAll(entityService.searchByFilter(dn, filter));
+    }
+
+    public void searchResultHasSize(String operator, int size) {
+        Function<Integer, Matcher<Integer>> matcherFunction = sizeMatchers.get(operator);
+        if (matcherFunction == null) {
+            throw new IllegalArgumentException("Unknown operator: " + operator);
+        }
+        assertThat(searchResults.size(), matcherFunction.apply(size));
+    }
+
+    public void takeEntityFromSearchResults(int index) {
+        if (index < 0 || index >= searchResults.size()) {
+            throw new IllegalArgumentException("Cannot extract entity from search results set by index " + index +
+                ". Total result set size is " + searchResults.size());
+        }
+        this.entity = searchResults.get(index);
     }
 }

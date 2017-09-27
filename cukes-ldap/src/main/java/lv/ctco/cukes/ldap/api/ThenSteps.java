@@ -68,4 +68,18 @@ public class ThenSteps {
         entityFacade.entityMatchesLDIF(ldif);
     }
 
+    @Then("^search result has size (\\d+)$")
+    public void searchResultHasSize(int size) {
+        entityFacade.searchResultHasSize("=", size);
+    }
+
+    @Then("^search result has size (>=|>|<=|<|<>) (\\d+)$")
+    public void searchResultHasSize(String operator, int size) {
+        entityFacade.searchResultHasSize(operator, size);
+    }
+
+    @Then("^take entity with index (\\d+) from search results$")
+    public void takeEntityFromSearchResults(int index) {
+        entityFacade.takeEntityFromSearchResults(index - 1);
+    }
 }
