@@ -48,7 +48,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.3.2</version>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
                         <id>create-docs</id>
@@ -61,7 +61,7 @@
                             <systemProperties>
                                 <systemProperty>
                                     <key>targetDir</key>
-                                    <value>${project.basedir}/../target/</value>
+                                    <value>${project.basedir}/../docs/</value>
                                 </systemProperty>
                                 <systemProperty>
                                     <key>version</key>
@@ -71,6 +71,9 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
             </plugin>
 <!--
             <plugin>
