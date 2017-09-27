@@ -189,6 +189,9 @@
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.9.5</version>
                 <configuration>
+                    <includes>docs/**/*.md</includes>
+                    <pushChanges>false</pushChanges>
+                    <message>Updating documentation</message>
                     <skip>true</skip>
                 </configuration>
             </plugin>
