@@ -75,7 +75,6 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
-<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
@@ -90,6 +89,7 @@
                         <configuration>
                             <includes>docs/**/*.md</includes>
                             <pushChanges>false</pushChanges>
+                            <message>Updating documentation</message>
                         </configuration>
                     </execution>
                 </executions>
@@ -97,7 +97,6 @@
                     <basedir>../</basedir>
                 </configuration>
             </plugin>
--->
         </plugins>
     </build>
 
