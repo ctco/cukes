@@ -21,10 +21,8 @@ public class GQLResponseFacade {
 
     @Inject
     GQLRequestFacade requestFacade;
-
     @Inject
     GlobalWorldFacade world;
-
     @Inject
     Set<CukesHttpPlugin> pluginSet;
 
@@ -47,8 +45,8 @@ public class GQLResponseFacade {
 
             response = method.doRequest(requestSpec);
 
-            for (CukesHttpPlugin CukesPlugin : pluginSet) {
-                CukesPlugin.afterRequest(response);
+            for (CukesHttpPlugin plugin : pluginSet) {
+                plugin.afterRequest(response);
             }
             cacheHeaders(response);
             return response;

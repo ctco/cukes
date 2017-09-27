@@ -9,9 +9,9 @@ import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
+import lv.ctco.cukes.graphql.internal.GraphQLRequest;
 import lv.ctco.cukes.http.RestAssuredConfiguration;
 import lv.ctco.cukes.http.https.TrustAllTrustManager;
-import lv.ctco.cukes.graphql.internal.GraphQLRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,17 +30,22 @@ public class GQLRequestFacade {
     private GraphQLRequest graphQLRequest;
 
     @Inject
-    public GQLRequestFacade(GlobalWorldFacade world) {
+    public GQLRequestFacade(GlobalWorldFacade world, RestAssuredConfiguration restConfig) {
         this.world = world;
+        this.restConfig = restConfig;
         initNewSpecification();
     }
 
     public void initNewSpecification() {
-        specification = RestAssured
-            .given()
-            .config(restConfig.getConfig());
-        onCreate();
-        graphQLRequest = new GraphQLRequest();
+        try {
+            specification = RestAssured
+                .given()
+                .config(restConfig.getConfig());
+            onCreate();
+            graphQLRequest = new GraphQLRequest();
+        } catch (Exception e) {
+            throw new CukesRuntimeException(e);
+        }
     }
 
     private void onCreate() {
