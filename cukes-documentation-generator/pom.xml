@@ -43,4 +43,59 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <id>create-docs</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>lv.ctco.cukes.docgen.DocumentationGenerator</mainClass>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>targetDir</key>
+                                    <value>${project.basedir}/../target/</value>
+                                </systemProperty>
+                                <systemProperty>
+                                    <key>version</key>
+                                    <value>${project.version}</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+<!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.9.5</version>
+                <executions>
+                    <execution>
+                        <id>add-docs-to-git</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>add</goal>
+                        </goals>
+                        <configuration>
+                            <includes>docs/**/*.md</includes>
+                            <pushChanges>false</pushChanges>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <basedir>../</basedir>
+                </configuration>
+            </plugin>
+-->
+        </plugins>
+    </build>
+
 </project>
