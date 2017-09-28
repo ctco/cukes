@@ -18,14 +18,28 @@ public class DocumentationGenerator {
         Map<CukesComponent, Multimap<StepType, StepDefinition>> steps = collectSteps();
 
         String header = IOUtils.toString(DocumentationGenerator.class.getResourceAsStream("/header.md"));
-        new File("target").mkdirs();
-        Writer writer = new FileWriter("target/steps.md");
+        Writer writer = new FileWriter(ensureFolder() + "/readme.md");
         writer.write(header + "\n");
-        generateMarkdown(steps, writer);
+        String version = System.getProperty("version", "current");
+        if (version.endsWith("-SNAPSHOT")) {
+            version = "${cukes.version}";
+        }
+        generateMarkdown(steps, writer, version);
         writer.close();
     }
 
-    private static void generateMarkdown(Map<CukesComponent, Multimap<StepType, StepDefinition>> steps, Writer w) throws IOException {
+    private static String ensureFolder() {
+        String target = System.getProperty("targetDir", "target");
+        String version = System.getProperty("version", "current");
+        if (version.endsWith("-SNAPSHOT")) {
+            version = "current";
+        }
+        String path = target + "/" + version;
+        new File(path).mkdirs();
+        return path;
+    }
+
+    private static void generateMarkdown(Map<CukesComponent, Multimap<StepType, StepDefinition>> steps, Writer w, String version) throws IOException {
         PrintWriter writer = new PrintWriter(w);
         for (Map.Entry<CukesComponent, Multimap<StepType, StepDefinition>> entry : steps.entrySet()) {
             CukesComponent component = entry.getKey();
@@ -33,7 +47,7 @@ public class DocumentationGenerator {
             writer.println("## " + component.getName() + " steps");
             writer.println();
 
-            generateRequiredDependencies(writer, component);
+            generateRequiredDependencies(writer, component, version);
 
             for (Map.Entry<StepType, Collection<StepDefinition>> definitionEntry : stepsByType.asMap().entrySet()) {
                 StepType stepType = definitionEntry.getKey();
@@ -45,22 +59,24 @@ public class DocumentationGenerator {
                 writer.println();
                 writer.println("|Pattern|Description|");
                 writer.println("|-------|-----------|");
-                for (StepDefinition stepDefinition : stepDefinitions) {
-                    String patten = stepDefinition.getPatten();
-                    patten = patten.replaceAll("\\|", "\\\\|").
-                        replaceAll("_", "\\_").
-                        replaceAll("\\*", "\\\\*").
-                        replace("^", "").
-                        replace("$", "");
-                    String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
-                    writer.println("|" + patten + "|" + description + "|");
-                }
+                stepDefinitions.stream().
+                        sorted(StepDefinition.comparator).
+                        forEach(stepDefinition -> {
+                            String patten = stepDefinition.getPatten();
+                            patten = patten.replaceAll("\\|", "\\\\|").
+                                    replaceAll("_", "\\_").
+                                    replaceAll("\\*", "\\\\*").
+                                    replace("^", "").
+                                    replace("$", "");
+                            String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
+                            writer.println("|" + patten + "|" + description + "|");
+                        });
                 writer.println();
             }
         }
     }
 
-    private static void generateRequiredDependencies(PrintWriter writer, CukesComponent component) {
+    private static void generateRequiredDependencies(PrintWriter writer, CukesComponent component, String version) {
         writer.println("Required dependencies:");
         writer.println();
         writer.println("**Maven**");
@@ -69,14 +85,14 @@ public class DocumentationGenerator {
         writer.println("<dependency>");
         writer.println("    <groupId>lv.ctco.cukes</groupId>");
         writer.println("    <artifactId>" + component.getModuleName() + "</artifactId>");
-        writer.println("    <version>${cukes.version}</version>");
+        writer.println("    <version>" + version + "</version>");
         writer.println("</dependency>");
         writer.println("```");
         writer.println();
         writer.println("**Gradle**");
         writer.println();
         writer.println("```");
-        writer.println("testCompile(\"lv.ctco.cukes:" + component.getModuleName() + ":${cukes.version}\");");
+        writer.println("testCompile(\"lv.ctco.cukes:" + component.getModuleName() + ":" + version + "\");");
         writer.println("```");
         writer.println();
     }
@@ -95,7 +111,7 @@ public class DocumentationGenerator {
                     CukesComponent component = CukesComponent.findByClassName(className);
                     steps.get(component).put(type, new StepDefinition(type.getPattern(method), type.getDescription(method)));
                 }
-             }
+            }
         }
         return steps;
     }
