@@ -95,7 +95,7 @@ public class ThenSteps {
         this.assertionFacade.bodyContainsArrayWithSize(path, size.toString());
     }
 
-    @Then("^response contains an array \"(.+)\" with value \"(.*)\"$")
+    @Then("^response contains an array \"([^\"]+)\" with value \"(.*)\"$")
     public void response_Body_Contains_Array_With_Property(String path, String value) {
         this.assertionFacade.bodyContainsArrayWithEntryHavingValue(path, value);
     }
@@ -180,7 +180,7 @@ public class ThenSteps {
         this.assertionFacade.failureOccurs(exceptionClass);
     }
 
-    @Then("^response contains an array \"(.+)\" with object having property \"(.+)\" with value \"(.+)\"$")
+    @Then("^response contains an array \"([^\"]+)\" with object having property \"(.+)\" with value \"(.+)\"$")
     public void responseBodyContainsArrayWithObjectHavingProperty(String path, String property, String value) {
         this.assertionFacade.bodyContainsArrayWithObjectHavingProperty(path, property, value);
     }
