@@ -1,4 +1,4 @@
-package lv.ctco.cukes.rest.facade;
+package lv.ctco.cukes.http.facade;
 
 import io.restassured.response.Response;
 import lv.ctco.cukes.core.internal.matchers.JsonMatchers;

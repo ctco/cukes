@@ -1,16 +1,16 @@
-package lv.ctco.cukes.rest.api;
+package lv.ctco.cukes.http.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Then;
 import lv.ctco.cukes.core.internal.resources.ResourceFileReader;
-import lv.ctco.cukes.rest.facade.RestAssertionFacade;
+import lv.ctco.cukes.http.facade.HttpAssertionFacade;
 
 @Singleton
 public class ThenSteps {
 
     @Inject
-    private RestAssertionFacade assertionFacade;
+    private HttpAssertionFacade assertionFacade;
 
     @Inject
     private ResourceFileReader fileReader;
@@ -179,4 +179,10 @@ public class ThenSteps {
     public void it_fails(String exceptionClass) {
         this.assertionFacade.failureOccurs(exceptionClass);
     }
+
+    @Then("^response contains an array \"(.+)\" with object having property \"(.+)\" with value \"(.+)\"$")
+    public void responseBodyContainsArrayWithObjectHavingProperty(String path, String property, String value) {
+        this.assertionFacade.bodyContainsArrayWithObjectHavingProperty(path, property, value);
+    }
+
 }

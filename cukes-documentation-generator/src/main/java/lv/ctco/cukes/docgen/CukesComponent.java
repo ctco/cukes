@@ -7,6 +7,7 @@ public enum CukesComponent {
 
 
     core("General", "lv.ctco.cukes.core", "cukes-core"),
+    http("HTTP", "lv.ctco.cukes.http", "cukes-http"),
     graphQL("GraphQL", "lv.ctco.cukes.graphql", "cukes-graphql"),
     ldap("LDAP", "lv.ctco.cukes.ldap", "cukes-ldap"),
     rabbitMQ("RabbitMQ", "lv.ctco.cukes.rabbitmq", "cukes-rabbitmq"),

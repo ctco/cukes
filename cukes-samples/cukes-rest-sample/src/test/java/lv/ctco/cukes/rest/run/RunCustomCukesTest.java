@@ -16,19 +16,14 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
     format = {"pretty"},
     features = "classpath:features/custom/",
-    glue = {"lv.ctco.cukes.core.api", "lv.ctco.cukes.rest.api", "lv.ctco.cukes.rest.run.custom.steps"},
+    glue = {"lv.ctco.cukes"},
     strict = true
 )
 public class RunCustomCukesTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        SingletonObjectFactory.instance().addModule(new Module() {
-            @Override
-            public void configure(Binder binder) {
-                binder.bind(CustomSteps.StateSaver.class).in(CucumberScopes.SCENARIO);
-            }
-        });
+        SingletonObjectFactory.instance().addModule(binder -> binder.bind(CustomSteps.StateSaver.class).in(CucumberScopes.SCENARIO));
 
         new SampleApplication().run(new String[]{"server", "server.yml"});
     }

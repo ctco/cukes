@@ -1,6 +1,6 @@
-package lv.ctco.cukes.rest.facade;
+package lv.ctco.cukes.http.facade;
 
-public interface RestAssertionFacade {
+public interface HttpAssertionFacade {
 
     void bodyEqualTo(String body);
 
@@ -59,4 +59,6 @@ public interface RestAssertionFacade {
     void failureOccurs(String exceptionClass);
 
     void failureIsExpected();
+
+    void bodyContainsArrayWithObjectHavingProperty(String path, String property, String value);
 }

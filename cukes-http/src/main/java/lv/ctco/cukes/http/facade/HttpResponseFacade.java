@@ -1,8 +1,9 @@
-package lv.ctco.cukes.rest.facade;
+package lv.ctco.cukes.http.facade;
 
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.jayway.awaitility.Awaitility;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
@@ -10,30 +11,25 @@ import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.core.internal.templating.TemplatingEngine;
-import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 import lv.ctco.cukes.http.AwaitCondition;
 import lv.ctco.cukes.http.HttpMethod;
+import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 import lv.ctco.cukes.http.matchers.AwaitConditionMatcher;
 
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.with;
-
 @Singleton
 @InflateContext
-public class RestResponseFacade {
+public class HttpResponseFacade {
 
     @Inject
-    RestRequestFacade specification;
+    HttpRequestFacade specification;
     @Inject
     GlobalWorldFacade world;
     @Inject
     Set<CukesHttpPlugin> pluginSet;
-    @Inject
-    TemplatingEngine templatingEngine;
 
     private Response response;
     private boolean expectException;
@@ -54,7 +50,7 @@ public class RestResponseFacade {
                 TimeUnit unit = awaitCondition.getWaitTime().getUnitDict().getTimeUnit();
 
                 // TODO Fix
-                with().pollInterval(intervalTime, intervalUnit)
+                Awaitility.with().pollInterval(intervalTime, intervalUnit)
                     .await()
                     .atMost(waitTime, unit)
                     .until(doRequest(url, method), new AwaitConditionMatcher(awaitCondition));
@@ -93,14 +89,7 @@ public class RestResponseFacade {
                 plugin.beforeRequest(requestSpec);
             }
 
-            String requestBody = specification.getRequestBody();
-            if (requestBody != null) {
-                String processed = templatingEngine.processBody(requestBody);
-                specification.body(processed);
-            }
-
             response = method.doRequest(requestSpec, url);
-            specification.clearRequestBody();
 
             for (CukesHttpPlugin plugin : pluginSet) {
                 plugin.afterRequest(response);
@@ -151,4 +140,5 @@ public class RestResponseFacade {
             world.remove(key);
         }
     }
+
 }

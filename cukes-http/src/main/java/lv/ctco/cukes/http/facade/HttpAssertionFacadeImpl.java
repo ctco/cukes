@@ -1,4 +1,4 @@
-package lv.ctco.cukes.rest.facade;
+package lv.ctco.cukes.http.facade;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
@@ -7,33 +7,23 @@ import io.restassured.response.Response;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.http.json.JsonParser;
-import lv.ctco.cukes.core.internal.matchers.ArrayWithSizeMatcher;
-import lv.ctco.cukes.core.internal.matchers.ContainsPattern;
-import lv.ctco.cukes.core.internal.matchers.EndsWithRegexp;
-import lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher;
-import lv.ctco.cukes.core.internal.matchers.JsonMatchers;
-import lv.ctco.cukes.core.internal.matchers.MiscMatchers;
-import lv.ctco.cukes.core.internal.matchers.OfTypeMatcher;
-import lv.ctco.cukes.http.matchers.StatusCodeMatcher;
+import lv.ctco.cukes.core.internal.matchers.*;
 import lv.ctco.cukes.core.internal.switches.SwitchedBy;
+import lv.ctco.cukes.http.json.JsonParser;
+import lv.ctco.cukes.http.matchers.StatusCodeMatcher;
 import org.hamcrest.Matchers;
 
 import java.util.Map;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.equalToIgnoringType;
+import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsPropertyValueByPathInArray;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
 @InflateContext
-public class RestAssertionFacadeImpl implements RestAssertionFacade {
+public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Inject
     private GlobalWorldFacade world;
@@ -42,7 +32,7 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
     private JsonParser jsonParser;
 
     @Inject
-    RestResponseFacade facade;
+    HttpResponseFacade facade;
 
     @Override
     public void bodyEqualTo(String body) {
@@ -143,7 +133,7 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
     public void bodyContainsPathWithValue(String path, String value) {
         Response response = this.facade.response();
         assertThat(response,
-                JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
+            JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
@@ -214,7 +204,18 @@ public class RestAssertionFacadeImpl implements RestAssertionFacade {
     public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
         Response response = this.facade.response();
         assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, path,
-                EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
-
+            EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
+
+    @Override
+    public void bodyContainsArrayWithObjectHavingProperty(String path, String property, String value) {
+        Response response = this.facade.response();
+        assertThat(response,
+            containsPropertyValueByPathInArray(ResponseContentProvider.INSTANCE,
+                path,
+                property,
+                equalToIgnoringType(value, this.world.getBoolean("case-insensitive")))
+        );
+    }
+
 }

@@ -3,11 +3,11 @@ package lv.ctco.cukes.rest.loadrunner;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.internal.context.InflateContext;
-import lv.ctco.cukes.rest.facade.RestAssertionFacade;
+import lv.ctco.cukes.http.facade.HttpAssertionFacade;
 
 @Singleton
 @InflateContext
-public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
+public class HttpAssertionFacadeLoadRunnerImpl implements HttpAssertionFacade {
 
     @Inject
     LoadRunnerFilter loadRunnerFilter;
@@ -160,5 +160,9 @@ public class RestAssertionFacadeLoadRunnerImpl implements RestAssertionFacade {
 
     @Override
     public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
+    }
+
+    @Override
+    public void bodyContainsArrayWithObjectHavingProperty(String path, String property, String value) {
     }
 }

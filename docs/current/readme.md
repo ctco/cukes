@@ -36,6 +36,90 @@ testCompile("lv.ctco.cukes:cukes-core:${cukes.version}");
 |resources root is "(.+)"||
 |value assertions are case-insensitive||
 
+## HTTP steps
+
+Required dependencies:
+
+**Maven**
+
+```xml
+<dependency>
+    <groupId>lv.ctco.cukes</groupId>
+    <artifactId>cukes-http</artifactId>
+    <version>${cukes.version}</version>
+</dependency>
+```
+
+**Gradle**
+
+```
+testCompile("lv.ctco.cukes:cukes-http:${cukes.version}");
+```
+
+### given
+
+|Pattern|Description|
+|-------|-----------|
+|accept "(.+)" mediaTypes||
+|accept mediaType is JSON||
+|authentication type is "(.+)"||
+|baseUri is "(.+)"||
+|content type is "(.+)"||
+|content type is JSON||
+|cookie "(.+)" with value "(.+)"||
+|header (["]+) with value "(.+)"||
+|param "(.+)" "(.+)"||
+|proxy settings are "(http\|https)://([:]+)(?::(\d+))?"||
+|queryParam "(.+)" is "(.+)"||
+|session ID "(.+)" with value "(.+)"||
+|session ID is "(.+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until header "(["]+)" equal to "(["]+)" or fail with "(["]+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until header "(["]+)" equal to "(["]+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until property "(["]+)" equal to "(["]+)" or fail with "(["]+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until property "(["]+)" equal to "(["]+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+) or fail with "(["]+)"||
+|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+)||
+|username "(.+)" and password "(.+)"||
+
+### then
+
+|Pattern|Description|
+|-------|-----------|
+|header "(.+)" contains "(.+)"||
+|header "(.+)" does not contain "(.+)"||
+|header "(.+)" ends with pattern "(.+)"||
+|header "(.+)" equal to "(.+)"||
+|header "(.+)" is empty||
+|header "(.+)" is not empty||
+|header "(.+)" not equal to "(.+)"||
+|it fails with "(.+)"||
+|let variable "(.+)" equal to header "(.+)" value||
+|let variable "(.+)" equal to property "(.+)" value||
+|let variable "(.+)" equal to response body||
+|response body does not contain "(.+)"||
+|response body not equal to "(.\*)"||
+|response contains "(.+)"||
+|response contains an array "(.+)" of size (>=\|>\|<=\|<\|<>) (\d+)||
+|response contains an array "(.+)" of size (\d+)||
+|response contains an array "(.+)" with object having property "(.+)" with value "(.+)"||
+|response contains an array "(.+)" with value "(.\*)"||
+|response contains properties from file "(.+)"||
+|response contains properties from json:||
+|response contains property "(.+)" containing phrase "(.\*)"||
+|response contains property "(.+)" matching pattern "(.+)"||
+|response contains property "(.+)" not matching pattern "(.+)"||
+|response contains property "(.+)" of type "(.+)"||
+|response contains property "(.+)" with value "(.\*)"||
+|response contains property "(.+)" with value other than "(.\*)"||
+|response contains property "(.+)" with value:||
+|response does not contain property "(.+)"||
+|response equals to "(.\*)"||
+|response is empty||
+|response is not empty||
+|status code is (\d+)||
+|status code is not (\d+)||
+|a failure is expected||
+
 ## GraphQL steps
 
 Required dependencies:
@@ -68,41 +152,6 @@ testCompile("lv.ctco.cukes:cukes-graphql:${cukes.version}");
 |Pattern|Description|
 |-------|-----------|
 |the query is executed||
-
-### then
-
-|Pattern|Description|
-|-------|-----------|
-|header "(.+)" contains "(.+)"||
-|header "(.+)" does not contain "(.+)"||
-|header "(.+)" ends with pattern "(.+)"||
-|header "(.+)" equal to "(.+)"||
-|header "(.+)" is empty||
-|header "(.+)" is not empty||
-|header "(.+)" not equal to "(.+)"||
-|let variable "(.+)" equal to header "(.+)" value||
-|let variable "(.+)" equal to property "(.+)" value||
-|let variable "(.+)" equal to response body||
-|response body does not contain "(.+)"||
-|response body not equal to "(.\*)"||
-|response contains "(.+)"||
-|response contains an array "(.+)" of size (>=\|>\|<=\|<\|<>) (\d+)||
-|response contains an array "(.+)" of size (\d+)||
-|response contains an array "(.+)" with object having property "(.+)" with value "(.+)"||
-|response contains an array "(.+)" with value "(.\*)"||
-|response contains property "(.+)" containing phrase "(.\*)"||
-|response contains property "(.+)" matching pattern "(.+)"||
-|response contains property "(.+)" not matching pattern "(.+)"||
-|response contains property "(.+)" of type "(.+)"||
-|response contains property "(.+)" with value "(.\*)"||
-|response contains property "(.+)" with value other than "(.\*)"||
-|response contains property "(.+)" with value:||
-|response does not contain property "(.+)"||
-|response equals to "(.\*)"||
-|response is empty||
-|response is not empty||
-|status code is (\d+)||
-|status code is not (\d+)||
 
 ## LDAP steps
 
@@ -260,18 +309,7 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 
 |Pattern|Description|
 |-------|-----------|
-|accept "(.+)" mediaTypes||
-|accept mediaType is JSON||
-|authentication type is "(.+)"||
-|baseUri is "(.+)"||
-|content type is "(.+)"||
-|content type is JSON||
-|cookie "(.+)" with value "(.+)"||
 |formParam "(.+)" is "(.+)"||
-|header (["]+) with value "(.+)"||
-|param "(.+)" "(.+)"||
-|proxy settings are "(http\|https)://([:]+)(?::(\d+))?"||
-|queryParam "(.+)" is "(.+)"||
 |request body "(.+)"||
 |request body from file "(.+)"||
 |request body is a multipart file "(.+)"||
@@ -280,57 +318,10 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 |request body is a multipart with control "(.+)" from file "(.+)"||
 |request body is a multipart with mime-type "(.+)" and control "(.+)" from file "(.+)"||
 |request body:||
-|session ID "(.+)" with value "(.+)"||
-|session ID is "(.+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until header "(["]+)" equal to "(["]+)" or fail with "(["]+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until header "(["]+)" equal to "(["]+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until property "(["]+)" equal to "(["]+)" or fail with "(["]+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until property "(["]+)" equal to "(["]+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+) or fail with "(["]+)"||
-|should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+)||
-|username "(.+)" and password "(.+)"||
 
 ### when
 
 |Pattern|Description|
 |-------|-----------|
 |the client performs (.+) request on "(.+)"||
-
-### then
-
-|Pattern|Description|
-|-------|-----------|
-|header "(.+)" contains "(.+)"||
-|header "(.+)" does not contain "(.+)"||
-|header "(.+)" ends with pattern "(.+)"||
-|header "(.+)" equal to "(.+)"||
-|header "(.+)" is empty||
-|header "(.+)" is not empty||
-|header "(.+)" not equal to "(.+)"||
-|it fails with "(.+)"||
-|let variable "(.+)" equal to header "(.+)" value||
-|let variable "(.+)" equal to property "(.+)" value||
-|let variable "(.+)" equal to response body||
-|response body does not contain "(.+)"||
-|response body not equal to "(.\*)"||
-|response contains "(.+)"||
-|response contains an array "(.+)" of size (>=\|>\|<=\|<\|<>) (\d+)||
-|response contains an array "(.+)" of size (\d+)||
-|response contains an array "(.+)" with value "(.\*)"||
-|response contains properties from file "(.+)"||
-|response contains properties from json:||
-|response contains property "(.+)" containing phrase "(.\*)"||
-|response contains property "(.+)" matching pattern "(.+)"||
-|response contains property "(.+)" not matching pattern "(.+)"||
-|response contains property "(.+)" of type "(.+)"||
-|response contains property "(.+)" with value "(.\*)"||
-|response contains property "(.+)" with value other than "(.\*)"||
-|response contains property "(.+)" with value:||
-|response does not contain property "(.+)"||
-|response equals to "(.\*)"||
-|response is empty||
-|response is not empty||
-|status code is (\d+)||
-|status code is not (\d+)||
-|a failure is expected||
 

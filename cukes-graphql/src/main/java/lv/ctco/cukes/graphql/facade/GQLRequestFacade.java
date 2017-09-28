@@ -1,89 +1,27 @@
 package lv.ctco.cukes.graphql.facade;
 
-import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.restassured.RestAssured;
 import io.restassured.specification.RequestSpecification;
-import lv.ctco.cukes.core.CukesOptions;
-import lv.ctco.cukes.core.CukesRuntimeException;
-import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.graphql.internal.GraphQLRequest;
-import lv.ctco.cukes.http.RestAssuredConfiguration;
-import lv.ctco.cukes.http.https.TrustAllTrustManager;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import lv.ctco.cukes.http.facade.HttpRequestFacade;
 
 @Singleton
 @InflateContext
 public class GQLRequestFacade {
 
-    @Inject
-    private GlobalWorldFacade world;
+    private GraphQLRequest graphQLRequest = new GraphQLRequest();
 
     @Inject
-    private RestAssuredConfiguration restConfig;
-
-    private RequestSpecification specification;
-    private GraphQLRequest graphQLRequest;
-
-    @Inject
-    public GQLRequestFacade(GlobalWorldFacade world, RestAssuredConfiguration restConfig) {
-        this.world = world;
-        this.restConfig = restConfig;
-        initNewSpecification();
-    }
+    private HttpRequestFacade requestFacade;
 
     public void initNewSpecification() {
-        try {
-            specification = RestAssured
-                .given()
-                .config(restConfig.getConfig());
-            onCreate();
-            graphQLRequest = new GraphQLRequest();
-        } catch (Exception e) {
-            throw new CukesRuntimeException(e);
-        }
+        graphQLRequest = new GraphQLRequest();
     }
 
-    private void onCreate() {
-        Optional<String> $baseUri = world.get(CukesOptions.BASE_URI);
-        if ($baseUri.isPresent()) {
-            baseUri($baseUri.get());
-        }
-
-        Optional<String> $proxy = world.get(CukesOptions.PROXY);
-        if ($proxy.isPresent()) {
-            try {
-                specification.proxy(new URI($proxy.get()));
-            } catch (URISyntaxException ignore) {
-                throw new CukesRuntimeException("Unable to set Proxy, please check the URL");
-            }
-        }
-
-        if (world.getBoolean(CukesOptions.RELAXED_HTTPS)) {
-            specification.relaxedHTTPSValidation();
-            TrustAllTrustManager.trustAllHttpsCertificates();
-        }
-    }
-
-    public void accept(String mediaTypes) {
-        specification.accept(mediaTypes);
-    }
-
-    public void baseUri(String baseUri) {
-        world.put(CukesOptions.BASE_URI, baseUri);
-        specification.baseUri(baseUri);
-    }
-
-    public void contentType(String contentType) {
-        specification.contentType(contentType);
-    }
-
-    public void cookie(String cookieName, String cookieValue) {
-        specification.cookie(cookieName, cookieValue);
+    private RequestSpecification specification() {
+        return requestFacade.value();
     }
 
     public void queryBody(String body) {
@@ -91,11 +29,7 @@ public class GQLRequestFacade {
     }
 
     public void body(GraphQLRequest request) {
-        specification.body(request);
-    }
-
-    public RequestSpecification value() {
-        return specification;
+        specification().body(request);
     }
 
     public GraphQLRequest getGraphQLRequest() {
