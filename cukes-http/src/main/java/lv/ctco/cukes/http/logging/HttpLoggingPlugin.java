@@ -1,6 +1,5 @@
 package lv.ctco.cukes.http.logging;
 
-import com.google.common.base.Function;
 import com.google.common.base.Splitter;
 import com.google.inject.Inject;
 import io.restassured.config.RestAssuredConfig;
@@ -134,19 +133,11 @@ public class HttpLoggingPlugin implements CukesHttpPlugin {
         if (StringUtils.isBlank(logDetailsString)) return newArrayList();
 
         final HashSet<String> logDetailsStrings = newHashSet(Splitter.on(",").trimResults().omitEmptyStrings().split(logDetailsString));
-        final HashSet<String> validLogDetailsStrings = newHashSet(transform(newArrayList(LogDetail.values()), new Function<LogDetail, String>() {
-            @Override
-            public String apply(LogDetail logDetail) {
-                return logDetail.name().toLowerCase();
-            }
-        }));
+        final HashSet<String> validLogDetailsStrings = newHashSet(transform(newArrayList(LogDetail.values()),
+            logDetail -> logDetail.name().toLowerCase()));
 
-        final Collection<LogDetail> logDetails = transform(intersection(logDetailsStrings, validLogDetailsStrings), new Function<String, LogDetail>() {
-            @Override
-            public LogDetail apply(String s) {
-                return LogDetail.valueOf(s.toUpperCase());
-            }
-        });
+        final Collection<LogDetail> logDetails = transform(intersection(logDetailsStrings, validLogDetailsStrings),
+            s -> LogDetail.valueOf(s.toUpperCase()));
 
         return newArrayList(logDetails.iterator());
     }
