@@ -1,6 +1,7 @@
 package lv.ctco.cukes.docgen;
 
 import java.util.Comparator;
+import java.util.Map;
 
 public enum CukesComponent {
 
@@ -13,6 +14,7 @@ public enum CukesComponent {
     ;
 
     public static final Comparator<CukesComponent> comparator = Comparator.comparing(CukesComponent::ordinal);
+    public static final Comparator<Map.Entry<CukesComponent, ?>> mapKeyComparator = (o1, o2) -> comparator.compare(o1.getKey(), o2.getKey());
 
     private String name;
     private String basePackage;

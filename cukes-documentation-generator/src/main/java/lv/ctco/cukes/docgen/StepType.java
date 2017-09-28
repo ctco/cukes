@@ -7,13 +7,17 @@ import lv.ctco.cukes.core.CukesDocs;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Comparator;
 import java.util.function.Function;
 
 public enum StepType {
 
+
     given(Given.class, method -> method.getAnnotation(Given.class).value()),
     when(When.class, method -> method.getAnnotation(When.class).value()),
     then(Then.class, method -> method.getAnnotation(Then.class).value());
+
+    public static final Comparator<StepType> comparator = Comparator.comparing(Enum::ordinal);
 
     private Class<? extends Annotation> annotation;
     private Function<Method, String> patternProvider;

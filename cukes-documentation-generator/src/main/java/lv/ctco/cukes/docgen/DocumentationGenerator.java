@@ -1,8 +1,8 @@
 package lv.ctco.cukes.docgen;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.TreeMultimap;
 import com.google.common.reflect.ClassPath;
 import org.apache.commons.io.IOUtils;
 
@@ -41,39 +41,47 @@ public class DocumentationGenerator {
 
     private static void generateMarkdown(Map<CukesComponent, Multimap<StepType, StepDefinition>> steps, Writer w, String version) throws IOException {
         PrintWriter writer = new PrintWriter(w);
-        for (Map.Entry<CukesComponent, Multimap<StepType, StepDefinition>> entry : steps.entrySet()) {
+        steps.entrySet().stream().sorted(CukesComponent.mapKeyComparator).forEach(entry -> {
             CukesComponent component = entry.getKey();
             Multimap<StepType, StepDefinition> stepsByType = entry.getValue();
-            writer.println("## " + component.getName() + " steps");
-            writer.println();
+            generateMarkdownForComponent(version, writer, component, stepsByType);
 
-            generateRequiredDependencies(writer, component, version);
+        });
+    }
 
-            for (Map.Entry<StepType, Collection<StepDefinition>> definitionEntry : stepsByType.asMap().entrySet()) {
-                StepType stepType = definitionEntry.getKey();
-                Collection<StepDefinition> stepDefinitions = definitionEntry.getValue();
-                if (stepDefinitions.isEmpty()) {
-                    continue;
-                }
-                writer.println("### " + stepType);
-                writer.println();
-                writer.println("|Pattern|Description|");
-                writer.println("|-------|-----------|");
-                stepDefinitions.stream().
-                        sorted(StepDefinition.comparator).
-                        forEach(stepDefinition -> {
-                            String patten = stepDefinition.getPatten();
-                            patten = patten.replaceAll("\\|", "\\\\|").
-                                    replaceAll("_", "\\_").
-                                    replaceAll("\\*", "\\\\*").
-                                    replace("^", "").
-                                    replace("$", "");
-                            String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
-                            writer.println("|" + patten + "|" + description + "|");
-                        });
-                writer.println();
+    private static void generateMarkdownForComponent(String version, PrintWriter writer, CukesComponent component, Multimap<StepType, StepDefinition> stepsByType) {
+        writer.println("## " + component.getName() + " steps");
+        writer.println();
+
+        generateRequiredDependencies(writer, component, version);
+
+        for (Map.Entry<StepType, Collection<StepDefinition>> definitionEntry : stepsByType.asMap().entrySet()) {
+            StepType stepType = definitionEntry.getKey();
+            Collection<StepDefinition> stepDefinitions = definitionEntry.getValue();
+            if (stepDefinitions.isEmpty()) {
+                continue;
             }
+            writer.println("### " + stepType);
+            writer.println();
+            writer.println("|Pattern|Description|");
+            writer.println("|-------|-----------|");
+            stepDefinitions.
+                stream().
+                map(DocumentationGenerator::getStepTableRowAsMarkdown).
+                forEach(writer::println);
+            writer.println();
         }
+    }
+
+    private static String getStepTableRowAsMarkdown(StepDefinition stepDefinition) {
+        String patten = stepDefinition.getPatten();
+        patten = patten.replaceAll("\\|", "\\\\|").
+            replaceAll("_", "\\_").
+            replaceAll("\\*", "\\\\*").
+            replace("^", "").
+            replace("$", "");
+        String description = stepDefinition.getDescription() == null ? "" : stepDefinition.getDescription();
+        return "|" + patten + "|" + description + "|";
     }
 
     private static void generateRequiredDependencies(PrintWriter writer, CukesComponent component, String version) {
@@ -119,7 +127,7 @@ public class DocumentationGenerator {
     private static Map<CukesComponent, Multimap<StepType, StepDefinition>> createStepsStubs() {
         Map<CukesComponent, Multimap<StepType, StepDefinition>> steps = new LinkedHashMap<>();
         for (CukesComponent component : CukesComponent.values()) {
-            LinkedHashMultimap<StepType, StepDefinition> stepsMap = LinkedHashMultimap.create();
+            Multimap<StepType, StepDefinition> stepsMap = TreeMultimap.create(StepType.comparator, StepDefinition.comparator);
             steps.put(component, stepsMap);
         }
         return steps;

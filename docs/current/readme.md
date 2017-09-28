@@ -56,18 +56,18 @@ Required dependencies:
 testCompile("lv.ctco.cukes:cukes-graphql:${cukes.version}");
 ```
 
-### when
-
-|Pattern|Description|
-|-------|-----------|
-|the query is executed||
-
 ### given
 
 |Pattern|Description|
 |-------|-----------|
 |query from file "(.+)"||
 |query:||
+
+### when
+
+|Pattern|Description|
+|-------|-----------|
+|the query is executed||
 
 ### then
 
@@ -124,6 +124,16 @@ Required dependencies:
 testCompile("lv.ctco.cukes:cukes-ldap:${cukes.version}");
 ```
 
+### given
+
+|Pattern|Description|
+|-------|-----------|
+|LDAP server URL is "(.+)"||
+|LDAP server can be connected by user with DN "(.+)" and password "(.+)"||
+|change attribute "(.+)" (add\|remove\|replace) value "(.+)"||
+|prepare new entity modification||
+|the client imports LDIF:||
+
 ### when
 
 |Pattern|Description|
@@ -134,16 +144,6 @@ testCompile("lv.ctco.cukes:cukes-ldap:${cukes.version}");
 |the client retrieves entity by DN "(.+)"||
 |the client searches entities within DN "(.+)" by filter "(.+)"||
 |the client updates entity with DN "(.+)" using prepared modifications||
-
-### given
-
-|Pattern|Description|
-|-------|-----------|
-|LDAP server URL is "(.+)"||
-|LDAP server can be connected by user with DN "(.+)" and password "(.+)"||
-|change attribute "(.+)" (add\|remove\|replace) value "(.+)"||
-|prepare new entity modification||
-|the client imports LDIF:||
 
 ### then
 
@@ -205,6 +205,13 @@ testCompile("lv.ctco.cukes:cukes-rabbitmq:${cukes.version}");
 |using SSL||
 |virtual host is "(.+)"||
 
+### when
+
+|Pattern|Description|
+|-------|-----------|
+|the client sends message to exchange "([a-zA-Z0-9_\-\.:]+)" with routing key "(.+)"||
+|the client sends message with routing key "(.+)"||
+
 ### then
 
 |Pattern|Description|
@@ -229,13 +236,6 @@ testCompile("lv.ctco.cukes:cukes-rabbitmq:${cukes.version}");
 |wait for message in queue "([a-zA-Z0-9_\-\.:]+)" for not more than (\d+) seconds||
 |wait for message in queue "([a-zA-Z0-9_\-\.:]+)"||
 
-### when
-
-|Pattern|Description|
-|-------|-----------|
-|the client sends message to exchange "([a-zA-Z0-9_\-\.:]+)" with routing key "(.+)"||
-|the client sends message with routing key "(.+)"||
-
 ## REST steps
 
 Required dependencies:
@@ -255,12 +255,6 @@ Required dependencies:
 ```
 testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 ```
-
-### when
-
-|Pattern|Description|
-|-------|-----------|
-|the client performs (.+) request on "(.+)"||
 
 ### given
 
@@ -295,6 +289,12 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 |should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+) or fail with "(["]+)"||
 |should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until status code (\d+)||
 |username "(.+)" and password "(.+)"||
+
+### when
+
+|Pattern|Description|
+|-------|-----------|
+|the client performs (.+) request on "(.+)"||
 
 ### then
 
