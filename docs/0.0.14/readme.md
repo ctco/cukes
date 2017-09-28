@@ -14,14 +14,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-core</artifactId>
-    <version>${cukes.version}</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-core:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-core:0.0.14");
 ```
 
 ### given
@@ -46,14 +46,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-graphql</artifactId>
-    <version>${cukes.version}</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-graphql:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-graphql:0.0.14");
 ```
 
 ### when
@@ -114,14 +114,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-ldap</artifactId>
-    <version>${cukes.version}</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-ldap:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-ldap:0.0.14");
 ```
 
 ### when
@@ -174,14 +174,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rabbitmq</artifactId>
-    <version>${cukes.version}</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-rabbitmq:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-rabbitmq:0.0.14");
 ```
 
 ### given
@@ -246,14 +246,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rest</artifactId>
-    <version>${cukes.version}</version>
+    <version>0.0.14</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-rest:0.0.14");
 ```
 
 ### when
