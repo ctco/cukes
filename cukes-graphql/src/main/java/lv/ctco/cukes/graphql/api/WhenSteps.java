@@ -21,6 +21,7 @@ public class WhenSteps {
         String contentType = ContentType.JSON.toString();
         requestFacade.accept(contentType);
         requestFacade.contentType(contentType);
+        responseFacade.setResponsePrefix("data.");
         responseFacade.doRequest("POST", "");
     }
 }

@@ -34,6 +34,7 @@ public class HttpResponseFacade {
     private Response response;
     private boolean expectException;
     private RuntimeException exception;
+    private String responsePrefix;
 
     public void doRequest(String httpMethod, final String url) throws Exception {
         final HttpMethod method = HttpMethod.parse(httpMethod);
@@ -123,6 +124,14 @@ public class HttpResponseFacade {
 
     public void setException(RuntimeException exception) {
         this.exception = exception;
+    }
+
+    public String getResponsePrefix() {
+        return responsePrefix;
+    }
+
+    public void setResponsePrefix(String responsePrefix) {
+        this.responsePrefix = responsePrefix;
     }
 
     private void cacheHeaders(Response response) {

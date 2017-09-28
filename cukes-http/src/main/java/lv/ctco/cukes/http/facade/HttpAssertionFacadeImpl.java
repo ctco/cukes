@@ -11,6 +11,7 @@ import lv.ctco.cukes.core.internal.matchers.*;
 import lv.ctco.cukes.core.internal.switches.SwitchedBy;
 import lv.ctco.cukes.http.json.JsonParser;
 import lv.ctco.cukes.http.matchers.StatusCodeMatcher;
+import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matchers;
 
 import java.util.Map;
@@ -33,6 +34,14 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Inject
     HttpResponseFacade facade;
+
+    private String getPath(String path) {
+        if (!StringUtils.isEmpty(facade.getResponsePrefix())) {
+            return facade.getResponsePrefix() + path;
+        } else {
+            return path;
+        }
+    }
 
     @Override
     public void bodyEqualTo(String body) {
@@ -133,48 +142,48 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     public void bodyContainsPathWithValue(String path, String value) {
         Response response = this.facade.response();
         assertThat(response,
-            JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
+            JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
     public void bodyContainsPathWithOtherValue(String path, String value) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, EqualToIgnoringTypeMatcher.notEqualToIgnoringType(value)));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), EqualToIgnoringTypeMatcher.notEqualToIgnoringType(value)));
     }
 
     @Override
     public void bodyDoesNotContainPath(String path) {
-        Object value = this.facade.response().body().path(path);
+        Object value = this.facade.response().body().path(getPath(path));
         assertThat(value, nullValue());
     }
 
     @Override
     public void bodyContainsArrayWithSize(String path, String size) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, ArrayWithSizeMatcher.arrayWithSize(size)));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), ArrayWithSizeMatcher.arrayWithSize(size)));
     }
 
     @Override
     public void bodyContainsPathOfType(String path, String type) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, OfTypeMatcher.ofType(type)));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), OfTypeMatcher.ofType(type)));
     }
 
     @Override
     public void bodyContainsPathMatchingPattern(String path, String pattern) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), MiscMatchers.that(ContainsPattern.containsPattern(pattern))));
     }
 
     @Override
     public void bodyContainsPathNotMatchingPattern(String path, String pattern) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), MiscMatchers.that(Matchers.not(ContainsPattern.containsPattern(pattern)))));
     }
 
     @Override
     public void varAssignedFromProperty(@InflateContext.Ignore String varName, String property) {
-        String value = String.valueOf(this.facade.response().body().<Object>path(property));
+        String value = String.valueOf(this.facade.response().body().<Object>path(getPath(property)));
         this.world.put(varName, value);
     }
 
@@ -187,7 +196,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     @Override
     public void bodyContainsJsonPathValueContainingPhrase(String path, String phrase) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, path, containsString(phrase)));
+        assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), containsString(phrase)));
     }
 
     @Override
@@ -203,7 +212,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     @Override
     public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
         Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, path,
+        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path),
             EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
@@ -212,7 +221,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
         Response response = this.facade.response();
         assertThat(response,
             containsPropertyValueByPathInArray(ResponseContentProvider.INSTANCE,
-                path,
+                getPath(path),
                 property,
                 equalToIgnoringType(value, this.world.getBoolean("case-insensitive")))
         );

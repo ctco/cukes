@@ -13,6 +13,7 @@ public class WhenSteps {
 
     @When("^the client performs (.+) request on \"(.+)\"$")
     public void perform_Http_Request(String httpMethod, String url) throws Throwable {
+        facade.setResponsePrefix("");
         facade.doRequest(httpMethod, url);
     }
 }

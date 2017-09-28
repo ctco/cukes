@@ -101,8 +101,8 @@ testCompile("lv.ctco.cukes:cukes-http:${cukes.version}");
 |response contains "(.+)"||
 |response contains an array "(.+)" of size (>=\|>\|<=\|<\|<>) (\d+)||
 |response contains an array "(.+)" of size (\d+)||
-|response contains an array "(.+)" with object having property "(.+)" with value "(.+)"||
-|response contains an array "(.+)" with value "(.\*)"||
+|response contains an array "(["]+)" with object having property "(.+)" with value "(.+)"||
+|response contains an array "(["]+)" with value "(.\*)"||
 |response contains properties from file "(.+)"||
 |response contains properties from json:||
 |response contains property "(.+)" containing phrase "(.\*)"||
