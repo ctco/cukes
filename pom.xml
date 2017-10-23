@@ -147,7 +147,7 @@
     <properties>
         <guice.version>4.1.0</guice.version>
         <cucumber.version>1.2.5</cucumber.version>
-        <rest.assured.version>3.0.3</rest.assured.version>
+        <rest.assured.version>3.0.5</rest.assured.version>
     </properties>
 
     <build>
