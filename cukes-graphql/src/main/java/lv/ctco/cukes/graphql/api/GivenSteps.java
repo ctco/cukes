@@ -21,6 +21,12 @@ public class GivenSteps {
         this.requestQuery(body);
     }
 
+    @Given("^query variables from file \"(.+)\"$")
+    public void requestQueryVariablesFromFile(String path) {
+        String body = this.fileReader.read(path);
+        this.requestFacade.getGraphQLRequest().setVariables(body);
+    }
+
     @Given("^query:$")
     public void requestQuery(String query) {
         this.requestFacade.queryBody(query);

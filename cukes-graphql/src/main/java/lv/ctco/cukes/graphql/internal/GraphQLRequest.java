@@ -1,13 +1,10 @@
 package lv.ctco.cukes.graphql.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GraphQLRequest {
 
     private String operationName;
     private String query;
-    private Map<String, String> variables = new HashMap<String, String>();
+    private String variables;
 
     public String getOperationName() {
         return operationName;
@@ -25,11 +22,11 @@ public class GraphQLRequest {
         this.query = query;
     }
 
-    public Map<String, String> getVariables() {
+    public String getVariables() {
         return variables;
     }
 
-    public void setVariables(Map<String, String> variables) {
+    public void setVariables(String variables) {
         this.variables = variables;
     }
 }
