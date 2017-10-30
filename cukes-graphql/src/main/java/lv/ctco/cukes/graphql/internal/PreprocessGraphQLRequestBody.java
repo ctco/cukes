@@ -40,13 +40,14 @@ public class PreprocessGraphQLRequestBody implements CukesHttpPlugin {
 
     @Override
     public void beforeRequest(RequestSpecification requestSpecification) {
-        if (!Strings.isNullOrEmpty(requestFacade.getGraphQLRequest().getQuery())) {
-            requestFacade.getGraphQLRequest().setQuery(templatingEngine.processBody(requestFacade.getGraphQLRequest().getQuery()));
+        GraphQLRequest graphQLRequest = requestFacade.getGraphQLRequest();
+        if (!Strings.isNullOrEmpty(graphQLRequest.getQuery())) {
+            graphQLRequest.setQuery(templatingEngine.processBody(graphQLRequest.getQuery()));
         }
-        if (!Strings.isNullOrEmpty(requestFacade.getGraphQLRequest().getVariables())) {
-            requestFacade.getGraphQLRequest().setVariables(templatingEngine.processBody(requestFacade.getGraphQLRequest().getVariables()));
+        if (!Strings.isNullOrEmpty(graphQLRequest.getVariables())) {
+            graphQLRequest.setVariables(templatingEngine.processBody(graphQLRequest.getVariables()));
         }
-        requestSpecification.body(requestFacade.getGraphQLRequest());
+        requestSpecification.body(graphQLRequest);
     }
 
     @Override
