@@ -10,6 +10,7 @@ import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.helpers.Time;
+import lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher;
 import lv.ctco.cukes.http.AwaitCondition;
 import lv.ctco.cukes.http.RestAssuredConfiguration;
 import lv.ctco.cukes.http.https.TrustAllTrustManager;
