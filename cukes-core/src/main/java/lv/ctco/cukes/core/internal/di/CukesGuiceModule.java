@@ -1,10 +1,10 @@
 package lv.ctco.cukes.core.internal.di;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.multibindings.Multibinder;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
+import lv.ctco.cukes.core.extension.AbstractCukesModule;
 import lv.ctco.cukes.core.extension.CukesPlugin;
 import lv.ctco.cukes.core.internal.context.CaptureContext;
 import lv.ctco.cukes.core.internal.context.CaptureContextInterceptor;
@@ -20,7 +20,7 @@ import java.util.Properties;
 
 import static lv.ctco.cukes.core.internal.helpers.Files.createCukesPropertyFileUrl;
 
-public class CukesGuiceModule extends AbstractModule {
+public class CukesGuiceModule extends AbstractCukesModule {
 
     @Override
     protected void configure() {
