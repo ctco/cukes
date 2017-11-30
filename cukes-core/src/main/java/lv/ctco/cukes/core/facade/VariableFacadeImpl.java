@@ -16,10 +16,11 @@ public class VariableFacadeImpl implements VariableFacade {
 
     @Override
     public void setVariable(String name, String value) {
-        if (value.equals("null")) {
+        if (!value.equals("null")) {
+            world.put(name, value);
+        } else {
             world.remove(name);
         }
-        world.put(name, value);
     }
 
     @Override
