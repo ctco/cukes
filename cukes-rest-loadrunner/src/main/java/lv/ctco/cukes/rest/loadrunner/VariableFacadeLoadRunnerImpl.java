@@ -3,6 +3,7 @@ package lv.ctco.cukes.rest.loadrunner;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.facade.VariableFacade;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 
 @Singleton
@@ -12,8 +13,16 @@ public class VariableFacadeLoadRunnerImpl implements VariableFacade {
     @Inject
     LoadRunnerFilter loadRunnerFilter;
 
+    @Inject
+    private GlobalWorldFacade world;
+
     @Override
     public void setVariable(final String name, final String value) {
+        if (!value.equals("null")) {
+            world.put(name, value);
+        } else {
+            world.remove(name);
+        }
         loadRunnerFilter.getTrx().addFunction(() -> "lr_set_string(\"" + name + "\", " + wrapIfNeeded(value) + ");\n");
     }
 
