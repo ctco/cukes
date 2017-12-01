@@ -18,7 +18,7 @@ public class VariableFacadeLoadRunnerImpl implements VariableFacade {
 
     @Override
     public void setVariable(final String name, final String value) {
-        if (!value.equals("null")) {
+        if (!"null".equals(value)) {
             world.put(name, value);
         } else {
             world.remove(name);
