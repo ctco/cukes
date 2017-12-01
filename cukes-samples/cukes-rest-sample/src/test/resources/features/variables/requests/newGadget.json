@@ -1,0 +1,13 @@
+{
+  "id": 2000,
+  "type": "TABLET",
+  "name": "Nexus 9",
+  "owner": {
+    "name": "Ned",
+    "surname": "Flanders",
+    "roles":["maLL-owner","EvanGEliST"],
+    "age": 43
+  },
+  "createdDate": 1455114963103,
+  "updatedDate": 1456326973103
+}

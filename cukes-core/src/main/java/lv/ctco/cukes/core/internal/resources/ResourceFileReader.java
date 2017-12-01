@@ -3,12 +3,14 @@ package lv.ctco.cukes.core.internal.resources;
 import com.google.common.base.Joiner;
 import com.google.inject.Inject;
 import lv.ctco.cukes.core.CukesRuntimeException;
+import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.helpers.Files;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+@InflateContext
 public class ResourceFileReader {
 
     @Inject
