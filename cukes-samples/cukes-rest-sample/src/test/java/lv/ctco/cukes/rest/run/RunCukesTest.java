@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber2.json"},
-    features = {"classpath:features/gadgets/", "classpath:features/healthcheck/"},
+    features = {"classpath:features/gadgets/", "classpath:features/healthcheck/", "classpath:features/variables/"},
     glue = "lv.ctco.cukes",
     strict = true
 )
