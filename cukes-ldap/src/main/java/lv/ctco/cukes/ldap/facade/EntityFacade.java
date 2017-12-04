@@ -55,6 +55,14 @@ public class EntityFacade {
         entity = entityService.getEntityByDn(dn);
     }
 
+    public Attributes getEntityByDn(String dn) {
+        return entityService.getEntityByDn(dn);
+    }
+
+    public Attributes getEntity() {
+        return entity;
+    }
+
     public void entityExists() {
         assertThat(entity, notNullValue());
     }
