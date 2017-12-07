@@ -55,6 +55,11 @@
             <version>1.1.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-multipart</artifactId>
+            <version>1.17.1</version>
+        </dependency>
         <!-- Dropwizard 0.6.2 (JDK 1.6 support) -->
         <dependency>
             <groupId>com.yammer.dropwizard</groupId>

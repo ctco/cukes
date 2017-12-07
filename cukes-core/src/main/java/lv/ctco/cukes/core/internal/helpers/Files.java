@@ -1,5 +1,7 @@
 package lv.ctco.cukes.core.internal.helpers;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -79,6 +81,10 @@ public class Files {
         }
 
         return var3;
+    }
+
+    public static byte[] readBytes(File file) throws IOException {
+        return IOUtils.toByteArray(new FileInputStream(file));
     }
 
     public static FileInputStream openInputStream(File file) throws IOException {

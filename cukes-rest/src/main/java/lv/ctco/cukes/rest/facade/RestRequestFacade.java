@@ -31,8 +31,16 @@ public class RestRequestFacade {
         specification().multiPart(controlName, contentBody);
     }
 
+    public void multiPart(byte[] contentBody, String controlName) {
+        specification().multiPart(controlName, "file.txt", contentBody);
+    }
+
     public void multiPart(String contentBody, String controlName, String mimeType) {
         specification().multiPart(controlName, contentBody, mimeType);
+    }
+
+    public void multiPart(byte[] contentBody, String controlName, String mimeType) {
+        specification().multiPart(controlName, "file.txt", contentBody, mimeType);
     }
 
     public void body(String body) {
