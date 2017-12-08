@@ -29,6 +29,15 @@ public class ResourceFileReader {
         }
     }
 
+    public byte[] readBytes(String path) {
+        try {
+            File file = getResourceFile(path);
+            return Files.readBytes(file);
+        } catch (IOException e) {
+            throw new CukesRuntimeException(e);
+        }
+    }
+
     public File getResourceFile(String relativePath) {
         String normalizedPath = pathService.normalize(relativePath);
         return new File(normalizedPath);
