@@ -41,6 +41,9 @@ public class HttpResponseFacade {
 
         // TODO: Should be refactored into CukesHttpPlugin
         boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
+        if (filterEnabled) {
+            specification.initNewSpecification();
+        }
         AwaitCondition awaitCondition = specification.awaitCondition();
         try {
             if (awaitCondition != null && !filterEnabled) {
