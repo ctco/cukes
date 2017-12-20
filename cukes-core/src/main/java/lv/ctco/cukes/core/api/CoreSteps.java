@@ -7,6 +7,7 @@ import lv.ctco.cukes.core.CukesDocs;
 import lv.ctco.cukes.core.facade.RandomGeneratorFacade;
 import lv.ctco.cukes.core.facade.VariableFacade;
 import lv.ctco.cukes.core.internal.context.InflateContext;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.text.SimpleDateFormat;
 
@@ -59,8 +60,22 @@ public class CoreSteps {
 
     @And("^variable \"([^\"]+)\" is \"([^\"]*)\" with (\\d+) random characters?$")
     @CukesDocs("Generates random character line of required length and adds it to a variable value")
-    public void createVariableSetToValueWithRandomStringPostfix(String varName, String value, int length) {
+    public void createVariableSetToValueWithRandomCharsPostfix(String varName, String value, int length) {
         value += this.randomGeneratorFacade.withLength(length);
+        this.variableFacade.setVariable(varName, value);
+    }
+
+    @And("^variable \"([^\"]+)\" is \"([^\"]*)\" with (\\d+) chars? long random string$")
+    @CukesDocs("Generates random alphabetic character line of required length and adds it to a variable value")
+    public void createVariableSetToValueWithRandomStringPostfix(String varName, String value, int length) {
+        value += RandomStringUtils.randomAlphabetic(length);
+        this.variableFacade.setVariable(varName, value);
+    }
+
+    @And("^variable \"([^\"]+)\" is \"([^\"]*)\" with (\\d+) digits? long random number$")
+    @CukesDocs("Generates random digit line of required length and adds it to a variable value")
+    public void createVariableSetToValueWithRandomNumberPostfix(String varName, String value, int length) {
+        value += RandomStringUtils.randomNumeric(length);
         this.variableFacade.setVariable(varName, value);
     }
 
