@@ -39,7 +39,7 @@ public class CoreSteps {
         this.variableFacade.setVariable(variableName, this.randomGeneratorFacade.byPattern(pattern));
     }
 
-    @And("^variable \"(\\S+)\" is random password with length \\d+$")
+    @And("^variable \"(\\S+)\" is random password with length (\\d+)$")
     @CukesDocs("Generates random password with given length")
     public void createVariableSetToRandomPasswordByLength(String variableName, int length) {
         this.variableFacade.setVariable(variableName, this.randomGeneratorFacade.withLength(length));
