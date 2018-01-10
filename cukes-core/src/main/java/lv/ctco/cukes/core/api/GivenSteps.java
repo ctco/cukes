@@ -33,7 +33,7 @@ public class GivenSteps {
         this.variableFacade.setVariable(variableName, this.randomGeneratorFacade.byPattern(pattern));
     }
 
-    @Given("^let variable \"(\\S+)\" to be random password with length \\d+$")
+    @Given("^let variable \"(\\S+)\" to be random password with length (\\d+)$")
     @CukesDocs("Generates random password with given length")
     public void var_randomPassword_by_length(String variableName, int length) {
         this.variableFacade.setVariable(variableName, this.randomGeneratorFacade.withLength(length));
