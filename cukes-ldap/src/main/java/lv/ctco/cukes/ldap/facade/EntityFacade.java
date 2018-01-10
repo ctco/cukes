@@ -2,11 +2,13 @@ package lv.ctco.cukes.ldap.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import cucumber.runtime.CucumberException;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.matchers.ContainsPattern;
 import lv.ctco.cukes.core.internal.resources.FilePathService;
 import lv.ctco.cukes.ldap.internal.EntityService;
 import lv.ctco.cukes.ldap.internal.ldif.LDIFUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 
@@ -86,14 +88,29 @@ public class EntityFacade {
     public void entityHasAttributeWithValue(String expectedAttr, String expectedValue) {
         Attribute actualAttr = getNotNullAttribute(expectedAttr);
         List<String> attributesList = new ArrayList<>();
-        for(int i = 0; i < actualAttr.size(); i++){
+        for (int i = 0; i < actualAttr.size(); i++) {
             try {
-                attributesList.add(actualAttr.get(i).toString());
+                attributesList.add(toString(actualAttr.get(i)));
             } catch (NamingException e) {
                 throw new CukesRuntimeException(e);
             }
         }
         assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
+    }
+
+    private String toString(Object value) throws NamingException {
+        try {
+            if (value instanceof byte[]) {
+                return new String((byte[]) value, "UTF-8");
+            } else if (value instanceof char[]) {
+                return new String((char[]) value);
+            } else if (value.getClass().isArray()) {
+                return ArrayUtils.toString(value);
+            }
+            return value.toString();
+        } catch (UnsupportedEncodingException e) {
+            throw new CucumberException("Failed to convert value to string", e);
+        }
     }
 
     public void entityHasAttributeWithValueOtherThat(String attribute, String value) {
