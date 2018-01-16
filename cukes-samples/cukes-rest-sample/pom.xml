@@ -29,8 +29,9 @@
                                     <mainClass>lv.ctco.cukes.rest.SampleApplication</mainClass>
                                     <arguments>
                                         <argument>server</argument>
-                                        <argument>cukes-rest-sample/server.yml</argument>
+                                        <argument>server.yml</argument>
                                     </arguments>
+                                    <skip>false</skip>
                                 </configuration>
                             </execution>
                         </executions>

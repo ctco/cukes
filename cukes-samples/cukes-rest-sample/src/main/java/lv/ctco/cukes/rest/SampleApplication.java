@@ -26,7 +26,7 @@ public class SampleApplication extends Service<SampleConfiguration> {
     }
 
     @Override
-    public void run(SampleConfiguration configuration, Environment environment) throws JoranException {
+    public void run(SampleConfiguration configuration, Environment environment) {
         overrideLogging();
         Injector injector = Guice.createInjector();
         environment.addResource(injector.getInstance(GadgetResource.class));
