@@ -35,6 +35,11 @@ public class GivenSteps {
         this.facade.setRequestBody(this.reader.read(path));
     }
 
+    @Given("^request body from binary file \"(.+)\"$")
+    public void request_Body_From_Binary_File(String path) {
+        this.facade.body(this.reader.readBytes(path));
+    }
+
     @Given("^request body is a multipart file \"(.+)\"$")
     public void request_Body_Is_A_Multipart_File(String path) {
         this.facade.multiPart(this.reader.readBytes(path), "file", "application/octet-stream");

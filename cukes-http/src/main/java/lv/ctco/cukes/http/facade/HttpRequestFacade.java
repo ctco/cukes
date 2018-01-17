@@ -133,7 +133,7 @@ public class HttpRequestFacade {
 	}
 
 	public void basicAuthentication(String username, String password) {
-		specification.auth().basic(username, password);
+		specification.auth().preemptive().basic(username, password);
 	}
 
 	public void authenticationType(String authenticationType) {
