@@ -47,7 +47,7 @@ public class GivenSteps {
         this.facade.contentType(contentType);
     }
 
-    @Given("^queryParam \"(.+)\" is \"(.+)\"$")
+    @Given("^queryParam \"(.+)\" is \"(.*)\"$")
     public void query_Param(String key, String value) {
         this.facade.queryParam(key, value);
     }
