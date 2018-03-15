@@ -327,3 +327,32 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 |-------|-----------|
 |the client performs (.+) request on "(.+)"||
 
+## SQL steps
+
+Required dependencies:
+
+**Maven**
+
+```xml
+<dependency>
+    <groupId>lv.ctco.cukes</groupId>
+    <artifactId>cukes-sql</artifactId>
+    <version>${cukes.version}</version>
+</dependency>
+```
+
+**Gradle**
+
+```
+testCompile("lv.ctco.cukes:cukes-sql:${cukes.version}");
+```
+
+### then
+
+|Pattern|Description|
+|-------|-----------|
+|DB table + "(?:([\w]+|\{\([^)}]+\)})(?:\.))?([\w]+|\{\([^)}]+\)})" + should contain:"$"||
+|DB table + "(?:([\w]+|\{\([^)}]+\)})(?:\.))?([\w]+|\{\([^)}]+\)})" + should match:"$"||
+|DB table + "(?:([\w]+|\{\([^)}]+\)})(?:\.))?([\w]+|\{\([^)}]+\)})" + row count should be "(<|<=|=|!=|>=|>)" + "(\\d+||\\{\\([^)}]+\\)})" + "$"||
+|DB table + "(?:([\w]+|\{\([^)}]+\)})(?:\.))?([\w]+|\{\([^)}]+\)})" + row count should "(not be|be)" empty$||
+
