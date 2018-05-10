@@ -16,6 +16,14 @@ public class GlobalWorldFacade {
         world.put(key, value);
     }
 
+    public String getOrThrow(String key) {
+        return world.get(key).or(
+            () -> {
+                throw new CukesMissingPropertyException(key);
+            }
+        );
+    }
+
     public Optional<String> get(String key) {
         return world.get(key);
     }
