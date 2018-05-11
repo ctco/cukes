@@ -11,6 +11,7 @@
         <module>cukes-rest-sample</module>
         <module>cukes-soap-sample</module>
         <module>cukes-plugin-sample</module>
+		<module>cukes-http-mock-sample</module>
     </modules>
     <packaging>pom</packaging>
 
