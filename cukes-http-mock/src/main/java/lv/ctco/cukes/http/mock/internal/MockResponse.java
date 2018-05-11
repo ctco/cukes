@@ -1,4 +1,4 @@
-package lv.ctco.cukes.mock.rest.internal;
+package lv.ctco.cukes.http.mock.internal;
 
 public class MockResponse {
 

@@ -1,8 +1,8 @@
-package lv.ctco.cukes.mock.rest.facade;
+package lv.ctco.cukes.http.mock.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import lv.ctco.cukes.mock.rest.internal.MockClientServerFacade;
+import lv.ctco.cukes.http.mock.internal.MockClientServerFacade;
 import org.mockserver.client.server.MockServerClient;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;

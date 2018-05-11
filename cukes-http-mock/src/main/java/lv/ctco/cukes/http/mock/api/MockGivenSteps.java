@@ -1,9 +1,9 @@
-package lv.ctco.cukes.mock.rest.api;
+package lv.ctco.cukes.http.mock.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
-import lv.ctco.cukes.mock.rest.facade.MockRestFacade;
+import lv.ctco.cukes.http.mock.facade.MockRestFacade;
 
 @Singleton
 public class MockGivenSteps {

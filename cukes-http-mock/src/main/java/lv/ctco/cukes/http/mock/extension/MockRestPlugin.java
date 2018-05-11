@@ -1,8 +1,8 @@
-package lv.ctco.cukes.mock.rest.extension;
+package lv.ctco.cukes.http.mock.extension;
 
 import com.google.inject.Inject;
 import lv.ctco.cukes.core.extension.CukesPlugin;
-import lv.ctco.cukes.mock.rest.internal.MockClientServerFacade;
+import lv.ctco.cukes.http.mock.internal.MockClientServerFacade;
 
 public class MockRestPlugin implements CukesPlugin {
     @Inject

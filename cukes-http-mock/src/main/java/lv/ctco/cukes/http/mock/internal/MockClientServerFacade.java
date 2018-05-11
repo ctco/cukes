@@ -1,4 +1,4 @@
-package lv.ctco.cukes.mock.rest.internal;
+package lv.ctco.cukes.http.mock.internal;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -24,19 +24,19 @@ public class MockClientServerFacade {
         services = new ConcurrentHashMap<>();
         servers = new ConcurrentHashMap<>();
 
-        String servicesProperty = worldFacade.get("mock.rest.services")
+        String servicesProperty = worldFacade.get("http.mock.services")
             .or(
                 () -> {
-                    throw new CukesRuntimeException("No mocks defined in cukes.properties file. please add cukes.mock.rest.services value");
+                    throw new CukesRuntimeException("No mocks defined in cukes.properties file. please add cukes.http.mock.services value");
                 }
             );
         for (String serviceName : servicesProperty.split(",")) {
             MockServerClient client = new MockServerClient(
-                worldFacade.get("mock.rest.services." + serviceName + ".host", "localhost"),
-                Integer.parseInt(worldFacade.get("mock.rest.services." + serviceName + ".port")
+                worldFacade.get("http.mock.services." + serviceName + ".host", "localhost"),
+                Integer.parseInt(worldFacade.get("http.mock.services." + serviceName + ".port")
                     .or(
                         () -> {
-                            throw new CukesRuntimeException("No port provided for mock service " + serviceName + ". Please provide property cukes.mock.rest.services." + serviceName + ".port");
+                            throw new CukesRuntimeException("No port provided for mock service " + serviceName + ". Please provide property cukes.http.mock.services." + serviceName + ".port");
                         })
                 )
             );
@@ -51,10 +51,10 @@ public class MockClientServerFacade {
 
     public void startAllServers() {
         services.keySet().forEach(serviceName -> {
-            int port = Integer.parseInt(worldFacade.get("mock.rest.services." + serviceName + ".port")
+            int port = Integer.parseInt(worldFacade.get("http.mock.services." + serviceName + ".port")
                 .or(
                     () -> {
-                        throw new CukesRuntimeException("No port provided for mock service " + serviceName + ". Please provide property cukes.mock.rest.services." + serviceName + ".port");
+                        throw new CukesRuntimeException("No port provided for mock service " + serviceName + ". Please provide property cukes.http.mock.services." + serviceName + ".port");
                     }));
             ClientAndServer server = ClientAndServer.startClientAndServer(port);
             servers.put(serviceName, server);
