@@ -11,7 +11,7 @@ import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
 @Singleton
-public class MockRestFacade {
+public class HttpMockFacade {
     @Inject
     private MockClientServerFacade mockClientServerFacade;
 

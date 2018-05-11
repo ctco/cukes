@@ -1,8 +1,7 @@
 package lv.ctco.cukes.http.mock.internal;
 
 public class MockResponse {
-
-
+    
     private String httpMethod;
     private String url;
     private String receivedBody;

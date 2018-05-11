@@ -3,13 +3,13 @@ package lv.ctco.cukes.http.mock.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
-import lv.ctco.cukes.http.mock.facade.MockRestFacade;
+import lv.ctco.cukes.http.mock.facade.HttpMockFacade;
 
 @Singleton
 public class MockGivenSteps {
 
     @Inject
-    private MockRestFacade facade;
+    private HttpMockFacade facade;
 
     @Given("^requesting mock for service \"([^\"]*)\" and url \"([^\"]*)\" with method \"([^\"]*)\"$")
     public void requestingMockUrlWithMethod(String mockServiceName, String url, String httpMethod) {

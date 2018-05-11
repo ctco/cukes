@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import lv.ctco.cukes.core.extension.CukesPlugin;
 import lv.ctco.cukes.http.mock.internal.MockClientServerFacade;
 
-public class MockRestPlugin implements CukesPlugin {
+public class HttpMockPlugin implements CukesPlugin {
     @Inject
     private MockClientServerFacade mockClientServerFacade;
 
