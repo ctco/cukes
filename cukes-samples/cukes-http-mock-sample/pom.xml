@@ -15,7 +15,7 @@
         <!-- Cukes Dependencies-->
         <dependency>
             <groupId>lv.ctco.cukes</groupId>
-            <artifactId>cukes-mock-rest</artifactId>
+            <artifactId>cukes-http-mock</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
