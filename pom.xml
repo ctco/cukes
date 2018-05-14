@@ -19,7 +19,8 @@
         <module>cukes-rabbitmq</module>
         <module>cukes-samples</module>
         <module>cukes-documentation-generator</module>
-		<module>cukes-http-mock</module>
+	<module>cukes-http-mock</module>
+        <module>cukes-sql</module>
     </modules>
 
     <description>
