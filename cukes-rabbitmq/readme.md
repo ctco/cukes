@@ -135,4 +135,4 @@ Here is list of configuration properties that are available:
 
 ## More examples
 
-For more examples please refer to **[cukes-rabbitmq-sample](../cukes-rabbitmq-sample)** module.
+For more examples please refer to **[cukes-rabbitmq-sample](../cukes-samples/cukes-rabbitmq-sample)** module.
