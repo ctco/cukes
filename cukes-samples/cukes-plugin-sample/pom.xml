@@ -3,7 +3,7 @@
     <parent>
         <artifactId>cukes-samples</artifactId>
         <groupId>lv.ctco.cukes</groupId>
-        <version>0.0.24-SNAPSHOT</version>
+        <version>0.0.24</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
