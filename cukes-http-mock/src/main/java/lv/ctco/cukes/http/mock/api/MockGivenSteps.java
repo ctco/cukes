@@ -48,4 +48,8 @@ public class MockGivenSteps {
     public void mockRespondsWithStatusCode(Integer httpRespondStatusCode) {
         facade.finishHttpMock(httpRespondStatusCode);
     }
+    @Given("^mock responds with status code \"([^\"]*)\" exactly (\\d+) times?$")
+    public void mockRespondsWithStatusCode(Integer httpRespondStatusCode, int times) {
+        facade.finishHttpMock(httpRespondStatusCode, times);
+    }
 }
