@@ -5,10 +5,10 @@ import lv.ctco.cukes.core.facade.RandomGeneratorFacade;
 import lv.ctco.cukes.core.facade.RandomGeneratorFacadeImpl;
 import lv.ctco.cukes.core.facade.VariableFacade;
 import lv.ctco.cukes.core.facade.VariableFacadeImpl;
-import lv.ctco.cukes.sql.module.BaseModule;
+import lv.ctco.cukes.core.internal.di.CukesGuiceModule;
 
 @CukesInjectableModule
-public class TestModule extends BaseModule {
+public class TestModule extends CukesGuiceModule {
 
     @Override
     protected void configure() {

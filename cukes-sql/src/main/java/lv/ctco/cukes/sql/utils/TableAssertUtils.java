@@ -32,6 +32,7 @@ public class TableAssertUtils {
             case "<=":
                 anAssert.isLessThanOrEqualTo(number); break;
             case "!=":
+            case "<>":
                 anAssert.isNotEqualTo(number); break;
             case ">=":
                 anAssert.isGreaterThanOrEqualTo(number); break;
