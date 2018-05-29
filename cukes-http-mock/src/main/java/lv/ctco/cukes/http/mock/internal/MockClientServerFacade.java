@@ -9,6 +9,7 @@ import org.mockserver.integration.ClientAndServer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Singleton
 public class MockClientServerFacade {
@@ -46,7 +47,11 @@ public class MockClientServerFacade {
     }
 
     public MockServerClient getMockServerClient(String serviceName) {
-        return services.get(serviceName);
+        return services.computeIfAbsent(serviceName, key -> {
+            String availableMockServices = services.keySet().stream().collect(Collectors.joining(", "));
+            throw new CukesRuntimeException("Unable to find http mock service by name:" + key + ". " +
+                "Available mock services are: {" + availableMockServices + "}");
+        });
     }
 
     public void startAllServers() {

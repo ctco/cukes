@@ -88,7 +88,9 @@ public class HttpRequestFacade {
 		} catch (UnsupportedEncodingException e) {
 			// do nothing
 		}
-		specification.queryParam(parameterName, parameterValue);
+        if (!parameterValue.equalsIgnoreCase("null")) {
+            specification.queryParam(parameterName, parameterValue);
+        }
 	}
 
 	public void accept(String mediaTypes) {

@@ -3,6 +3,7 @@ package lv.ctco.cukes.http.mock.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
+import lv.ctco.cukes.core.internal.resources.ResourceFileReader;
 import lv.ctco.cukes.http.mock.facade.HttpMockFacade;
 
 @Singleton
@@ -10,6 +11,8 @@ public class MockGivenSteps {
 
     @Inject
     private HttpMockFacade facade;
+    @Inject
+    private ResourceFileReader fileReader;
 
     @Given("^requesting mock for service \"([^\"]*)\" and url \"([^\"]*)\" with method \"([^\"]*)\"$")
     public void requestingMockUrlWithMethod(String mockServiceName, String url, String httpMethod) {
@@ -34,6 +37,11 @@ public class MockGivenSteps {
     @Given("^mock response will have body$")
     public void mockResponseWillHaveBody(String respondBody) {
         facade.setResponseBody(respondBody);
+    }
+
+    @Given("^mock response will have body from file \"(.+)\"$")
+    public void mockResponseWillHaveBodyFromFile(String file) {
+        facade.setResponseBody(this.fileReader.read(file));
     }
 
     @Given("^mock responds with status code \"([^\"]*)\"$")
