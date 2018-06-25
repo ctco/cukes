@@ -35,6 +35,10 @@ public class HttpMockFacade {
         request.withHeader(headerName, headerValue);
     }
 
+    public void addRequestQueryParameter(String queryParameterName, String queryParameterValue) {
+        request.withQueryStringParameter(queryParameterName, queryParameterValue);
+    }
+
     public void setRequestBody(String body) {
         request.withBody(body);
     }
@@ -88,4 +92,5 @@ public class HttpMockFacade {
     private void restoreExpectation(Expectation exp) {
         client.when(exp.getHttpRequest(), exp.getTimes(), exp.getTimeToLive()).respond(exp.getHttpResponse());
     }
+
 }

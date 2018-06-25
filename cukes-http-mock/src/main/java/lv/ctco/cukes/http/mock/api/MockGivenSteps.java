@@ -24,6 +24,11 @@ public class MockGivenSteps {
         facade.addRequestHeader(headerName, headerValue);
     }
 
+    @Given("^with query parameter \"([^\"]*)\" with value \"([^\"]*)\"$")
+    public void withQueryParameterWithValue(String queryParameterName, String queryParameterValue) {
+        facade.addRequestQueryParameter(queryParameterName, queryParameterValue);
+    }
+
     @Given("^with body$")
     public void withBody(String body) {
         facade.setRequestBody(body);
