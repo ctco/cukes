@@ -44,7 +44,13 @@ public class GivenSteps {
         this.variableFacade.setVariable(varName, value);
     }
 
+    @Deprecated
     @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
+    public void letVariableBeEqualToCurrentTimestampOld(String varName) {
+        this.variableFacade.setCurrentTimestampToVariable(varName);
+    }
+
+    @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
     public void letVariableBeEqualToCurrentTimestamp(String varName) {
         this.variableFacade.setCurrentTimestampToVariable(varName);
     }
