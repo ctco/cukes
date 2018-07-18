@@ -24,7 +24,7 @@ public class EnvironmentVariablesPlugin implements CukesPlugin {
     public void beforeScenario() {
         Map<String, String> envVars = System.getenv();
         envVars.entrySet().stream().
-            filter(ev -> ev.getKey().toUpperCase().startsWith("CUKES_")).
+            filter(ev -> ev.getKey().toUpperCase().startsWith(CUKES_PREFIX)).
             forEach(ev -> world.put(
                 ev.getKey().substring(CUKES_PREFIX.length()),
                 ev.getValue()
