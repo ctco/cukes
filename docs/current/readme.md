@@ -30,6 +30,7 @@ testCompile("lv.ctco.cukes:cukes-core:${cukes.version}");
 |-------|-----------|
 |let variable "(.+)" equal to "(.+)"||
 |let variable "(.+)" to be random UUID|Generates random UUID and assigns it to a variable|
+|let variable "(["]\*)" be equal to current timestamp||
 |let variable "(\S+)" to be random password by matching pattern "([Aa0]+)"|Generates random password by given pattern. Pattern may contain symbils a,A,0. So A is replaced with random capital letter, a - with random letter and 0 - with random number|
 |let variable "(\S+)" to be random password with length (\d+)|Generates random password with given length|
 |let variable "(["]\*)" be equal to current timestamp||

@@ -12,6 +12,7 @@
         <module>cukes-soap-sample</module>
         <module>cukes-plugin-sample</module>
 		<module>cukes-http-mock-sample</module>
+        <module>cukes-oauth-sample</module>
     </modules>
     <packaging>pom</packaging>
 
