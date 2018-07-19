@@ -21,6 +21,7 @@
         <module>cukes-documentation-generator</module>
         <module>cukes-http-mock</module>
         <module>cukes-sql</module>
+        <module>cukes-environment-variables-plugin</module>
         <module>cukes-oauth</module>
     </modules>
 
