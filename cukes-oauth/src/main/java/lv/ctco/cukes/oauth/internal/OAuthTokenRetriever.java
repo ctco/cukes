@@ -1,0 +1,70 @@
+package lv.ctco.cukes.oauth.internal;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
+import lv.ctco.cukes.oauth.GrantType;
+import lv.ctco.cukes.oauth.OAuthCukesConstants;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+import java.util.Optional;
+
+@Singleton
+public class OAuthTokenRetriever {
+
+    @Inject
+    GlobalWorldFacade world;
+
+    public Optional<String> getAuthorizationHeader() throws IOException {
+        if (!world.getBoolean(OAuthCukesConstants.ENABLED, false)) {
+            return Optional.empty();
+        }
+        String authServer = world.getOrThrow(OAuthCukesConstants.AUTH_SERVER);
+        String clientId = world.getOrThrow(OAuthCukesConstants.CLIENT_ID);
+        String clientSecret = world.getOrThrow(OAuthCukesConstants.CLIENT_SECRET);
+        String grantType = world.getOrThrow(OAuthCukesConstants.GRANT_TYPE);
+
+        URL url = new URL(authServer);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.addRequestProperty("Accept", "application/json");
+        connection.addRequestProperty("Authorization", "Basic " + Base64.encodeBase64String((clientId + ":" + clientSecret).getBytes()));
+        connection.addRequestProperty("content-type", "application/x-www-form-urlencoded");
+        connection.setRequestMethod("POST");
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+        writer.write("a=b" + getRequestParameter(grantType));
+        writer.flush();
+        int responseCode = connection.getResponseCode();
+        if (responseCode >= 400) {
+            throw new IllegalStateException("Cannot retrieve OAuth token: " + IOUtils.toString(connection.getErrorStream()));
+        }
+        String response = IOUtils.toString(connection.getInputStream());
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+        Map<String, String> map = new Gson().fromJson(response, type);
+        return Optional.of(map.get("access_token"));
+    }
+
+    String getRequestParameter(String grantType) throws UnsupportedEncodingException {
+        Map<String, String> params = GrantType.valueOf(grantType).getParameters(world);
+        com.google.common.base.Optional<String> scope = world.get(OAuthCukesConstants.SCOPE);
+        if (scope.isPresent()) {
+            params.put("scope", scope.get());
+        }
+        return params.entrySet().
+                stream().
+                map(e -> e.getKey() + "=" + e.getValue()).
+                reduce("", (s, s2) -> s + "&" + s2);
+    }
+}

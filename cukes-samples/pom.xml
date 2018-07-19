@@ -12,13 +12,14 @@
         <module>cukes-soap-sample</module>
         <module>cukes-plugin-sample</module>
 		<module>cukes-http-mock-sample</module>
+        <module>cukes-oauth-sample</module>
     </modules>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>lv.ctco.cukes</groupId>
         <artifactId>cukes</artifactId>
-        <version>0.0.28-SNAPSHOT</version>
+        <version>0.0.29-SNAPSHOT</version>
     </parent>
 
 </project>

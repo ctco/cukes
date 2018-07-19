@@ -4,7 +4,7 @@
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes</artifactId>
-    <version>0.0.28-SNAPSHOT</version>
+    <version>0.0.29-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cukes Parent</name>
@@ -19,9 +19,10 @@
         <module>cukes-rabbitmq</module>
         <module>cukes-samples</module>
         <module>cukes-documentation-generator</module>
-	    <module>cukes-http-mock</module>
+        <module>cukes-http-mock</module>
         <module>cukes-sql</module>
         <module>cukes-environment-variables-plugin</module>
+        <module>cukes-oauth</module>
     </modules>
 
     <description>
