@@ -58,9 +58,8 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
         ResourceLoader resourceLoader = new MultiLoader(classLoader);
         runtime = createRuntime(resourceLoader, classLoader, runtimeOptions);
 
-        final List<CucumberFeature> cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader);
-        jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader),
-            runtimeOptions.formatter(classLoader), runtimeOptions.isStrict(), new JUnitOptions(runtimeOptions.getJunitOptions()));
+        final List<CucumberFeature> cucumberFeatures = runtimeOptions.cucumberFeatures(resourceLoader, runtime.getEventBus());
+        jUnitReporter = new JUnitReporter(runtime.getEventBus(), runtimeOptions.isStrict(), new JUnitOptions(runtimeOptions.getJunitOptions()));
         addChildren(cucumberFeatures);
     }
 
@@ -96,9 +95,6 @@ public class CucumberLoadRunner extends ParentRunner<FeatureRunner> {
     @Override
     public void run(RunNotifier notifier) {
         super.run(notifier);
-        jUnitReporter.done();
-        jUnitReporter.close();
-        runtime.printSummary();
     }
 
     private void addChildren(List<CucumberFeature> cucumberFeatures) throws InitializationError {

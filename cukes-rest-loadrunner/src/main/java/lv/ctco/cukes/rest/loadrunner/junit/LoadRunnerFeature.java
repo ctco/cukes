@@ -24,13 +24,11 @@ class LoadRunnerFeature extends FeatureRunner {
     private final Logger logger = Logger.getLogger(LoadRunnerFeature.class.getName());
 
     private final LoadRunnerFilter filter;
-    private final CucumberFeature cucumberFeature;
 
     public LoadRunnerFeature(CucumberFeature cucumberFeature, Runtime runtime, JUnitReporter jUnitReporter,
                              LoadRunnerFilter filter) throws InitializationError {
         super(cucumberFeature, runtime, jUnitReporter);
         this.filter = filter;
-        this.cucumberFeature = cucumberFeature;
     }
 
     @Override
@@ -46,7 +44,7 @@ class LoadRunnerFeature extends FeatureRunner {
                 if (mkdirsFailed) throw new CukesRuntimeException("Failed to create Folder: " + LOADRUNNER_OUTPUT_DIR);
             }
 
-            String fileName = createName(extractFeatureName()) + ".c";
+            String fileName = createName(getName()) + ".c";
             File file = new File(LOADRUNNER_OUTPUT_DIR + File.separator + fileName);
             OutputStream out = new FileOutputStream(file);
             filter.dump(out);
@@ -60,10 +58,6 @@ class LoadRunnerFeature extends FeatureRunner {
         } catch (Exception e) {
             throw new CukesRuntimeException(e);
         }
-    }
-
-    private String extractFeatureName() {
-        return cucumberFeature.getGherkinFeature().getName();
     }
 
     public String createName(String featureName){

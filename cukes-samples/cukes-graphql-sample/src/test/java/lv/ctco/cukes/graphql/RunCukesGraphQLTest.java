@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber2.json"},
+    plugin = {"pretty", "json:target/cucumber.json", "json:target/cucumber2.json"},
     features = {"classpath:features/conference/"},
     glue = "lv.ctco.cukes.graphql.api",
     strict = true

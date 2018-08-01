@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty"},
+    plugin = {"pretty"},
     features = "classpath:features/custom/",
     glue = {"lv.ctco.cukes"},
     strict = true

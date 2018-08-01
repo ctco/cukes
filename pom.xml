@@ -150,7 +150,7 @@
 
     <properties>
         <guice.version>4.1.0</guice.version>
-        <cucumber.version>1.2.5</cucumber.version>
+        <cucumber.version>3.0.2</cucumber.version>
         <rest.assured.version>3.0.5</rest.assured.version>
     </properties>
 
@@ -267,19 +267,19 @@
 
             <!-- Cucumber -->
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-guice</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>

@@ -50,11 +50,11 @@ public class MockGivenSteps {
     }
 
     @Given("^mock responds with status code \"([^\"]*)\"$")
-    public void mockRespondsWithStatusCode(Integer httpRespondStatusCode) {
-        facade.finishHttpMock(httpRespondStatusCode);
+    public void mockRespondsWithStatusCode(String httpRespondStatusCode) {
+        facade.finishHttpMock(Integer.valueOf(httpRespondStatusCode));
     }
     @Given("^mock responds with status code \"([^\"]*)\" exactly (\\d+) times?$")
-    public void mockRespondsWithStatusCode(Integer httpRespondStatusCode, int times) {
-        facade.finishHttpMock(httpRespondStatusCode, times);
+    public void mockRespondsWithStatusCode(String httpRespondStatusCode, int times) {
+        facade.finishHttpMock(Integer.valueOf(httpRespondStatusCode), times);
     }
 }
