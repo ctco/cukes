@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
-import org.mockserver.client.server.MockServerClient;
+import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
 
 import java.util.Map;
