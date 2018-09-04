@@ -7,8 +7,10 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.mockserver.client.MockServerClient;
 import org.mockserver.matchers.Times;
 import org.mockserver.mock.Expectation;
+import org.mockserver.model.Body;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
+import org.mockserver.model.StringBody;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -40,6 +42,10 @@ public class HttpMockFacade {
     }
 
     public void setRequestBody(String body) {
+        this.setRequestBody(new StringBody(body));
+    }
+
+    public void setRequestBody(Body body) {
         request.withBody(body);
     }
 
