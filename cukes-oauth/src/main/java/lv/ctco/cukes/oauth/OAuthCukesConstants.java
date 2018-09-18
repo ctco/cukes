@@ -11,4 +11,7 @@ public class OAuthCukesConstants {
     public static final String PASSWORD = "oauth.password";
     public static final String SCOPE = "oauth.scope";
 
+    public static final String CACHED_TOKEN = "oauth.token";
+    public static final String TOKEN_EXPIRES_ON = "oauth.expires";
+
 }
