@@ -74,4 +74,8 @@ public class MockClientServerFacade {
     public void resetAllServers() {
 //        servers.reset();
     }
+
+    public void shutDownAllServers() {
+        servers.values().forEach(server -> server.stop(true));
+    }
 }
