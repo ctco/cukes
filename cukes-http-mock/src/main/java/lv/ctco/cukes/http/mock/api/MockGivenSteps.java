@@ -3,10 +3,12 @@ package lv.ctco.cukes.http.mock.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import cucumber.api.java.en.Given;
+import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.resources.ResourceFileReader;
 import lv.ctco.cukes.http.mock.facade.HttpMockFacade;
 
 @Singleton
+@InflateContext
 public class MockGivenSteps {
 
     @Inject
