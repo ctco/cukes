@@ -11,6 +11,7 @@ import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import static io.restassured.config.DecoderConfig.ContentDecoder.DEFLATE;
 import static io.restassured.config.DecoderConfig.decoderConfig;
 import static io.restassured.config.JsonConfig.jsonConfig;
+import static io.restassured.config.RedirectConfig.redirectConfig;
 import static io.restassured.config.RestAssuredConfig.newConfig;
 
 @Singleton
@@ -29,7 +30,8 @@ public class RestAssuredConfiguration {
     }
 
     private RestAssuredConfig buildRestAssuredConfig() {
-        RestAssuredConfig config = newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL));
+        RestAssuredConfig config = newConfig().jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL))
+            .redirect(redirectConfig().followRedirects(world.getBoolean(CukesOptions.FOLLOW_REDIRECTS, true)));
         if (!world.getBoolean(CukesOptions.GZIP_SUPPORT, true)) {
             config.decoderConfig(decoderConfig().contentDecoders(DEFLATE));
         }
