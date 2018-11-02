@@ -24,6 +24,7 @@ import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.intersection;
 import static com.google.common.collect.Sets.newHashSet;
+import static io.restassured.filter.log.LogDetail.*;
 import static lv.ctco.cukes.core.CukesOptions.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -76,31 +77,21 @@ public class HttpLoggingPlugin implements CukesHttpPlugin {
         final RequestLogSpecification logSpec = filterableRequestSpecification.log();
         final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_REQUEST_INCLUDES, DEFAULT_REQUEST_INCLUDES));
 
-        details:
-        for (LogDetail detail : logDetails) {
-            switch (detail) {
-                case ALL:
-                    logSpec.all();
-                    break details;
-                case BODY:
-                    logSpec.body();
-                    break;
-                case COOKIES:
-                    logSpec.cookies();
-                    break;
-                case HEADERS:
-                    logSpec.headers();
-                    break;
-                case METHOD:
-                    logSpec.method();
-                    break;
-                case PARAMS:
-                    logSpec.parameters();
-                    break;
-                case URI:
-                    logSpec.uri();
-                    break;
-            }
+        if (logDetails.contains(ALL)) {
+            logSpec.all();
+        } else {
+            if (logDetails.contains(METHOD))
+                logSpec.method();
+            if (logDetails.contains(URI))
+                logSpec.uri();
+            if (logDetails.contains(HEADERS))
+                logSpec.headers();
+            if (logDetails.contains(COOKIES))
+                logSpec.cookies();
+            if (logDetails.contains(PARAMS))
+                logSpec.parameters();
+            if (logDetails.contains(BODY))
+                logSpec.body();
         }
     }
 
