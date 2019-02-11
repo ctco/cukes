@@ -5,7 +5,7 @@ test:
     - script:
         name: maven test
         code: |
-          mvn --batch-mode test -Djdk.net.URLClassPath.disableClassPathURLCheck=true
+          mvn --batch-mode test -DargLine="-Djdk.net.URLClassPath.disableClassPathURLCheck=true"
 
 deploy:
   steps:
