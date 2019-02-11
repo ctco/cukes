@@ -17,26 +17,6 @@ public class PreprocessRestRequestBody implements CukesHttpPlugin {
     RestRequestFacade requestFacade;
 
     @Override
-    public void beforeAllTests() {
-
-    }
-
-    @Override
-    public void afterAllTests() {
-
-    }
-
-    @Override
-    public void beforeScenario() {
-
-    }
-
-    @Override
-    public void afterScenario() {
-
-    }
-
-    @Override
     public void beforeRequest(RequestSpecification requestSpecification) {
         String requestBody = this.requestFacade.getRequestBody();
         if (requestBody != null) {

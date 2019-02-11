@@ -10,6 +10,7 @@ import io.restassured.response.ValidatableResponseLogSpec;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestLogSpecification;
 import io.restassured.specification.RequestSpecification;
+import lv.ctco.cukes.core.extension.CukesPlugin;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
 import lv.ctco.cukes.http.RestAssuredConfiguration;
 import lv.ctco.cukes.http.extension.CukesHttpPlugin;
@@ -28,7 +29,7 @@ import static com.google.common.collect.Sets.newHashSet;
 import static lv.ctco.cukes.core.CukesOptions.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class HttpLoggingPlugin implements CukesHttpPlugin {
+public class HttpLoggingPlugin implements CukesHttpPlugin, CukesPlugin {
 
     private static final String DEFAULT_LOGGER_NAME = "lv.ctco.cukes.http";
     private static final String DEFAULT_REQUEST_INCLUDES = "";

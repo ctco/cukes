@@ -41,24 +41,4 @@ public class OAuthCukesHttpPlugin implements CukesHttpPlugin {
     public void afterRequest(Response response) {
 
     }
-
-    @Override
-    public void beforeAllTests() {
-
-    }
-
-    @Override
-    public void afterAllTests() {
-
-    }
-
-    @Override
-    public void beforeScenario() {
-
-    }
-
-    @Override
-    public void afterScenario() {
-
-    }
 }

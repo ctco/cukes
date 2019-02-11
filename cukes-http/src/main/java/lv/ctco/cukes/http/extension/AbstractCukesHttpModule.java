@@ -8,6 +8,5 @@ public abstract class AbstractCukesHttpModule extends AbstractCukesModule {
     protected <T extends CukesHttpPlugin> void registerHttpPlugin(Class<T> pluginClass) {
         Multibinder<CukesHttpPlugin> multibinder = Multibinder.newSetBinder(binder(), CukesHttpPlugin.class);
         multibinder.addBinding().to(pluginClass);
-        registerPlugin(pluginClass);
     }
 }

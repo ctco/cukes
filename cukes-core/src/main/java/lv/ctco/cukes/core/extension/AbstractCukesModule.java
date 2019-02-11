@@ -13,11 +13,6 @@ import static lv.ctco.cukes.core.internal.helpers.Files.createCukesPropertyFileU
 
 public abstract class AbstractCukesModule extends AbstractModule {
 
-    protected <T extends CukesPlugin> void registerPlugin(Class<T> pluginClass) {
-        Multibinder<CukesPlugin> baseMultibinder = Multibinder.newSetBinder(binder(), CukesPlugin.class);
-        baseMultibinder.addBinding().to(pluginClass);
-    }
-
     @SuppressWarnings("unchecked")
     protected void bindPlugins(Class clazz) {
         try {

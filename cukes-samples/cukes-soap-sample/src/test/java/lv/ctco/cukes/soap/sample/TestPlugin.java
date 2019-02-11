@@ -2,12 +2,10 @@ package lv.ctco.cukes.soap.sample;
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import lv.ctco.cukes.core.extension.CukesPlugin;
 import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 
-/**
- * Created by sergey.trasko on 24/11/2017.
- */
-public class TestPlugin implements CukesHttpPlugin {
+public class TestPlugin implements CukesHttpPlugin, CukesPlugin {
 
     @Override
     public void beforeAllTests() {

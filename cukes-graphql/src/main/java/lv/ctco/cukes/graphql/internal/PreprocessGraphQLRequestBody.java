@@ -19,26 +19,6 @@ public class PreprocessGraphQLRequestBody implements CukesHttpPlugin {
     TemplatingEngine templatingEngine;
 
     @Override
-    public void beforeAllTests() {
-
-    }
-
-    @Override
-    public void afterAllTests() {
-
-    }
-
-    @Override
-    public void beforeScenario() {
-
-    }
-
-    @Override
-    public void afterScenario() {
-
-    }
-
-    @Override
     public void beforeRequest(RequestSpecification requestSpecification) {
         GraphQLRequest graphQLRequest = requestFacade.getGraphQLRequest();
         if (!Strings.isNullOrEmpty(graphQLRequest.getQuery())) {

@@ -1,12 +1,10 @@
 package lv.ctco.cukes.soap.sample;
 
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import lv.ctco.cukes.http.extension.CukesHttpPlugin;
+import lv.ctco.cukes.core.extension.CukesPlugin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-public class CukesBootstrap implements CukesHttpPlugin {
+public class CukesBootstrap implements CukesPlugin {
 
     private ConfigurableApplicationContext applicationContext;
 
@@ -27,16 +25,6 @@ public class CukesBootstrap implements CukesHttpPlugin {
 
     @Override
     public void afterScenario() {
-
-    }
-
-    @Override
-    public void beforeRequest(RequestSpecification requestSpecification) {
-
-    }
-
-    @Override
-    public void afterRequest(Response response) {
 
     }
 }
