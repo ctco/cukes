@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.RestAssured;
+import io.restassured.filter.Filter;
 import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
@@ -19,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import static lv.ctco.cukes.http.matchers.ResponseMatcher.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -128,6 +130,14 @@ public class HttpRequestFacade {
 	public void sessionId(String sessionIdName, String sessionIdValue) {
 		specification.sessionId(sessionIdName, sessionIdValue);
 	}
+
+    public void filter(Filter filter) {
+        specification.filter(filter);
+    }
+
+    public void filters(List<Filter> filters) {
+        specification.filters(filters);
+    }
 
 	public void authentication(String username, String password) {
 		world.put(CukesOptions.USERNAME, username);
