@@ -7,11 +7,12 @@ public enum CukesComponent {
 
 
     core("General", "lv.ctco.cukes.core", "cukes-core"),
-    http("HTTP", "lv.ctco.cukes.http", "cukes-http"),
+    http("HTTP", "lv.ctco.cukes.http.api", "cukes-http"),
     graphQL("GraphQL", "lv.ctco.cukes.graphql", "cukes-graphql"),
     ldap("LDAP", "lv.ctco.cukes.ldap", "cukes-ldap"),
     rabbitMQ("RabbitMQ", "lv.ctco.cukes.rabbitmq", "cukes-rabbitmq"),
     rest("REST", "lv.ctco.cukes.rest", "cukes-rest"),
+    httpMock("HTTP Mock", "lv.ctco.cukes.http.mock", "cukes-http-mock")
     ;
 
     public static final Comparator<CukesComponent> comparator = Comparator.comparing(CukesComponent::ordinal);

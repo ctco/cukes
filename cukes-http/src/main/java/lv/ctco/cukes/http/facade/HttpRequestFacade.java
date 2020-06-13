@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.RestAssured;
+import io.restassured.filter.Filter;
 import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.CukesRuntimeException;
@@ -19,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import static lv.ctco.cukes.http.matchers.ResponseMatcher.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -88,7 +90,9 @@ public class HttpRequestFacade {
 		} catch (UnsupportedEncodingException e) {
 			// do nothing
 		}
-		specification.queryParam(parameterName, parameterValue);
+        if (!parameterValue.equalsIgnoreCase("null")) {
+            specification.queryParam(parameterName, parameterValue);
+        }
 	}
 
 	public void accept(String mediaTypes) {
@@ -127,13 +131,21 @@ public class HttpRequestFacade {
 		specification.sessionId(sessionIdName, sessionIdValue);
 	}
 
+    public void filter(Filter filter) {
+        specification.filter(filter);
+    }
+
+    public void filters(List<Filter> filters) {
+        specification.filters(filters);
+    }
+
 	public void authentication(String username, String password) {
 		world.put(CukesOptions.USERNAME, username);
 		world.put(CukesOptions.PASSWORD, password);
 	}
 
 	public void basicAuthentication(String username, String password) {
-		specification.auth().basic(username, password);
+		specification.auth().preemptive().basic(username, password);
 	}
 
 	public void authenticationType(String authenticationType) {

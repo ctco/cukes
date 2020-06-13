@@ -69,4 +69,3 @@ release:
           git config --global user.name "C.T.Co SCM"
           git config --global user.email "cscm@ctco.lv"
           mvn --batch-mode -Dmaven.test.skip=true -DuseReleaseProfile=false -DscmCommentPrefix="[maven-release-plugin][skip ci]" --batch-mode release:prepare compile exec:java@create-docs scm:add scm:checkin release:perform -P release -s ~/.m2/settings.xml
-

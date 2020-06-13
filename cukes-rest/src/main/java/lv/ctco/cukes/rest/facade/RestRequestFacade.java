@@ -47,6 +47,10 @@ public class RestRequestFacade {
         specification().body(body);
     }
 
+    public void body(byte[] body) {
+        specification().body(body);
+    }
+
     public String getRequestBody() {
         return requestBody;
     }

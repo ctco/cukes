@@ -11,13 +11,15 @@
         <module>cukes-rest-sample</module>
         <module>cukes-soap-sample</module>
         <module>cukes-plugin-sample</module>
+		<module>cukes-http-mock-sample</module>
+        <module>cukes-oauth-sample</module>
     </modules>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>lv.ctco.cukes</groupId>
         <artifactId>cukes</artifactId>
-        <version>0.0.21-SNAPSHOT</version>
+        <version>0.0.35-SNAPSHOT</version>
     </parent>
 
 </project>

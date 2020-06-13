@@ -11,6 +11,7 @@ import com.yammer.dropwizard.config.Environment;
 import lv.ctco.cukes.rest.gadgets.GadgetResource;
 import lv.ctco.cukes.rest.healthcheck.CustomHeadersResource;
 import lv.ctco.cukes.rest.healthcheck.StaticTypesResource;
+import lv.ctco.cukes.rest.multipart.BinaryStreamResource;
 import lv.ctco.cukes.rest.multipart.MultipartResource;
 import org.slf4j.LoggerFactory;
 
@@ -26,13 +27,14 @@ public class SampleApplication extends Service<SampleConfiguration> {
     }
 
     @Override
-    public void run(SampleConfiguration configuration, Environment environment) throws JoranException {
+    public void run(SampleConfiguration configuration, Environment environment) {
         overrideLogging();
         Injector injector = Guice.createInjector();
         environment.addResource(injector.getInstance(GadgetResource.class));
         environment.addResource(injector.getInstance(StaticTypesResource.class));
         environment.addResource(injector.getInstance(CustomHeadersResource.class));
         environment.addResource(injector.getInstance(MultipartResource.class));
+        environment.addResource(injector.getInstance(BinaryStreamResource.class));
         environment.addHealthCheck(injector.getInstance(SampleHealthCheck.class));
     }
 

@@ -10,7 +10,9 @@ import io.restassured.response.ValidatableResponseLogSpec;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.RequestLogSpecification;
 import io.restassured.specification.RequestSpecification;
+import lv.ctco.cukes.core.extension.CukesPlugin;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
+import lv.ctco.cukes.http.RestAssuredConfiguration;
 import lv.ctco.cukes.http.extension.CukesHttpPlugin;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.event.Level;
@@ -27,24 +29,27 @@ import static com.google.common.collect.Sets.newHashSet;
 import static lv.ctco.cukes.core.CukesOptions.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class HttpLoggingPlugin implements CukesHttpPlugin {
+public class HttpLoggingPlugin implements CukesHttpPlugin, CukesPlugin {
 
     private static final String DEFAULT_LOGGER_NAME = "lv.ctco.cukes.http";
     private static final String DEFAULT_REQUEST_INCLUDES = "";
     private static final String DEFAULT_RESPONSE_INCLUDES = "";
 
     private final PrintStream logStream;
+    private RestAssuredConfiguration config;
     private final GlobalWorldFacade world;
 
     @Inject
-    public HttpLoggingPlugin(GlobalWorldFacade world) {
+    public HttpLoggingPlugin(GlobalWorldFacade world, RestAssuredConfiguration config) {
         this.world = world;
+        this.config = config;
         logStream = new LoggerPrintStream(getLogger(world.get(LOGGING_LOGGER_NAME, DEFAULT_LOGGER_NAME)), Level.INFO);
     }
 
     @Override
     public void beforeAllTests() {
-
+        config.setDefaultStream(logStream);
+        config.reset();
     }
 
     @Override
@@ -69,9 +74,6 @@ public class HttpLoggingPlugin implements CukesHttpPlugin {
         }
 
         final FilterableRequestSpecification filterableRequestSpecification = (FilterableRequestSpecification) requestSpecification;
-
-        final RestAssuredConfig config = (filterableRequestSpecification).getConfig();
-        config.logConfig(config.getLogConfig().defaultStream(logStream));
 
         final RequestLogSpecification logSpec = filterableRequestSpecification.log();
         final List<LogDetail> logDetails = parseLogDetails(world.get(LOGGING_REQUEST_INCLUDES, DEFAULT_REQUEST_INCLUDES));

@@ -30,8 +30,9 @@ testCompile("lv.ctco.cukes:cukes-core:${cukes.version}");
 |-------|-----------|
 |let variable "(.+)" equal to "(.+)"||
 |let variable "(.+)" to be random UUID|Generates random UUID and assigns it to a variable|
+|let variable "(["]\*)" be equal to current timestamp||
 |let variable "(\S+)" to be random password by matching pattern "([Aa0]+)"|Generates random password by given pattern. Pattern may contain symbils a,A,0. So A is replaced with random capital letter, a - with random letter and 0 - with random number|
-|let variable "(\S+)" to be random password with length \d+|Generates random password with given length|
+|let variable "(\S+)" to be random password with length (\d+)|Generates random password with given length|
 |let variable "(["]\*)" be equal to current timestamp||
 |resources root is "(.+)"||
 |value assertions are case-insensitive||
@@ -312,6 +313,7 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 |-------|-----------|
 |formParam "(.+)" is "(.+)"||
 |request body "(.+)"||
+|request body from binary file "(.+)"||
 |request body from file "(.+)"||
 |request body is a multipart file "(.+)"||
 |request body is a multipart string "(.+)" with control "(.+)"||
@@ -325,4 +327,24 @@ testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
 |Pattern|Description|
 |-------|-----------|
 |the client performs (.+) request on "(.+)"||
+
+## HTTP Mock steps
+
+Required dependencies:
+
+**Maven**
+
+```xml
+<dependency>
+    <groupId>lv.ctco.cukes</groupId>
+    <artifactId>cukes-http-mock</artifactId>
+    <version>${cukes.version}</version>
+</dependency>
+```
+
+**Gradle**
+
+```
+testCompile("lv.ctco.cukes:cukes-http-mock:${cukes.version}");
+```
 
