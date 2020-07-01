@@ -12,8 +12,8 @@ public enum GrantType {
 
     private static final Map<String, String> attributeNameMapping = new HashMap<>();
     static {
-        attributeNameMapping.put("username", OAuthCukesConstants.USER_NAME);
-        attributeNameMapping.put("password", OAuthCukesConstants.PASSWORD);
+        attributeNameMapping.put(OAuthCukesConstants.USER_NAME, "username");
+        attributeNameMapping.put(OAuthCukesConstants.PASSWORD, "password");
     }
 
     private String[] requiredAttributes;
