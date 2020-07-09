@@ -8,9 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static lv.ctco.cukes.sql.utils.TableAssertUtils.assertContainsTableValues;
-import static lv.ctco.cukes.sql.utils.TableAssertUtils.assertEqualsTableValues;
-import static lv.ctco.cukes.sql.utils.TableAssertUtils.assertValueRelatesToValue;
+import static lv.ctco.cukes.sql.utils.TableAssertUtils.*;
 
 public class DataBaseRequestFacade {
 
@@ -18,12 +16,12 @@ public class DataBaseRequestFacade {
     private GenericTableRepository genericTableRepository;
 
     public void checkSchemeTableContains(String scheme, String tableName, List<Map<String, String>> tableValues) {
-        List<Map<String, String>> values = genericTableRepository.getTableValues(scheme, tableName, extractColumns(tableValues));
+        List<Map<String, String>> values = genericTableRepository.getTableValues(scheme, tableName, extractColumnNames(tableValues));
         assertContainsTableValues(values, tableValues);
     }
 
     public void checkSchemeTableMatch(String scheme, String tableName, List<Map<String, String>> tableValues) {
-        List<Map<String, String>> values = genericTableRepository.getTableValues(scheme, tableName, extractColumns(tableValues));
+        List<Map<String, String>> values = genericTableRepository.getTableValues(scheme, tableName, extractColumnNames(tableValues));
         assertEqualsTableValues(values, tableValues);
     }
 
@@ -32,10 +30,30 @@ public class DataBaseRequestFacade {
         assertValueRelatesToValue(value, sign, number);
     }
 
-    private List<String> extractColumns(List<Map<String, String>> tableValues) {
+    public void createEntities(String scheme, String tableName, List<Map<String, String>> tableValues) {
+        if (!tableValues.isEmpty()) {
+            List<String> columnNames = extractColumnNames(tableValues);
+            List<List<String>> columnValues = extractColumnValues(tableValues);
+            genericTableRepository.createTableEntities(scheme, tableName, columnNames, columnValues);
+        }
+    }
+
+    public void createEntitiesBySql(String query){
+        genericTableRepository.createTableEntitiesBySql(query);
+    }
+
+    private List<String> extractColumnNames(List<Map<String, String>> tableValues) {
         if (tableValues.isEmpty()) {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(new ArrayList<>(tableValues.get(0).keySet()));
+    }
+
+    private List<List<String>> extractColumnValues(List<Map<String, String>> tableValues) {
+        List<List<String>> columnValues = new ArrayList<>();
+        for(Map<String, String> map : tableValues) {
+            columnValues.add(new ArrayList<>(map.values()));
+        }
+        return columnValues;
     }
 }

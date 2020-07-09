@@ -39,3 +39,24 @@ Feature: Test DataBaseSteps
     Then DB table Person row count should be = 3
 
     Then DB table Person row count should not be empty
+
+  Scenario: DB entity is created
+    When the client creates DB entities in table Person with values:
+      | id | name     | surname     | age |
+      | 4  | SomeName | SomeSurname | 0   |
+      | 5  | Hello    | World       | 46  |
+    Then DB table Person should contain:
+      | id | name     | surname     | age |
+      | 4  | SomeName | SomeSurname | 0   |
+      | 5  | Hello    | World       | 46  |
+
+  Scenario: DB entity is created by SQL
+    When the client creates DB entities by SQL query:
+    """
+      INSERT INTO Person(id, name, surname, age) VALUES(4, 'SomeName', 'SomeSurname', 0);
+      INSERT INTO Person(id, name, surname, age) VALUES(5, 'Hello', 'World', 46);
+    """
+    Then DB table Person should contain:
+      | id | name     | surname     | age |
+      | 4  | SomeName | SomeSurname | 0   |
+      | 5  | Hello    | World       | 46  |
