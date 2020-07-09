@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.apache.qpid</groupId>
             <artifactId>qpid-broker</artifactId>
-            <version>6.1.3</version>
+            <version>6.1.5</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
