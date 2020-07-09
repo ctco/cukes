@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -24,7 +24,7 @@ public class LoadRunnerFeatureTest {
     @Mock JUnitReporter reporter;
 
     @Test
-    public void shouldCheckFileNameGeneration() throws Exception {
+    public void shouldCheckFileNameGeneration() {
         String filename = "My feature";
         String refactoredName = loadRunnerFeature.createName(filename);
         assertThat(refactoredName, is("My_feature"));

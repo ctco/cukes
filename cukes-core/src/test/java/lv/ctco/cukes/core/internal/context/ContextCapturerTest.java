@@ -6,10 +6,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,44 +23,44 @@ public class ContextCapturerTest {
     GlobalWorldFacade world;
 
     @Test
-    public void shouldTransformPatternToValidRegex() throws Exception {
+    public void shouldTransformPatternToValidRegex() {
         String regex = capturer.transformToRegex("{(hello)} world");
         assertThat(regex, equalTo("(.*) world"));
     }
 
     @Test
-    public void shouldTransformMultiplePatternToValidRegex() throws Exception {
+    public void shouldTransformMultiplePatternToValidRegex() {
         String regex = capturer.transformToRegex("{(hello)} {(world)}");
         assertThat(regex, equalTo("(.*) (.*)"));
     }
 
     @Test
-    public void shouldCaptureValuesFromSimplePattern() throws Exception {
+    public void shouldCaptureValuesFromSimplePattern() {
         capturer.captureValuesFromPattern("(.*) world", Lists.newArrayList("hello"), "Hi world");
         verify(world).put("hello", "Hi");
     }
 
     @Test
-    public void shouldCaptureValuesFromMinimalPattern() throws Exception {
+    public void shouldCaptureValuesFromMinimalPattern() {
         capturer.captureValuesFromPattern("(.*)", Lists.newArrayList("hello"), "world");
         verify(world).put("hello", "world");
     }
 
     @Test
-    public void shouldNotInvokeCaptureValuesFromPatternIfNoGroupsFound() throws Exception {
+    public void shouldNotInvokeCaptureValuesFromPatternIfNoGroupsFound() {
         capturer.capture("hello", "world");
-        verify(capturer, never()).captureValuesFromPattern(anyString(), anyListOf(String.class), anyString());
+        verify(capturer, never()).captureValuesFromPattern(anyString(), anyList(), anyString());
     }
 
     @Test
-    public void shouldInvokeCaptureValuesFromPatternIfAtLeastOneGroupFound() throws Exception {
+    public void shouldInvokeCaptureValuesFromPatternIfAtLeastOneGroupFound() {
         capturer.capture("{(hello)}", "world");
-        verify(capturer).captureValuesFromPattern(anyString(), anyListOf(String.class), anyString());
+        verify(capturer).captureValuesFromPattern(anyString(), anyList(), anyString());
     }
 
     @Test
-    public void shouldNotInvokeCaptureValuesFromPatternIfRegexDoesNotMatchValue() throws Exception {
+    public void shouldNotInvokeCaptureValuesFromPatternIfRegexDoesNotMatchValue() {
         capturer.capture("{(hello)} Riga", "hello world");
-        verify(capturer, never()).captureValuesFromPattern(anyString(), anyListOf(String.class), anyString());
+        verify(capturer, never()).captureValuesFromPattern(anyString(), anyList(), anyString());
     }
 }

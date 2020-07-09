@@ -7,34 +7,34 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DnComparatorTest {
 
     DnComparator comparator = new DnComparator(false);
 
     @Test
-    public void compare_sameTree() throws Exception {
+    public void compare_sameTree() {
         assertThat(comparator.compare("cn=root", "cn=b,cn=root"), is(more()));
         assertThat(comparator.compare("cn=a,cn=root", "cn=root"), is(less()));
         assertThat(comparator.compare("cn=a,cn=root", "cn=a,cn=root"), is(same()));
     }
 
     @Test
-    public void compare_differentTrees() throws Exception {
+    public void compare_differentTrees() {
         assertThat(comparator.compare("cn=a,cn=root", "cn=b,cn=root"), is(more()));
         assertThat(comparator.compare("cn=b,cn=root", "cn=a,cn=root"), is(less()));
     }
 
     @Test
-    public void sort() throws Exception {
+    public void sort() {
         List<String> dns = new ArrayList<>(Arrays.asList(
             "cn=root",
             "cn=a,cn=root",
             "cn=b,cn=root",
             "cn=c,cn=a,cn=root"
         ));
-        Collections.sort(dns, comparator);
+        dns.sort(comparator);
         assertThat(dns.get(0), is("cn=root"));
         assertThat(dns.get(1), is("cn=a,cn=root"));
         assertThat(dns.get(2), is("cn=c,cn=a,cn=root"));

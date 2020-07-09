@@ -2,25 +2,25 @@ package lv.ctco.cukes.ldap.facade;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.util.reflection.Whitebox;
 
 import javax.naming.directory.BasicAttributes;
+
+import static org.mockito.internal.util.reflection.FieldSetter.setField;
 
 public class EntityFacadeTest {
     EntityFacade entityFacade;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         entityFacade = new EntityFacade();
     }
-
 
     @Test
     public void byteArrayValueIsCheckedAsString() throws Exception {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new byte[]{50, 82, 115, 48, 67, 99, 54, 74});
 
-        Whitebox.setInternalState(entityFacade, "entity", entity);
+        setField(entityFacade, entity.getClass().getField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "2Rs0Cc6J");
     }
@@ -30,7 +30,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new char[]{'h', 'e', 'l', 'l', 'o'});
 
-        Whitebox.setInternalState(entityFacade, "entity", entity);
+        setField(entityFacade, entity.getClass().getField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "hello");
     }
@@ -40,7 +40,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", "hello");
 
-        Whitebox.setInternalState(entityFacade, "entity", entity);
+        setField(entityFacade, entity.getClass().getField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "hello");
     }
@@ -50,7 +50,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new int[]{1, 2, 3});
 
-        Whitebox.setInternalState(entityFacade, "entity", entity);
+        setField(entityFacade, entity.getClass().getField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "{1,2,3}");
     }
@@ -60,7 +60,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", 3);
 
-        Whitebox.setInternalState(entityFacade, "entity", entity);
+        setField(entityFacade, entity.getClass().getField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "3");
     }

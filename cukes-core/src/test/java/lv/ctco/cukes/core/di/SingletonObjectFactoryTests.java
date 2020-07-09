@@ -13,13 +13,13 @@ public class SingletonObjectFactoryTests {
     private static SingletonObjectFactory instance;
 
     @BeforeClass
-    public static void setup() throws Exception {
+    public static void setup() {
         instance = SingletonObjectFactory.instance();
         instance.addModule(binder -> binder.bind(ScenarioScopedClass.class).in(CucumberScopes.SCENARIO));
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown()  {
         try {
             simulateCucumberScenarioStop();
         } catch (Exception ignored) {
@@ -27,7 +27,7 @@ public class SingletonObjectFactoryTests {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void shouldThrowExceptionWhenAlreadyUsed() throws Exception {
+    public void shouldThrowExceptionWhenAlreadyUsed()  {
         // simulate cucumber scenario start
         simulateCucumberScenarioStart();
 

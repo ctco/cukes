@@ -20,21 +20,20 @@ import java.util.Locale;
 
 import static lv.ctco.cukes.core.CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY;
 import static lv.ctco.cukes.core.CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.*;
 
 public class HttpAssertionFacadeImplTest {
 
-    private ObjectFactory objectFactory = SingletonObjectFactory.instance();
+    private final ObjectFactory objectFactory = SingletonObjectFactory.instance();
 
     HttpAssertionFacade facade = objectFactory.getInstance(HttpAssertionFacadeImpl.class);
-
     GlobalWorldFacade world = objectFactory.getInstance(GlobalWorldFacade.class);
 
     @Test
-    public void shouldNotInflateVarName() throws Exception {
+    public void shouldNotInflateVarName() {
         String headerName = "name";
         HttpResponseFacade mock = mock(HttpResponseFacade.class);
         Response response = mock(Response.class);

@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +25,7 @@ public class TemplatingEngineTest {
     private lv.ctco.cukes.core.internal.templating.TemplatingEngine TemplatingEngine = new TemplatingEngine();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Mockito.when(world.getBoolean(CukesOptions.REQUEST_BODY_TEMPLATES_ENABLED)).thenReturn(true);
         Mockito.when(world.keys()).thenReturn(Sets.newHashSet("contractName", "profitCentre"));
         Mockito.when(world.get("contractName")).thenReturn(Optional.of("test1"));

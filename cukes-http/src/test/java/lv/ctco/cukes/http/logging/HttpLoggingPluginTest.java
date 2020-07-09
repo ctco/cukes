@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,8 +16,9 @@ import java.io.UnsupportedEncodingException;
 
 import static lv.ctco.cukes.core.CukesOptions.LOGGING_REQUEST_INCLUDES;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.util.reflection.FieldSetter.setField;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HttpLoggingPluginTest {
@@ -45,15 +45,15 @@ public class HttpLoggingPluginTest {
     private HttpLoggingPlugin plugin;
 
     @Before
-    public void setUp() {
+    public void setUp() throws NoSuchFieldException {
         testOut = new ByteArrayOutputStream();
         PrintStream testStream = new PrintStream(testOut);
 
         config = new RestAssuredConfiguration();
-        Whitebox.setInternalState(config, "world", world);
+        setField(config, world.getClass().getField("world"), world);
 
         plugin = new HttpLoggingPlugin(world, config);
-        Whitebox.setInternalState(plugin, "logStream", testStream);
+        setField(plugin, testStream.getClass().getField("logStream"), testStream);
         plugin.beforeAllTests();
     }
 

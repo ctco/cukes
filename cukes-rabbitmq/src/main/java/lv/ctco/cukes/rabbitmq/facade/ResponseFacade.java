@@ -20,6 +20,7 @@ import static lv.ctco.cukes.core.internal.matchers.OfTypeMatcher.ofType;
 import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.DEFAULT_READ_TIMEOUT;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.core.IsNot.not;
 
@@ -61,11 +62,11 @@ public class ResponseFacade {
     }
 
     public void assertMessageBodyIsEmpty() {
-        assertThat(message.getBody(), isEmptyString());
+        assertThat(message.getBody(), emptyString());
     }
 
     public void assertMessageBodyIsNotEmpty() {
-        assertThat(message.getBody(), not(isEmptyString()));
+        assertThat(message.getBody(), not(emptyString()));
     }
 
     public void assertMessageBodyContains(String body) {

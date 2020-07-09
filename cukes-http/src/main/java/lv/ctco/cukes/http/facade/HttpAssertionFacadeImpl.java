@@ -1,6 +1,5 @@
 package lv.ctco.cukes.http.facade;
 
-import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.response.Response;
@@ -18,8 +17,8 @@ import java.util.Map;
 
 import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.equalToIgnoringType;
 import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsPropertyValueByPathInArray;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -55,7 +54,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void bodyNotEmpty() {
-        this.facade.response().then().body(not(isEmptyOrNullString()));
+        this.facade.response().then().body(not(emptyOrNullString()));
     }
 
     @Override
@@ -70,23 +69,18 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void headerIsEmpty(String headerName) {
-        this.facade.response().then().header(headerName, isEmptyString());
+        this.facade.response().then().header(headerName, emptyString());
     }
 
     @Override
     public void headerIsNotEmpty(String headerName) {
-        this.facade.response().then().header(headerName, not(isEmptyString()));
+        this.facade.response().then().header(headerName, not(emptyString()));
     }
 
     @Override
     public void statusCodeIs(final int statusCode) {
         final boolean appendBody = world.getBoolean(CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY, false);
-        final Integer maxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE).transform(new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        }).orNull();
+        final Integer maxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE).transform(Integer::parseInt).orNull();
         final Response response = facade.response();
 
         response.then().statusCode(new StatusCodeMatcher(statusCode, response, appendBody, maxSize));
