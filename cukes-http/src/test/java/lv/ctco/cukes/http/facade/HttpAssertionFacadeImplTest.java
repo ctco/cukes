@@ -140,6 +140,7 @@ public class HttpAssertionFacadeImplTest {
             200,
             "1 expectation failed.\n" +
                 "Expected status code \"200\" but was \"404\" with body <exceeding max size to show>.\n");
+        world.put(ASSERTS_STATUS_CODE_MAX_SIZE, "100");
     }
 
     @Test
