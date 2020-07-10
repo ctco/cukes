@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.allOf
 import static org.hamcrest.Matchers.hasEntry
 
 @RunWith(MockitoJUnitRunner.class)
-class JsonParserTest {
+public class JsonParserTest {
 
     @InjectMocks
     JsonParser service
