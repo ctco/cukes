@@ -16,7 +16,7 @@ class JsonMatchersTest {
     public static final String XML = "application/xml"
     public static final String HTML = "text/html"
     public static final String TEXT = "text/plain"
-    
+
     public static JsonMatchers.ContentProvider<RequestBody> contentProvider = new JsonMatchers.ContentProvider<RequestBody>() {
         @Override
         String getValue(Object o) {
@@ -99,9 +99,9 @@ class JsonMatchersTest {
     void "nested array object in XML"() {
         def content =
                 '<nested>' +
-                    '<array><hello>world</hello></array>' +
-                    '<array><hello>foo</hello></array>' +
-                '</nested>'
+                        '<array><hello>world</hello></array>' +
+                        '<array><hello>foo</hello></array>' +
+                        '</nested>'
         assertThat(new RequestBody(XML, content), containsValueByPath(contentProvider, "nested.array[1].hello", equalTo("foo")))
     }
 
@@ -136,14 +136,14 @@ class JsonMatchersTest {
         def content = '<?xml version="1.0" encoding="UTF-8" ?>' +
                 '<!DOCTYPE html>' +
                 '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"' +
-                    'dir="ltr">' +
+                'dir="ltr">' +
                 '<head>\n' +
                 '<meta name="description"' +
-                    'content="application/xhtml+xml; charset=UTF-8" />' +
+                'content="application/xhtml+xml; charset=UTF-8" />' +
                 '<title>Get an object</title>' +
                 '</head>' +
                 '<body>' +
-                    '<section>Hello world</section>' +
+                '<section>Hello world</section>' +
                 '</body>'
         assertThat(new RequestBody(HTML, content), containsValueByPath(contentProvider, "html.body.section", equalTo("Hello world")))
     }

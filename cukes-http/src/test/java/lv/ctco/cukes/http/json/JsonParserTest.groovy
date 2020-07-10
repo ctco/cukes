@@ -6,9 +6,9 @@ import org.mockito.InjectMocks
 import org.mockito.junit.MockitoJUnitRunner
 
 import static lv.ctco.cukes.http.CustomMatchers.hasSize
+import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.Matchers.allOf
 import static org.hamcrest.Matchers.hasEntry
-import static org.hamcrest.MatcherAssert.assertThat
 
 @RunWith(MockitoJUnitRunner.class)
 class JsonParserTest {
@@ -24,7 +24,7 @@ class JsonParserTest {
         assertThat(map, allOf(
                 hasSize(1),
                 hasEntry('hello', 'world')
-            )
+        )
         )
     }
 
@@ -36,7 +36,7 @@ class JsonParserTest {
         assertThat(map, allOf(
                 hasSize(1),
                 hasEntry('[0].hello', 'world')
-            )
+        )
         )
     }
 

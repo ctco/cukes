@@ -64,16 +64,6 @@ The dependencies are stored in [Maven Central](http://search.maven.org/#search|g
 </dependency>
 ```
 
-### cukes-rest-loadrunner: experimental plugin for HP LoadRunner script generation out of cukes-rest test case
-
-```xml
-<dependency>
-    <groupId>lv.ctco.cukes</groupId>
-    <artifactId>cukes-rest-loadrunner</artifactId>
-    <version>${cukes-rest.version}</version>
-</dependency>
-```
-
 ## Getting Started
 
 There are two options to start local server with Sample Application:

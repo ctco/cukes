@@ -16,7 +16,7 @@ public class QueueService {
     @SneakyThrows(IOException.class)
     public void declareQueue(String queueName, String exchange, String routingKey) {
         Channel channel = connectionService.getChannel();
-        channel.queueDeclare(queueName, false, true,true, null);
+        channel.queueDeclare(queueName, false, true, true, null);
         channel.queueBind(queueName, exchange, routingKey);
     }
 

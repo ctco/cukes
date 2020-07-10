@@ -32,7 +32,6 @@ public interface CukesOptions {
 
     String CONTEXT_INFLATING_ENABLED = "context_inflating_enabled";
     String ASSERTIONS_DISABLED = "assertions_disabled";
-    String LOADRUNNER_FILTER_BLOCKS_REQUESTS = "loadrunner_filter_blocks_requests";
 
     String FOLLOW_REDIRECTS = "follow_redirects";
 }

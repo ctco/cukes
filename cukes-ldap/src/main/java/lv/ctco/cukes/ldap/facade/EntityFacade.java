@@ -2,7 +2,7 @@ package lv.ctco.cukes.ldap.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.runtime.CucumberException;
+import io.cucumber.core.exception.CucumberException;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.matchers.ContainsPattern;
 import lv.ctco.cukes.core.internal.resources.FilePathService;
@@ -69,11 +69,9 @@ public class EntityFacade {
         entityService.deleteEntityByDn(dn);
     }
 
-    public Attribute getAttribute(String attribute) {
-        if (entity == null) {
-            throw new CukesRuntimeException("Entity was not loaded");
-        }
-        return entity.get(attribute);
+    public void entityHasAttributeWithValueOtherThat(String attribute, String value) {
+        Attribute attr = getNotNullAttribute(attribute);
+        assertThat(attr.contains(value), is(false));
     }
 
     public Attribute getNotNullAttribute(String attribute) {
@@ -85,39 +83,6 @@ public class EntityFacade {
         return attr;
     }
 
-    public void entityHasAttributeWithValue(String expectedAttr, String expectedValue) {
-        Attribute actualAttr = getNotNullAttribute(expectedAttr);
-        List<String> attributesList = new ArrayList<>();
-        for (int i = 0; i < actualAttr.size(); i++) {
-            try {
-                attributesList.add(toString(actualAttr.get(i)));
-            } catch (NamingException e) {
-                throw new CukesRuntimeException(e);
-            }
-        }
-        assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
-    }
-
-    private String toString(Object value) throws NamingException {
-        try {
-            if (value instanceof byte[]) {
-                return new String((byte[]) value, "UTF-8");
-            } else if (value instanceof char[]) {
-                return new String((char[]) value);
-            } else if (value.getClass().isArray()) {
-                return ArrayUtils.toString(value);
-            }
-            return value.toString();
-        } catch (UnsupportedEncodingException e) {
-            throw new CucumberException("Failed to convert value to string", e);
-        }
-    }
-
-    public void entityHasAttributeWithValueOtherThat(String attribute, String value) {
-        Attribute attr = getNotNullAttribute(attribute);
-        assertThat(attr.contains(value), is(false));
-    }
-
     public void entityContainsAttribute(String attribute) {
         getNotNullAttribute(attribute);
     }
@@ -125,6 +90,13 @@ public class EntityFacade {
     public void entityDoesNotContainAttribute(String attribute) {
         Attribute attr = getAttribute(attribute);
         assertThat(attr, nullValue());
+    }
+
+    public Attribute getAttribute(String attribute) {
+        if (entity == null) {
+            throw new CukesRuntimeException("Entity was not loaded");
+        }
+        return entity.get(attribute);
     }
 
     public void entityHasAttributeAsArrayOfSize(String attribute, String operator, int size) {
@@ -183,15 +155,6 @@ public class EntityFacade {
         }
     }
 
-    public void importLdifFromFile(String ldifFile) {
-        try {
-            String path = filePathService.normalize(ldifFile);
-            importLdif(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            throw new CukesRuntimeException(e);
-        }
-    }
-
     private void importLdif(InputStream inputStream) {
         try {
             Map<String, Attributes> entities = LDIFUtils.read(inputStream);
@@ -199,6 +162,15 @@ public class EntityFacade {
                 entityService.createEntity(entry.getKey(), entry.getValue());
             }
         } catch (IOException e) {
+            throw new CukesRuntimeException(e);
+        }
+    }
+
+    public void importLdifFromFile(String ldifFile) {
+        try {
+            String path = filePathService.normalize(ldifFile);
+            importLdif(new FileInputStream(path));
+        } catch (FileNotFoundException e) {
             throw new CukesRuntimeException(e);
         }
     }
@@ -219,6 +191,34 @@ public class EntityFacade {
             }
         } catch (NamingException | IOException e) {
             throw new CukesRuntimeException(e);
+        }
+    }
+
+    public void entityHasAttributeWithValue(String expectedAttr, String expectedValue) {
+        Attribute actualAttr = getNotNullAttribute(expectedAttr);
+        List<String> attributesList = new ArrayList<>();
+        for (int i = 0; i < actualAttr.size(); i++) {
+            try {
+                attributesList.add(toString(actualAttr.get(i)));
+            } catch (NamingException e) {
+                throw new CukesRuntimeException(e);
+            }
+        }
+        assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
+    }
+
+    private String toString(Object value) throws NamingException {
+        try {
+            if (value instanceof byte[]) {
+                return new String((byte[]) value, "UTF-8");
+            } else if (value instanceof char[]) {
+                return new String((char[]) value);
+            } else if (value.getClass().isArray()) {
+                return ArrayUtils.toString(value);
+            }
+            return value.toString();
+        } catch (UnsupportedEncodingException e) {
+            throw new CucumberException("Failed to convert value to string", e);
         }
     }
 

@@ -25,6 +25,10 @@ public class ContextCapturer extends BaseContextHandler {
         return pattern.replaceAll(GROUP_PATTERN, GROUP_PATTERN_REGEX);
     }
 
+    boolean doesNotMatchPattern(String value, String regexPattern) {
+        return !value.matches(regexPattern);
+    }
+
     void captureValuesFromPattern(String regexPattern, List<String> groups, String value) {
         Matcher matcher = Pattern.compile(regexPattern).matcher(value);
         for (int i = 1; matcher.find(); i++) {
@@ -33,9 +37,5 @@ public class ContextCapturer extends BaseContextHandler {
             String key = groups.get(i - 1);
             world.put(key, groupValue);
         }
-    }
-
-    boolean doesNotMatchPattern(String value, String regexPattern) {
-        return !value.matches(regexPattern);
     }
 }

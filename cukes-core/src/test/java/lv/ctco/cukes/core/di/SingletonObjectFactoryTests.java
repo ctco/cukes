@@ -1,6 +1,5 @@
 package lv.ctco.cukes.core.di;
 
-import cucumber.api.guice.CucumberScopes;
 import lv.ctco.cukes.core.internal.di.SingletonObjectFactory;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -15,24 +14,32 @@ public class SingletonObjectFactoryTests {
     @BeforeClass
     public static void setup() {
         instance = SingletonObjectFactory.instance();
-        instance.addModule(binder -> binder.bind(ScenarioScopedClass.class).in(CucumberScopes.SCENARIO));
+        instance.addModule(binder -> binder.bind(ScenarioScopedClass.class));
     }
 
     @After
-    public void tearDown()  {
+    public void tearDown() {
         try {
             simulateCucumberScenarioStop();
         } catch (Exception ignored) {
         }
     }
 
+    private void simulateCucumberScenarioStop() {
+        instance.stop();
+    }
+
     @Test(expected = IllegalStateException.class)
-    public void shouldThrowExceptionWhenAlreadyUsed()  {
+    public void shouldThrowExceptionWhenAlreadyUsed() {
         // simulate cucumber scenario start
         simulateCucumberScenarioStart();
 
         instance.addModule(binder -> {
         });
+    }
+
+    private void simulateCucumberScenarioStart() {
+        instance.start();
     }
 
     @Test
@@ -53,14 +60,6 @@ public class SingletonObjectFactoryTests {
         assertEquals(0, c.value);
 
         simulateCucumberScenarioStop();
-    }
-
-    private void simulateCucumberScenarioStart() {
-        instance.start();
-    }
-
-    private void simulateCucumberScenarioStop() {
-        instance.stop();
     }
 
     public static class ScenarioScopedClass {

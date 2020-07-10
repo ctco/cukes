@@ -2,8 +2,8 @@ package lv.ctco.cukes.sql.steps;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.sql.facade.DataBaseRequestFacade;

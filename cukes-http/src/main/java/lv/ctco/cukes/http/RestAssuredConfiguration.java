@@ -2,7 +2,6 @@ package lv.ctco.cukes.http;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.restassured.config.LogConfig;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.config.SSLConfig;
 import io.restassured.path.json.config.JsonPathConfig;
@@ -38,7 +37,7 @@ public class RestAssuredConfiguration {
         RestAssuredConfig config = newConfig()
             .jsonConfig(jsonConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL))
             .redirect(redirectConfig().followRedirects(world.getBoolean(CukesOptions.FOLLOW_REDIRECTS, true)));
-        if(logStream != null)
+        if (logStream != null)
             config = config.logConfig(logConfig().defaultStream(logStream));
         if (!world.getBoolean(CukesOptions.GZIP_SUPPORT, true)) {
             config = config.decoderConfig(decoderConfig().contentDecoders(DEFLATE));

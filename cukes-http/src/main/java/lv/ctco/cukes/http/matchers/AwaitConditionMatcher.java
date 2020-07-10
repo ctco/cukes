@@ -1,6 +1,6 @@
 package lv.ctco.cukes.http.matchers;
 
-import cucumber.runtime.CucumberException;
+import io.cucumber.core.exception.CucumberException;
 import io.restassured.response.Response;
 import lv.ctco.cukes.http.AwaitCondition;
 import org.hamcrest.Description;
@@ -8,10 +8,15 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class AwaitConditionMatcher extends TypeSafeMatcher<Response> {
 
-    private AwaitCondition awaitCondition;
+    private final AwaitCondition awaitCondition;
 
     public AwaitConditionMatcher(AwaitCondition awaitCondition) {
         this.awaitCondition = awaitCondition;
+    }
+
+    @Override
+    public void describeTo(Description description) {
+        description.appendText("Matches successful or failure response.");
     }
 
     @Override
@@ -23,10 +28,5 @@ public class AwaitConditionMatcher extends TypeSafeMatcher<Response> {
             throw new CucumberException("Expected successful response but was failed.");
         }
         return false;
-    }
-
-    @Override
-    public void describeTo(Description description) {
-        description.appendText("Matches successful or failure response.");
     }
 }

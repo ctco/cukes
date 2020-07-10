@@ -1,7 +1,7 @@
 package lv.ctco.cukes.http.facade;
 
 import com.google.common.base.Optional;
-import cucumber.api.java.ObjectFactory;
+import io.cucumber.core.backend.ObjectFactory;
 import io.restassured.internal.ResponseParserRegistrar;
 import io.restassured.internal.RestAssuredResponseImpl;
 import io.restassured.internal.http.HttpResponseDecorator;
@@ -70,6 +70,40 @@ public class HttpAssertionFacadeImplTest {
                 "\"\"\"\n" +
                 body +
                 "\n\"\"\".\n");
+    }
+
+    private Response generateResponse(String contentType, int status, byte[] content) {
+        final BasicStatusLine statusLine = new BasicStatusLine(
+            new ProtocolVersion("HTTP", 1, 1),
+            status,
+            EnglishReasonPhraseCatalog.INSTANCE.getReason(status, Locale.ENGLISH));
+
+        final BasicHttpResponse httpResponse = new BasicHttpResponse(statusLine);
+        httpResponse.addHeader("Content-Type", contentType);
+
+        final HttpResponseDecorator httpResponseDecorator = new HttpResponseDecorator(httpResponse, content);
+        final RestAssuredResponseImpl restResponse = new RestAssuredResponseImpl();
+        restResponse.setStatusCode(status);
+        restResponse.parseResponse(
+            httpResponseDecorator,
+            content,
+            false,
+            new ResponseParserRegistrar()
+        );
+
+        return restResponse;
+    }
+
+    /**
+     * @param failureStatusCode - status code that should generate a failure
+     */
+    private void validateException(int failureStatusCode, String expectedMessage) {
+        try {
+            facade.statusCodeIs(failureStatusCode);
+            fail("Exception expected!");
+        } catch (AssertionError error) {
+            assertEquals(expectedMessage, error.getMessage());
+        }
     }
 
     @Test
@@ -160,39 +194,5 @@ public class HttpAssertionFacadeImplTest {
             200,
             "1 expectation failed.\n" +
                 "Expected status code \"200\" but was \"404\" with body <binary>.\n");
-    }
-
-    private Response generateResponse(String contentType, int status, byte[] content) {
-        final BasicStatusLine statusLine = new BasicStatusLine(
-            new ProtocolVersion("HTTP", 1, 1),
-            status,
-            EnglishReasonPhraseCatalog.INSTANCE.getReason(status, Locale.ENGLISH));
-
-        final BasicHttpResponse httpResponse = new BasicHttpResponse(statusLine);
-        httpResponse.addHeader("Content-Type", contentType);
-
-        final HttpResponseDecorator httpResponseDecorator = new HttpResponseDecorator(httpResponse, content);
-        final RestAssuredResponseImpl restResponse = new RestAssuredResponseImpl();
-        restResponse.setStatusCode(status);
-        restResponse.parseResponse(
-            httpResponseDecorator,
-            content,
-            false,
-            new ResponseParserRegistrar()
-        );
-
-        return restResponse;
-    }
-
-    /**
-     * @param failureStatusCode - status code that should generate a failure
-     */
-    private void validateException(int failureStatusCode, String expectedMessage) {
-        try {
-            facade.statusCodeIs(failureStatusCode);
-            fail("Exception expected!");
-        } catch (AssertionError error) {
-            assertEquals(expectedMessage, error.getMessage());
-        }
     }
 }

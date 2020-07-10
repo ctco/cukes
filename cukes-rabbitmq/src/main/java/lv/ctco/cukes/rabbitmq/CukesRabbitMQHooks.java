@@ -2,7 +2,7 @@ package lv.ctco.cukes.rabbitmq;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.After;
+import io.cucumber.java.After;
 import lv.ctco.cukes.rabbitmq.internal.ConnectionService;
 
 @Singleton

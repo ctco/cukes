@@ -2,7 +2,6 @@ package lv.ctco.cukes.http.logging;
 
 import com.google.common.base.Splitter;
 import com.google.inject.Inject;
-import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -36,8 +35,8 @@ public class HttpLoggingPlugin implements CukesHttpPlugin, CukesPlugin {
     private static final String DEFAULT_RESPONSE_INCLUDES = "";
 
     private final PrintStream logStream;
-    private RestAssuredConfiguration config;
     private final GlobalWorldFacade world;
+    private RestAssuredConfiguration config;
 
     @Inject
     public HttpLoggingPlugin(GlobalWorldFacade world, RestAssuredConfiguration config) {

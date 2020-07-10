@@ -1,4 +1,5 @@
 Feature: Search entities showcase
+
   Scenario: Should search by filter expression
     When the client searches entities within DN "ou=system" by filter "(uid=admin)"
     Then search result has size 1

@@ -11,6 +11,43 @@ import java.util.Map;
 
 public class OfTypeMatcher {
 
+    public static Matcher<Object> ofType(final String type) {
+        return new BaseMatcher<Object>() {
+            @Override
+            public boolean matches(Object obj) {
+
+                try {
+                    for (SupportedClass supportedClass : SupportedClass.values()) {
+                        if (isOfType(obj, supportedClass.getClassName())) {
+                            return true;
+                        }
+                    }
+                    return false;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+
+            private boolean isOfType(Object o, Class cls) {
+                return cls.isInstance(o) && type.equalsIgnoreCase(cls.getSimpleName());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("of type " + type);
+            }
+
+            @Override
+            public void describeMismatch(Object item, Description description) {
+                if (item != null) {
+                    description.appendText("of type " + item.getClass().getSimpleName().toLowerCase());
+                } else {
+                    description.appendText("was null");
+                }
+            }
+        };
+    }
+
     public enum SupportedClass {
         INTEGER(Integer.class),
         LONG(Long.class),
@@ -32,42 +69,5 @@ public class OfTypeMatcher {
         public Class getClassName() {
             return className;
         }
-    }
-
-    public static Matcher<Object> ofType(final String type) {
-        return new BaseMatcher<Object>() {
-            @Override
-            public boolean matches(Object obj) {
-
-                try {
-                    for (SupportedClass supportedClass : SupportedClass.values()) {
-                        if (isOfType(obj, supportedClass.getClassName())) {
-                            return true;
-                        }
-                    }
-                    return false;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("of type " + type);
-            }
-
-            @Override
-            public void describeMismatch(Object item, Description description) {
-                if (item != null) {
-                    description.appendText("of type " + item.getClass().getSimpleName().toLowerCase());
-                } else {
-                    description.appendText("was null");
-                }
-            }
-
-            private boolean isOfType(Object o, Class cls) {
-                return cls.isInstance(o) && type.equalsIgnoreCase(cls.getSimpleName());
-            }
-        };
     }
 }

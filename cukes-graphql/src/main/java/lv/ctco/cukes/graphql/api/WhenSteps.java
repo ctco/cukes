@@ -2,7 +2,7 @@ package lv.ctco.cukes.graphql.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import lv.ctco.cukes.http.facade.HttpRequestFacade;
 import lv.ctco.cukes.http.facade.HttpResponseFacade;

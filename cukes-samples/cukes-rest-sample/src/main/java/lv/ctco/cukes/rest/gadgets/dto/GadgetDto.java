@@ -1,6 +1,6 @@
 package lv.ctco.cukes.rest.gadgets.dto;
 
-import java.util.*;
+import java.util.Date;
 
 public class GadgetDto {
     private Integer id;

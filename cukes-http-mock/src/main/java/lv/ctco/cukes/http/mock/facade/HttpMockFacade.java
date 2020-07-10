@@ -61,10 +61,6 @@ public class HttpMockFacade {
         finishHttpMock(httpRespondStatusCode, Times.unlimited());
     }
 
-    public void finishHttpMock(Integer httpRespondStatusCode, int times) {
-        finishHttpMock(httpRespondStatusCode, Times.exactly(times));
-    }
-
     protected void finishHttpMock(Integer httpRespondStatusCode, Times times) {
         Expectation[] activeExpectations = client.retrieveActiveExpectations(request);
         Optional<Expectation> defaultExpectation = Arrays.stream(activeExpectations).
@@ -97,6 +93,10 @@ public class HttpMockFacade {
 
     private void restoreExpectation(Expectation exp) {
         client.when(exp.getHttpRequest(), exp.getTimes(), exp.getTimeToLive()).respond(exp.getHttpResponse());
+    }
+
+    public void finishHttpMock(Integer httpRespondStatusCode, int times) {
+        finishHttpMock(httpRespondStatusCode, Times.exactly(times));
     }
 
 }

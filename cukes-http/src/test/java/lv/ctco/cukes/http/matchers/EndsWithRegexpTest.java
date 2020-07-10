@@ -1,8 +1,8 @@
 package lv.ctco.cukes.http.matchers;
 
 import lv.ctco.cukes.core.internal.matchers.EndsWithRegexp;
-import org.hamcrest.*;
-import org.junit.*;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 

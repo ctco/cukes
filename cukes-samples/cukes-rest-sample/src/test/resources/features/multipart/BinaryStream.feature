@@ -1,4 +1,5 @@
 Feature: Binary upload showcase
+
   Scenario: Excel Octet-Stream upload
     Given request body from binary file "multipart/testExcel.xlsx"
     Given header Content-Type with value "application/octet-stream"

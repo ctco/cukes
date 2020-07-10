@@ -44,6 +44,7 @@ public class SampleApplication extends Service<SampleConfiguration> {
         ContextInitializer initializer = new ContextInitializer(context);
         try {
             initializer.autoConfig();
-        } catch (JoranException ignored) {}
+        } catch (JoranException ignored) {
+        }
     }
 }

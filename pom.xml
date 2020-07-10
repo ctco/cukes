@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukes</groupId>
@@ -13,7 +14,6 @@
         <module>cukes-core</module>
         <module>cukes-http</module>
         <module>cukes-rest</module>
-        <module>cukes-rest-loadrunner</module>
         <module>cukes-graphql</module>
         <module>cukes-ldap</module>
         <module>cukes-rabbitmq</module>
@@ -154,7 +154,7 @@
 
     <properties>
         <guice.version>4.2.3</guice.version>
-        <cucumber.version>1.2.5</cucumber.version>
+        <cucumber.version>6.2.2</cucumber.version>
         <rest.assured.version>4.3.1</rest.assured.version>
     </properties>
 
@@ -272,19 +272,19 @@
 
             <!-- Cucumber -->
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>info.cukes</groupId>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-guice</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>

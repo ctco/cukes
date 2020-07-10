@@ -1,4 +1,5 @@
 Feature: Modify entity showcase
+
   Scenario: Should replace attributes
     Given let variable "cn" to be random UUID
     And the client imports LDIF:

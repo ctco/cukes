@@ -1,6 +1,5 @@
 package lv.ctco.cukes.rabbitmq;
 
-import com.google.inject.AbstractModule;
 import lv.ctco.cukes.core.extension.AbstractCukesModule;
 import lv.ctco.cukes.core.extension.CukesInjectableModule;
 import lv.ctco.cukes.core.facade.RandomGeneratorFacade;

@@ -2,7 +2,7 @@ package lv.ctco.cukes.http.mock.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.core.internal.resources.ResourceFileReader;
 import lv.ctco.cukes.http.mock.facade.HttpMockFacade;
@@ -55,6 +55,7 @@ public class MockGivenSteps {
     public void mockRespondsWithStatusCode(Integer httpRespondStatusCode) {
         facade.finishHttpMock(httpRespondStatusCode);
     }
+
     @Given("^mock responds with status code \"([^\"]*)\" exactly (\\d+) times?$")
     public void mockRespondsWithStatusCode(Integer httpRespondStatusCode, int times) {
         facade.finishHttpMock(httpRespondStatusCode, times);

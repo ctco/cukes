@@ -1,6 +1,6 @@
 package lv.ctco.cukes.plugins.api;
 
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 
 public class TestSteps {
 

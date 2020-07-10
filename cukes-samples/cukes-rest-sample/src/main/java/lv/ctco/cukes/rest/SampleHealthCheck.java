@@ -1,6 +1,6 @@
 package lv.ctco.cukes.rest;
 
-import com.yammer.metrics.core.*;
+import com.yammer.metrics.core.HealthCheck;
 
 public class SampleHealthCheck extends HealthCheck {
 
@@ -9,7 +9,7 @@ public class SampleHealthCheck extends HealthCheck {
     }
 
     @Override
-    protected Result check() throws Exception {
+    protected Result check() {
         return Result.healthy(); // To Disable Dropwizard warnings
     }
 }

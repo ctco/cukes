@@ -6,9 +6,7 @@ import javax.naming.directory.Attributes;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LDIFUtilsTest {

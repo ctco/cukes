@@ -65,6 +65,10 @@ public class Files {
         }
     }
 
+    private static boolean isSeparator(char ch) {
+        return ch == 47 || ch == 92;
+    }
+
     public static List<String> readLines(File file) throws IOException {
         return readLines(file, Charset.defaultCharset());
     }
@@ -83,10 +87,6 @@ public class Files {
         return var3;
     }
 
-    public static byte[] readBytes(File file) throws IOException {
-        return IOUtils.toByteArray(new FileInputStream(file));
-    }
-
     public static FileInputStream openInputStream(File file) throws IOException {
         if (file.exists()) {
             if (file.isDirectory()) {
@@ -101,8 +101,8 @@ public class Files {
         }
     }
 
-    private static boolean isSeparator(char ch) {
-        return ch == 47 || ch == 92;
+    public static byte[] readBytes(File file) throws IOException {
+        return IOUtils.toByteArray(new FileInputStream(file));
     }
 
     public static URL createCukesPropertyFileUrl(final ClassLoader classLoader) {

@@ -26,21 +26,11 @@ import static org.hamcrest.Matchers.*;
 public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Inject
+    HttpResponseFacade facade;
+    @Inject
     private GlobalWorldFacade world;
-
     @Inject
     private JsonParser jsonParser;
-
-    @Inject
-    HttpResponseFacade facade;
-
-    private String getPath(String path) {
-        if (!StringUtils.isEmpty(facade.getResponsePrefix())) {
-            return facade.getResponsePrefix() + path;
-        } else {
-            return path;
-        }
-    }
 
     @Override
     public void bodyEqualTo(String body) {
@@ -132,6 +122,14 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
         }
     }
 
+    private String getPath(String path) {
+        if (!StringUtils.isEmpty(facade.getResponsePrefix())) {
+            return facade.getResponsePrefix() + path;
+        } else {
+            return path;
+        }
+    }
+
     @Override
     public void bodyContainsPathWithValue(String path, String value) {
         Response response = this.facade.response();
@@ -155,6 +153,13 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     public void bodyContainsArrayWithSize(String path, String size) {
         Response response = this.facade.response();
         assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), ArrayWithSizeMatcher.arrayWithSize(size)));
+    }
+
+    @Override
+    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path),
+            EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
@@ -201,13 +206,6 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     @Override
     public void failureIsExpected() {
         this.facade.setExpectException(true);
-    }
-
-    @Override
-    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
-        Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path),
-            EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override

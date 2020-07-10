@@ -18,37 +18,37 @@ public class BaseContextHandlerTest {
     ContextCapturer capturer;
 
     @Test
-    public void shouldExtractNoGroupsInPattern()  {
+    public void shouldExtractNoGroupsInPattern() {
         List<String> groups = capturer.extractGroups("(hello)");
         assertThat(groups, is(empty()));
     }
 
     @Test
-    public void shouldExtractSingleGroupInPattern()  {
+    public void shouldExtractSingleGroupInPattern() {
         List<String> groups = capturer.extractGroups("{(hello)}");
         assertThat(groups, contains("hello"));
     }
 
     @Test
-    public void shouldExtractTwoGroupsInPattern()  {
+    public void shouldExtractTwoGroupsInPattern() {
         List<String> groups = capturer.extractGroups("{(hello)}, {(world)}");
         assertThat(groups, contains("hello", "world"));
     }
 
     @Test
-    public void shouldNotExtractGroupsInPatternWithSpacesInName()  {
+    public void shouldNotExtractGroupsInPatternWithSpacesInName() {
         List<String> groups = capturer.extractGroups("{(hello world)}");
         assertThat(groups, is(empty()));
     }
 
     @Test
-    public void shouldExtractGroupsInPatternWithUnderscoreInName()  {
+    public void shouldExtractGroupsInPatternWithUnderscoreInName() {
         List<String> groups = capturer.extractGroups("{(hello_world)}");
         assertThat(groups, contains("hello_world"));
     }
 
     @Test
-    public void shouldExtractDotSeparatedName()  {
+    public void shouldExtractDotSeparatedName() {
         List<String> groups = capturer.extractGroups("{(hello.world)}");
         assertThat(groups, contains("hello.world"));
     }

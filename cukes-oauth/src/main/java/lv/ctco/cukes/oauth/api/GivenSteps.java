@@ -2,7 +2,7 @@ package lv.ctco.cukes.oauth.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import lv.ctco.cukes.core.CukesDocs;
 import lv.ctco.cukes.http.facade.HttpRequestFacade;
 import lv.ctco.cukes.oauth.facade.OAuthFacade;

@@ -29,12 +29,23 @@ public class H2MemoryDatabase implements ConnectionFactory {
         return startNewConnection();
     }
 
-    public void openConnection() {
-        dbConnection = startNewConnection();
+    public static Connection startNewConnection() {
+        Connection dbConnection = null;
+        try {
+            Class.forName(DB_DRIVER);
+        } catch (ClassNotFoundException e) {
+            log.error(e.getMessage());
+        }
+        try {
+            dbConnection = DriverManager.getConnection(DB_dbConnection, DB_USER, DB_PASSWORD);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        return dbConnection;
     }
 
-    public void closeConnection() throws SQLException {
-        dbConnection.close();
+    public void openConnection() {
+        dbConnection = startNewConnection();
     }
 
     public void clearDataBase() throws SQLException {
@@ -47,6 +58,10 @@ public class H2MemoryDatabase implements ConnectionFactory {
             closeConnection();
             throw e;
         }
+    }
+
+    public void closeConnection() throws SQLException {
+        dbConnection.close();
     }
 
     public void createAndFillTable() throws SQLException {
@@ -68,20 +83,5 @@ public class H2MemoryDatabase implements ConnectionFactory {
 
     public List<Map<String, String>> getTableValues(String schema, String tableName, List<String> columns) {
         return repository.getTableValues(schema, tableName, columns);
-    }
-
-    public static Connection startNewConnection() {
-        Connection dbConnection = null;
-        try {
-            Class.forName(DB_DRIVER);
-        } catch (ClassNotFoundException e) {
-            log.error(e.getMessage());
-        }
-        try {
-            dbConnection = DriverManager.getConnection(DB_dbConnection, DB_USER, DB_PASSWORD);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        return dbConnection;
     }
 }

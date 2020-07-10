@@ -1,4 +1,5 @@
 Feature: DSL showcase
+
   Background:
     Given connecting to host "localhost"
     And server responds on port 5672

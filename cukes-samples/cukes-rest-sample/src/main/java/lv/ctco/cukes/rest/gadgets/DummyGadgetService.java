@@ -5,14 +5,7 @@ import lv.ctco.cukes.rest.gadgets.dto.GadgetDto;
 import lv.ctco.cukes.rest.gadgets.dto.GadgetType;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DummyGadgetService {
 
@@ -48,6 +41,11 @@ public class DummyGadgetService {
         return newId;
     }
 
+    private boolean isValidType(GadgetDto gadget) {
+        GadgetType type = gadget.getType();
+        return type != null && type != GadgetType.BOOK_READER;
+    }
+
     public boolean updateGadget(Integer id, GadgetDto updated) {
         GadgetDto gadget = storage.getGadgets().get(id);
         if (gadget == null || updated == null || !isValidType(updated)) return false;
@@ -68,10 +66,5 @@ public class DummyGadgetService {
         } else {
             return false;
         }
-    }
-
-    private boolean isValidType(GadgetDto gadget) {
-        GadgetType type = gadget.getType();
-        return type != null && type != GadgetType.BOOK_READER;
     }
 }

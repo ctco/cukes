@@ -1,4 +1,5 @@
 Feature: Create entity showcase
+
   Scenario: Should create entity from LDIF inline
     When the client creates entity using LDIF:
     """
