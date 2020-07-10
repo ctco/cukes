@@ -6,8 +6,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Stage;
 import io.cucumber.core.backend.ObjectFactory;
-import io.cucumber.guice.CucumberScopes;
-import io.cucumber.guice.ScenarioModule;
 import io.cucumber.guice.ScenarioScope;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.extension.CukesInjectableModule;
@@ -17,16 +15,18 @@ import java.lang.reflect.Constructor;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkState;
+import static io.cucumber.guice.CucumberModules.createScenarioModule;
 
 public class SingletonObjectFactory implements ObjectFactory {
 
     private static final Set<Module> MODULES = Sets.newConcurrentHashSet();
-    private static Injector injector = null;
 
     static {
-        MODULES.add(new ScenarioModule(CucumberScopes.createScenarioScope()));
+        MODULES.add(createScenarioModule());
         MODULES.add(new CukesGuiceModule());
     }
+
+    private static Injector injector = null;
 
     /**
      * Internal use only.
@@ -36,10 +36,6 @@ public class SingletonObjectFactory implements ObjectFactory {
      * @deprecated
      */
     public SingletonObjectFactory() { // required
-    }
-
-    public static SingletonObjectFactory instance() {
-        return InstanceHolder.INSTANCE;
     }
 
     @Override
@@ -52,6 +48,22 @@ public class SingletonObjectFactory implements ObjectFactory {
     public void stop() {
         lazyInitInjector();
         injector.getInstance(ScenarioScope.class).exitScope();
+    }
+
+    @Override
+    public boolean addClass(Class<?> aClass) {
+        return true;
+    }
+
+    @Override
+    public <T> T getInstance(Class<T> aClass) {
+        lazyInitInjector();
+        return injector.getInstance(aClass);
+    }
+
+    public void addModule(Module module) {
+        checkState(injector == null, "Cannot add modules after the factory has been used!");
+        MODULES.add(module);
     }
 
     private void lazyInitInjector() {
@@ -74,20 +86,8 @@ public class SingletonObjectFactory implements ObjectFactory {
         }
     }
 
-    public void addModule(Module module) {
-        checkState(injector == null, "Cannot add modules after the factory has been used!");
-        MODULES.add(module);
-    }
-
-    @Override
-    public boolean addClass(Class<?> aClass) {
-        return true;
-    }
-
-    @Override
-    public <T> T getInstance(Class<T> aClass) {
-        lazyInitInjector();
-        return injector.getInstance(aClass);
+    public static SingletonObjectFactory instance() {
+        return InstanceHolder.INSTANCE;
     }
 
     private static class InstanceHolder {

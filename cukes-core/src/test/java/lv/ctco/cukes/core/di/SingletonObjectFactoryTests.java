@@ -1,5 +1,6 @@
 package lv.ctco.cukes.core.di;
 
+import io.cucumber.guice.ScenarioScoped;
 import lv.ctco.cukes.core.internal.di.SingletonObjectFactory;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -14,7 +15,7 @@ public class SingletonObjectFactoryTests {
     @BeforeClass
     public static void setup() {
         instance = SingletonObjectFactory.instance();
-        instance.addModule(binder -> binder.bind(ScenarioScopedClass.class));
+        instance.addModule(binder -> binder.bind(ScenarioScopedClass.class).in(ScenarioScoped.class));
     }
 
     @After

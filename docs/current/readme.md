@@ -71,7 +71,7 @@ testCompile("lv.ctco.cukes:cukes-http:${cukes.version}");
 |header (["]+) with value "(.+)"||
 |param "(.+)" "(.+)"||
 |proxy settings are "(http\|https)://([:]+)(?::(\d+))?"||
-|queryParam "(.+)" is "(.+)"||
+|queryParam "(.+)" is "(.\*)"||
 |session ID "(.+)" with value "(.+)"||
 |session ID is "(.+)"||
 |should wait at most (\d+) ([ ]+) with interval (\d+) ([ ]+) until header "(["]+)" equal to "(["]+)" or fail with "(["]+)"||

@@ -1,7 +1,7 @@
 package lv.ctco.cukes.rest.run;
 
 
-import io.cucumber.guice.CucumberScopes;
+import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import lv.ctco.cukes.core.internal.di.SingletonObjectFactory;
@@ -20,7 +20,7 @@ public class RunCustomCukesTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        SingletonObjectFactory.instance().addModule(binder -> binder.bind(CustomSteps.StateSaver.class));
+        SingletonObjectFactory.instance().addModule(binder -> binder.bind(CustomSteps.StateSaver.class).in(ScenarioScoped.class));
 
         new SampleApplication().run(new String[]{"server", "server.yml"});
     }
