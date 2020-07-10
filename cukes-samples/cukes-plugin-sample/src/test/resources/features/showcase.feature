@@ -1,4 +1,5 @@
 Feature: Plugins showcase
+
   Scenario: fast scenario
     Given let variable "test" to be random UUID
 

@@ -28,19 +28,19 @@ public class GlobalWorldFacade {
         return world.get(key);
     }
 
-    public String get(String key, String defaultValue) {
-        Optional<String> value = world.get(key);
-        return value.isPresent()
-            ? value.get()
-            : defaultValue;
-    }
-
     public boolean getBoolean(String key) {
         return getBoolean(key, false);
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
         return Boolean.valueOf(get(key, Boolean.toString(defaultValue)));
+    }
+
+    public String get(String key, String defaultValue) {
+        Optional<String> value = world.get(key);
+        return value.isPresent()
+            ? value.get()
+            : defaultValue;
     }
 
     public void reconstruct() {

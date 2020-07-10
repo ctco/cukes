@@ -1,16 +1,14 @@
 package lv.ctco.cukes.rest.common;
 
-import com.google.inject.*;
-import com.yammer.dropwizard.config.*;
+import com.google.inject.Inject;
+import com.yammer.dropwizard.config.Configuration;
 
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response;
 
 public class RestUtils {
 
     @Inject
     Configuration config;
-
-    private static final String BASE_URI = "http://localhost:8080";
 
     public Response ok() {
         return buildResponse(200);

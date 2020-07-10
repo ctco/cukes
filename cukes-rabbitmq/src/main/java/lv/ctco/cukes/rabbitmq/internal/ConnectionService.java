@@ -58,14 +58,6 @@ public class ConnectionService {
         setConnectionFactoryParameter(this.factory::setVirtualHost, virtualHost);
     }
 
-    private <T> void setConnectionFactoryParameter(Consumer<T> setter, T value) {
-        if (value == null) {
-            return;
-        }
-        invalidate();
-        setter.accept(value);
-    }
-
     public void setSsl(boolean ssl) {
         if (ssl) {
             invalidate();
@@ -89,14 +81,6 @@ public class ConnectionService {
         }
     }
 
-    @SneakyThrows({IOException.class, TimeoutException.class})
-    private Connection getConnection() {
-        if (connection == null) {
-            connection = factory.newConnection();
-        }
-        return connection;
-    }
-
     @SneakyThrows(IOException.class)
     public Channel getChannel() {
         if (channel == null) {
@@ -105,12 +89,28 @@ public class ConnectionService {
         return channel;
     }
 
+    @SneakyThrows({IOException.class, TimeoutException.class})
+    private Connection getConnection() {
+        if (connection == null) {
+            connection = factory.newConnection();
+        }
+        return connection;
+    }
+
     public void initConfiguration() {
         setHost(globalWorldFacade.get(HOST, "localhost"));
         setPort(Integer.parseInt(globalWorldFacade.get(PORT, "5672")));
         setUsername(globalWorldFacade.get(USER, "guest"));
         setPassword(globalWorldFacade.get(PASSWORD, "password"));
         setVirtualHost(globalWorldFacade.get(VIRTUAL_HOST, "default"));
+    }
+
+    private <T> void setConnectionFactoryParameter(Consumer<T> setter, T value) {
+        if (value == null) {
+            return;
+        }
+        invalidate();
+        setter.accept(value);
     }
 
 }

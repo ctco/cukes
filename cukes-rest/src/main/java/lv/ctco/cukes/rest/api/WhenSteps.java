@@ -2,7 +2,7 @@ package lv.ctco.cukes.rest.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.When;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.http.facade.HttpResponseFacade;
 

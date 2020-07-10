@@ -1,6 +1,5 @@
 package lv.ctco.cukes.oauth.sample;
 
-import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.extension.CukesPlugin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;

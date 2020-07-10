@@ -1,4 +1,5 @@
 Feature: Variables usage showcase
+
   Scenario: Should prepend 'hello' to message
     Given let variable "name" to be random UUID
     And prepare new message

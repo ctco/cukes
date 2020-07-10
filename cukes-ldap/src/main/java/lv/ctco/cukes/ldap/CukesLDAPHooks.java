@@ -2,7 +2,7 @@ package lv.ctco.cukes.ldap;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.After;
+import io.cucumber.java.After;
 import lv.ctco.cukes.ldap.facade.EntityFacade;
 import lv.ctco.cukes.ldap.facade.ModificationFacade;
 import lv.ctco.cukes.ldap.facade.SetupFacade;

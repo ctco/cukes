@@ -20,16 +20,16 @@ public class GQLRequestFacade {
         graphQLRequest = new GraphQLRequest();
     }
 
-    private RequestSpecification specification() {
-        return requestFacade.value();
-    }
-
     public void queryBody(String body) {
         graphQLRequest.setQuery(body);
     }
 
     public void body(GraphQLRequest request) {
         specification().body(request);
+    }
+
+    private RequestSpecification specification() {
+        return requestFacade.value();
     }
 
     public GraphQLRequest getGraphQLRequest() {

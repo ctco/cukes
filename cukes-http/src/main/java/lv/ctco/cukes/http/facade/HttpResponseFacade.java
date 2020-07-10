@@ -40,10 +40,9 @@ public class HttpResponseFacade {
         final HttpMethod method = HttpMethod.parse(httpMethod);
 
         // TODO: Should be refactored into CukesHttpPlugin
-        boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         AwaitCondition awaitCondition = specification.awaitCondition();
         try {
-            if (awaitCondition != null && !filterEnabled) {
+            if (awaitCondition != null) {
                 int intervalTime = awaitCondition.getInterval().getValue();
                 TimeUnit intervalUnit = awaitCondition.getInterval().getUnitDict().getTimeUnit();
 
@@ -68,19 +67,7 @@ public class HttpResponseFacade {
         specification.initNewSpecification();
     }
 
-    private void authenticate() {
-        Optional<String> $type = world.get(CukesOptions.AUTH_TYPE);
-        if (!$type.isPresent()) {
-            return;
-        }
-
-        if ($type.get().equalsIgnoreCase("BASIC")) {
-            authBasic();
-        }
-    }
-
     private Callable<Response> doRequest(final String url, final HttpMethod method) {
-        final boolean filterEnabled = world.getBoolean(CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS);
         return () -> {
             authenticate();
 
@@ -95,15 +82,29 @@ public class HttpResponseFacade {
             for (CukesHttpPlugin plugin : pluginSet) {
                 plugin.afterRequest(response);
             }
-            if (!filterEnabled) {
-                cacheHeaders(response);
-            }
+            cacheHeaders(response);
             return response;
         };
     }
 
-    public Response response() {
-        return response;
+    private void authenticate() {
+        Optional<String> $type = world.get(CukesOptions.AUTH_TYPE);
+        if (!$type.isPresent()) {
+            return;
+        }
+
+        if ($type.get().equalsIgnoreCase("BASIC")) {
+            authBasic();
+        }
+    }
+
+    private void cacheHeaders(Response response) {
+        clearOldHeaders();
+        Headers headers = response.getHeaders();
+        for (Header header : headers) {
+            String headerName = CukesOptions.HEADER_PREFIX + header.getName();
+            world.put(headerName, header.getValue());
+        }
     }
 
     private void authBasic() {
@@ -112,6 +113,17 @@ public class HttpResponseFacade {
         if ($username.isPresent() && $password.isPresent()) {
             specification.basicAuthentication($username.get(), $password.get());
         }
+    }
+
+    private void clearOldHeaders() {
+        Set<String> keys = world.getKeysStartingWith(CukesOptions.HEADER_PREFIX);
+        for (String key : keys) {
+            world.remove(key);
+        }
+    }
+
+    public Response response() {
+        return response;
     }
 
     public void setExpectException(boolean expectException) {
@@ -132,22 +144,6 @@ public class HttpResponseFacade {
 
     public void setResponsePrefix(String responsePrefix) {
         this.responsePrefix = responsePrefix;
-    }
-
-    private void cacheHeaders(Response response) {
-        clearOldHeaders();
-        Headers headers = response.getHeaders();
-        for (Header header : headers) {
-            String headerName = CukesOptions.HEADER_PREFIX + header.getName();
-            world.put(headerName, header.getValue());
-        }
-    }
-
-    private void clearOldHeaders() {
-        Set<String> keys = world.getKeysStartingWith(CukesOptions.HEADER_PREFIX);
-        for (String key : keys) {
-            world.remove(key);
-        }
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 public class ModificationFacade {
 
     private static final Map<String, Integer> OP_MAPPING = new HashMap<>();
+
     static {
         OP_MAPPING.put("add", DirContext.ADD_ATTRIBUTE);
         OP_MAPPING.put("remove", DirContext.REMOVE_ATTRIBUTE);
@@ -27,10 +28,6 @@ public class ModificationFacade {
     EntityService entityService;
 
     private List<ModificationItem> modifications = new ArrayList<>();
-
-    public void reset() {
-        modifications.clear();
-    }
 
     public void add(String attribute, String operation, String value) {
         Integer op = OP_MAPPING.get(operation);
@@ -43,5 +40,9 @@ public class ModificationFacade {
     public void execute(String dn) {
         entityService.modifyByDn(dn, modifications);
         reset();
+    }
+
+    public void reset() {
+        modifications.clear();
     }
 }

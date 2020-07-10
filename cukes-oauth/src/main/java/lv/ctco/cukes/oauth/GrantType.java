@@ -11,6 +11,7 @@ public enum GrantType {
     password(OAuthCukesConstants.USER_NAME, OAuthCukesConstants.PASSWORD);
 
     private static final Map<String, String> attributeNameMapping = new HashMap<>();
+
     static {
         attributeNameMapping.put(OAuthCukesConstants.USER_NAME, "username");
         attributeNameMapping.put(OAuthCukesConstants.PASSWORD, "password");

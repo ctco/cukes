@@ -2,7 +2,7 @@ package lv.ctco.cukes.core.api;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import lv.ctco.cukes.core.CukesDocs;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.facade.RandomGeneratorFacade;
@@ -39,11 +39,6 @@ public class GivenSteps {
         this.variableFacade.setVariable(variableName, this.randomGeneratorFacade.withLength(length));
     }
 
-    @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
-    public void var_assigned(String varName, String value) {
-        this.variableFacade.setVariable(varName, value);
-    }
-
     @Deprecated
     @Given("^let variable \"([^\"]*)\" be equal to current timestamp$")
     public void letVariableBeEqualToCurrentTimestampOld(String varName) {
@@ -63,5 +58,10 @@ public class GivenSteps {
     @Given("^resources root is \"(.+)\"$")
     public void resources_Root_Is(String url) {
         var_assigned(CukesOptions.RESOURCES_ROOT, url);
+    }
+
+    @Given("^let variable \"(.+)\" equal to \"(.+)\"$")
+    public void var_assigned(String varName, String value) {
+        this.variableFacade.setVariable(varName, value);
     }
 }

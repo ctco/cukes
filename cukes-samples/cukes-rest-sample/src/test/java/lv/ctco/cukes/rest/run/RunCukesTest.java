@@ -1,17 +1,16 @@
 package lv.ctco.cukes.rest.run;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import lv.ctco.cukes.rest.SampleApplication;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber2.json"},
+    plugin = {"pretty", "json:target/cucumber.json", "json:target/cucumber2.json"},
     features = {"classpath:features/gadgets/", "classpath:features/healthcheck/", "classpath:features/variables/", "classpath:features/multipart/"},
-    glue = "lv.ctco.cukes",
-    strict = true
+    glue = "lv.ctco.cukes"
 )
 public class RunCukesTest {
 

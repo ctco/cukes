@@ -17,21 +17,8 @@ public class ContainsPattern extends BaseMatcher<CharSequence> {
         this.match = match;
     }
 
-    public ContainsPattern(Pattern p) {
-        this(p, false);
-    }
-
     public ContainsPattern(String regex, boolean match) {
         this(Pattern.compile(Strings.escapeRegex(regex)), match);
-    }
-
-    @Override
-    public void describeTo(Description description) {
-        description.appendText("a string ")
-          .appendText(match ? "matching" : "containing")
-          .appendText(" /")
-          .appendText(p.pattern())
-          .appendText("/");
     }
 
     public static Matcher<CharSequence> containsPattern(String regex) {
@@ -44,6 +31,15 @@ public class ContainsPattern extends BaseMatcher<CharSequence> {
 
     public static Matcher<CharSequence> matchesPattern(Pattern p) {
         return new ContainsPattern(p, true);
+    }
+
+    @Override
+    public void describeTo(Description description) {
+        description.appendText("a string ")
+            .appendText(match ? "matching" : "containing")
+            .appendText(" /")
+            .appendText(p.pattern())
+            .appendText("/");
     }
 
     @Override

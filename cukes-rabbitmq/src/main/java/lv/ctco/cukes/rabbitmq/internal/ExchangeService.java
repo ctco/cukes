@@ -34,10 +34,10 @@ public class ExchangeService {
         Pattern propertyPattern = Pattern.compile("rabbitmq.exchange\\.(\\d+)\\.(name|type|durable)");
         Set<String> keys = new TreeSet<>(this.globalWorldFacade.getKeysStartingWith("rabbitmq.exchange"));
         Set<String> ids = keys.stream().
-                map(propertyPattern::matcher).
-                filter(Matcher::matches).
-                map(matcher -> matcher.group(1)).
-                collect(Collectors.toSet());
+            map(propertyPattern::matcher).
+            filter(Matcher::matches).
+            map(matcher -> matcher.group(1)).
+            collect(Collectors.toSet());
         for (String id : ids) {
             String name = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".name").or(() -> {
                 throw new IllegalArgumentException("No name specified for predefined exchange: rabbitmq.exchange." + id + ".name");
@@ -49,21 +49,21 @@ public class ExchangeService {
 
     }
 
-    public void setDefaultExchange(String exchange) {
-        globalWorldFacade.put(DEFAULT_EXCHANGE_NAME_ATTRIBUTE, exchange);
-    }
-
-    public String getDefaultExchange() {
-        return globalWorldFacade.get(DEFAULT_EXCHANGE_NAME_ATTRIBUTE).orNull();
+    @SneakyThrows(IOException.class)
+    public void declareExchange(String exchange, String type, boolean durable) {
+        getChannel().exchangeDeclare(exchange, type, durable);
     }
 
     private Channel getChannel() {
         return connectionService.getChannel();
     }
 
-    @SneakyThrows(IOException.class)
-    public void declareExchange(String exchange, String type, boolean durable) {
-        getChannel().exchangeDeclare(exchange, type, durable);
+    public String getDefaultExchange() {
+        return globalWorldFacade.get(DEFAULT_EXCHANGE_NAME_ATTRIBUTE).orNull();
+    }
+
+    public void setDefaultExchange(String exchange) {
+        globalWorldFacade.put(DEFAULT_EXCHANGE_NAME_ATTRIBUTE, exchange);
     }
 
     @SneakyThrows(IOException.class)

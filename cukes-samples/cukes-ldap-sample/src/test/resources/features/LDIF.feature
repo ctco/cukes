@@ -1,4 +1,5 @@
 Feature: LDIF showcase
+
   Scenario: Import LDIF and verify response against LDIF
     Given the client imports LDIF:
     """

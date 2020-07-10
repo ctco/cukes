@@ -17,13 +17,11 @@ import java.util.stream.IntStream;
 @InflateContext
 public class RandomGeneratorFacadeImpl implements RandomGeneratorFacade {
 
-    private Map<Character, Supplier<Integer>> randomGenerators = new HashMap<>();
-
-    private SecureRandom random = new SecureRandom();
-
     private static final int CAPITAL_CHAR_BOUNDS = 'Z' - 'A';
     private static final int CHAR_BOUNDS = 'z' - 'a';
     private static final int NUMBER_BOUNDS = '9' - '0';
+    private Map<Character, Supplier<Integer>> randomGenerators = new HashMap<>();
+    private SecureRandom random = new SecureRandom();
 
     public RandomGeneratorFacadeImpl() {
         randomGenerators.put('A', () -> 'A' + random.nextInt(CAPITAL_CHAR_BOUNDS));
@@ -59,22 +57,22 @@ public class RandomGeneratorFacadeImpl implements RandomGeneratorFacade {
             ).toString();
     }
 
-    private BiConsumer<StringBuilder, StringBuilder> resultMerger() {
-        return (cont1, cont2) -> new StringBuilder(cont1.toString()).append(cont2.toString());
-    }
-
-    private ObjIntConsumer<StringBuilder> accumulator() {
-        return (container, ch) -> container.append((char) ch);
+    private int mapPatternCharacter(int ch) {
+        Supplier<Integer> characterSupplier = randomGenerators.get((char) ch);
+        if (characterSupplier == null)
+            throw new CukesRuntimeException("Invalid password pattern character: " + ch + ". Pattern should contain combination of A,a,0");
+        return characterSupplier.get();
     }
 
     private Supplier<StringBuilder> producer() {
         return StringBuilder::new;
     }
 
-    private int mapPatternCharacter(int ch) {
-        Supplier<Integer> characterSupplier = randomGenerators.get((char) ch);
-        if (characterSupplier == null)
-            throw new CukesRuntimeException("Invalid password pattern character: " + ch + ". Pattern should contain combination of A,a,0");
-        return characterSupplier.get();
+    private ObjIntConsumer<StringBuilder> accumulator() {
+        return (container, ch) -> container.append((char) ch);
+    }
+
+    private BiConsumer<StringBuilder, StringBuilder> resultMerger() {
+        return (cont1, cont2) -> new StringBuilder(cont1.toString()).append(cont2.toString());
     }
 }

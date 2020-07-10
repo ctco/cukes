@@ -62,7 +62,7 @@ public class EntityService {
         }
     }
 
-    public List<Attributes> searchByFilter(String dn, String filter){
+    public List<Attributes> searchByFilter(String dn, String filter) {
         try {
             LdapContext context = connectionService.getContext();
             NamingEnumeration<SearchResult> searchResults = context.search(dn, filter, new SearchControls());

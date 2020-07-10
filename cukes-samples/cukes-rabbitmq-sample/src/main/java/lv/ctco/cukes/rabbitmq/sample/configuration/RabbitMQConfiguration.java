@@ -73,12 +73,12 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    RabbitAdmin rabbitAdmin(org.springframework.amqp.rabbit.connection.ConnectionFactory  cf) {
+    RabbitAdmin rabbitAdmin(org.springframework.amqp.rabbit.connection.ConnectionFactory cf) {
         return new RabbitAdmin(cf);
     }
 
     @Bean
-    RabbitTemplate rabbitTemplate(org.springframework.amqp.rabbit.connection.ConnectionFactory  cf,
+    RabbitTemplate rabbitTemplate(org.springframework.amqp.rabbit.connection.ConnectionFactory cf,
                                   ObjectMapper mapper) {
         RabbitTemplate template = new RabbitTemplate(cf);
         template.setExchange(EXCHANGE_NAME);
@@ -94,7 +94,7 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(org.springframework.amqp.rabbit.connection.ConnectionFactory  cf,
+    SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(org.springframework.amqp.rabbit.connection.ConnectionFactory cf,
                                                                         ObjectMapper mapper) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(cf);

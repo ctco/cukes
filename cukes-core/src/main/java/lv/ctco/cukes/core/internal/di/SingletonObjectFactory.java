@@ -5,9 +5,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Stage;
-import cucumber.api.guice.CucumberModules;
-import cucumber.api.java.ObjectFactory;
-import cucumber.runtime.java.guice.ScenarioScope;
+import io.cucumber.core.backend.ObjectFactory;
+import io.cucumber.guice.ScenarioScope;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.extension.CukesInjectableModule;
 import org.reflections.Reflections;
@@ -16,13 +15,14 @@ import java.lang.reflect.Constructor;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkState;
+import static io.cucumber.guice.CucumberModules.createScenarioModule;
 
 public class SingletonObjectFactory implements ObjectFactory {
 
     private static final Set<Module> MODULES = Sets.newConcurrentHashSet();
 
     static {
-        MODULES.add(CucumberModules.SCENARIO);
+        MODULES.add(createScenarioModule());
         MODULES.add(new CukesGuiceModule());
     }
 

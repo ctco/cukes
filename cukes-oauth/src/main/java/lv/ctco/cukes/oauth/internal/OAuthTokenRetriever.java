@@ -88,8 +88,8 @@ public class OAuthTokenRetriever {
             params.put("scope", scope.get());
         }
         return params.entrySet().
-                stream().
-                map(e -> e.getKey() + "=" + e.getValue()).
-                reduce("", (s, s2) -> s + "&" + s2);
+            stream().
+            map(e -> e.getKey() + "=" + e.getValue()).
+            reduce("", (s, s2) -> s + "&" + s2);
     }
 }

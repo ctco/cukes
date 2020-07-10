@@ -1,24 +1,23 @@
 package lv.ctco.cukes.ldap.sample;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    format = {"pretty", "json:target/cucumber.json", "lv.ctco.cukes.core.formatter.CukesJsonFormatter:target/cucumber.json"},
+    plugin = {"pretty", "json:target/cucumber.json", "json:target/cucumber.json"},
     features = {"classpath:features/"},
-    glue = {"lv.ctco.cukes.ldap", "lv.ctco.cukes.core.api"},
-    strict = true
+    glue = {"lv.ctco.cukes.ldap", "lv.ctco.cukes.core.api"}
 )
 public class RunCukesLDAPTest {
 
-    private static CukesLDAPBootstrap bootstrap = new CukesLDAPBootstrap();
+    private static final CukesLDAPBootstrap bootstrap = new CukesLDAPBootstrap();
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         bootstrap.beforeAllTests();
     }
 

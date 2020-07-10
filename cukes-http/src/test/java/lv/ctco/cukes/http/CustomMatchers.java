@@ -30,17 +30,17 @@ public class CustomMatchers {
             private Matcher<T> equalTo;
 
             @Override
+            public void describeTo(Description description) {
+                IsEqual.equalTo(equalTo).describeTo(description);
+            }
+
+            @Override
             protected boolean matchesSafely(Optional<T> t) {
-                if(t.isPresent()) {
+                if (t.isPresent()) {
                     equalTo = IsEqual.equalTo(t.get());
                     return equalTo.matches(operand);
                 }
                 return false;
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                IsEqual.equalTo(equalTo).describeTo(description);
             }
         };
     }

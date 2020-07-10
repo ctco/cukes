@@ -3,8 +3,8 @@ package lv.ctco.cukes.rest.run.custom.steps;
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 
 import java.util.Map;
 

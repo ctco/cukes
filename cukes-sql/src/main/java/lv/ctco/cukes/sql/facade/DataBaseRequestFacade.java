@@ -20,6 +20,13 @@ public class DataBaseRequestFacade {
         assertContainsTableValues(values, tableValues);
     }
 
+    private List<String> extractColumnNames(List<Map<String, String>> tableValues) {
+        if (tableValues.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return Collections.unmodifiableList(new ArrayList<>(tableValues.get(0).keySet()));
+    }
+
     public void checkSchemeTableMatch(String scheme, String tableName, List<Map<String, String>> tableValues) {
         List<Map<String, String>> values = genericTableRepository.getTableValues(scheme, tableName, extractColumnNames(tableValues));
         assertEqualsTableValues(values, tableValues);
@@ -38,22 +45,15 @@ public class DataBaseRequestFacade {
         }
     }
 
-    public void createEntitiesBySql(String query){
-        genericTableRepository.createTableEntitiesBySql(query);
-    }
-
-    private List<String> extractColumnNames(List<Map<String, String>> tableValues) {
-        if (tableValues.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return Collections.unmodifiableList(new ArrayList<>(tableValues.get(0).keySet()));
-    }
-
     private List<List<String>> extractColumnValues(List<Map<String, String>> tableValues) {
         List<List<String>> columnValues = new ArrayList<>();
-        for(Map<String, String> map : tableValues) {
+        for (Map<String, String> map : tableValues) {
             columnValues.add(new ArrayList<>(map.values()));
         }
         return columnValues;
+    }
+
+    public void createEntitiesBySql(String query) {
+        genericTableRepository.createTableEntitiesBySql(query);
     }
 }

@@ -1,7 +1,7 @@
 package lv.ctco.cukes.core.api;
 
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.Then;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 
 @Singleton

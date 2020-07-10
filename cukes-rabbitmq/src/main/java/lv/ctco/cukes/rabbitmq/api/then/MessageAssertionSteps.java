@@ -2,7 +2,7 @@ package lv.ctco.cukes.rabbitmq.api.then;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Then;
+import io.cucumber.java.en.Then;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.rabbitmq.facade.ResponseFacade;
 import org.apache.commons.lang3.NotImplementedException;

@@ -12,9 +12,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static lv.ctco.cukes.core.CukesOptions.BASE_URI;
-import static lv.ctco.cukes.core.CukesOptions.PROPERTIES_PREFIX;
-import static lv.ctco.cukes.core.CukesOptions.RESOURCES_ROOT;
+import static lv.ctco.cukes.core.CukesOptions.*;
 import static lv.ctco.cukes.core.internal.helpers.Files.createCukesPropertyFileUrl;
 
 @Singleton
@@ -42,14 +40,6 @@ public class GlobalWorld {
         defaultProperty(BASE_URI, "http://localhost:80");
     }
 
-    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
-        context.put(key, value);
-    }
-
-    public Optional<String> get(String key) {
-        return Optional.fromNullable(context.get(key));
-    }
-
     private void loadContextFromProperties(Properties prop) {
         Set<Map.Entry<Object, Object>> properties = prop.entrySet();
         for (Map.Entry<Object, Object> property : properties) {
@@ -68,6 +58,14 @@ public class GlobalWorld {
         if (value == null) {
             put(key, String.valueOf(defaultValue));
         }
+    }
+
+    public void put(@CaptureContext.Pattern String key, @CaptureContext.Value String value) {
+        context.put(key, value);
+    }
+
+    public Optional<String> get(String key) {
+        return Optional.fromNullable(context.get(key));
     }
 
     public Set<String> keys() {

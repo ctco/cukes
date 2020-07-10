@@ -6,19 +6,19 @@ import org.junit.Test;
 
 import java.util.regex.Pattern;
 
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RandomGeneratorFacadeImplTest {
-    private RandomGeneratorFacadeImpl generator = new RandomGeneratorFacadeImpl();
+
+    private final RandomGeneratorFacadeImpl generator = new RandomGeneratorFacadeImpl();
 
     @Test(expected = CukesRuntimeException.class)
-    public void byInvalidPattern() throws Exception {
+    public void byInvalidPattern() {
         generator.byPattern("b");
     }
 
     @Test
-    public void byPattern1() throws Exception {
+    public void byPattern1() {
         assertThat(generator.byPattern("A"), ContainsPattern.matchesPattern("[A-Z]"));
         assertThat(generator.byPattern("a"), ContainsPattern.matchesPattern("[a-z]"));
         assertThat(generator.byPattern("0"), ContainsPattern.matchesPattern("[0-9]"));
@@ -27,7 +27,7 @@ public class RandomGeneratorFacadeImplTest {
     }
 
     @Test
-    public void withLength() throws Exception {
+    public void withLength() {
         assertThat(generator.withLength(5), ContainsPattern.matchesPattern(Pattern.compile("[A-Za-z0-9]{5}")));
     }
 }

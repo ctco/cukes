@@ -1,7 +1,7 @@
 package lv.ctco.cukes.graphql;
 
 import com.google.inject.Inject;
-import cucumber.api.java.After;
+import io.cucumber.java.After;
 import lv.ctco.cukes.graphql.facade.GQLRequestFacade;
 
 public class CukesGraphQLHooks {

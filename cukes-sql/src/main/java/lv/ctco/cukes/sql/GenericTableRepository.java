@@ -29,23 +29,10 @@ public class GenericTableRepository {
         return tryExecuteSelectQuery(columns, query);
     }
 
-    @SneakyThrows(SQLException.class)
-    public Integer countTableValues(String schema, String tableName) {
-        String query = createCountQuery(schema, tableName);
-        return Integer.valueOf(tryExecuteSelectQuery(Collections.singletonList(ROW_COUNT_COLUMN), query).get(0).get(ROW_COUNT_COLUMN));
-    }
-
-    @SneakyThrows(SQLException.class)
-    public void createTableEntities(String schema, String tableName, List<String> columnNames, List<List<String>> columnValueList) {
-        for (List<String> columnValues : columnValueList) {
-            String query = createInsertQuery(schema, tableName, columnNames, columnValues);
-            tryExecuteInsertQuery(query);
-        }
-    }
-
-    @SneakyThrows(SQLException.class)
-    public void createTableEntitiesBySql(String query) {
-        tryExecuteInsertQuery(query);
+    private String createSelectQuery(String schema, String tableName, List<String> columns) {
+        String joinedColumns = columns.stream().collect(Collectors.joining(","));
+        String table = constructTableName(schema, tableName);
+        return String.format("SELECT %s FROM %s", joinedColumns, table);
     }
 
     private List<Map<String, String>> tryExecuteSelectQuery(List<String> columns, String query) throws SQLException {
@@ -56,11 +43,8 @@ public class GenericTableRepository {
         }
     }
 
-    private void tryExecuteInsertQuery(String query) throws SQLException {
-        try (Connection connection = connectionFactory.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate(query);
-        }
+    private String constructTableName(String schema, String tableName) {
+        return StringUtils.isEmpty(schema) ? tableName : schema + "." + tableName;
     }
 
     private List<Map<String, String>> extractResults(List<String> columns, ResultSet resultSet) throws SQLException {
@@ -75,15 +59,23 @@ public class GenericTableRepository {
         return results;
     }
 
+    @SneakyThrows(SQLException.class)
+    public Integer countTableValues(String schema, String tableName) {
+        String query = createCountQuery(schema, tableName);
+        return Integer.valueOf(tryExecuteSelectQuery(Collections.singletonList(ROW_COUNT_COLUMN), query).get(0).get(ROW_COUNT_COLUMN));
+    }
+
     private String createCountQuery(String schema, String tableName) {
         String table = constructTableName(schema, tableName);
         return String.format("SELECT COUNT(*) as %s FROM %s", ROW_COUNT_COLUMN, table);
     }
 
-    private String createSelectQuery(String schema, String tableName, List<String> columns) {
-        String joinedColumns = columns.stream().collect(Collectors.joining(","));
-        String table = constructTableName(schema, tableName);
-        return String.format("SELECT %s FROM %s", joinedColumns, table);
+    @SneakyThrows(SQLException.class)
+    public void createTableEntities(String schema, String tableName, List<String> columnNames, List<List<String>> columnValueList) {
+        for (List<String> columnValues : columnValueList) {
+            String query = createInsertQuery(schema, tableName, columnNames, columnValues);
+            tryExecuteInsertQuery(query);
+        }
     }
 
     private String createInsertQuery(String schema, String tableName, List<String> columnNames, List<String> columnValues) {
@@ -93,7 +85,15 @@ public class GenericTableRepository {
         return String.format("INSERT INTO %s(%s) VALUES(%s)", table, joinedColumnNames, joinedColumnValues);
     }
 
-    private String constructTableName(String schema, String tableName) {
-        return StringUtils.isEmpty(schema) ? tableName : schema + "." + tableName;
+    private void tryExecuteInsertQuery(String query) throws SQLException {
+        try (Connection connection = connectionFactory.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+        }
+    }
+
+    @SneakyThrows(SQLException.class)
+    public void createTableEntitiesBySql(String query) {
+        tryExecuteInsertQuery(query);
     }
 }

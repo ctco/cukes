@@ -1,4 +1,5 @@
 Feature: It is able to use variable in file names
+
   Background:
     Given let variable "fileName" equal to "newGadget.json"
 

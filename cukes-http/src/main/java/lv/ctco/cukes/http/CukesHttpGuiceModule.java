@@ -11,22 +11,16 @@ import lv.ctco.cukes.http.facade.HttpAssertionFacade;
 import lv.ctco.cukes.http.facade.HttpAssertionFacadeImpl;
 import lv.ctco.cukes.http.logging.HttpLoggingPlugin;
 
-import static lv.ctco.cukes.core.CukesOptions.LOADRUNNER_FILTER_BLOCKS_REQUESTS;
-import static lv.ctco.cukes.core.CukesOptions.PROPERTIES_PREFIX;
-
 @CukesInjectableModule
 public class CukesHttpGuiceModule extends AbstractCukesHttpModule {
 
     @Override
     protected void configure() {
-        boolean isLoadRunnedEnabled = Boolean.parseBoolean(System.getProperty(PROPERTIES_PREFIX + LOADRUNNER_FILTER_BLOCKS_REQUESTS));
-        if (!isLoadRunnedEnabled) {
-            bind(HttpAssertionFacade.class).to(HttpAssertionFacadeImpl.class);
-            bind(VariableFacade.class).to(VariableFacadeImpl.class);
-            bind(RandomGeneratorFacade.class).to(RandomGeneratorFacadeImpl.class);
-        }
-        registerHttpPlugin(HttpLoggingPlugin.class);
+        bind(HttpAssertionFacade.class).to(HttpAssertionFacadeImpl.class);
+        bind(VariableFacade.class).to(VariableFacadeImpl.class);
+        bind(RandomGeneratorFacade.class).to(RandomGeneratorFacadeImpl.class);
 
+        registerHttpPlugin(HttpLoggingPlugin.class);
         bindPlugins(CukesHttpPlugin.class);
     }
 }

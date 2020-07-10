@@ -1,4 +1,5 @@
 Feature: Minimalistic configuration
+
   Scenario: Should prepend 'hello' to message
     Given prepare new message
     And message body:

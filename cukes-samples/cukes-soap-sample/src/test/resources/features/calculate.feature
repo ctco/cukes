@@ -1,4 +1,5 @@
 Feature: Calculate
+
   Background:
     Given content type is "text/xml"
     And accept "text/xml" mediaTypes

@@ -48,6 +48,31 @@ public class JsonMatchers {
         };
     }
 
+    private static <T> Object retrieveValueByPath(ContentProvider<T> contentProvider, Object o, String path) {
+        String contentType = contentProvider.getContentType(o);
+        String body = contentProvider.getValue(o);
+        Object value;
+        if (containsIgnoreCase(contentType, "xml")) {
+            XmlPathConfig config = new XmlPathConfig().disableLoadingOfExternalDtd();
+            XmlPath xmlPath = new XmlPath(body);
+            value = xmlPath.using(config).get(path);
+
+        } else if (containsIgnoreCase(contentType, "html")) {
+            XmlPath htmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, body);
+            List<Object> list = htmlPath.getList(path);
+            value =
+                list.size() > 1
+                    ? list
+                    : htmlPath.getString(path);
+
+        } else {
+            JsonPathConfig config = new JsonPathConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL);
+            JsonPath jsonPath = new JsonPath(body);
+            value = jsonPath.using(config).get(path);
+        }
+        return value;
+    }
+
     public static <T> Matcher<T> containsValueByPathInArray(ContentProvider<T> contentProvider, final String path, final Matcher<?> matcher) {
         return new BaseMatcher<T>() {
             private Object value;
@@ -130,33 +155,9 @@ public class JsonMatchers {
         };
     }
 
-    private static <T> Object retrieveValueByPath(ContentProvider<T> contentProvider, Object o, String path) {
-        String contentType = contentProvider.getContentType(o);
-        String body = contentProvider.getValue(o);
-        Object value;
-        if (containsIgnoreCase(contentType, "xml")) {
-            XmlPathConfig config = new XmlPathConfig().disableLoadingOfExternalDtd();
-            XmlPath xmlPath = new XmlPath(body);
-            value = xmlPath.using(config).get(path);
-
-        } else if (containsIgnoreCase(contentType, "html")) {
-            XmlPath htmlPath = new XmlPath(XmlPath.CompatibilityMode.HTML, body);
-            List<Object> list = htmlPath.getList(path);
-            value =
-                list.size() > 1
-                    ? list
-                    : htmlPath.getString(path);
-
-        } else {
-            JsonPathConfig config = new JsonPathConfig().numberReturnType(JsonPathConfig.NumberReturnType.BIG_DECIMAL);
-            JsonPath jsonPath = new JsonPath(body);
-            value = jsonPath.using(config).get(path);
-        }
-        return value;
-    }
-
     public interface ContentProvider<T> {
         String getValue(Object o);
+
         String getContentType(Object o);
     }
 

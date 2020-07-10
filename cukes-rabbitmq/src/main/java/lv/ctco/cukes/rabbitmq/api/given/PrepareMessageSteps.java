@@ -2,7 +2,7 @@ package lv.ctco.cukes.rabbitmq.api.given;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.rabbitmq.facade.RequestFacade;
 

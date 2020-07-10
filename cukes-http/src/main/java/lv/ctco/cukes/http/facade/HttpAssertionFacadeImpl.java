@@ -1,6 +1,5 @@
 package lv.ctco.cukes.http.facade;
 
-import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.response.Response;
@@ -18,8 +17,8 @@ import java.util.Map;
 
 import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.equalToIgnoringType;
 import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsPropertyValueByPathInArray;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
 
 @Singleton
 @SwitchedBy(CukesOptions.ASSERTIONS_DISABLED)
@@ -27,21 +26,11 @@ import static org.junit.Assert.assertThat;
 public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Inject
+    HttpResponseFacade facade;
+    @Inject
     private GlobalWorldFacade world;
-
     @Inject
     private JsonParser jsonParser;
-
-    @Inject
-    HttpResponseFacade facade;
-
-    private String getPath(String path) {
-        if (!StringUtils.isEmpty(facade.getResponsePrefix())) {
-            return facade.getResponsePrefix() + path;
-        } else {
-            return path;
-        }
-    }
 
     @Override
     public void bodyEqualTo(String body) {
@@ -55,7 +44,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void bodyNotEmpty() {
-        this.facade.response().then().body(not(isEmptyOrNullString()));
+        this.facade.response().then().body(not(emptyOrNullString()));
     }
 
     @Override
@@ -70,23 +59,18 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void headerIsEmpty(String headerName) {
-        this.facade.response().then().header(headerName, isEmptyString());
+        this.facade.response().then().header(headerName, emptyString());
     }
 
     @Override
     public void headerIsNotEmpty(String headerName) {
-        this.facade.response().then().header(headerName, not(isEmptyString()));
+        this.facade.response().then().header(headerName, not(emptyString()));
     }
 
     @Override
     public void statusCodeIs(final int statusCode) {
         final boolean appendBody = world.getBoolean(CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY, false);
-        final Integer maxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE).transform(new Function<String, Integer>() {
-            @Override
-            public Integer apply(String s) {
-                return Integer.parseInt(s);
-            }
-        }).orNull();
+        final Integer maxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE).transform(Integer::parseInt).orNull();
         final Response response = facade.response();
 
         response.then().statusCode(new StatusCodeMatcher(statusCode, response, appendBody, maxSize));
@@ -138,6 +122,14 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
         }
     }
 
+    private String getPath(String path) {
+        if (!StringUtils.isEmpty(facade.getResponsePrefix())) {
+            return facade.getResponsePrefix() + path;
+        } else {
+            return path;
+        }
+    }
+
     @Override
     public void bodyContainsPathWithValue(String path, String value) {
         Response response = this.facade.response();
@@ -161,6 +153,13 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     public void bodyContainsArrayWithSize(String path, String size) {
         Response response = this.facade.response();
         assertThat(response, JsonMatchers.containsValueByPath(ResponseContentProvider.INSTANCE, getPath(path), ArrayWithSizeMatcher.arrayWithSize(size)));
+    }
+
+    @Override
+    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
+        Response response = this.facade.response();
+        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path),
+            EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
@@ -207,13 +206,6 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
     @Override
     public void failureIsExpected() {
         this.facade.setExpectException(true);
-    }
-
-    @Override
-    public void bodyContainsArrayWithEntryHavingValue(String path, String value) {
-        Response response = this.facade.response();
-        assertThat(response, JsonMatchers.containsValueByPathInArray(ResponseContentProvider.INSTANCE, getPath(path),
-            EqualToIgnoringTypeMatcher.equalToIgnoringType(value, this.world.getBoolean("case-insensitive"))));
     }
 
     @Override
