@@ -220,7 +220,17 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13</version>
+                <version>4.12</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-library</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Google Guava -->
@@ -311,7 +321,7 @@
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
-                <version>2.2</version>
+                <version>2.1</version>
             </dependency>
 
         </dependencies>
