@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>Cukes Parent</name>
@@ -59,7 +58,7 @@
         <connection>scm:git:git@github.com:ctco/cukes.git</connection>
         <developerConnection>scm:git:git@github.com:ctco/cukes.git</developerConnection>
         <url>git@github.com:ctco/cukes.git</url>
-        <tag>HEAD</tag>
+        <tag>cukes-1.0.0</tag>
     </scm>
 
     <profiles>
