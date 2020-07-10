@@ -50,10 +50,10 @@ public class HttpLoggingPluginTest {
         PrintStream testStream = new PrintStream(testOut);
 
         config = new RestAssuredConfiguration();
-        setField(config, world.getClass().getField("world"), world);
+        setField(config, config.getClass().getDeclaredField("world"), world);
 
         plugin = new HttpLoggingPlugin(world, config);
-        setField(plugin, testStream.getClass().getField("logStream"), testStream);
+        setField(plugin, plugin.getClass().getDeclaredField("logStream"), testStream);
         plugin.beforeAllTests();
     }
 

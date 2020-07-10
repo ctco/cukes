@@ -20,7 +20,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new byte[]{50, 82, 115, 48, 67, 99, 54, 74});
 
-        setField(entityFacade, entity.getClass().getField("entity"), entity);
+        setField(entityFacade, entityFacade.getClass().getDeclaredField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "2Rs0Cc6J");
     }
@@ -30,7 +30,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new char[]{'h', 'e', 'l', 'l', 'o'});
 
-        setField(entityFacade, entity.getClass().getField("entity"), entity);
+        setField(entityFacade, entityFacade.getClass().getDeclaredField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "hello");
     }
@@ -40,7 +40,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", "hello");
 
-        setField(entityFacade, entity.getClass().getField("entity"), entity);
+        setField(entityFacade, entityFacade.getClass().getDeclaredField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "hello");
     }
@@ -50,7 +50,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", new int[]{1, 2, 3});
 
-        setField(entityFacade, entity.getClass().getField("entity"), entity);
+        setField(entityFacade, entityFacade.getClass().getDeclaredField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "{1,2,3}");
     }
@@ -60,7 +60,7 @@ public class EntityFacadeTest {
         BasicAttributes entity = new BasicAttributes(true);
         entity.put("userPassword", 3);
 
-        setField(entityFacade, entity.getClass().getField("entity"), entity);
+        setField(entityFacade, entityFacade.getClass().getDeclaredField("entity"), entity);
 
         entityFacade.entityHasAttributeWithValue("userpassword", "3");
     }
