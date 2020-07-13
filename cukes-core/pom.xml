@@ -62,6 +62,11 @@
             <artifactId>xml-path</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+        </dependency>
+
         <!-- Cucumber -->
         <dependency>
             <groupId>io.cucumber</groupId>
