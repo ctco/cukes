@@ -44,7 +44,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void bodyNotEmpty() {
-        this.facade.response().then().body(not(emptyOrNullString()));
+        this.facade.response().then().body(not(isEmptyOrNullString()));
     }
 
     @Override
@@ -59,12 +59,12 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void headerIsEmpty(String headerName) {
-        this.facade.response().then().header(headerName, emptyString());
+        this.facade.response().then().header(headerName, isEmptyString());
     }
 
     @Override
     public void headerIsNotEmpty(String headerName) {
-        this.facade.response().then().header(headerName, not(emptyString()));
+        this.facade.response().then().header(headerName, not(isEmptyString()));
     }
 
     @Override

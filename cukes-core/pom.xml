@@ -64,7 +64,7 @@
 
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
+            <artifactId>hamcrest-library</artifactId>
         </dependency>
 
         <!-- Cucumber -->
