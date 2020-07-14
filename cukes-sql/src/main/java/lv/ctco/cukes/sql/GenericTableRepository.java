@@ -30,7 +30,7 @@ public class GenericTableRepository {
     }
 
     private String createSelectQuery(String schema, String tableName, List<String> columns) {
-        String joinedColumns = columns.stream().collect(Collectors.joining(","));
+        String joinedColumns = String.join(",", columns);
         String table = constructTableName(schema, tableName);
         return String.format("SELECT %s FROM %s", joinedColumns, table);
     }
@@ -79,8 +79,8 @@ public class GenericTableRepository {
     }
 
     private String createInsertQuery(String schema, String tableName, List<String> columnNames, List<String> columnValues) {
-        String joinedColumnNames = columnNames.stream().collect(Collectors.joining(", "));
-        String joinedColumnValues = "'" + columnValues.stream().collect(Collectors.joining("', '")) + "'";
+        String joinedColumnNames = String.join(", ", columnNames);
+        String joinedColumnValues = "'" + String.join("', '", columnValues) + "'";
         String table = constructTableName(schema, tableName);
         return String.format("INSERT INTO %s(%s) VALUES(%s)", table, joinedColumnNames, joinedColumnValues);
     }

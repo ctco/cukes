@@ -25,9 +25,9 @@ import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.VIRTUAL_HOST;
 public class ConnectionService {
 
 
-    GlobalWorldFacade globalWorldFacade;
+    private final GlobalWorldFacade globalWorldFacade;
 
-    private ConnectionFactory factory;
+    private final ConnectionFactory factory;
     private Connection connection;
     private Channel channel;
 

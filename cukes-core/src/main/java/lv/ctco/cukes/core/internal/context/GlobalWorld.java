@@ -1,6 +1,5 @@
 package lv.ctco.cukes.core.internal.context;
 
-import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.CukesRuntimeException;
@@ -8,6 +7,7 @@ import lv.ctco.cukes.core.CukesRuntimeException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -65,7 +65,7 @@ public class GlobalWorld {
     }
 
     public Optional<String> get(String key) {
-        return Optional.fromNullable(context.get(key));
+        return Optional.ofNullable(context.get(key));
     }
 
     public Set<String> keys() {

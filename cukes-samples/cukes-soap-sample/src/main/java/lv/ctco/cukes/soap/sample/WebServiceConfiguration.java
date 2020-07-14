@@ -68,8 +68,8 @@ public class WebServiceConfiguration {
         return new CommonsXsdSchemaCollection(resources);
     }
 
-    private class InMemoryResource extends AbstractResource {
-        private byte[] content;
+    private static class InMemoryResource extends AbstractResource {
+        private final byte[] content;
 
         public InMemoryResource(byte[] content) {
             this.content = content;
@@ -81,7 +81,7 @@ public class WebServiceConfiguration {
         }
 
         @Override
-        public InputStream getInputStream() throws IOException {
+        public InputStream getInputStream() {
             return new ByteArrayInputStream(content);
         }
     }

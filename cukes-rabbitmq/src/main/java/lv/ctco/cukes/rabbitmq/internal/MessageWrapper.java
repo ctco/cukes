@@ -5,7 +5,7 @@ import com.rabbitmq.client.AMQP;
 public class MessageWrapper {
 
     private String body;
-    private AMQP.BasicProperties.Builder properties;
+    private final AMQP.BasicProperties.Builder properties;
 
     public MessageWrapper() {
         this.properties = new AMQP.BasicProperties().builder();

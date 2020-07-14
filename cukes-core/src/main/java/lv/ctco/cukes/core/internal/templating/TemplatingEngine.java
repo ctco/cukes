@@ -1,6 +1,6 @@
 package lv.ctco.cukes.core.internal.templating;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import lv.ctco.cukes.core.CukesOptions;
@@ -24,7 +24,7 @@ public class TemplatingEngine {
 
     public String processBody(String body) {
         if (isBodyTemplatesEnabled()) {
-            final Map<String, String> rythmParams = new HashMap<String, String>();
+            final Map<String, String> rythmParams = new HashMap<>();
             for (String key : world.keys()) {
                 Optional<String> value = world.get(key);
                 if (value.isPresent() && body.contains("@" + key)) rythmParams.put(key, value.get());

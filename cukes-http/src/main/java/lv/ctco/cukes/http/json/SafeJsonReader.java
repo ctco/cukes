@@ -10,7 +10,7 @@ import java.io.StringReader;
 import java.util.Iterator;
 
 public class SafeJsonReader implements Iterable<JsonToken> {
-    private JsonReader reader;
+    private final JsonReader reader;
     private String currentPath;
 
     public SafeJsonReader(String json) {

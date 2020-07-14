@@ -58,7 +58,7 @@ public class DocumentationGenerator {
         return path;
     }
 
-    private static void generateMarkdown(Map<CukesComponent, Multimap<StepType, StepDefinition>> steps, Writer w, String version) throws IOException {
+    private static void generateMarkdown(Map<CukesComponent, Multimap<StepType, StepDefinition>> steps, Writer w, String version) {
         PrintWriter writer = new PrintWriter(w);
         steps.entrySet().stream().sorted(CukesComponent.mapKeyComparator).forEach(entry -> {
             CukesComponent component = entry.getKey();

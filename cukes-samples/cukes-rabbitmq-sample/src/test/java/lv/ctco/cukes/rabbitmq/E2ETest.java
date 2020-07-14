@@ -32,10 +32,10 @@ public class E2ETest {
         channel.queueBind(outQueue, EXCHANGE, "out");
 
         //Create consumer (listener)
-        BlockingQueue<String> result = new ArrayBlockingQueue<String>(1);
+        BlockingQueue<String> result = new ArrayBlockingQueue<>(1);
         channel.basicConsume(outQueue, true, new DefaultConsumer(channel) {
             @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
                 String response = new String(body);
                 result.add(response);
             }

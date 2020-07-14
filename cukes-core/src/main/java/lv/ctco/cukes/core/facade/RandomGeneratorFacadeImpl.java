@@ -20,15 +20,14 @@ public class RandomGeneratorFacadeImpl implements RandomGeneratorFacade {
     private static final int CAPITAL_CHAR_BOUNDS = 'Z' - 'A';
     private static final int CHAR_BOUNDS = 'z' - 'a';
     private static final int NUMBER_BOUNDS = '9' - '0';
-    private Map<Character, Supplier<Integer>> randomGenerators = new HashMap<>();
-    private SecureRandom random = new SecureRandom();
+    private final Map<Character, Supplier<Integer>> randomGenerators = new HashMap<>();
+    private final SecureRandom random = new SecureRandom();
 
     public RandomGeneratorFacadeImpl() {
         randomGenerators.put('A', () -> 'A' + random.nextInt(CAPITAL_CHAR_BOUNDS));
         randomGenerators.put('a', () -> 'a' + random.nextInt(CHAR_BOUNDS));
         randomGenerators.put('0', () -> '0' + random.nextInt(NUMBER_BOUNDS));
     }
-
 
     @Override
     public String byPattern(String pattern) {

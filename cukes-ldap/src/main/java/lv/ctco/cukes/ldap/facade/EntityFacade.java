@@ -2,7 +2,6 @@ package lv.ctco.cukes.ldap.facade;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import io.cucumber.core.exception.CucumberException;
 import lv.ctco.cukes.core.CukesRuntimeException;
 import lv.ctco.cukes.core.internal.matchers.ContainsPattern;
 import lv.ctco.cukes.core.internal.resources.FilePathService;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
@@ -42,7 +42,7 @@ public class EntityFacade {
     }
 
     private Attributes entity;
-    private List<Attributes> searchResults = new ArrayList<>();
+    private final List<Attributes> searchResults = new ArrayList<>();
 
     @Inject
     EntityService entityService;
@@ -103,7 +103,10 @@ public class EntityFacade {
         Attribute attr = getNotNullAttribute(attribute);
         int count = 0;
         try {
-            for (NamingEnumeration<?> e = attr.getAll(); e.hasMore(); e.next(), count++) {
+            NamingEnumeration<?> e = attr.getAll();
+            while (e.hasMore()) {
+                e.next();
+                count++;
             }
         } catch (NamingException e) {
             throw new CukesRuntimeException(e);
@@ -148,11 +151,7 @@ public class EntityFacade {
     }
 
     public void importLdif(String ldif) {
-        try {
-            importLdif(new ByteArrayInputStream(ldif.getBytes("UTF-8")));
-        } catch (IOException e) {
-            throw new CukesRuntimeException(e);
-        }
+        importLdif(new ByteArrayInputStream(ldif.getBytes(UTF_8)));
     }
 
     private void importLdif(InputStream inputStream) {
@@ -177,7 +176,7 @@ public class EntityFacade {
 
     public void entityMatchesLDIF(String ldif) {
         try {
-            Map<String, Attributes> entities = LDIFUtils.read(new ByteArrayInputStream(ldif.getBytes("UTF-8")));
+            Map<String, Attributes> entities = LDIFUtils.read(new ByteArrayInputStream(ldif.getBytes(UTF_8)));
             assertThat(entities.size(), is(1));
             Attributes ldifEntity = entities.values().iterator().next();
             NamingEnumeration<? extends Attribute> attributes = ldifEntity.getAll();
@@ -207,19 +206,15 @@ public class EntityFacade {
         assertThat("Should have attribute '" + expectedAttr + "' with value '" + expectedValue + "'", attributesList, hasItem(expectedValue));
     }
 
-    private String toString(Object value) throws NamingException {
-        try {
-            if (value instanceof byte[]) {
-                return new String((byte[]) value, "UTF-8");
-            } else if (value instanceof char[]) {
-                return new String((char[]) value);
-            } else if (value.getClass().isArray()) {
-                return ArrayUtils.toString(value);
-            }
-            return value.toString();
-        } catch (UnsupportedEncodingException e) {
-            throw new CucumberException("Failed to convert value to string", e);
+    private String toString(Object value) {
+        if (value instanceof byte[]) {
+            return new String((byte[]) value, UTF_8);
+        } else if (value instanceof char[]) {
+            return new String((char[]) value);
+        } else if (value.getClass().isArray()) {
+            return ArrayUtils.toString(value);
         }
+        return value.toString();
     }
 
     public void searchByFilter(String dn, String filter) {

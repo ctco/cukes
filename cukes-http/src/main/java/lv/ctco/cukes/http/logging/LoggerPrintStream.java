@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -26,7 +25,7 @@ public class LoggerPrintStream extends PrintStream {
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b) {
             stringBuilder.append((char) b);
         }
 

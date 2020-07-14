@@ -25,6 +25,6 @@ public class HttpMockPlugin implements CukesPlugin {
 
     @Override
     public void afterScenario() {
-        //TODO verifyNoMoreInterations
+        //TODO verifyNoMoreIterations
     }
 }

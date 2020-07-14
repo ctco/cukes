@@ -90,14 +90,14 @@ public class Files {
     public static FileInputStream openInputStream(File file) throws IOException {
         if (file.exists()) {
             if (file.isDirectory()) {
-                throw new IOException("File \'" + file + "\' exists but is a directory");
+                throw new IOException("File '" + file + "' exists but is a directory");
             } else if (!file.canRead()) {
-                throw new IOException("File \'" + file + "\' cannot be read");
+                throw new IOException("File '" + file + "' cannot be read");
             } else {
                 return new FileInputStream(file);
             }
         } else {
-            throw new FileNotFoundException("File \'" + file + "\' does not exist");
+            throw new FileNotFoundException("File '" + file + "' does not exist");
         }
     }
 

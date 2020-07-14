@@ -21,7 +21,7 @@ public class OAuthCukesHttpPlugin implements CukesHttpPlugin {
 
     @Override
     public void beforeRequest(RequestSpecification requestSpecification) {
-        com.google.common.base.Optional<String> authType = worldFacade.get(CukesOptions.AUTH_TYPE);
+        java.util.Optional<String> authType = worldFacade.get(CukesOptions.AUTH_TYPE);
         if (authType.isPresent()) {
             if (!"OAuth".equalsIgnoreCase(authType.get())) {
                 return;

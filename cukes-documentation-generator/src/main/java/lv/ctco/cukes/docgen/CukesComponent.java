@@ -5,7 +5,6 @@ import java.util.Map;
 
 public enum CukesComponent {
 
-
     core("General", "lv.ctco.cukes.core", "cukes-core"),
     http("HTTP", "lv.ctco.cukes.http.api", "cukes-http"),
     graphQL("GraphQL", "lv.ctco.cukes.graphql", "cukes-graphql"),
@@ -17,9 +16,9 @@ public enum CukesComponent {
     public static final Comparator<CukesComponent> comparator = Comparator.comparing(CukesComponent::ordinal);
     public static final Comparator<Map.Entry<CukesComponent, ?>> mapKeyComparator = (o1, o2) -> comparator.compare(o1.getKey(), o2.getKey());
 
-    private String name;
-    private String basePackage;
-    private String moduleName;
+    private final String name;
+    private final String basePackage;
+    private final String moduleName;
 
     CukesComponent(String name, String basePackage, String moduleName) {
         this.name = name;

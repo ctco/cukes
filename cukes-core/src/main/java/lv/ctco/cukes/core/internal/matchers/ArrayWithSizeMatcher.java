@@ -26,7 +26,7 @@ public class ArrayWithSizeMatcher {
                     list = (List<?>) item;
                 } else if (item instanceof NodeChildrenImpl) { // If XML
                     List<Node> nodes = ((NodeChildrenImpl) item).list();
-                    List<String> result = new ArrayList<String>(nodes.size());
+                    List<String> result = new ArrayList<>(nodes.size());
                     for (Node node : nodes) {
                         result.add(node.value());
                     }

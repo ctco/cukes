@@ -28,10 +28,10 @@ public class MessageService {
     @SneakyThrows({IOException.class, InterruptedException.class})
     public MessageWrapper receiveMessage(String queue, int timeoutInSeconds) {
         Channel channel = connectionService.getChannel();
-        BlockingQueue<MessageWrapper> result = new ArrayBlockingQueue<MessageWrapper>(1);
+        BlockingQueue<MessageWrapper> result = new ArrayBlockingQueue<>(1);
         channel.basicConsume(queue, true, new DefaultConsumer(channel) {
             @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
                 String response = new String(body);
                 MessageWrapper messageWrapper = new MessageWrapper(response, properties);
                 result.add(messageWrapper);

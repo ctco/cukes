@@ -19,9 +19,9 @@ import static lv.ctco.cukes.rabbitmq.ConfigurationParameters.DEFAULT_EXCHANGE_NA
 public class ExchangeService {
 
     @Inject
-    ConnectionService connectionService;
+    private final ConnectionService connectionService;
     @Inject
-    GlobalWorldFacade globalWorldFacade;
+    private final GlobalWorldFacade globalWorldFacade;
 
     @Inject
     public ExchangeService(ConnectionService connectionService, GlobalWorldFacade globalWorldFacade) {
@@ -39,7 +39,7 @@ public class ExchangeService {
             map(matcher -> matcher.group(1)).
             collect(Collectors.toSet());
         for (String id : ids) {
-            String name = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".name").or(() -> {
+            String name = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".name").orElseGet(() -> {
                 throw new IllegalArgumentException("No name specified for predefined exchange: rabbitmq.exchange." + id + ".name");
             });
             String type = this.globalWorldFacade.get("rabbitmq.exchange." + id + ".type", "direct");
@@ -59,7 +59,7 @@ public class ExchangeService {
     }
 
     public String getDefaultExchange() {
-        return globalWorldFacade.get(DEFAULT_EXCHANGE_NAME_ATTRIBUTE).orNull();
+        return globalWorldFacade.get(DEFAULT_EXCHANGE_NAME_ATTRIBUTE).orElse(null);
     }
 
     public void setDefaultExchange(String exchange) {

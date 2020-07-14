@@ -19,8 +19,8 @@ public enum StepType {
 
     public static final Comparator<StepType> comparator = Comparator.comparing(Enum::ordinal);
 
-    private Class<? extends Annotation> annotation;
-    private Function<Method, String> patternProvider;
+    private final Class<? extends Annotation> annotation;
+    private final Function<Method, String> patternProvider;
 
     StepType(Class<? extends Annotation> annotation, Function<Method, String> patternProvider) {
         this.annotation = annotation;

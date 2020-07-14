@@ -1,6 +1,6 @@
 package lv.ctco.cukes.http.facade;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.restassured.RestAssured;
@@ -56,9 +56,7 @@ public class HttpRequestFacade {
 
     private void onCreate() {
         Optional<String> $baseUri = world.get(CukesOptions.BASE_URI);
-        if ($baseUri.isPresent()) {
-            baseUri($baseUri.get());
-        }
+        $baseUri.ifPresent(this::baseUri);
 
         Optional<String> $proxy = world.get(CukesOptions.PROXY);
         if ($proxy.isPresent()) {

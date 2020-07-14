@@ -3,7 +3,6 @@ package lv.ctco.cukes.http.https;
 import javax.net.ssl.TrustManager;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 @SuppressWarnings("SameReturnValue")
@@ -34,12 +33,12 @@ public class TrustAllTrustManager implements TrustManager, javax.net.ssl.X509Tru
     }
 
     @Override
-    public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+    public void checkServerTrusted(X509Certificate[] certs, String authType) {
         // Explicitly do nothing
     }
 
     @Override
-    public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+    public void checkClientTrusted(X509Certificate[] certs, String authType) {
         // Explicitly do nothing
     }
 }

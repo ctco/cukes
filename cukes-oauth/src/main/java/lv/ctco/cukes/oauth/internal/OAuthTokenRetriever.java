@@ -29,12 +29,12 @@ public class OAuthTokenRetriever {
         if (!world.getBoolean(OAuthCukesConstants.ENABLED, false)) {
             return Optional.empty();
         }
-        com.google.common.base.Optional<String> cachedToken = world.get(OAuthCukesConstants.CACHED_TOKEN);
-        com.google.common.base.Optional<String> expiresOn = world.get(OAuthCukesConstants.TOKEN_EXPIRES_ON);
-        if (!cachedToken.isPresent() || !cachedToken.isPresent()) {
+        Optional<String> cachedToken = world.get(OAuthCukesConstants.CACHED_TOKEN);
+        Optional<String> expiresOn = world.get(OAuthCukesConstants.TOKEN_EXPIRES_ON);
+        if (!cachedToken.isPresent()) {
             return retrieveAndCacheAccessToken();
         }
-        Long expiresOnAsSeconds = Long.parseLong(expiresOn.get());
+        long expiresOnAsSeconds = Long.parseLong(expiresOn.get());
         // Threshold - 1 minute till token expires
         if (System.currentTimeMillis() / 1000 + 60 > expiresOnAsSeconds) {
             return retrieveAndCacheAccessToken();
@@ -83,10 +83,8 @@ public class OAuthTokenRetriever {
 
     String getRequestParameter(String grantType) throws UnsupportedEncodingException {
         Map<String, String> params = GrantType.valueOf(grantType).getParameters(world);
-        com.google.common.base.Optional<String> scope = world.get(OAuthCukesConstants.SCOPE);
-        if (scope.isPresent()) {
-            params.put("scope", scope.get());
-        }
+        Optional<String> scope = world.get(OAuthCukesConstants.SCOPE);
+        scope.ifPresent(s -> params.put("scope", s));
         return params.entrySet().
             stream().
             map(e -> e.getKey() + "=" + e.getValue()).

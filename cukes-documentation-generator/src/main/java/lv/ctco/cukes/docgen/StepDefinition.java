@@ -6,8 +6,8 @@ public class StepDefinition {
 
     public static final Comparator<StepDefinition> comparator = Comparator.comparing(StepDefinition::getPatten);
 
-    private String patten;
-    private String description;
+    private final String patten;
+    private final String description;
 
     public StepDefinition(String patten, String description) {
         this.patten = patten;
