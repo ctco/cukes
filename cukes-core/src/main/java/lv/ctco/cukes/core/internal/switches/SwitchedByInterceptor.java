@@ -36,7 +36,7 @@ public class SwitchedByInterceptor implements MethodInterceptor {
     }
 
     private Annotation[] getCurrentAndSuperclassAnnotations(Class<?> clazz) {
-        List<Annotation> annotations = new ArrayList<Annotation>(Arrays.asList(clazz.getAnnotations()));
+        List<Annotation> annotations = new ArrayList<>(Arrays.asList(clazz.getAnnotations()));
         for (Class superclass = clazz.getSuperclass(); superclass != null; superclass = superclass.getSuperclass()) {
             annotations.addAll(Arrays.asList(superclass.getAnnotations()));
         }

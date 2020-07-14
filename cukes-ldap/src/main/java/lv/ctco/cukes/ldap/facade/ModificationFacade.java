@@ -27,7 +27,7 @@ public class ModificationFacade {
     @Inject
     EntityService entityService;
 
-    private List<ModificationItem> modifications = new ArrayList<>();
+    private final List<ModificationItem> modifications = new ArrayList<>();
 
     public void add(String attribute, String operation, String value) {
         Integer op = OP_MAPPING.get(operation);

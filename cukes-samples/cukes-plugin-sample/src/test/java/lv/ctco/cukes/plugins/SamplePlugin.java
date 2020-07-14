@@ -9,7 +9,7 @@ public class SamplePlugin implements CukesPlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(SamplePlugin.class);
 
-    private StopWatch stopWatch = new StopWatch();
+    private final StopWatch stopWatch = new StopWatch();
 
     @Override
     public void beforeAllTests() {

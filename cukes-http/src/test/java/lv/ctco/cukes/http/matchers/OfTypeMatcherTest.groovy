@@ -10,7 +10,7 @@ import static lv.ctco.cukes.core.internal.matchers.OfTypeMatcher.ofType
 import static org.hamcrest.MatcherAssert.assertThat
 import static org.hamcrest.core.IsNot.not
 
-public class OfTypeMatcherTest {
+class OfTypeMatcherTest {
 
     public static JsonMatchers.ContentProvider<RequestBody> contentProvider = new JsonMatchers.ContentProvider<RequestBody>() {
         @Override

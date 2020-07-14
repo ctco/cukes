@@ -1,6 +1,6 @@
 package lv.ctco.cukes.http.templating;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 import com.google.common.collect.Sets;
 import lv.ctco.cukes.core.CukesOptions;
 import lv.ctco.cukes.core.internal.context.GlobalWorldFacade;
@@ -22,7 +22,7 @@ public class TemplatingEngineTest {
     private GlobalWorldFacade world;
 
     @InjectMocks
-    private lv.ctco.cukes.core.internal.templating.TemplatingEngine TemplatingEngine = new TemplatingEngine();
+    private final TemplatingEngine TemplatingEngine = new TemplatingEngine();
 
     @Before
     public void setUp() {

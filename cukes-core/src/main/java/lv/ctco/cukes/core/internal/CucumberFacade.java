@@ -29,7 +29,7 @@ public class CucumberFacade {
         for (CukesPlugin cukesPlugin : pluginSet) {
             cukesPlugin.beforeAllTests();
         }
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> afterAllTests()));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::afterAllTests));
     }
 
     public void beforeScenario() {

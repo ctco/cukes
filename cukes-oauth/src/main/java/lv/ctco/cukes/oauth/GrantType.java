@@ -17,7 +17,7 @@ public enum GrantType {
         attributeNameMapping.put(OAuthCukesConstants.PASSWORD, "password");
     }
 
-    private String[] requiredAttributes;
+    private final String[] requiredAttributes;
 
     GrantType(String... requiredAttributes) {
         this.requiredAttributes = requiredAttributes;

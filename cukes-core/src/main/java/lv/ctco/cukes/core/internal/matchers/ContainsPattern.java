@@ -47,10 +47,9 @@ public class ContainsPattern extends BaseMatcher<CharSequence> {
         boolean isString = o instanceof String;
         CharSequence item = (isString) ? (CharSequence) o : String.valueOf(o);
         if (match) {
-            if (p.matcher(item).matches()) return true;
+            return p.matcher(item).matches();
         } else {
-            if (p.matcher(item).find()) return true;
+            return p.matcher(item).find();
         }
-        return false;
     }
 }

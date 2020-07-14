@@ -1,10 +1,10 @@
 package lv.ctco.cukes.core.internal.context;
 
-import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import lv.ctco.cukes.core.CukesOptions;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class ContextInflater extends BaseContextHandler {
@@ -13,7 +13,7 @@ public class ContextInflater extends BaseContextHandler {
     GlobalWorldFacade world;
 
     public String inflate(String input) {
-        Set<String> groups = new HashSet<String>(extractGroups(input));
+        Set<String> groups = new HashSet<>(extractGroups(input));
         boolean inflatingEnabled = world.getBoolean(CukesOptions.CONTEXT_INFLATING_ENABLED, true);
         if (inflatingEnabled) {
             return inflateGroups(input, groups);
@@ -26,7 +26,7 @@ public class ContextInflater extends BaseContextHandler {
         for (String key : groups) {
             Optional<String> $value = world.get(key);
             if ($value.isPresent()) {
-                result = result.replaceAll("\\{\\(" + key + "\\)\\}", $value.get());
+                result = result.replaceAll("\\{\\(" + key + "\\)}", $value.get());
             }
         }
         return result;
@@ -35,7 +35,7 @@ public class ContextInflater extends BaseContextHandler {
     String inflateGroupsWithPlaceholders(String input, Set<String> groups) {
         String result = input;
         for (String key : groups) {
-            result = result.replaceAll("\\{\\(" + key + "\\)\\}", "{" + key + "}");
+            result = result.replaceAll("\\{\\(" + key + "\\)}", "{" + key + "}");
         }
         return result;
     }

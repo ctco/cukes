@@ -14,14 +14,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-core</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-core:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-core:1.0.7");
 ```
 
 ### given
@@ -47,14 +47,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-http</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-http:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-http:1.0.7");
 ```
 
 ### given
@@ -131,14 +131,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-graphql</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-graphql:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-graphql:1.0.7");
 ```
 
 ### given
@@ -165,14 +165,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-ldap</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-ldap:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-ldap:1.0.7");
 ```
 
 ### given
@@ -225,14 +225,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rabbitmq</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-rabbitmq:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-rabbitmq:1.0.7");
 ```
 
 ### given
@@ -297,14 +297,14 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-rest</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-rest:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-rest:1.0.7");
 ```
 
 ### given
@@ -338,13 +338,13 @@ Required dependencies:
 <dependency>
     <groupId>lv.ctco.cukes</groupId>
     <artifactId>cukes-http-mock</artifactId>
-    <version>${cukes.version}</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```
-testCompile("lv.ctco.cukes:cukes-http-mock:${cukes.version}");
+testCompile("lv.ctco.cukes:cukes-http-mock:1.0.7");
 ```
 

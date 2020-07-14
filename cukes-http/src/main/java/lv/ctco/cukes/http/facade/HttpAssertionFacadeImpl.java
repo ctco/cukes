@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matchers;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static lv.ctco.cukes.core.internal.matchers.EqualToIgnoringTypeMatcher.equalToIgnoringType;
 import static lv.ctco.cukes.core.internal.matchers.JsonMatchers.containsPropertyValueByPathInArray;
@@ -44,7 +45,7 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void bodyNotEmpty() {
-        this.facade.response().then().body(not(isEmptyOrNullString()));
+        this.facade.response().then().body(not(emptyOrNullString()));
     }
 
     @Override
@@ -59,18 +60,19 @@ public class HttpAssertionFacadeImpl implements HttpAssertionFacade {
 
     @Override
     public void headerIsEmpty(String headerName) {
-        this.facade.response().then().header(headerName, isEmptyString());
+        this.facade.response().then().header(headerName, emptyString());
     }
 
     @Override
     public void headerIsNotEmpty(String headerName) {
-        this.facade.response().then().header(headerName, not(isEmptyString()));
+        this.facade.response().then().header(headerName, not(emptyString()));
     }
 
     @Override
     public void statusCodeIs(final int statusCode) {
         final boolean appendBody = world.getBoolean(CukesOptions.ASSERTS_STATUS_CODE_DISPLAY_BODY, false);
-        final Integer maxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE).transform(Integer::parseInt).orNull();
+        Optional<String> statusCodeMaxSize = world.get(CukesOptions.ASSERTS_STATUS_CODE_MAX_SIZE);
+        final Integer maxSize = statusCodeMaxSize.isPresent() ? Integer.parseInt(statusCodeMaxSize.get()) : null;
         final Response response = facade.response();
 
         response.then().statusCode(new StatusCodeMatcher(statusCode, response, appendBody, maxSize));

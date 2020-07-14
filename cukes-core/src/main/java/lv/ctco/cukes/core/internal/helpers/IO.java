@@ -19,7 +19,7 @@ public class IO {
     public static List<String> readLines(InputStream inputStream, Charset encoding) throws IOException {
         InputStreamReader input = new InputStreamReader(inputStream, encoding == null ? Charset.defaultCharset() : encoding);
         BufferedReader reader = toBufferedReader(input);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         for (String line = reader.readLine(); line != null; line = reader.readLine()) {
             list.add(line);

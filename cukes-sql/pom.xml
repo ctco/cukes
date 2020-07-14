@@ -9,14 +9,14 @@
     <parent>
         <groupId>lv.ctco.cukes</groupId>
         <artifactId>cukes</artifactId>
-        <version>1.0.6-SNAPSHOT</version>
+        <version>1.0.8-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.2.1</version>
+            <version>3.10</version>
         </dependency>
 
         <!-- Hibernate -->
@@ -30,20 +30,18 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
         </dependency>
 
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
         </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
+            <version>3.16.1</version>
         </dependency>
 
         <dependency>
@@ -63,7 +61,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.7</version>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
 

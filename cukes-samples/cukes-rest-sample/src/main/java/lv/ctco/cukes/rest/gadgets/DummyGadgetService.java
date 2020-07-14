@@ -17,7 +17,7 @@ public class DummyGadgetService {
         if (skip != null) {
             for (int i = 0; i < skip; i++) iterator.next();
         }
-        List<GadgetDto> result = new ArrayList<GadgetDto>();
+        List<GadgetDto> result = new ArrayList<>();
         for (int i = 0; (top == null || i < top) && iterator.hasNext(); i++) {
             result.add(iterator.next());
         }

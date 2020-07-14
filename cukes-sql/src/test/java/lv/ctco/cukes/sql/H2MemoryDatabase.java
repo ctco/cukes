@@ -50,7 +50,7 @@ public class H2MemoryDatabase implements ConnectionFactory {
 
     public void clearDataBase() throws SQLException {
         dbConnection.setAutoCommit(false);
-        try (Statement stmt = dbConnection.createStatement();) {
+        try (Statement stmt = dbConnection.createStatement()) {
             stmt.execute("DROP TABLE IF EXISTS PERSON");
             dbConnection.commit();
         } catch (SQLException e) {
@@ -79,9 +79,5 @@ public class H2MemoryDatabase implements ConnectionFactory {
             closeConnection();
             throw e;
         }
-    }
-
-    public List<Map<String, String>> getTableValues(String schema, String tableName, List<String> columns) {
-        return repository.getTableValues(schema, tableName, columns);
     }
 }

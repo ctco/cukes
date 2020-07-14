@@ -1,6 +1,5 @@
 package lv.ctco.cukes.core.internal.context;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -25,7 +26,7 @@ public class ContextInflaterTest {
 
     @Before
     public void setUp() {
-        doReturn(Optional.absent()).when(world).get(anyString());
+        doReturn(Optional.empty()).when(world).get(anyString());
     }
 
     @Test

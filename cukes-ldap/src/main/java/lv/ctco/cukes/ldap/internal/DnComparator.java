@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Comparator;
 
 public class DnComparator implements Comparator<String> {
-    private boolean reverse;
+    private final boolean reverse;
 
     public DnComparator(boolean reverse) {
         this.reverse = reverse;

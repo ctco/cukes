@@ -1,6 +1,6 @@
 package lv.ctco.cukes.http.facade;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 import io.cucumber.core.backend.ObjectFactory;
 import io.restassured.internal.ResponseParserRegistrar;
 import io.restassured.internal.RestAssuredResponseImpl;
@@ -29,8 +29,8 @@ public class HttpAssertionFacadeImplTest {
 
     private final ObjectFactory objectFactory = SingletonObjectFactory.instance();
 
-    HttpAssertionFacade facade = objectFactory.getInstance(HttpAssertionFacadeImpl.class);
-    GlobalWorldFacade world = objectFactory.getInstance(GlobalWorldFacade.class);
+    private final HttpAssertionFacade facade = objectFactory.getInstance(HttpAssertionFacadeImpl.class);
+    private final GlobalWorldFacade world = objectFactory.getInstance(GlobalWorldFacade.class);
 
     @Test
     public void shouldNotInflateVarName() {

@@ -1,10 +1,11 @@
 package lv.ctco.cukes.core.internal.context;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GlobalWorldFacade {
 
@@ -17,11 +18,9 @@ public class GlobalWorldFacade {
     }
 
     public String getOrThrow(String key) {
-        return world.get(key).or(
-            () -> {
-                throw new CukesMissingPropertyException(key);
-            }
-        );
+        return world.get(key).orElseGet(() -> {
+            throw new CukesMissingPropertyException(key);
+        });
     }
 
     public Optional<String> get(String key) {
@@ -33,14 +32,12 @@ public class GlobalWorldFacade {
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
-        return Boolean.valueOf(get(key, Boolean.toString(defaultValue)));
+        return Boolean.parseBoolean(get(key, Boolean.toString(defaultValue)));
     }
 
     public String get(String key, String defaultValue) {
         Optional<String> value = world.get(key);
-        return value.isPresent()
-            ? value.get()
-            : defaultValue;
+        return value.orElse(defaultValue);
     }
 
     public void reconstruct() {
@@ -49,7 +46,10 @@ public class GlobalWorldFacade {
 
     public Set<String> getKeysStartingWith(final String headerPrefix) {
         Set<String> keys = world.keys();
-        return Sets.filter(keys, s -> s.startsWith(headerPrefix));
+        return keys.stream()
+            .filter(Objects::nonNull)
+            .filter(s -> s.startsWith(headerPrefix))
+            .collect(Collectors.toSet());
     }
 
     public void remove(String key) {

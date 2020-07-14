@@ -8,8 +8,7 @@ import io.cucumber.java.en.Then;
 
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CustomSteps {
 
@@ -28,7 +27,7 @@ public class CustomSteps {
 
     @Then("^state should be missing for \"(.*)\"$")
     public void checkState(String object) {
-        assertTrue(!stateSaver.containsKey(object));
+        assertFalse(stateSaver.containsKey(object));
     }
 
     public static class StateSaver extends ForwardingMap<String, State> {

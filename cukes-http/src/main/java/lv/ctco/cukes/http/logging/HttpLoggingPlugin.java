@@ -36,7 +36,7 @@ public class HttpLoggingPlugin implements CukesHttpPlugin, CukesPlugin {
 
     private final PrintStream logStream;
     private final GlobalWorldFacade world;
-    private RestAssuredConfiguration config;
+    private final RestAssuredConfiguration config;
 
     @Inject
     public HttpLoggingPlugin(GlobalWorldFacade world, RestAssuredConfiguration config) {
