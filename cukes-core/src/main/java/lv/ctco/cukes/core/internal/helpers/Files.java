@@ -106,7 +106,13 @@ public class Files {
     }
 
     public static URL createCukesPropertyFileUrl(final ClassLoader classLoader) {
-        String cukesProfile = System.getProperty("cukes.profile");
+        String profileKey = "cukes.profile";
+
+        String cukesProfile = System.getenv(profileKey);
+        if (cukesProfile == null) {
+            cukesProfile = System.getProperty(profileKey);
+        }
+
         String propertiesFileName = cukesProfile == null || cukesProfile.isEmpty()
             ? "cukes.properties"
             : "cukes-" + cukesProfile + ".properties";
