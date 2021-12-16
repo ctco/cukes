@@ -65,4 +65,9 @@ public class GivenSteps {
         this.facade.multiPart(contentBody, control, mimeType);
     }
 
+    @Given("^request body is a multipart file from path \"(.+)\"$")
+    public void request_Body_Is_A_Multipart_File_From_Path(String path) {
+        this.facade.multiPart("file", this.reader.getResourceFile(path));
+    }
+
 }
