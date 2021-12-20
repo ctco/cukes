@@ -6,6 +6,8 @@ import io.restassured.specification.RequestSpecification;
 import lv.ctco.cukes.core.internal.context.InflateContext;
 import lv.ctco.cukes.http.facade.HttpRequestFacade;
 
+import java.io.File;
+
 @Singleton
 @InflateContext
 public class RestRequestFacade {
@@ -41,6 +43,10 @@ public class RestRequestFacade {
 
     public void multiPart(byte[] contentBody, String controlName, String mimeType) {
         specification().multiPart(controlName, "file.txt", contentBody, mimeType);
+    }
+
+    public void multiPart(String controlName, File contentBody) {
+        this.specification().multiPart(controlName, contentBody);
     }
 
     public void body(String body) {
