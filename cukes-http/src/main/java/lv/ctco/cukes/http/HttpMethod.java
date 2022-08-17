@@ -31,6 +31,6 @@ public enum HttpMethod {
             case HEAD: return when.head(url);
             case PATCH: return when.patch(url);
         }
-        throw new CukesRuntimeException("This Http Method is nos supported");
+        throw new CukesRuntimeException("This Http Method is not supported");
     }
 }
